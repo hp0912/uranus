@@ -1,0 +1,31 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-react-hooks"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**/*.ts"
+    ]
+  },
+  "rules": {
+    "interface-name": true,
+    "object-literal-sort-keys": false,
+    "quotemark": false,
+    "member-access": false,
+    "no-var-requires": false,
+    "no-console": false,
+    "radix": false,
+    "arrow-parens": false,
+    "max-classes-per-file": false,
+    "no-trailing-whitespace": false,
+    "variable-name": true,
+    "prefer-for-of": false,
+    "react-hooks-nesting": "error",
+    "jsx-no-multiline-js": false,
+    "jsx-curly-spacing": false,
+    "jsx-boolean-value": false,
+    "jsx-no-lambda": false
+  }
+}
