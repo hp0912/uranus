@@ -44,5 +44,27 @@
     "tslint": "^6.0.0",
     "tslint-react": "^4.2.0",
     "tslint-react-hooks": "^2.2.1"
+  },
+  "config": {
+    "ghooks": {
+      "commit-msg": "validate-commit-msg"
+    },
+    "validate-commit-msg": {
+      "types": [
+        "feat",
+        "fix",
+        "docs",
+        "test",
+        "chore",
+        "refactor",
+        "opti",
+        "style"
+      ],
+      "warnOnFail": false,
+      "maxSubjectLength": 100,
+      "subjectPattern": ".+",
+      "subjectPatternErrorMsg": "请输入message信息!",
+      "helpMessage": "Commit message 格式错误, \n请查看规范: http://wiki.corp.qunar.com/pages/viewpage.action?pageId=159698767"
+    }
   }
 }
