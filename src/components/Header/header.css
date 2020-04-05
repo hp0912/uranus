@@ -1,0 +1,26 @@
+.uranus-header-logo-image {
+  width: 26px;
+  height: 26px;
+}
+
+.uranus-header-logo-text {
+  line-height: 24px;
+  color: #007fff;
+  padding: 0 5px;
+}
+
+.uranus-header-search {
+  width: 100%;
+}
+
+.uranus-header-login-container {
+  text-align: center;
+  margin: 8px;
+  line-height: 30px;
+}
+
+.uranus-header-login, .uranus-header-register {
+  font-size: 14px;
+  color: #007fff;
+  cursor: pointer;
+}

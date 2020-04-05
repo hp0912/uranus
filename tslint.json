@@ -20,12 +20,14 @@
     "arrow-parens": false,
     "max-classes-per-file": false,
     "no-trailing-whitespace": false,
-    "variable-name": true,
+    "variable-name": false,
     "prefer-for-of": false,
     "react-hooks-nesting": "error",
     "jsx-no-multiline-js": false,
     "jsx-curly-spacing": false,
     "jsx-boolean-value": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "semicolon": true,
+    "ordered-imports": true
   }
 }
