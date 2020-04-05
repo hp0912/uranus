@@ -36,7 +36,7 @@ const Header: FC = (props) => {
         <Col xs={24} md={12}>
           <UranusHeaderLogo>
             <img 
-              src="https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/a1/2018new_doge02_org.png" 
+              src={require("../../assets/images/dog.png")} 
               alt="logo" 
               className="uranus-header-logo-image"
             />
