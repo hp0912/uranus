@@ -7,10 +7,16 @@ import "./header.css";
 const { Search } = Input;
 
 const UranusHeader = styled.div`
-  background: #ffff;
+  background: 0 0;
+  background-image: linear-gradient(rgba(15,25,50,.3) 0,rgba(15,25,50,.3) 100%);
   box-shadow: 0 1px 3px rgba(26,26,26,.1);
   .ant-menu-horizontal {
     border-bottom: none;
+  }
+  .ant-menu {
+    background: 0 0;
+    color: #fff;
+    background-image: linear-gradient(rgba(15,25,50,.3) 0,rgba(15,25,50,.3) 100%);
   }
 `;
 
@@ -24,8 +30,15 @@ const UranusHeaderLogo = styled.div`
 
 const UranusHeaderSearch = styled.div`
   height: 30px;
-  background: rgba(255, 255, 255, 0.2);
   margin: 8px 0 8px 8px;
+  .ant-input-affix-wrapper {
+    background: 0 0;
+    background-image: linear-gradient(rgba(15,25,50,.3) 0,rgba(15,25,50,.3) 100%);
+  }
+  .ant-input {
+    background: 0 0;
+    background-image: linear-gradient(rgba(15,25,50,.3) 0,rgba(15,25,50,.3) 100%);
+  }
 `;
 
 const Header: FC = (props) => {

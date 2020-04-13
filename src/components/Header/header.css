@@ -5,7 +5,7 @@
 
 .uranus-header-logo-text {
   line-height: 24px;
-  color: #007fff;
+  color: #fff;
   padding: 0 5px;
 }
 
@@ -21,6 +21,6 @@
 
 .uranus-header-login, .uranus-header-register {
   font-size: 14px;
-  color: #007fff;
+  color: #fff;
   cursor: pointer;
 }
