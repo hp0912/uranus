@@ -6,6 +6,9 @@ import { Content } from "./components/Content";
 import { Header } from "./components/Header";
 import { SkinContainer } from "./components/SkinContainer";
 import { UranusAvatar } from './components/UranusAvatar';
+import { UranusFooter } from './components/UranusFooter';
+import { UranusMotto } from './components/UranusMotto';
+import { UranusPlayer } from './components/UranusPlayer';
 
 function App() {
   return (
@@ -19,10 +22,16 @@ function App() {
             <Advertisement01 />
           </>
         )}
-        right={<span>2</span>}
+        right={(
+          <>
+            <UranusMotto />
+            <UranusPlayer />
+          </>
+        )}
       >
         <ArticleList />
       </Content>
+      <UranusFooter />
     </div>
   );
 }

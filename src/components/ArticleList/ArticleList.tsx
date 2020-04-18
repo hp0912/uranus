@@ -3,7 +3,7 @@ import { Avatar, List } from "antd";
 import React, { FC } from "react";
 
 export const ArticleList: FC = (props) => {
-  const listData = [];
+  const listData: any[] = [];
 
   for (let i = 0; i < 23; i++) {
     listData.push({

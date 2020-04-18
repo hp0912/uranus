@@ -19,9 +19,10 @@
     "noEmit": true,
     "noEmitOnError": true,
     "noUnusedLocals": true,
+    "noImplicitAny": false,
     "jsx": "react"
   },
   "include": [
     "src"
-  ]
+  ],
 }

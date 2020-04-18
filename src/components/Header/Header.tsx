@@ -12,7 +12,7 @@ const UranusHeader = styled.div`
   z-index: 999;
   width: 100%;
   background: 0 0;
-  background-image: linear-gradient(rgba(15,25,50,.3) 0,rgba(15,25,50,.3) 100%);
+  background-image: linear-gradient(rgba(15,25,50,.5) 0,rgba(15,25,50,.5) 100%);
   box-shadow: 0 1px 3px rgba(26,26,26,.1);
   .ant-menu-horizontal {
     border-bottom: none;
@@ -20,7 +20,6 @@ const UranusHeader = styled.div`
   .ant-menu {
     background: 0 0;
     color: #fff;
-    background-image: linear-gradient(rgba(15,25,50,.3) 0,rgba(15,25,50,.3) 100%);
   }
 `;
 
@@ -37,7 +36,6 @@ const UranusHeaderSearch = styled.div`
   margin: 8px 0 8px 8px;
   .ant-input-affix-wrapper {
     background: 0 0;
-    background-image: linear-gradient(rgba(15,25,50,.3) 0,rgba(15,25,50,.3) 100%);
   }
   .ant-input {
     background: 0 0;
