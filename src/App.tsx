@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.css';
+import { Advertisement01 } from './components/Advertisement/Advertisement01';
+import { ArticleList } from './components/ArticleList';
 import { Content } from "./components/Content";
 import { Header } from "./components/Header";
 import { SkinContainer } from "./components/SkinContainer";
+import { UranusAvatar } from './components/UranusAvatar';
 
 function App() {
   return (
@@ -10,10 +13,15 @@ function App() {
       <SkinContainer />
       <Header />
       <Content
-        left={<span>1</span>}
+        left={(
+          <>
+            <UranusAvatar />
+            <Advertisement01 />
+          </>
+        )}
         right={<span>2</span>}
       >
-        3
+        <ArticleList />
       </Content>
     </div>
   );

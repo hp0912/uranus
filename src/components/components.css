@@ -1,0 +1,9 @@
+.uranus-card {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(26,26,26,.1);
+}

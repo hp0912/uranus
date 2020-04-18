@@ -11,14 +11,18 @@ export const Content: FC<IContentProps> = (props) => {
   return (
     <Row className="uranus-content">
       <Col xs={0} md={3} />
-      <Col xs={0} md={3} className="uranus-content-left">
-        { props.left }
+      <Col xs={0} md={3}>
+        <div className="uranus-content-left">
+          { props.left }
+        </div>
       </Col>
-      <Col xs={24} md={12}>
+      <Col xs={24} md={12} className="uranus-content-center">
         { props.children }
       </Col>
-      <Col xs={0} md={3} className="uranus-content-right">
-        { props.right}
+      <Col xs={0} md={3}>
+        <div className="uranus-content-right">
+          { props.right}
+        </div>
       </Col>
       <Col xs={0} md={3} />
     </Row>

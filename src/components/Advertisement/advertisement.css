@@ -1,0 +1,35 @@
+.uranus-advertisement-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.advertisement01-bg {
+  background-image: url(../../assets/images/provide.gif);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: 100%;
+  height: 175px;
+}
+
+.advertisement01-wechatpay {
+  background-image: url(../../assets/images/wechatpay.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: 100%;
+  height: 200px;
+  margin-bottom: -11px;
+}
+
+.advertisement01-alipay {
+  background-image: url(../../assets/images/alipay.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: 100%;
+  height: 200px;
+  margin-bottom: -11px;
+}

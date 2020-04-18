@@ -1,15 +1,21 @@
 .uranus-content {
-  margin-top: .5rem;
+  margin-top: 55px;
 }
 
 .uranus-content-left {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-right: 8px;
+}
+
+.uranus-content-center {
+  background-color: #fff;
 }
 
 .uranus-content-right {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-left: 8px;
 }

@@ -7,6 +7,10 @@ import "./header.css";
 const { Search } = Input;
 
 const UranusHeader = styled.div`
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 100%;
   background: 0 0;
   background-image: linear-gradient(rgba(15,25,50,.3) 0,rgba(15,25,50,.3) 100%);
   box-shadow: 0 1px 3px rgba(26,26,26,.1);
@@ -37,7 +41,6 @@ const UranusHeaderSearch = styled.div`
   }
   .ant-input {
     background: 0 0;
-    background-image: linear-gradient(rgba(15,25,50,.3) 0,rgba(15,25,50,.3) 100%);
   }
 `;
 
