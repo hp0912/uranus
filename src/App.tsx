@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import { Advertisement01 } from './components/Advertisement/Advertisement01';
 import { Advertisement02 } from './components/Advertisement/Advertisement02';
-import { ArticleList } from './components/ArticleList';
+import { ArticleDetail } from './components/ArticleDetail';
+// import { ArticleList } from './components/ArticleList';
 import { Content } from "./components/Content";
 import { Header } from "./components/Header";
 import { SkinContainer } from "./components/SkinContainer";
@@ -31,7 +32,8 @@ function App() {
           </>
         )}
       >
-        <ArticleList />
+        {/* <ArticleList /> */}
+        <ArticleDetail />
       </Content>
       <UranusFooter />
     </div>
