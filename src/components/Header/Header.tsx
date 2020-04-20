@@ -6,6 +6,8 @@ import "./header.css";
 
 const { Search } = Input;
 
+const logo = require("../../assets/images/dog.png");
+
 const UranusHeader = styled.div`
   position: fixed;
   top: 0;
@@ -46,11 +48,11 @@ const Header: FC = (props) => {
   return (
     <UranusHeader>
       <Row>
-        <Col xs={0} md={3} />
-        <Col xs={24} md={12}>
+        <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={3}/>
+        <Col xs={24} sm={24} md={24} lg={14} xl={12} xxl={12}>
           <UranusHeaderLogo>
             <img 
-              src={require("../../assets/images/dog.png")} 
+              src={logo} 
               alt="logo" 
               className="uranus-header-logo-image"
             />
@@ -68,7 +70,7 @@ const Header: FC = (props) => {
             </Menu.Item>
           </Menu>
         </Col>
-        <Col xs={18} md={3}>
+        <Col xs={18} sm={18} md={18} lg={5} xl={4} xxl={3}>
           <UranusHeaderSearch>
             <Search
               placeholder="请输入关键字..."
@@ -77,13 +79,13 @@ const Header: FC = (props) => {
             />
           </UranusHeaderSearch>
         </Col>
-        <Col xs={6} md={3}>
+        <Col xs={6} sm={6} md={6} lg={5} xl={4} xxl={4}>
           <div className="uranus-header-login-container">
             <span className="uranus-header-login">登录·</span>
             <span className="uranus-header-register">注册</span>
           </div>
         </Col>
-        <Col xs={0} md={3} />
+        <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={2} />
       </Row>
     </UranusHeader>
   );

@@ -3,6 +3,12 @@ import "aplayer/dist/APlayer.min.css";
 import React, { FC, useEffect } from "react";
 import "./uranusPlayer.css";
 
+const audio01 = require("../../assets/audio/孤星独吟.mp3");
+const audio02 = require("../../assets/audio/落入凡尘.mp3");
+
+const audio01Cover = require("../../assets/images/audio01-theme.png");
+const audio02Cover = require("../../assets/images/audio02-theme.png");
+
 export const UranusPlayer: FC = (props) => {
   useEffect(() => {
     const ap = new APlayer({
@@ -20,18 +26,18 @@ export const UranusPlayer: FC = (props) => {
       // lrcType: 3,
       audio: [
         {
-          name: 'name1',
-          artist: 'artist1',
-          url: 'https://shawnzeng.com/wp-content/uploads/2019/05/020e_5353_035c_5d6082e306d9614fa67846aed0ef4b13-online-audio-converter.com_.mp3',
-          cover: 'cover1.jpg',
+          name: '孤星独吟',
+          artist: '李昊天',
+          url: audio01,
+          cover: audio01Cover,
           // lrc: 'lrc1.lrc',
           theme: '#ebd0c2'
         },
         {
-          name: 'name2',
-          artist: 'artist2',
-          url: 'https://shawnzeng.com/wp-content/uploads/2019/05/020e_5353_035c_5d6082e306d9614fa67846aed0ef4b13-online-audio-converter.com_.mp3',
-          cover: 'cover2.jpg',
+          name: '落入凡尘',
+          artist: '麦振鸿',
+          url: audio02,
+          cover: audio02Cover,
           // lrc: 'lrc2.lrc',
           theme: '#46718b'
         }

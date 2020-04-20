@@ -10,12 +10,14 @@ import "../components.css";
 import "./avatar.css";
 import { WechatCount } from "./WechatCount";
 
+const avatar = require("../../assets/images/avatar.jpg");
+
 export const UranusAvatar: FC = (props) => {
   return (
     <div className="uranus-card">
       <div className="uranus-avatar-bg" />
       <div className="uranus-avatar">
-        <Avatar size={90} src={require("../../assets/images/avatar.jpg")} />
+        <Avatar size={90} src={avatar} />
         <p className="uranus-avatar-username">最后的轻语</p>
       </div>
       <div className="uranus-social-signal">
