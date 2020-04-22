@@ -1,16 +1,27 @@
 import { Breadcrumb } from "antd";
 import hljs from "highlight.js";
-import "highlight.js/styles/github.css";
+import "highlight.js/styles/vs2015.css";
 import marked from "marked";
 import React, { FC } from "react";
+import "./articleDetail.css";
 
 const markdown = `
+\`\`\`ts
+const a: number = 1;
+console.log(a);
 \`\`\`
+
+\`\`\`typescript
 const a: number = 1;
 console.log(a);
 \`\`\`
 
 \`\`\`
+const a: number = 1;
+console.log(a);
+\`\`\`
+
+\`\`\`css
 .avv {
   background-color: red;
   padding: 0;
@@ -20,7 +31,7 @@ console.log(a);
 }
 \`\`\`
 
-\`\`\`
+\`\`\`html
 <div>
   <span>
     xxxxxx
@@ -41,7 +52,10 @@ export const ArticleDetail: FC = (props) => {
     breaks: false,
     smartLists: true,
     smartypants: false,
-    highlight: (code) => {
+    highlight: (code, lang) => {
+      if (lang) {
+        return hljs.highlight(lang, code).value;
+      }
       return hljs.highlightAuto(code).value;
     }
   });
@@ -67,7 +81,7 @@ export const ArticleDetail: FC = (props) => {
         <div>
           --吼吼 2020-04-20 22:31
         </div>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
+        <div dangerouslySetInnerHTML={{ __html: html }} className="uranus-article-code hljs" style={{ margin: 5 }} />
       </div>
     </div>
   );
