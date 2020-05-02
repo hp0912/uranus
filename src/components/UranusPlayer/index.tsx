@@ -14,6 +14,7 @@ export const UranusPlayer: FC = (props) => {
     const ap = new APlayer({
       container: document.getElementById('uranus-player'),
       mini: false,
+      fixed: true,
       autoplay: false,
       theme: '#FADFA3',
       loop: 'all',
@@ -21,7 +22,7 @@ export const UranusPlayer: FC = (props) => {
       preload: 'auto',
       volume: 0.7,
       mutex: true,
-      listFolded: false,
+      listFolded: true,
       listMaxHeight: 90,
       // lrcType: 3,
       audio: [

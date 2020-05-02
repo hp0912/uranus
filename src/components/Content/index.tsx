@@ -23,7 +23,7 @@ export const Content: FC<IContentProps> = (props) => {
       </Col>
       <Col xs={0} sm={0} md={0} lg={5} xl={4} xxl={4}>
         <div className="uranus-content-right">
-          { props.right}
+          { props.right }
         </div>
       </Col>
       <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={2} />

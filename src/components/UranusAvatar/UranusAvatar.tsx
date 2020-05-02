@@ -17,7 +17,7 @@ export const UranusAvatar: FC = (props) => {
     <div className="uranus-card">
       <div className="uranus-avatar-bg" />
       <div className="uranus-avatar">
-        <Avatar size={90} src={avatar} />
+        <Avatar className="uranus-avatar-image" size={90} src={avatar} />
         <p className="uranus-avatar-username">最后的轻语</p>
       </div>
       <div className="uranus-social-signal">

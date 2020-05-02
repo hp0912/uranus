@@ -1,12 +1,19 @@
-.uranus-header-logo-image {
-  width: 26px;
-  height: 26px;
+.uranus-menu-container::after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
 }
 
-.uranus-header-logo-text {
-  line-height: 24px;
-  color: #fff;
-  padding: 0 5px;
+.uranus-menu-container-left {
+  width: 90px;
+  float: left;
+}
+
+.uranus-menu-container-right {
+  overflow: hidden;
 }
 
 .uranus-header-search {

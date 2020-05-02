@@ -15,6 +15,16 @@
   text-align: center;
 }
 
+.uranus-avatar > .uranus-avatar-image {
+  transition: all .3s;
+}
+
+.uranus-avatar > .uranus-avatar-image:hover {
+  transition: all .3s;
+  transform: scale(1.1) rotate(180deg);
+  -webkit-transform: scale(1.1) rotate(180deg);
+}
+
 .wechat-count {
   background-image: url(../../assets/images/WechatIMG640.jpeg);
   background-position: center center;

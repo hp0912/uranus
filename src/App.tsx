@@ -1,43 +1,20 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
-import { Advertisement01 } from './components/Advertisement/Advertisement01';
-import { Advertisement02 } from './components/Advertisement/Advertisement02';
-import { ArticleDetail } from './components/ArticleDetail';
-// import { ArticleList } from './components/ArticleList';
-import { Content } from "./components/Content";
-import { Header } from "./components/Header";
-import { SkinContainer } from "./components/SkinContainer";
-import { UranusAvatar } from './components/UranusAvatar';
+import { SkinContainer } from './components/SkinContainer';
 import { UranusFooter } from './components/UranusFooter';
-import { UranusMotto } from './components/UranusMotto';
-import { UranusPlayer } from './components/UranusPlayer';
+import UranusRoute from "./route";
 
-function App() {
+const App: FC = () => {
   return (
-    <div>
+    <>
       <SkinContainer />
-      <Header />
-      <Content
-        left={(
-          <>
-            <UranusAvatar />
-            <Advertisement01 />
-          </>
-        )}
-        right={(
-          <>
-            <UranusMotto />
-            <UranusPlayer />
-            <Advertisement02 />
-          </>
-        )}
-      >
-        {/* <ArticleList /> */}
-        <ArticleDetail />
-      </Content>
+      <Router>
+        <UranusRoute />
+      </Router>
       <UranusFooter />
-    </div>
+    </>
   );
-}
+};
 
 export default App;

@@ -2,11 +2,12 @@ import { HomeOutlined, IdcardOutlined, MessageOutlined } from "@ant-design/icons
 import { Col, Input, Menu, Row } from "antd";
 import React, { FC } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import "./header.css";
 
 const { Search } = Input;
 
-const logo = require("../../assets/images/dog.png");
+const logo = require("../../assets/images/logo-houhou.png");
 
 const UranusHeader = styled.div`
   position: fixed;
@@ -26,11 +27,20 @@ const UranusHeader = styled.div`
 `;
 
 const UranusHeaderLogo = styled.div`
-  height: 30px;
+  height: 46px;
   text-align: center;
-  margin: 8px 0;
-  padding: 2px 2px 2px 8px;
+  padding: 0 2px 0 8px;
   float: left;
+`;
+
+const UranusHeaderImage = styled.div`
+  width: 80px;
+  height: 46px;
+  background-image: url(${logo});
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
 `;
 
 const UranusHeaderSearch = styled.div`
@@ -45,30 +55,38 @@ const UranusHeaderSearch = styled.div`
 `;
 
 const Header: FC = (props) => {
+
   return (
     <UranusHeader>
       <Row>
         <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={3}/>
         <Col xs={24} sm={24} md={24} lg={14} xl={12} xxl={12}>
-          <UranusHeaderLogo>
-            <img 
-              src={logo} 
-              alt="logo" 
-              className="uranus-header-logo-image"
-            />
-            <b className="uranus-header-logo-text">吼吼</b>
-          </UranusHeaderLogo>
-          <Menu theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1">
-              <HomeOutlined />首页
-            </Menu.Item>
-            <Menu.Item key="2">
-              <MessageOutlined />留言板
-            </Menu.Item>
-            <Menu.Item key="3">
-              <IdcardOutlined />关于我
-            </Menu.Item>
-          </Menu>
+          <div className="uranus-menu-container">
+            <div className="uranus-menu-container-left">
+              <UranusHeaderLogo>
+                <Link to="/">
+                  <UranusHeaderImage />
+                </Link>
+              </UranusHeaderLogo>
+            </div>
+            <div className="uranus-menu-container-right">
+              <Menu 
+                theme="light" 
+                mode="horizontal" 
+                defaultSelectedKeys={["articlelist"]} 
+              >
+                <Menu.Item key="articlelist" icon={<HomeOutlined />}>
+                  博客
+                </Menu.Item>
+                <Menu.Item key="messageboard" icon={<MessageOutlined />}>
+                  留言板
+                </Menu.Item>
+                <Menu.Item key="aboutus" icon={<IdcardOutlined />}>
+                  关于我
+                </Menu.Item>
+              </Menu>
+            </div>
+          </div>
         </Col>
         <Col xs={18} sm={18} md={18} lg={5} xl={4} xxl={3}>
           <UranusHeaderSearch>
