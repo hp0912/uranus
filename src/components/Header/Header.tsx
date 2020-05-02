@@ -1,8 +1,10 @@
 import { HomeOutlined, IdcardOutlined, MessageOutlined } from "@ant-design/icons";
 import { Col, Input, Menu, Row } from "antd";
-import React, { FC } from "react";
-import styled from "styled-components";
+import { ClickParam } from "antd/lib/menu";
+import React, { FC, useCallback } from "react";
+import { useHistory, useRouteMatch, withRouter } from "react-router";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import "./header.css";
 
 const { Search } = Input;
@@ -54,7 +56,31 @@ const UranusHeaderSearch = styled.div`
   }
 `;
 
+export enum MenuKey {
+  articlelist = 'articlelist',
+  messageboard = 'messageboard',
+  aboutus = 'aboutus',
+}
+
 const Header: FC = (props) => {
+  
+  const history = useHistory();
+  const routerMatch = useRouteMatch();
+
+  const onMenuClick = useCallback((param: ClickParam) => {
+    history.push(`/${param.key}`);
+  }, [history]);
+
+  const onSearch = useCallback((value: string) => {
+    if (value) {
+      history.push(`/${MenuKey.articlelist}?keyword=${value}`);
+    } else {
+      history.push(`/${MenuKey.articlelist}`);
+    }
+  }, [history]);
+
+  const selectedKeysMatch = routerMatch.path.match(/^\/([^/]+?)(?:\/|\?|$)/);
+  const selectedKeys = selectedKeysMatch && selectedKeysMatch[1] ? [selectedKeysMatch[1]] : [];
 
   return (
     <UranusHeader>
@@ -73,15 +99,16 @@ const Header: FC = (props) => {
               <Menu 
                 theme="light" 
                 mode="horizontal" 
-                defaultSelectedKeys={["articlelist"]} 
+                defaultSelectedKeys={selectedKeys}
+                onClick={onMenuClick}
               >
-                <Menu.Item key="articlelist" icon={<HomeOutlined />}>
+                <Menu.Item key={MenuKey.articlelist} icon={<HomeOutlined />}>
                   博客
                 </Menu.Item>
-                <Menu.Item key="messageboard" icon={<MessageOutlined />}>
+                <Menu.Item key={MenuKey.messageboard} icon={<MessageOutlined />}>
                   留言板
                 </Menu.Item>
-                <Menu.Item key="aboutus" icon={<IdcardOutlined />}>
+                <Menu.Item key={MenuKey.aboutus} icon={<IdcardOutlined />}>
                   关于我
                 </Menu.Item>
               </Menu>
@@ -92,7 +119,7 @@ const Header: FC = (props) => {
           <UranusHeaderSearch>
             <Search
               placeholder="请输入关键字..."
-              onSearch={value => console.log(value)}
+              onSearch={onSearch}
               className="uranus-header-search"
             />
           </UranusHeaderSearch>
@@ -109,4 +136,4 @@ const Header: FC = (props) => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

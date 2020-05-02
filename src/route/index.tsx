@@ -1,5 +1,4 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title';
 import { Route, Switch } from 'react-router-dom';
 import { PageLoading } from '../components/PageLoading';
 import pages from '../pages';
@@ -15,15 +14,7 @@ export default () => {
               exact
               key={index + ''}
               path={ele.path}
-              render={props => {
-                const Component = pages[ele.component];
-                const WrapComponent = (
-                  <DocumentTitle title={ele.title}>
-                    <Component {...props} />
-                  </DocumentTitle>
-                );
-                return WrapComponent;
-              }}
+              component={pages[ele.component]}
             />
           );
         })}
