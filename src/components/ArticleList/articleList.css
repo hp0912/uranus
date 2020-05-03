@@ -1,0 +1,70 @@
+.uranus-article-title {
+  display: flex;
+}
+
+.uranus-article-title .user-avatar {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+}
+
+.uranus-article-title .article-title {
+  flex: 1;
+  padding: 5px;
+}
+
+.article-title-name, .article-title-others {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.uranus-article-title .article-title-name {
+  font-weight: 600;
+  color: #1e90ff;
+}
+
+.uranus-article-title .article-title-timeago {
+  font-size: 12px;
+  color: #808080;
+}
+
+.uranus-article-image-container {
+  border: 0;
+  border-radius: 4px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  transition: all .2s;
+  box-shadow: 1px 1px 3px 1px rgba(0,0,0,.2) !important;
+}
+
+.uranus-article-image-sub {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.uranus-article-image {
+  height: 250px;
+  position: relative;
+  display: block;
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 4px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  background-image: url(https://xiaoyou66.com/static/image/background/img478.jpg);
+}
+
+.uranus-article-desc {
+  font-family: arial;
+  color: #999;
+}
+
+@media screen and (min-width: 1200px) {
+  .uranus-article-image-container:hover .uranus-article-image {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+}

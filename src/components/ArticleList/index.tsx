@@ -1,6 +1,12 @@
-import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
-import { Avatar, List } from "antd";
+// import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
+import { /* Avatar, */ Avatar, List, Tag, Typography } from "antd";
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
+import { format } from "timeago.js";
+import "./articleList.css";
+
+const avatar = require("../../assets/images/avatar.jpg");
+const paragConfig = { rows: 3, expandable: true };
 
 export const ArticleList: FC = (props) => {
   const listData: any[] = [];
@@ -17,15 +23,7 @@ export const ArticleList: FC = (props) => {
     });
   }
 
-  const IconText = (p: { icon: any, text: string }) => {
-    const { icon, text } = p;
-    return (
-      <span>
-        {React.createElement(icon, { style: { marginRight: 8 } })}
-        {text}
-      </span>
-    );
-  };
+  const utags = ['typescript'];
 
   return (
     <List
@@ -41,27 +39,44 @@ export const ArticleList: FC = (props) => {
       renderItem={item => (
         <List.Item
           key={item.title}
-          actions={[
-            <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-            <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-            <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-          ]}
-          extra={
-            (
-              <img
-                width={272}
-                alt="logo"
-                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-              />
-            )
-          }
         >
-          <List.Item.Meta
-            avatar={<Avatar src={item.avatar} />}
-            title={<a href={item.href}>{item.title}</a>}
-            description={item.description}
-          />
-          {item.content}
+          <div className="uranus-article-title">
+            <div className="user-avatar">
+              <Avatar size={50} src={avatar} />
+            </div>
+            <div className="article-title">
+              <div className="article-title-name">
+                <Link to="/">
+                  MM自动化测试从入门到精通
+                </Link>
+              </div>
+              <div className="article-title-others">
+                {
+                  utags.map(titem => {
+                    return (
+                      <Tag color="blue" key={titem}>{titem}</Tag>
+                    );
+                  })
+                }
+                <span className="article-title-timeago">
+                  {
+                    format(1588421050276, 'zh_CN')
+                  }
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="uranus-article-image-container">
+            <div className="uranus-article-image-sub">
+              <Link to="/">
+                <div className="uranus-article-image" />
+              </Link>
+            </div>
+          </div>
+          <Typography.Paragraph ellipsis={paragConfig} className="uranus-article-desc">
+            【CSS布局奇技淫巧：各种居中】居中是我们使用css来布局时常遇到的情况。使用css来进行居中时，有时一个属性就能搞定，有时则需要一定的技巧才能兼容到所有浏览器，本文就居中的一些常用方法做个简单的介绍。
+            【川大玻璃杯事件，一个玻璃杯引发的年度大戏】这几天被川大的“玻璃杯事件”刷屏啦！一个四川大学的妹子为了撩帅哥哥，故意打碎对方的玻璃杯，事后发现杯子超贵就发帖吐槽，结果男生也看到帖子……好了，现在马上出门买玻璃杯！
+          </Typography.Paragraph>
         </List.Item>
       )}
     />
