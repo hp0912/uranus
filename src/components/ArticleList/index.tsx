@@ -3,6 +3,8 @@ import { /* Avatar, */ Avatar, List, Tag, Typography } from "antd";
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
+import { ArticleActions } from "../ArticleActions";
+import "../components.css";
 import "./articleList.css";
 
 const avatar = require("../../assets/images/avatar.jpg");
@@ -46,7 +48,7 @@ export const ArticleList: FC = (props) => {
             </div>
             <div className="article-title">
               <div className="article-title-name">
-                <Link to="/">
+                <Link to="/articledetail">
                   MM自动化测试从入门到精通
                 </Link>
               </div>
@@ -68,7 +70,7 @@ export const ArticleList: FC = (props) => {
           </div>
           <div className="uranus-article-image-container">
             <div className="uranus-article-image-sub">
-              <Link to="/">
+              <Link to="/articledetail">
                 <div className="uranus-article-image" />
               </Link>
             </div>
@@ -77,6 +79,7 @@ export const ArticleList: FC = (props) => {
             【CSS布局奇技淫巧：各种居中】居中是我们使用css来布局时常遇到的情况。使用css来进行居中时，有时一个属性就能搞定，有时则需要一定的技巧才能兼容到所有浏览器，本文就居中的一些常用方法做个简单的介绍。
             【川大玻璃杯事件，一个玻璃杯引发的年度大戏】这几天被川大的“玻璃杯事件”刷屏啦！一个四川大学的妹子为了撩帅哥哥，故意打碎对方的玻璃杯，事后发现杯子超贵就发帖吐槽，结果男生也看到帖子……好了，现在马上出门买玻璃杯！
           </Typography.Paragraph>
+          <ArticleActions />
         </List.Item>
       )}
     />

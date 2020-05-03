@@ -1,4 +1,31 @@
+.uranus-article-detail {
+  padding: 8px 12px;
+}
+
+.uranus-article-detail .uranus-title {
+  margin-top: .5em;
+  text-align: center;
+}
+
+.uranus-article-detail .uranus-sub-title {
+  text-align: center;
+  color: #909090;
+  font-size: 13px;
+  padding: 5px;
+}
+
 .uranus-article-code {
   font-family: Menlo, monospace;
   border-radius: 4px;
+}
+
+.uranus-keyword {
+  display: inline-block;
+  background-color: #fff5f5;
+  border-radius: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #ff502c;
+  margin: 0px 3px;
+  font-size: 12px;
 }

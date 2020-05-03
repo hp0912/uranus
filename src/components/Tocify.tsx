@@ -71,7 +71,7 @@ export default class Tocify {
 
   render() {
     return (
-      <Anchor affix showInkInFixed>
+      <Anchor affix showInkInFixed offsetTop={55} targetOffset={55}>
         {this.renderToc(this.tocItems)}
       </Anchor>
     );
