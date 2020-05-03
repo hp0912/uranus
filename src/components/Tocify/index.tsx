@@ -1,6 +1,8 @@
 import { Anchor } from 'antd';
 import { last } from 'lodash';
 import React from 'react';
+import "../components.css";
+import "./tocify.css";
 
 const { Link } = Anchor;
 
@@ -71,7 +73,13 @@ export default class Tocify {
 
   render() {
     return (
-      <Anchor affix showInkInFixed offsetTop={55} targetOffset={55}>
+      <Anchor 
+        affix 
+        showInkInFixed 
+        offsetTop={55} 
+        targetOffset={5} 
+        className="uranus-card uranus-article-nav"
+      >
         {this.renderToc(this.tocItems)}
       </Anchor>
     );

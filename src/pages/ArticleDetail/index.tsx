@@ -1,4 +1,3 @@
-import { Affix } from "antd";
 import hljs from "highlight.js";
 import "highlight.js/styles/vs2015.css";
 import marked from "marked";
@@ -10,7 +9,6 @@ import { Header } from '../../components/Header';
 import Tocify from "../../components/Tocify";
 import { UranusAvatar } from '../../components/UranusAvatar';
 import { UranusMotto } from '../../components/UranusMotto';
-import "./articleDetailPage.css";
 
 const markdown = `
 
@@ -177,16 +175,7 @@ export const ArticleDetailPage: FC = (props) => {
         right={(
           <>
             <UranusMotto />
-            <Affix offsetTop={55}>
-              <div className="uranus-card uranus-article-nav">
-                <div className="catalog-title">
-                  目录
-                </div>
-                <div>
-                  { tocify && tocify.render() }
-                </div>
-              </div>
-            </Affix>
+            { tocify && tocify.render() }
           </>
         )}
       >
