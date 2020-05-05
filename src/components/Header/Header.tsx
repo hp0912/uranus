@@ -1,10 +1,11 @@
 import { HomeOutlined, IdcardOutlined, MessageOutlined } from "@ant-design/icons";
 import { Col, Input, Menu, Row } from "antd";
 import { ClickParam } from "antd/lib/menu";
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { useHistory, useRouteMatch, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Auth, AuthMode } from "../Auth";
 import "./header.css";
 
 const { Search } = Input;
@@ -67,6 +68,8 @@ const Header: FC = (props) => {
   const history = useHistory();
   const routerMatch = useRouteMatch();
 
+  const [authVisible, setAuthVisible] = useState<boolean>(false);
+
   const onMenuClick = useCallback((param: ClickParam) => {
     history.push(`/${param.key}`);
   }, [history]);
@@ -78,6 +81,14 @@ const Header: FC = (props) => {
       history.push(`/${MenuKey.articlelist}`);
     }
   }, [history]);
+
+  const onSignInClick = useCallback(() => {
+    setAuthVisible(true);
+  }, []);
+
+  const onAuthCancel = useCallback(() => {
+    setAuthVisible(false);
+  }, []);
 
   const selectedKeysMatch = routerMatch.path.match(/^\/([^/]+?)(?:\/|\?|$)/);
   const selectedKeys = selectedKeysMatch && selectedKeysMatch[1] ? [selectedKeysMatch[1]] : [];
@@ -126,12 +137,13 @@ const Header: FC = (props) => {
         </Col>
         <Col xs={6} sm={6} md={6} lg={5} xl={4} xxl={4}>
           <div className="uranus-header-login-container">
-            <span className="uranus-header-login">登录·</span>
+            <span className="uranus-header-login" onClick={onSignInClick}>登录·</span>
             <span className="uranus-header-register">注册</span>
           </div>
         </Col>
         <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={2} />
       </Row>
+      <Auth mode={AuthMode.signup} visible={authVisible} onCancel={onAuthCancel} />
     </UranusHeader>
   );
 };

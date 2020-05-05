@@ -1,0 +1,39 @@
+@media screen and (min-width: 768px) {
+  .uranus-auth {
+    width: 400px !important;
+  }
+}
+
+@media screen and (min-width: 400px) and (max-width: 768px) {
+  .uranus-auth {
+    width: 80% !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .uranus-auth {
+    width: 95% !important;
+  }
+}
+
+.uranus-auth-body {
+  width: 100%;
+}
+
+.uranus-auth-prefix {
+  color: #807c7c;
+}
+
+.uranus-prompt-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.uranus-auth-third {
+  display: flex;
+  justify-content: center;
+}
+
+.uranus-auth-third-item {
+  margin: 0 20px;
+}
