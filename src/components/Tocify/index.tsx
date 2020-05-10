@@ -77,7 +77,7 @@ export default class Tocify {
         affix 
         showInkInFixed 
         offsetTop={55} 
-        targetOffset={5} 
+        targetOffset={55} 
         className="uranus-card uranus-article-nav"
       >
         {this.renderToc(this.tocItems)}

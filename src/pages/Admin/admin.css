@@ -1,0 +1,27 @@
+.uranus-layout {
+  min-height: 100vh;
+}
+
+.uranus-admin-logo {
+  height: 32px;
+  margin: 16px;
+  background-image: url(../../assets/images/logo-houhou.png);
+  background-position: center left;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.uranus-admin-header {
+  padding: 0;
+  background-color: #fff;
+}
+
+.uranus-admin-content {
+  margin: 0 16px;
+}
+
+.uranus-admin-breadcrumb {
+  margin: 16px 0;
+}
