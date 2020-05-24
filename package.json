@@ -16,6 +16,7 @@
     "@types/react-router-dom": "^5.1.5",
     "antd": "^4.0.3",
     "aplayer": "^1.10.1",
+    "axios": "^0.19.2",
     "customize-cra": "^0.9.1",
     "highlight.js": "^10.0.1",
     "lodash": "^4.17.15",

@@ -5,15 +5,18 @@ import {
   TagOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import React, { FC, useCallback, useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
 import './admin.css';
+import { AdminArticleAdd } from './AdminArticleAdd';
+import { AdminArticleList } from './AdminArticleList';
 
 const { Content, Sider, Header } = Layout;
 
 const Admin: FC = (props) => {
   const history = useHistory();
+  const match = useRouteMatch();
   
   const [siderCollapsed, setSiderCollapsed] = useState<boolean>(false);
 
@@ -50,13 +53,10 @@ const Admin: FC = (props) => {
       <Layout>
         <Header className="uranus-admin-header" />
         <Content className="uranus-admin-content">
-          <Breadcrumb className="uranus-admin-breadcrumb">
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
-          <div style={{ padding: 24, minHeight: 360, background: "#fff" }}>
-            Bill is a cat.
-          </div>
+          <Switch>
+            <Route path={match.path} exact component={AdminArticleList} />
+            <Route path={`${match.path}/articleAdd`} component={AdminArticleAdd} />
+          </Switch>
         </Content>
       </Layout>
     </Layout>

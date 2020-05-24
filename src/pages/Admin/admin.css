@@ -25,3 +25,11 @@
 .uranus-admin-breadcrumb {
   margin: 16px 0;
 }
+
+.uranus-audit-icon {
+  margin-right: 10px;
+}
+
+.uranus-delete-icon {
+  color: red;
+}
