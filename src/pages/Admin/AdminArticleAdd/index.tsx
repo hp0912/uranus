@@ -1,5 +1,6 @@
 import { Breadcrumb, Col, Input, Row } from 'antd';
 import React, { FC } from 'react';
+import { CoverUpload } from './CoverUpload';
 // import { IArticleEntity } from '../../types';
 // import { useSetState } from '../../utils/commonHooks';
 
@@ -14,6 +15,11 @@ export const AdminArticleAdd: FC = (props) => {
         <Row>
           <Col span={24}>
             <Input placeholder="文章标题" />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <CoverUpload />
           </Col>
         </Row>
       </div>
