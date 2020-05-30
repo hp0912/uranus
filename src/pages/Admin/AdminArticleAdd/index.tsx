@@ -1,4 +1,4 @@
-import { Breadcrumb, Col, Input, Row } from 'antd';
+import { Breadcrumb, Col, Input, Row, Select } from 'antd';
 import React, { FC, useCallback } from 'react';
 import { ArticleTagSelect } from './ArticleTagSelect';
 import { CoverUpload } from './CoverUpload';
@@ -26,12 +26,24 @@ export const AdminArticleAdd: FC = (props) => {
             <CoverUpload />
           </Col>
         </Row>
-        <Row>
+        <Row className="uranus-row">
           <Col span={24}>
             <ArticleTagSelect
               tagOptions={[]}
               onChange={onArticleTagChange}
             />
+          </Col>
+        </Row>
+        <Row className="uranus-row">
+          <Col span={24}>
+            <Select placeholder="文章可见范围" className="uranus-row-select">
+              <Select.Option value={0}>
+                仅自己可见
+              </Select.Option>
+              <Select.Option value={1}>
+                所有人可见
+              </Select.Option>
+            </Select>
           </Col>
         </Row>
       </div>

@@ -1,5 +1,3 @@
-import hljs from "highlight.js";
-import "highlight.js/styles/vs2015.css";
 import MarkdownIt from "markdown-it";
 import React, { FC } from 'react';
 import { Advertisement01 } from '../../components/Advertisement/Advertisement01';
@@ -10,6 +8,21 @@ import Tocify from "../../components/Tocify";
 import { UranusAvatar } from '../../components/UranusAvatar';
 import { UranusMotto } from '../../components/UranusMotto';
 import { MdHeadingAnchor } from "../../utils/MdHeadingAnchor";
+
+// markdown 插件
+import hljs from "highlight.js";
+import abbr from 'markdown-it-abbr';
+import mdcontainer from 'markdown-it-container';
+import emoji from 'markdown-it-emoji';
+import footnote from 'markdown-it-footnote';
+import ins from 'markdown-it-ins';
+import mark from 'markdown-it-mark';
+import sub from 'markdown-it-sub';
+import sup from 'markdown-it-sup';
+import twemoji from 'twemoji';
+
+// css
+import "highlight.js/styles/vs2015.css";
 
 const markdown = `
 
@@ -27,8 +40,6 @@ console.log(a);
 '123'
 
 "456"
-
-<code class="uranus-keyword">typescript</code><code class="uranus-keyword">react-hooks</code>学不动了吧~~~
 
 \`\`\`typescript
 const a: number = 1;
@@ -81,6 +92,8 @@ react-hooks
 
 222
 
+==学不动了么 Vue3==
+
 222
 
 222
@@ -102,9 +115,15 @@ react-hooks
 
 ## 5.1. typescript
 
+> Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
+>
+> Shortcuts (emoticons): :-) :-( 8-) ;)
+
 # 6. react-hooks
 
 5555555
+
+😊😊
 
 # 7. react-hooks
 
@@ -112,6 +131,7 @@ react-hooks
 
 77777
 
+++inserted++
 
 7777
 
@@ -120,10 +140,47 @@ react-hooks
 8888
 
 
-8888
+[Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
+
+This is HTML abbreviation example.
+
+It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
+
+*[HTML]: Hyper Text Markup Language
 
 
 88
+
+[Footnotes](https://github.com/markdown-it/markdown-it-footnote)
+
+Footnote 1 link[^first].
+
+Footnote 2 link[^second].
+
+Inline footnote^[Text of inline footnote] definition.
+
+Duplicated footnote reference[^second].
+
+[^first]: Footnote **can have markup** and multiple paragraphs.
+
+[^second]: Footnote text.
+
+- 29^th^
+- H~2~O
+
+[Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
+
+This is HTML abbreviation example.
+
+It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
+
+*[HTML]: Hyper Text Markup Language
+
+[Custom containers](https://github.com/markdown-it/markdown-it-container)
+
+::: uranus-warning
+*here be dragons*
+:::
 
 \`\`\`html
 <div>
@@ -146,6 +203,12 @@ const md = new MarkdownIt({
     return hljs.highlightAuto(code).value;
   }
 });
+
+md.use(emoji).use(mark).use(ins).use(abbr).use(footnote).use(sup).use(sub).use(mdcontainer, 'uranus-warning');
+
+md.renderer.rules.emoji = (token, idx) => {
+  return twemoji.parse(token[idx].content);
+};
 
 export const ArticleDetailPage: FC = (props) => {
 

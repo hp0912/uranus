@@ -25,6 +25,10 @@ export default class Tocify {
     this.index = 0;
   }
 
+  onClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+  }
+
   add(text: string, level: number) {
     const anchor = `toc${level}${++this.index}`;
     const item = { anchor, level, text };
@@ -79,6 +83,7 @@ export default class Tocify {
         offsetTop={55} 
         targetOffset={55} 
         className="uranus-card uranus-article-nav"
+        onClick={this.onClick}
       >
         {this.renderToc(this.tocItems)}
       </Anchor>

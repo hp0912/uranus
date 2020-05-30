@@ -18,11 +18,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
   const history = useHistory();
 
   const goBack = useCallback(() => {
-    if (history.length > 2) {
-      history.goBack();
-    } else {
-      history.push('/articlelist');
-    }
+    history.push('/articlelist');
   }, [history]);
 
   return (

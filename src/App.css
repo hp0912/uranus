@@ -1,0 +1,20 @@
+.uranus-success {
+  background-color: #b7eb8f;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 5px 0;
+}
+
+.uranus-warning {
+  background-color: #ff8;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 5px 0;
+}
+
+.uranus-error {
+  background-color: #ffccc7;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 5px 0;
+}
