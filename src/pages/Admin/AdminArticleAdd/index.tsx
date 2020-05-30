@@ -1,10 +1,14 @@
 import { Breadcrumb, Col, Input, Row } from 'antd';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
+import { ArticleTagSelect } from './ArticleTagSelect';
 import { CoverUpload } from './CoverUpload';
 // import { IArticleEntity } from '../../types';
 // import { useSetState } from '../../utils/commonHooks';
 
 export const AdminArticleAdd: FC = (props) => {
+  const onArticleTagChange = useCallback((v1) => {
+    console.log(v1);
+  }, []);
 
   return (
     <>
@@ -20,6 +24,14 @@ export const AdminArticleAdd: FC = (props) => {
         <Row>
           <Col span={24}>
             <CoverUpload />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <ArticleTagSelect
+              tagOptions={[]}
+              onChange={onArticleTagChange}
+            />
           </Col>
         </Row>
       </div>

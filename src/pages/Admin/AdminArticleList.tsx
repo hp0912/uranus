@@ -158,7 +158,7 @@ export const AdminArticleList: FC = (props) => {
           resolve({} as any);
         }, 2000);
       });
-      console.log(2);
+      
       setAdminAriState({
         data: [{
           id: 100001,
@@ -199,7 +199,6 @@ export const AdminArticleList: FC = (props) => {
   }, [getArticleList]);
 
   const articleAdd = useCallback(() => {
-    console.log(match.path);
     history.push(`${match.path}/articleAdd`);
   }, [history, match]);
 
