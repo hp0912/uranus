@@ -15,16 +15,28 @@ function makeRule(mdit: MarkdownIt, options: { tocify: Tocify }) {
         continue;
       }
 
-      const text = headingInlineToken.content;
-      const level = Number(state.tokens[i].tag.replace(/\D+/, ''));
-      const anchor = options.tocify.add(text, level);
-
-      const anchorToken = new state.Token('html_inline', '', 0);
-
-      anchorToken.content = `<a id="${anchor}" style="color: #000" href="#${anchor}">${text}</a>\n`;
-
       if (headingInlineToken.children) {
-        headingInlineToken.children[0] = anchorToken;
+        const text = headingInlineToken.children[0].content;
+        const level = Number(state.tokens[i].tag.replace(/\D+/, ''));
+
+        let anchorText = '';
+        headingInlineToken.children.forEach(item => {
+          if (item.type === 'text') {
+            anchorText += item.content;
+          }
+        });
+
+        const anchor = options.tocify.add(anchorText, level);
+        const anchorToken = new state.Token('html_inline', '', 0);
+
+        anchorToken.content = `<a id="${anchor}" style="color: #000" href="#${anchor}">${text}</a>\n`;
+
+        const first = headingInlineToken.children[0];
+        if (first.type === 'text') {
+          headingInlineToken.children[0] = anchorToken;
+        } else {
+          headingInlineToken.children.unshift(anchorToken);
+        }
       }
 
       // Advance past the inline and heading_close tokens.

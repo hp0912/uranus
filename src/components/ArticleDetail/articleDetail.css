@@ -16,16 +16,4 @@
 
 .uranus-article-code {
   font-family: Menlo, monospace;
-  border-radius: 4px;
-}
-
-.uranus-keyword {
-  display: inline-block;
-  background-color: #fff5f5;
-  border-radius: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #ff502c;
-  margin: 0px 3px;
-  font-size: 12px;
 }

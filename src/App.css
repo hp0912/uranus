@@ -18,3 +18,15 @@
   border-radius: 6px;
   margin: 5px 0;
 }
+
+.custom-html-style code{
+  padding: .5em !important;
+}
+
+.custom-html-style pre {
+  padding: 0 !important;
+}
+
+.custom-html-style .hljs {
+  background-color: #1E1E1E !important;
+}

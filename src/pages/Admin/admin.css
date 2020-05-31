@@ -42,6 +42,10 @@
   margin-bottom: 15px;
 }
 
+.uranus-row .save {
+  text-align: center;
+}
+
 .uranus-row-select {
   width: 100%;
 }

@@ -74,6 +74,7 @@ react-hooks
 
 111
 
+\`123456789\`
 
 1111
 
@@ -81,7 +82,7 @@ react-hooks
 
 111
 
-# 4. react-hooks
+# 4. react-hooks ==学不动了么 Vue3== 
 
 22
 
@@ -104,7 +105,7 @@ react-hooks
 
 222
 
-# 5. react-hooks
+# ==学不动了么 Vue3==
 
 66666
 
@@ -191,26 +192,25 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 \`\`\`
 `;
 
-const md = new MarkdownIt({
-  html: true,
-  linkify: true,
-  typographer: true,
-  langPrefix: 'uranus-article-code hljs ',
-  highlight: (code, lang) => {
-    if (lang && hljs.getLanguage(lang)) {
-      return hljs.highlight(lang, code).value;
-    }
-    return hljs.highlightAuto(code).value;
-  }
-});
-
-md.use(emoji).use(mark).use(ins).use(abbr).use(footnote).use(sup).use(sub).use(mdcontainer, 'uranus-warning');
-
-md.renderer.rules.emoji = (token, idx) => {
-  return twemoji.parse(token[idx].content);
-};
-
 export const ArticleDetailPage: FC = (props) => {
+  const md = new MarkdownIt({
+    html: true,
+    linkify: true,
+    typographer: true,
+    langPrefix: 'uranus-article-code hljs ',
+    highlight: (code, lang) => {
+      if (lang && hljs.getLanguage(lang)) {
+        return hljs.highlight(lang, code).value;
+      }
+      return hljs.highlightAuto(code).value;
+    }
+  });
+  
+  md.use(emoji).use(mark).use(ins).use(abbr).use(footnote).use(sup).use(sub).use(mdcontainer, 'uranus-warning');
+  
+  md.renderer.rules.emoji = (token, idx) => {
+    return twemoji.parse(token[idx].content);
+  };
 
   const tocify = new Tocify();
   
