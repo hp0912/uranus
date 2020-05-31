@@ -5,7 +5,9 @@ import React, { FC, useCallback, useState } from "react";
 import { useHistory, useRouteMatch, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Auth, AuthMode } from "../Auth";
+import { Auth } from "../Auth";
+import { AuthMode } from "../Auth/SignUp";
+
 import "./header.css";
 
 const { Search } = Input;
@@ -69,6 +71,7 @@ const Header: FC = (props) => {
   const routerMatch = useRouteMatch();
 
   const [authVisible, setAuthVisible] = useState<boolean>(false);
+  const [authState, setAuthState] = useState<AuthMode>(AuthMode.signup);
 
   const onMenuClick = useCallback((param: ClickParam) => {
     history.push(`/${param.key}`);
@@ -83,6 +86,12 @@ const Header: FC = (props) => {
   }, [history]);
 
   const onSignInClick = useCallback(() => {
+    setAuthState(AuthMode.signin);
+    setAuthVisible(true);
+  }, []);
+
+  const onSignUpClick = useCallback(() => {
+    setAuthState(AuthMode.signup);
     setAuthVisible(true);
   }, []);
 
@@ -138,12 +147,12 @@ const Header: FC = (props) => {
         <Col xs={6} sm={6} md={6} lg={5} xl={4} xxl={4}>
           <div className="uranus-header-login-container">
             <span className="uranus-header-login" onClick={onSignInClick}>登录·</span>
-            <span className="uranus-header-register">注册</span>
+            <span className="uranus-header-register" onClick={onSignUpClick}>注册</span>
           </div>
         </Col>
         <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={2} />
       </Row>
-      <Auth mode={AuthMode.signup} visible={authVisible} onCancel={onAuthCancel} />
+      <Auth mode={authState} visible={authVisible} onCancel={onAuthCancel} />
     </UranusHeader>
   );
 };

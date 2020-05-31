@@ -1,5 +1,5 @@
 import MarkdownIt from "markdown-it";
-import React, { FC } from 'react';
+import React, { /* FC */ } from 'react';
 import { Advertisement01 } from '../../components/Advertisement/Advertisement01';
 import { ArticleDetail } from '../../components/ArticleDetail';
 import { Content } from "../../components/Content";
@@ -105,7 +105,7 @@ react-hooks
 
 222
 
-# ==学不动了么 Vue3==
+# 5. ==学不动了么 Vue3==
 
 66666
 
@@ -192,51 +192,64 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 \`\`\`
 `;
 
-export const ArticleDetailPage: FC = (props) => {
-  const md = new MarkdownIt({
-    html: true,
-    linkify: true,
-    typographer: true,
-    langPrefix: 'uranus-article-code hljs ',
-    highlight: (code, lang) => {
-      if (lang && hljs.getLanguage(lang)) {
-        return hljs.highlight(lang, code).value;
+export class ArticleDetailPage extends React.PureComponent {
+  md: MarkdownIt;
+  tocify: { current?: Tocify } = {};
+
+  constructor(props) {
+    super(props);
+
+    this.md = new MarkdownIt({
+      html: true,
+      linkify: true,
+      typographer: true,
+      langPrefix: 'uranus-article-code hljs ',
+      highlight: (code, lang) => {
+        if (lang && hljs.getLanguage(lang)) {
+          return hljs.highlight(lang, code).value;
+        }
+        return hljs.highlightAuto(code).value;
       }
-      return hljs.highlightAuto(code).value;
-    }
-  });
+    })
+    .use(emoji)
+    .use(mark)
+    .use(ins)
+    .use(abbr)
+    .use(footnote)
+    .use(sup)
+    .use(sub)
+    .use(mdcontainer, 'uranus-warning')
+    .use(MdHeadingAnchor, { tocify: this.tocify });
+    
+    this.md.renderer.rules.emoji = (token, idx) => {
+      return twemoji.parse(token[idx].content);
+    };
+  }
   
-  md.use(emoji).use(mark).use(ins).use(abbr).use(footnote).use(sup).use(sub).use(mdcontainer, 'uranus-warning');
-  
-  md.renderer.rules.emoji = (token, idx) => {
-    return twemoji.parse(token[idx].content);
-  };
+  render() {
+    const html = this.md.render(markdown);
 
-  const tocify = new Tocify();
-  
-  md.use(MdHeadingAnchor, { tocify });
-  
-  const html = md.render(markdown);
+    return (
+      <>
+        <Header />
+        <Content
+          left={(
+            <>
+              <UranusAvatar />
+              <Advertisement01 />
+            </>
+          )}
+          right={(
+            <>
+              <UranusMotto />
+              { this.tocify.current && this.tocify.current.render() }
+            </>
+          )}
+        >
+          <ArticleDetail html={html} />
+        </Content>
+      </>
+    );
+  }
+}
 
-  return (
-    <>
-      <Header />
-      <Content
-        left={(
-          <>
-            <UranusAvatar />
-            <Advertisement01 />
-          </>
-        )}
-        right={(
-          <>
-            <UranusMotto />
-            { tocify && tocify.render() }
-          </>
-        )}
-      >
-        <ArticleDetail html={html} />
-      </Content>
-    </>
-  );
-};

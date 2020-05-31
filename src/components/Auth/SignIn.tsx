@@ -6,11 +6,12 @@ import {
 } from "@ant-design/icons";
 import { Avatar, Button, Divider, Input, Space } from "antd";
 import React, { FC, useCallback, useState } from "react";
+import { AuthMode } from "./SignUp";
 
 const dividerStyle = { margin: 0, fontSize: '14px', fontWeight: 500 };
 
 interface ISignInProps {
-  switchMode: () => void;
+  switchMode: (m: AuthMode) => void;
 }
 
 export const SignIn: FC<ISignInProps> = (props) => {
@@ -56,9 +57,9 @@ export const SignIn: FC<ISignInProps> = (props) => {
       </p>
       <Divider style={dividerStyle}>第三方登录</Divider>
       <div className="uranus-auth-third">
-        <Avatar className="uranus-auth-third-item" size={38} icon={<QqOutlined />} />
-        <Avatar className="uranus-auth-third-item" size={38} icon={<WechatOutlined />} />
-        <Avatar className="uranus-auth-third-item" size={38} icon={<GithubOutlined />} />
+        <Avatar className="uranus-auth-third-item" size={33} icon={<QqOutlined />} />
+        <Avatar className="uranus-auth-third-item" size={33} icon={<WechatOutlined />} />
+        <Avatar className="uranus-auth-third-item" size={33} icon={<GithubOutlined />} />
       </div>
     </Space>
   );

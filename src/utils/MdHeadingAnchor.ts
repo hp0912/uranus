@@ -2,8 +2,10 @@ import MarkdownIt from "markdown-it";
 import StateCore from "markdown-it/lib/rules_core/state_core";
 import Tocify from "../components/Tocify";
 
-function makeRule(mdit: MarkdownIt, options: { tocify: Tocify }) {
+function makeRule(mdit: MarkdownIt, options: { tocify: { current: Tocify } }) {
   return (state: StateCore) => {
+    options.tocify.current = new Tocify();
+
     for (let i = 0; i < state.tokens.length - 1; i++) {
       if (state.tokens[i].type !== 'heading_open' || state.tokens[i+1].type !== 'inline') {
         continue;
@@ -26,7 +28,7 @@ function makeRule(mdit: MarkdownIt, options: { tocify: Tocify }) {
           }
         });
 
-        const anchor = options.tocify.add(anchorText, level);
+        const anchor = options.tocify.current.add(anchorText, level);
         const anchorToken = new state.Token('html_inline', '', 0);
 
         anchorToken.content = `<a id="${anchor}" style="color: #000" href="#${anchor}">${text}</a>\n`;
@@ -47,6 +49,6 @@ function makeRule(mdit: MarkdownIt, options: { tocify: Tocify }) {
   };
 }
 
-export const MdHeadingAnchor = (mdit: MarkdownIt, options: { tocify: Tocify }) => {
+export const MdHeadingAnchor = (mdit: MarkdownIt, options: { tocify: { current: Tocify } }) => {
   mdit.core.ruler.push('heading_anchor', makeRule(mdit, options));
 };

@@ -1,13 +1,21 @@
 import { KeyOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Input, Space } from "antd";
 import React, { FC, useCallback, useState } from "react";
+import { useSafeProps } from "../../utils/commonHooks";
+import { AuthMode } from "./SignUp";
 
 interface IResetPasswordProps {
-  switchMode: () => void;
+  switchMode: (m: AuthMode) => void;
 }
 
 export const ResetPassword: FC<IResetPasswordProps> = (props) => {
+  const safeProps = useSafeProps<IResetPasswordProps>(props);
+
   const [loading, setLoading] = useState<boolean>(false);
+
+  const switchMode = useCallback(() => {
+    safeProps.current.switchMode(AuthMode.signup);
+  }, []);
 
   const onUserNameChange = useCallback(() => {
     //
@@ -48,7 +56,7 @@ export const ResetPassword: FC<IResetPasswordProps> = (props) => {
       <Button type="primary" size="large" loading={loading} block onClick={onResetPasswordClick}>
         确认
       </Button>
-      <Button type="link" size="large" block onClick={props.switchMode}>
+      <Button type="link" size="large" block onClick={switchMode}>
         返回登录
       </Button>
     </Space>

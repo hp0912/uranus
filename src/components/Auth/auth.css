@@ -1,16 +1,10 @@
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 321px) {
   .uranus-auth {
-    width: 400px !important;
+    width: 318px !important;
   }
 }
 
-@media screen and (min-width: 400px) and (max-width: 768px) {
-  .uranus-auth {
-    width: 80% !important;
-  }
-}
-
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 320px) {
   .uranus-auth {
     width: 95% !important;
   }
@@ -35,5 +29,5 @@
 }
 
 .uranus-auth-third-item {
-  margin: 0 20px;
+  margin: 0 12px;
 }

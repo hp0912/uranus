@@ -1,14 +1,10 @@
 import { Modal } from "antd";
 import React, { FC, useCallback, useState } from "react";
-import "./auth.css";
-// import { SignUp } from "./SignUp";
-// import { ResetPassword } from "./ResetPassword";
+import { ResetPassword } from "./ResetPassword";
 import { SignIn } from "./SignIn";
+import { AuthMode, SignUp } from "./SignUp";
 
-export enum AuthMode {
-  signup = 'signup',
-  signin = 'signin',
-}
+import "./auth.css";
 
 interface IAuthProps {
   mode: AuthMode;
@@ -19,13 +15,9 @@ interface IAuthProps {
 export const Auth: FC<IAuthProps> = (props) => {
   const [mode, setMode] = useState<AuthMode>(props.mode);
 
-  const switchMode = useCallback(() => {
-    if (mode === AuthMode.signup) {
-      setMode(AuthMode.signin);
-    } else {
-      setMode(AuthMode.signup);
-    }
-  }, [mode]);
+  const switchMode = useCallback((m: AuthMode) => {
+    setMode(m);
+  }, []);
 
   return (
     <Modal
@@ -37,7 +29,13 @@ export const Auth: FC<IAuthProps> = (props) => {
       footer={null}
       onCancel={props.onCancel}
     >
-      <SignIn switchMode={switchMode} />
+      {
+        mode === AuthMode.signup ?
+        <SignUp switchMode={switchMode} /> :
+        mode === AuthMode.signin ?
+        <SignIn switchMode={switchMode} /> :
+        <ResetPassword switchMode={switchMode} />
+      }
     </Modal>
   );
 };
