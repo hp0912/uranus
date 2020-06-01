@@ -38,7 +38,7 @@ export const SignUp: FC<ISignUpProps> = (props) => {
     sms: '',
   });
 
-  const smsSecond = useRef(10);
+  const smsSecond = useRef(60);
   const smsRef = useRef(0);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export const SignUp: FC<ISignUpProps> = (props) => {
         throw new Error('请输入正确的手机号');
       }
 
-      await sendSms({ phoneNum: signUpState.username });
+      await sendSms({ phoneNumber: signUpState.username });
 
       message.success('发送验证码成功');
 
@@ -90,7 +90,7 @@ export const SignUp: FC<ISignUpProps> = (props) => {
           setSmsText('获取验证码');
           clearInterval(smsRef.current);
 
-          smsSecond.current = 10;
+          smsSecond.current = 60;
         } else {
           setSmsText(`${--smsSecond.current} s`);
         }
@@ -119,7 +119,7 @@ export const SignUp: FC<ISignUpProps> = (props) => {
         throw new Error('两次输入的密码不一致');
       }
 
-      if (sms.length !== 4) {
+      if (!sms.match(/^\d{6}$/)) {
         throw new Error('请输入正确的短信验证码');
       }
 

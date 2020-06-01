@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = '';
+const baseURL = 'http://localhost:9000';
 const httpClient = axios.create({
   baseURL,
   timeout: 5000,
@@ -8,10 +8,10 @@ const httpClient = axios.create({
   headers: {'X-Requested-With': 'XMLHttpRequest'}
 });
 
-export const sendSms = (data: { phoneNum: string }) => {
+export const sendSms = (data: { phoneNumber: string }) => {
   return httpClient({
     method: 'POST', 
-    url: 'api/user/sendSms', 
+    url: '/api/user/getSmsCode', 
     data,
   });
 };
