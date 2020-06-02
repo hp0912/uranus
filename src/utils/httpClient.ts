@@ -8,6 +8,14 @@ const httpClient = axios.create({
   headers: {'X-Requested-With': 'XMLHttpRequest'}
 });
 
+httpClient.interceptors.response.use(result => {
+  if (result.data.code !== 200) {
+    throw new Error(result.data.message);
+  } else {
+    return result.data.data;
+  }
+});
+
 export const sendSms = (data: { phoneNumber: string }) => {
   return httpClient({
     method: 'POST', 
