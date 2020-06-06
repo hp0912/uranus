@@ -27,11 +27,34 @@ export const sendSms = (data: { phoneNumber: string }) => {
 export const signUp = (data: {
   username: string,
   password: string,
-  sms: string,
+  smsCode: string,
 }) => {
   return httpClient({
     method: 'POST', 
     url: 'api/user/signUp', 
+    data,
+  });
+};
+
+export const signIn = (data: {
+  username: string,
+  password: string,
+}) => {
+  return httpClient({
+    method: 'POST', 
+    url: 'api/user/signIn', 
+    data,
+  });
+};
+
+export const resetPassword = (data: {
+  username: string,
+  password: string,
+  smsCode: string,
+}) => {
+  return httpClient({
+    method: 'POST', 
+    url: 'api/user/resetPassword', 
     data,
   });
 };

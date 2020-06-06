@@ -71,7 +71,7 @@ const Header: FC = (props) => {
   const routerMatch = useRouteMatch();
 
   const [authVisible, setAuthVisible] = useState<boolean>(false);
-  const [authState, setAuthState] = useState<AuthMode>(AuthMode.signup);
+  const [authState, setAuthState] = useState<AuthMode>(AuthMode.none);
 
   const onMenuClick = useCallback((param: ClickParam) => {
     history.push(`/${param.key}`);
@@ -96,6 +96,7 @@ const Header: FC = (props) => {
   }, []);
 
   const onAuthCancel = useCallback(() => {
+    setAuthState(AuthMode.none);
     setAuthVisible(false);
   }, []);
 

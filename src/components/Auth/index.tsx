@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { ResetPassword } from "./ResetPassword";
 import { SignIn } from "./SignIn";
 import { AuthMode, SignUp } from "./SignUp";
@@ -15,14 +15,32 @@ interface IAuthProps {
 export const Auth: FC<IAuthProps> = (props) => {
   const [mode, setMode] = useState<AuthMode>(props.mode);
 
+  useEffect(() => {
+    setMode(props.mode);
+  }, [props.mode]);
+
   const switchMode = useCallback((m: AuthMode) => {
     setMode(m);
   }, []);
 
+  let title: string | null = null;
+
+  switch (mode) {
+    case AuthMode.signup:
+      title = '注册';
+      break;
+    case AuthMode.signin:
+      title = '登录';
+      break;
+    case AuthMode.resetPassword:
+      title = '重置密码';
+      break;
+  }
+
   return (
     <Modal
       className="uranus-auth"
-      title={mode === AuthMode.signup ? "注册" : "登录"}
+      title={title}
       visible={props.visible}
       destroyOnClose
       centered
@@ -34,7 +52,9 @@ export const Auth: FC<IAuthProps> = (props) => {
         <SignUp switchMode={switchMode} /> :
         mode === AuthMode.signin ?
         <SignIn switchMode={switchMode} /> :
-        <ResetPassword switchMode={switchMode} />
+        mode === AuthMode.resetPassword ?
+        <ResetPassword switchMode={switchMode} /> :
+        null
       }
     </Modal>
   );

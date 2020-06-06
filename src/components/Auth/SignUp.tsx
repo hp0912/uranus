@@ -7,6 +7,8 @@ import { sendSms, signUp } from "../../utils/httpClient";
 export enum AuthMode {
   signup = 'signup',
   signin = 'signin',
+  resetPassword = 'resetPassword',
+  none = 'none',
 }
 
 interface ISignUpProps {
@@ -123,9 +125,13 @@ export const SignUp: FC<ISignUpProps> = (props) => {
         throw new Error('请输入正确的短信验证码');
       }
 
-      await signUp({ username, password, sms });
+      await signUp({ username, password, smsCode: sms });
 
-      message.success('登录成功');
+      message.success('注册成功');
+
+      setTimeout(() => {
+        switchMode(); // 切换到登录页
+      }, 16);
     } catch (ex) {
       message.error(ex.message);
     } finally {
@@ -171,7 +177,7 @@ export const SignUp: FC<ISignUpProps> = (props) => {
         注册
       </Button>
       <Button type="link" size="large" block onClick={switchMode}>
-        已有账号登录
+        已有账号登录/第三方登录
       </Button>
       <p>
         注册登录即表示同意<b>用户协议</b>、<b>隐私政策</b>
