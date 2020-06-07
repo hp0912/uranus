@@ -1,12 +1,14 @@
 import { HomeOutlined, IdcardOutlined, MessageOutlined } from "@ant-design/icons";
 import { Col, Input, Menu, Row } from "antd";
 import { ClickParam } from "antd/lib/menu";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useContext, useState } from "react";
 import { useHistory, useRouteMatch, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { UserContext } from '../../store/user';
 import { Auth } from "../Auth";
 import { AuthMode } from "../Auth/SignUp";
+import UserAvatar from './UserAvatar';
 
 import "./header.css";
 
@@ -66,9 +68,10 @@ export enum MenuKey {
 }
 
 const Header: FC = (props) => {
-  
+
   const history = useHistory();
   const routerMatch = useRouteMatch();
+  const userContext = useContext(UserContext);
 
   const [authVisible, setAuthVisible] = useState<boolean>(false);
   const [authState, setAuthState] = useState<AuthMode>(AuthMode.none);
@@ -106,7 +109,7 @@ const Header: FC = (props) => {
   return (
     <UranusHeader>
       <Row>
-        <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={3}/>
+        <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={3} />
         <Col xs={24} sm={24} md={24} lg={14} xl={12} xxl={12}>
           <div className="uranus-menu-container">
             <div className="uranus-menu-container-left">
@@ -117,9 +120,9 @@ const Header: FC = (props) => {
               </UranusHeaderLogo>
             </div>
             <div className="uranus-menu-container-right">
-              <Menu 
-                theme="light" 
-                mode="horizontal" 
+              <Menu
+                theme="light"
+                mode="horizontal"
                 defaultSelectedKeys={selectedKeys}
                 onClick={onMenuClick}
               >
@@ -147,8 +150,16 @@ const Header: FC = (props) => {
         </Col>
         <Col xs={6} sm={6} md={6} lg={5} xl={4} xxl={4}>
           <div className="uranus-header-login-container">
-            <span className="uranus-header-login" onClick={onSignInClick}>登录·</span>
-            <span className="uranus-header-register" onClick={onSignUpClick}>注册</span>
+            {
+              userContext.userState ?
+                <UserAvatar isBackend={false} avatarColor="#fff" avatarSize={30} /> :
+                (
+                  <>
+                    <span className="uranus-header-login" onClick={onSignInClick}>登录·</span>
+                    <span className="uranus-header-register" onClick={onSignUpClick}>注册</span>
+                  </>
+                )
+            }
           </div>
         </Col>
         <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={2} />

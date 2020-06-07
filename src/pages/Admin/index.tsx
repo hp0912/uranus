@@ -8,16 +8,19 @@ import {
 import { Layout, Menu } from 'antd';
 import React, { FC, useCallback, useState } from 'react';
 import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
-import './admin.css';
+import UserAvatar from '../../components/Header/UserAvatar';
 import { AdminArticleAdd } from './AdminArticleAdd';
 import { AdminArticleList } from './AdminArticleList';
+
+// 样式
+import './admin.css';
 
 const { Content, Sider, Header } = Layout;
 
 const Admin: FC = (props) => {
   const history = useHistory();
   const match = useRouteMatch();
-  
+
   const [siderCollapsed, setSiderCollapsed] = useState<boolean>(false);
 
   const onSiderCollapse = useCallback((collapsed: boolean) => {
@@ -27,7 +30,7 @@ const Admin: FC = (props) => {
   const goHome = useCallback(() => {
     history.push('/');
   }, [history]);
-  
+
   return (
     <Layout className="uranus-layout">
       <Sider collapsible collapsed={siderCollapsed} onCollapse={onSiderCollapse}>
@@ -51,7 +54,9 @@ const Admin: FC = (props) => {
         </Menu>
       </Sider>
       <Layout>
-        <Header className="uranus-admin-header" />
+        <Header className="uranus-admin-header">
+          <UserAvatar isBackend={true} avatarColor="#000" avatarSize={38} />
+        </Header>
         <Content className="uranus-admin-content">
           <Switch>
             <Route path={match.path} exact component={AdminArticleList} />

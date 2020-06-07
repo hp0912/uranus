@@ -10,3 +10,10 @@ export interface IArticleEntity {
   createdTime: number;
   modifyTime: number;
 }
+
+export interface IUserEntity {
+  username: string;
+  nickname: string;
+  avatar: string;
+  accessLevel: number;
+}

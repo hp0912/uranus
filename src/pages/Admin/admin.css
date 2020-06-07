@@ -14,8 +14,9 @@
 }
 
 .uranus-admin-header {
-  padding: 0;
+  padding: 0 16px 0 0;
   background-color: #fff;
+  text-align: right;
 }
 
 .uranus-admin-content {

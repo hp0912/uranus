@@ -49,12 +49,12 @@ export const Auth: FC<IAuthProps> = (props) => {
     >
       {
         mode === AuthMode.signup ?
-        <SignUp switchMode={switchMode} /> :
-        mode === AuthMode.signin ?
-        <SignIn switchMode={switchMode} /> :
-        mode === AuthMode.resetPassword ?
-        <ResetPassword switchMode={switchMode} /> :
-        null
+          <SignUp switchMode={switchMode} /> :
+          mode === AuthMode.signin ?
+            <SignIn switchMode={switchMode} onCancel={props.onCancel} /> :
+            mode === AuthMode.resetPassword ?
+              <ResetPassword switchMode={switchMode} /> :
+              null
       }
     </Modal>
   );

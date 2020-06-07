@@ -5,21 +5,28 @@ const httpClient = axios.create({
   baseURL,
   timeout: 5000,
   withCredentials: true, // 允许跨域 cookie
-  headers: {'X-Requested-With': 'XMLHttpRequest'}
+  headers: { 'X-Requested-With': 'XMLHttpRequest' }
 });
 
 httpClient.interceptors.response.use(result => {
   if (result.data.code !== 200) {
     throw new Error(result.data.message);
   } else {
-    return result.data.data;
+    return result;
   }
 });
 
+export const userStatus = () => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/user/status',
+  });
+};
+
 export const sendSms = (data: { phoneNumber: string }) => {
   return httpClient({
-    method: 'POST', 
-    url: '/api/user/getSmsCode', 
+    method: 'POST',
+    url: '/api/user/getSmsCode',
     data,
   });
 };
@@ -30,8 +37,8 @@ export const signUp = (data: {
   smsCode: string,
 }) => {
   return httpClient({
-    method: 'POST', 
-    url: 'api/user/signUp', 
+    method: 'POST',
+    url: 'api/user/signUp',
     data,
   });
 };
@@ -41,9 +48,16 @@ export const signIn = (data: {
   password: string,
 }) => {
   return httpClient({
-    method: 'POST', 
-    url: 'api/user/signIn', 
+    method: 'POST',
+    url: 'api/user/signIn',
     data,
+  });
+};
+
+export const signOut = () => {
+  return httpClient({
+    method: 'DELETE',
+    url: 'api/user/signOut',
   });
 };
 
@@ -53,8 +67,8 @@ export const resetPassword = (data: {
   smsCode: string,
 }) => {
   return httpClient({
-    method: 'POST', 
-    url: 'api/user/resetPassword', 
+    method: 'POST',
+    url: 'api/user/resetPassword',
     data,
   });
 };

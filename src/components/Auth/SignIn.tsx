@@ -5,7 +5,8 @@ import {
   WechatOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Divider, Input, message, Space } from "antd";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useContext, useState } from "react";
+import { SETUSER, UserContext } from "../../store/user";
 import { useSafeProps, useSetState } from "../../utils/commonHooks";
 import { signIn } from "../../utils/httpClient";
 import { AuthMode } from "./SignUp";
@@ -14,6 +15,7 @@ const dividerStyle = { margin: 0, fontSize: '14px', fontWeight: 500 };
 
 interface ISignInProps {
   switchMode: (m: AuthMode) => void;
+  onCancel: () => void;
 }
 
 interface ISignInState {
@@ -22,11 +24,13 @@ interface ISignInState {
 }
 
 export const SignIn: FC<ISignInProps> = (props) => {
+  const userContext = useContext(UserContext);
+
   const safeProps = useSafeProps<ISignInProps>(props);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [signInState, setSignInState] = useSetState<ISignInState>({ username: '', password: '' });
-  
+
   const onUserNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSignInState({ username: event.target.value });
   }, []);
@@ -56,12 +60,18 @@ export const SignIn: FC<ISignInProps> = (props) => {
         throw new Error('密码至少为6位，并且要同时包含大、小写字母和数字');
       }
 
-      await signIn({ username, password });
+      const result = await signIn({ username, password });
+
+      if (userContext.userDispatch) {
+        userContext.userDispatch({ type: SETUSER, data: result.data.data });
+      }
 
       message.success('登录成功');
+      setLoading(false);
+
+      safeProps.current.onCancel();
     } catch (ex) {
       message.error(ex.message);
-    } finally {
       setLoading(false);
     }
   }, [signInState]);
@@ -87,7 +97,7 @@ export const SignIn: FC<ISignInProps> = (props) => {
       </Button>
       <div className="uranus-prompt-box">
         <span>
-          没有账号? 
+          没有账号?
           <Button
             type="link"
             onClick={signUp}
