@@ -30,3 +30,14 @@
 .custom-html-style .hljs {
   background-color: #1E1E1E !important;
 }
+
+.uranus-404 {
+  height: 100vh;
+  margin-top: 47px;
+  background-color: ivory;
+}
+
+.uranus-403 {
+  height: 100vh;
+  background-color: ivory;
+}

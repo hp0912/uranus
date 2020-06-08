@@ -1,4 +1,5 @@
 import React from "react";
+import NoMatch from "./404/NoMatch";
 import AboutUs from "./AboutUs";
 import Admin from "./Admin";
 import { ArticleDetailPage } from "./ArticleDetail";
@@ -13,4 +14,5 @@ export default {
   MessageBoard: React.lazy<typeof MessageBoard>(() => import('./MessageBoard')),
   AboutUs: React.lazy<typeof AboutUs>(() => import('./AboutUs')),
   Admin: React.lazy<typeof Admin>(() => import('./Admin')),
+  NoMatch: React.lazy<typeof NoMatch>(() => import('./404/NoMatch')),
 };
