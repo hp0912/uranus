@@ -8,11 +8,12 @@ import {
 import { Button, Layout, Menu, Result } from 'antd';
 import { ClickParam } from "antd/lib/menu";
 import React, { FC, useCallback, useContext, useState } from 'react';
-import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import UserAvatar from '../../components/Header/UserAvatar';
 import { UserContext } from '../../store/user';
 import { AdminArticleAdd } from './AdminArticleAdd';
 import { AdminArticleList } from './AdminArticleList';
+import { TagManagement } from './TagManagement';
 
 // 样式
 import './admin.css';
@@ -30,6 +31,7 @@ export enum AdminMenuKey {
 const Admin: FC = (props) => {
   const history = useHistory();
   const match = useRouteMatch();
+  const loc = useLocation();
   const userContext = useContext(UserContext);
 
   const [siderCollapsed, setSiderCollapsed] = useState<boolean>(false);
@@ -50,7 +52,7 @@ const Admin: FC = (props) => {
     }
   }, [history]);
 
-  const selectedKeysMatch = match.path.match(/^\/admin\/([^/]+?)(?:\/|\?|$)/);
+  const selectedKeysMatch = loc.pathname.match(/^\/admin\/([^/]+?)(?:\/|\?|$)/);
   const selectedKeys: string[] = [];
 
   if (selectedKeysMatch && selectedKeysMatch[1]) {
@@ -105,7 +107,7 @@ const Admin: FC = (props) => {
           <Switch>
             <Route path={match.path} exact component={AdminArticleList} />
             <Route path={`${match.path}/articleAdd`} exact component={AdminArticleAdd} />
-            <Route path={`${match.path}/${AdminMenuKey.tag_management}`} exact component={AdminArticleList} />
+            <Route path={`${match.path}/${AdminMenuKey.tag_management}`} exact component={TagManagement} />
           </Switch>
         </Content>
       </Layout>

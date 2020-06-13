@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ITagEntity } from '../types';
 
 const baseURL = 'http://localhost:9000';
 const httpClient = axios.create({
@@ -16,6 +17,7 @@ httpClient.interceptors.response.use(result => {
   }
 });
 
+// user
 export const userStatus = () => {
   return httpClient({
     method: 'GET',
@@ -69,6 +71,30 @@ export const resetPassword = (data: {
   return httpClient({
     method: 'POST',
     url: 'api/user/resetPassword',
+    data,
+  });
+};
+
+// tag
+export const tagList = () => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/tag/tagList',
+  });
+};
+
+export const tagSave = (data: ITagEntity) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/tag/tagSave',
+    data,
+  });
+};
+
+export const tagDelete = (data: { id: string }) => {
+  return httpClient({
+    method: 'DELETE',
+    url: '/api/tag/tagDelete',
     data,
   });
 };

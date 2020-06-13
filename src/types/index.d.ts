@@ -17,3 +17,10 @@ export interface IUserEntity {
   avatar: string;
   accessLevel: number;
 }
+
+export interface ITagEntity {
+  id?: string;
+  name?: string;
+  color?: string;
+  index?: number;
+}
