@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ITagEntity } from '../types';
+import { ITagEntity, IUserEntity } from '../types';
 
 const baseURL = 'http://localhost:9000';
 const httpClient = axios.create({
@@ -22,6 +22,14 @@ export const userStatus = () => {
   return httpClient({
     method: 'GET',
     url: '/api/user/status',
+  });
+};
+
+export const updateUserProfile = (data: IUserEntity) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/user/updateUserProfile',
+    data,
   });
 };
 
