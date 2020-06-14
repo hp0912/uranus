@@ -1,0 +1,1 @@
+export const AliyunOSSHost = 'https://img.houhoukang.com';

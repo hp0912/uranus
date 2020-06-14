@@ -98,3 +98,18 @@ export const tagDelete = (data: { id: string }) => {
     data,
   });
 };
+
+// sts
+export const stsAuth = () => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/sts/stsAuth',
+  });
+};
+
+export const stsAuthForForm = (filename: string) => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/sts/stsAuthForForm?filename=' + filename,
+  });
+};

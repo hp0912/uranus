@@ -41,3 +41,27 @@
   height: 100vh;
   background-color: ivory;
 }
+
+.uranus-article-tag-select {
+  width: 100%;
+}
+
+.uranus-row {
+  margin-bottom: 15px;
+}
+
+.uranus-row-first {
+  margin-top: 15px;
+}
+
+.uranus-row .save {
+  text-align: center;
+}
+
+.uranus-row-select {
+  width: 100%;
+}
+
+.uranus-margin-right-8 {
+  margin-right: 8px;
+}

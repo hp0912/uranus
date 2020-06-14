@@ -12,10 +12,28 @@ export interface IArticleEntity {
 }
 
 export interface IUserEntity {
+  id?: string;
   username: string;
   nickname: string;
   avatar: string;
   accessLevel: number;
+  signature?: string;
+  personalProfile?: string;
+  activated?: boolean;
+}
+
+export interface ISTSAuthResult {
+  SecurityToken: string;
+  AccessKeyId: string;
+  AccessKeySecret: string;
+  Policy: string;
+  Expiration: string;
+}
+
+export interface ISTSAuthForFormResult {
+  OSSAccessKeyId: string;
+  policy: string;
+  Signature: string;
 }
 
 export interface ITagEntity {

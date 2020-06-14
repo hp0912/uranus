@@ -10,6 +10,7 @@ export const routeConfig: IRouteConfig[] = [
   { title: '博客详情', path: '/articledetail', component: 'ArticleDetail' },
   { title: '留言板', path: '/messageboard', component: 'MessageBoard' },
   { title: '关于我们', path: '/aboutus', component: 'AboutUs' },
+  { title: '个人设置', path: '/user/settings', component: 'UserSettings' },
   { title: '后台管理', path: '/admin', component: 'Admin' },
   { title: '404', path: '*', component: 'NoMatch' },
 ];

@@ -1,4 +1,4 @@
-import { DownOutlined, LogoutOutlined, RobotOutlined } from '@ant-design/icons';
+import { DownOutlined, LogoutOutlined, RobotOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Dropdown, Menu, message } from 'antd';
 import React, { FC, useCallback, useContext, useState } from 'react';
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
@@ -16,6 +16,10 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
   const history = useHistory();
 
   const [menuDisabled, setMenuDisabled] = useState(false);
+
+  const onUserSettingClick = useCallback(() => {
+    history.push(`/user/settings`);
+  }, [history]);
 
   const onBackManageClick = useCallback(() => {
     history.push(`/admin`);
@@ -44,6 +48,11 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
 
   const UserMenu = (
     <Menu theme="light">
+      <Menu.Item key="userSettings">
+        <span onClick={onUserSettingClick} >
+          <SettingOutlined /> 个人设置
+        </span>
+      </Menu.Item>
       {
         userContext.userState && userContext.userState?.accessLevel > 5 && !props.isBackend &&
         (
