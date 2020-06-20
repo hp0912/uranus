@@ -25,10 +25,40 @@ export const userStatus = () => {
   });
 };
 
+export const userList = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+  const query: string[] = [];
+  const { pagination: { current, pageSize }, searchValue } = params;
+
+  if (current) {
+    query.push(`current=${current}`);
+  }
+  if (pageSize) {
+    query.push(`pageSize=${pageSize}`);
+  }
+  if (searchValue) {
+    query.push(`searchValue=${searchValue}`);
+  }
+
+  const queryString = query.join('&');
+
+  return httpClient({
+    method: 'GET',
+    url: '/api/user/admin/userList' + (queryString ? '?' + queryString : ''),
+  });
+};
+
 export const updateUserProfile = (data: IUserEntity) => {
   return httpClient({
     method: 'POST',
     url: '/api/user/updateUserProfile',
+    data,
+  });
+};
+
+export const updateUserForAdmin = (data: Partial<IUserEntity>) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/user/updateUserForAdmin',
     data,
   });
 };

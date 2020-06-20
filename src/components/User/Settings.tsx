@@ -177,8 +177,8 @@ export const CUserSettings: FC = (props) => {
         throw new Error('用户昵称不能为空');
       }
 
-      if (userProfile?.nickname.length > 15) {
-        throw new Error('用户昵称不能大于15个字符');
+      if (userProfile?.nickname.length > 7) {
+        throw new Error('用户昵称不能大于7个字符');
       }
 
       if (userProfile?.signature && userProfile.signature.length > 30) {
@@ -200,7 +200,7 @@ export const CUserSettings: FC = (props) => {
       message.error('保存失败: ' + ex.message);
       setSaving(false);
     }
-  }, [userProfile]);
+  }, [userContext, userProfile]);
 
   if (!userContext.userState) {
     return (
@@ -261,8 +261,8 @@ export const CUserSettings: FC = (props) => {
         </Col>
         <Col span={20}>
           <Input
-            placeholder="用户昵称，十五个字以内"
-            value={userProfile && userProfile.nickname || ''}
+            placeholder="用户昵称，七个字以内"
+            value={userProfile && userProfile.nickname ? userProfile.nickname : ''}
             onChange={onNicknameChange}
           />
         </Col>
@@ -274,7 +274,7 @@ export const CUserSettings: FC = (props) => {
         <Col span={20}>
           <Input
             placeholder="个性签名，三十个字以内"
-            value={userProfile && userProfile.signature || ''}
+            value={userProfile && userProfile.signature ? userProfile.signature : ''}
             onChange={onSignatureChange}
           />
         </Col>
@@ -287,7 +287,7 @@ export const CUserSettings: FC = (props) => {
           <Input.TextArea
             autoSize={{ minRows: 3, maxRows: 6 }}
             placeholder="个人简介，两百个字以内"
-            value={userProfile && userProfile.personalProfile || ''}
+            value={userProfile && userProfile.personalProfile ? userProfile.personalProfile : ''}
             onChange={onPersonalProfileChange}
           />
         </Col>

@@ -44,7 +44,7 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
       message.error(ex.message);
       setMenuDisabled(false);
     }
-  }, []);
+  }, [userContext]);
 
   const UserMenu = (
     <Menu theme="light">
@@ -88,11 +88,11 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
       disabled={menuDisabled}
       overlay={UserMenu}
     >
-      <a style={{ color: props.avatarColor }} onClick={e => e.preventDefault()}>
+      <span style={{ color: props.avatarColor, cursor: "pointer" }} onClick={e => e.preventDefault()}>
         <Avatar className="uranus-avatar-image" size={props.avatarSize} src={userContext.userState?.avatar} />
         <span style={{ paddingLeft: 8, paddingRight: 8 }}>{userContext.userState?.nickname}</span>
         <DownOutlined />
-      </a>
+      </span>
     </Dropdown>
   );
 };

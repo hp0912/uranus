@@ -20,6 +20,7 @@ export interface IUserEntity {
   signature?: string;
   personalProfile?: string;
   activated?: boolean;
+  registerTime?: number;
 }
 
 export interface ISTSAuthResult {

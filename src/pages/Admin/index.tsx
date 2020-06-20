@@ -14,6 +14,7 @@ import { UserContext } from '../../store/user';
 import { AdminArticleAdd } from './AdminArticleAdd';
 import { AdminArticleList } from './AdminArticleList';
 import { TagManagement } from './TagManagement';
+import { UserManagement } from './UserManagement';
 
 // 样式
 import './admin.css';
@@ -108,6 +109,7 @@ const Admin: FC = (props) => {
             <Route path={match.path} exact component={AdminArticleList} />
             <Route path={`${match.path}/articleAdd`} exact component={AdminArticleAdd} />
             <Route path={`${match.path}/${AdminMenuKey.tag_management}`} exact component={TagManagement} />
+            <Route path={`${match.path}/${AdminMenuKey.user_management}`} exact component={UserManagement} />
           </Switch>
         </Content>
       </Layout>
