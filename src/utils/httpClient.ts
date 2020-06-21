@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ITagEntity, IUserEntity } from '../types';
+import { ITagEntity, IUserEntity, IWebsiteSettingsEntity } from '../types';
 
 const baseURL = 'http://localhost:9000';
 const httpClient = axios.create({
@@ -149,5 +149,35 @@ export const stsAuthForForm = (filename: string) => {
   return httpClient({
     method: 'GET',
     url: '/api/sts/stsAuthForForm?filename=' + filename,
+  });
+};
+
+// settings
+export const websiteSettingsUpdate = (data: IWebsiteSettingsEntity) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/websiteSettings/update',
+    data,
+  });
+};
+
+export const websiteSettingsShow = () => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/websiteSettings/show',
+  });
+};
+
+export const websiteMotto = () => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/websiteSettings/motto',
+  });
+};
+
+export const websiteAdvertisement = () => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/websiteSettings/advertisement',
   });
 };

@@ -43,3 +43,12 @@ export interface ITagEntity {
   color?: string;
   index?: number;
 }
+
+export interface IWebsiteSettingsEntity {
+  _id?: string;
+  id?: string;
+  motto?: string;
+  advertisement?: string;
+  commentReview?: boolean;
+  messageReview?: boolean;
+}

@@ -293,7 +293,7 @@ export const CUserSettings: FC = (props) => {
         </Col>
       </Row>
       <Row className="uranus-row">
-        <Col span={24} className="user-settings-save">
+        <Col span={24} className="save">
           <Button
             type="primary"
             size="large"

@@ -18,7 +18,7 @@ export const SETUSER = 'SETUSER';
 export const reducer = (state: IUserEntity | null, action: { type: string, data: IUserEntity | null }) => {
   switch (action.type) {
     case SETUSER:
-      return action.data;
+      return Object.assign({}, state, action.data);
     default:
       return null;
   }

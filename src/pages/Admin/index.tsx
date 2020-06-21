@@ -1,6 +1,7 @@
 import {
   CommentOutlined,
   FileProtectOutlined,
+  GlobalOutlined,
   MessageOutlined,
   TagOutlined,
   UserOutlined,
@@ -15,6 +16,7 @@ import { AdminArticleAdd } from './AdminArticleAdd';
 import { AdminArticleList } from './AdminArticleList';
 import { TagManagement } from './TagManagement';
 import { UserManagement } from './UserManagement';
+import { WebsiteManagement } from './WebsiteManagement';
 
 // 样式
 import './admin.css';
@@ -27,6 +29,7 @@ export enum AdminMenuKey {
   comment_management = 'comment_management',
   message_management = 'message_management',
   user_management = 'user_management',
+  website_management = 'website_management',
 }
 
 const Admin: FC = (props) => {
@@ -98,6 +101,9 @@ const Admin: FC = (props) => {
           <Menu.Item key={AdminMenuKey.user_management} icon={<UserOutlined />}>
             用户管理
           </Menu.Item>
+          <Menu.Item key={AdminMenuKey.website_management} icon={<GlobalOutlined />}>
+            网站管理
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout>
@@ -110,6 +116,7 @@ const Admin: FC = (props) => {
             <Route path={`${match.path}/articleAdd`} exact component={AdminArticleAdd} />
             <Route path={`${match.path}/${AdminMenuKey.tag_management}`} exact component={TagManagement} />
             <Route path={`${match.path}/${AdminMenuKey.user_management}`} exact component={UserManagement} />
+            <Route path={`${match.path}/${AdminMenuKey.website_management}`} exact component={WebsiteManagement} />
           </Switch>
         </Content>
       </Layout>

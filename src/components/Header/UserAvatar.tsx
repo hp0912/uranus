@@ -90,7 +90,13 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
     >
       <span style={{ color: props.avatarColor, cursor: "pointer" }} onClick={e => e.preventDefault()}>
         <Avatar className="uranus-avatar-image" size={props.avatarSize} src={userContext.userState?.avatar} />
-        <span style={{ paddingLeft: 8, paddingRight: 8 }}>{userContext.userState?.nickname}</span>
+        <span style={{ paddingLeft: 8, paddingRight: 8 }}>
+          {
+            userContext.userState && userContext.userState.nickname.length > 11 ?
+              userContext.userState.nickname.substr(0, 8) + "..." :
+              userContext.userState?.nickname
+          }
+        </span>
         <DownOutlined />
       </span>
     </Dropdown>
