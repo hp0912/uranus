@@ -11,7 +11,7 @@ export default () => {
         {routeConfig.map((ele, index: number) => {
           return (
             <Route
-              exact={ele.component === "Admin" ? false : true}
+              exact={ele.exact}
               key={index + ''}
               path={ele.path}
               component={pages[ele.component]}

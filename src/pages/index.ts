@@ -12,9 +12,9 @@ export default {
   Home: Banner,
   ArticleList: ArticleListPage,
   ArticleDetail: ArticleDetailPage,
+  UserSettings,
   MessageBoard: React.lazy<typeof MessageBoard>(() => import('./MessageBoard')),
   AboutUs: React.lazy<typeof AboutUs>(() => import('./AboutUs')),
-  UserSettings: React.lazy<typeof UserSettings>(() => import('./User/Settings')),
   Admin: React.lazy<typeof Admin>(() => import('./Admin')),
   NoMatch: React.lazy<typeof NoMatch>(() => import('./404/NoMatch')),
 };

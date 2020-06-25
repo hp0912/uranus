@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ITagEntity, IUserEntity, IWebsiteSettingsEntity } from '../types';
+import { INotificationEntity, ITagEntity, IUserEntity, IWebsiteSettingsEntity } from '../types';
 
 const baseURL = 'http://localhost:9000';
 const httpClient = axios.create({
@@ -179,5 +179,49 @@ export const websiteAdvertisement = () => {
   return httpClient({
     method: 'GET',
     url: '/api/websiteSettings/advertisement',
+  });
+};
+
+export const notificationCount = () => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/notification/notificationCount',
+  });
+};
+
+export const notificationList = (lastNotiId?: string) => {
+  return httpClient({
+    method: 'GET',
+    url: `/api/notification/notificationList${lastNotiId ? '?lastNotiId=' + lastNotiId : ''}`,
+  });
+};
+
+export const notificationAll = (lastNotiId?: string) => {
+  return httpClient({
+    method: 'GET',
+    url: `/api/notification/notificationAll${lastNotiId ? '?lastNotiId=' + lastNotiId : ''}`,
+  });
+};
+
+export const markAsRead = (data: INotificationEntity) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/notification/markAsRead',
+    data,
+  });
+};
+
+export const markAsReadForAll = () => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/notification/markAsReadForAll',
+  });
+};
+
+export const sendNotification = (data: { notification: INotificationEntity, broadcast: boolean }) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/notification/sendNotification',
+    data,
   });
 };

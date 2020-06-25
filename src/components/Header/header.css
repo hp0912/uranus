@@ -31,3 +31,20 @@
   color: #fff;
   cursor: pointer;
 }
+
+.uranus-badge {
+  font-size: 12px;
+  background-color: #f5222d;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 3px;
+}
+
+.uranus-notification-top {
+  margin-top: -12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.uranus-notification-top-01 {
+  text-align: right;
+}

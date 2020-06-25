@@ -11,7 +11,7 @@ import { stsAuthForForm, updateUserProfile } from '../../utils/httpClient';
 
 // 样式
 import 'antd/lib/slider/style/index.css';
-import './settings.css';
+import './user.css';
 
 export const CUserSettings: FC = (props) => {
   const userContext = useContext(UserContext);

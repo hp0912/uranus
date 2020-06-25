@@ -1,9 +1,14 @@
-import { DownOutlined, LogoutOutlined, RobotOutlined, SettingOutlined } from '@ant-design/icons';
-import { Avatar, Dropdown, Menu, message } from 'antd';
-import React, { FC, useCallback, useContext, useState } from 'react';
+import { DownOutlined, LogoutOutlined, NotificationOutlined, RobotOutlined, SettingOutlined } from '@ant-design/icons';
+import { Avatar, Badge, Dropdown, Menu, message, Modal } from 'antd';
+import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import { SETUSER, UserContext } from '../../store/user';
-import { signOut } from '../../utils/httpClient';
+import { notificationCount, signOut } from '../../utils/httpClient';
+import { UserNotification } from './UserNotification';
+
+const bodyStyle = {
+  padding: '6px 8px 10px 8px',
+};
 
 interface IUserAvatarProps {
   isBackend: boolean;
@@ -16,10 +21,38 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
   const history = useHistory();
 
   const [menuDisabled, setMenuDisabled] = useState(false);
+  const [notifications, setNotifications] = useState(0);
+  const [notiVisible, setNotiVisible] = useState(false);
+
+  useEffect(() => {
+    notificationCount().then((result) => {
+      setNotifications(result.data.data);
+    }).catch((reason) => {
+      console.error(reason);
+    });
+
+    const timer = setInterval(() => {
+      notificationCount().then((result) => {
+        setNotifications(result.data.data);
+      }).catch((reason) => {
+        console.error(reason);
+      });
+    }, 10000);
+
+    return () => { clearInterval(timer); };
+  }, []);
 
   const onUserSettingClick = useCallback(() => {
     history.push(`/user/settings`);
   }, [history]);
+
+  const onNotificationClick = useCallback(() => {
+    setNotiVisible(true);
+  }, []);
+
+  const onCancel = useCallback(() => {
+    setNotiVisible(false);
+  }, []);
 
   const onBackManageClick = useCallback(() => {
     history.push(`/admin`);
@@ -53,6 +86,16 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
           <SettingOutlined /> 个人设置
         </span>
       </Menu.Item>
+      <Menu.Item key="notification">
+        <span onClick={onNotificationClick} >
+          <NotificationOutlined /> 系统通知
+          {
+            notifications ?
+              <> [<span style={{ color: "red" }}>{notifications}</span>]</> :
+              null
+          }
+        </span>
+      </Menu.Item>
       {
         userContext.userState && userContext.userState?.accessLevel > 5 && !props.isBackend &&
         (
@@ -82,24 +125,39 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
   );
 
   return (
-    <Dropdown
-      placement="bottomRight"
-      trigger={['click']}
-      disabled={menuDisabled}
-      overlay={UserMenu}
-    >
-      <span style={{ color: props.avatarColor, cursor: "pointer" }} onClick={e => e.preventDefault()}>
-        <Avatar className="uranus-avatar-image" size={props.avatarSize} src={userContext.userState?.avatar} />
-        <span style={{ paddingLeft: 8, paddingRight: 8 }}>
-          {
-            userContext.userState && userContext.userState.nickname.length > 11 ?
-              userContext.userState.nickname.substr(0, 8) + "..." :
-              userContext.userState?.nickname
-          }
+    <>
+      <Dropdown
+        placement="bottomRight"
+        trigger={['click']}
+        disabled={menuDisabled}
+        overlay={UserMenu}
+      >
+        <span style={{ color: props.avatarColor, cursor: "pointer" }} onClick={e => e.preventDefault()}>
+          <Badge count={notifications ? <div className="uranus-badge">{notifications}</div> : 0}>
+            <Avatar className="uranus-avatar-image" size={props.avatarSize} src={userContext.userState?.avatar} />
+          </Badge>
+          <span style={{ paddingLeft: 8, paddingRight: 8 }}>
+            {
+              userContext.userState && userContext.userState.nickname.length > 11 ?
+                userContext.userState.nickname.substr(0, 8) + "..." :
+                userContext.userState?.nickname
+            }
+          </span>
+          <DownOutlined />
         </span>
-        <DownOutlined />
-      </span>
-    </Dropdown>
+      </Dropdown>
+      <Modal
+        title="通知"
+        bodyStyle={bodyStyle}
+        visible={notiVisible}
+        destroyOnClose
+        centered
+        footer={null}
+        onCancel={onCancel}
+      >
+        <UserNotification />
+      </Modal>
+    </>
   );
 };
 

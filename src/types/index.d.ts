@@ -52,3 +52,14 @@ export interface IWebsiteSettingsEntity {
   commentReview?: boolean;
   messageReview?: boolean;
 }
+
+export interface INotificationEntity {
+  _id?: string;
+  id?: string;
+  title?: string;
+  desc?: string;
+  content?: string;
+  userId?: string;
+  time?: number;
+  hasRead?: boolean;
+}

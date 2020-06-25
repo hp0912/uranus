@@ -1,11 +1,11 @@
-import { EditOutlined } from '@ant-design/icons';
+import { BellOutlined, EditOutlined } from '@ant-design/icons';
 import { Breadcrumb, Col, Input, InputNumber, message, Modal, Row, Switch, Table } from 'antd';
 import { ColumnsType, SorterResult, TablePaginationConfig } from 'antd/lib/table/interface';
 import React, { FC, useCallback, useEffect } from 'react';
-import { IUserEntity } from '../../types';
+import { INotificationEntity, IUserEntity } from '../../types';
 import { formatDate } from '../../utils';
 import { useSetState } from '../../utils/commonHooks';
-import { updateUserForAdmin, userList } from '../../utils/httpClient';
+import { sendNotification, updateUserForAdmin, userList } from '../../utils/httpClient';
 
 interface IAdminUserListParams {
   searchValue: string;
@@ -28,6 +28,14 @@ interface IUserEditState {
   loading: boolean;
 }
 
+interface IUserNotiState {
+  data: INotificationEntity | null;
+  username: string | null;
+  broadcast: boolean;
+  visible: boolean;
+  loading: boolean;
+}
+
 export const UserManagement: FC = (props) => {
   const [adminUserState, setAdminUserState] = useSetState<IAdminUserListState>({
     searchValue: '',
@@ -45,6 +53,7 @@ export const UserManagement: FC = (props) => {
     deleting: false,
   });
   const [userEditState, setUserEditState] = useSetState<IUserEditState>({ data: null, visible: false, loading: false });
+  const [userNotiState, setUserNotiState] = useSetState<IUserNotiState>({ data: null, broadcast: false, username: null, visible: false, loading: false });
 
   useEffect(() => {
     getUserList();
@@ -124,11 +133,19 @@ export const UserManagement: FC = (props) => {
       align: 'center',
       render: (edit, item) => {
         return (
-          <EditOutlined
-            onClick={() => {
-              setUserEditState({ data: item, visible: true });
-            }}
-          />
+          <>
+            <EditOutlined
+              onClick={() => {
+                setUserEditState({ data: item, visible: true });
+              }}
+            />
+            <BellOutlined
+              className="uranus-margin-left8"
+              onClick={() => {
+                setUserNotiState({ data: { userId: item.id }, visible: true, username: item.nickname });
+              }}
+            />
+          </>
         );
       },
     },
@@ -264,6 +281,58 @@ export const UserManagement: FC = (props) => {
     setUserEditState({ data: null, visible: false });
   }, []);
 
+  const onBroadcastChange = useCallback((checked: boolean) => {
+    setUserNotiState({ broadcast: checked });
+  }, []);
+
+  const onNotiTitleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const noti = Object.assign({}, userNotiState.data);
+    noti.title = event.target.value;
+    setUserNotiState({ data: noti });
+  }, [userNotiState]);
+
+  const onNotiDescChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const noti = Object.assign({}, userNotiState.data);
+    noti.desc = event.target.value;
+    setUserNotiState({ data: noti });
+  }, [userNotiState]);
+
+  const onNotiContentChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const noti = Object.assign({}, userNotiState.data);
+    noti.content = event.target.value;
+    setUserNotiState({ data: noti });
+  }, [userNotiState]);
+
+  const onNotiOk = useCallback(async () => {
+    try {
+      setUserNotiState({ loading: true });
+
+      if (!userNotiState.data?.title || !userNotiState.data.content) {
+        throw new Error('参数不合法');
+      }
+
+      await sendNotification({
+        notification: {
+          title: userNotiState.data.title,
+          desc: userNotiState.data.desc,
+          content: userNotiState.data.content,
+          userId: userNotiState.data.userId,
+        },
+        broadcast: userNotiState.broadcast,
+      });
+
+      setUserNotiState({ loading: false, visible: false, data: null, username: null });
+      message.success('发送成功');
+    } catch (ex) {
+      message.error('发送失败：' + ex.message);
+      setUserNotiState({ loading: false });
+    }
+  }, [userNotiState]);
+
+  const onNotiCancel = useCallback(() => {
+    setUserNotiState({ data: null, visible: false, username: null });
+  }, []);
+
   return (
     <>
       <Breadcrumb className="uranus-admin-breadcrumb">
@@ -350,6 +419,62 @@ export const UserManagement: FC = (props) => {
                   value={userEditState.data?.personalProfile}
                   onChange={onPersonalProfileChange}
                 />
+              </Col>
+            </Row>
+          </div>
+        </Modal>
+        <Modal
+          title="发送通知"
+          visible={userNotiState.visible}
+          destroyOnClose
+          centered
+          confirmLoading={userNotiState.loading}
+          onOk={onNotiOk}
+          onCancel={onNotiCancel}
+        >
+          <div>
+            <Row className="uranus-row">
+              <Col span={5}>
+                当前用户：
+              </Col>
+              <Col span={19}>
+                <span>{userNotiState.username}</span>
+              </Col>
+            </Row>
+            <Row className="uranus-row">
+              <Col span={5}>
+                标题：
+              </Col>
+              <Col span={19}>
+                <Input value={userNotiState.data?.title} onChange={onNotiTitleChange} />
+              </Col>
+            </Row>
+            <Row className="uranus-row">
+              <Col span={5}>
+                备注：
+              </Col>
+              <Col span={19}>
+                <Input value={userNotiState.data?.desc} onChange={onNotiDescChange} />
+              </Col>
+            </Row>
+            <Row className="uranus-row">
+              <Col span={5}>
+                内容：
+              </Col>
+              <Col span={19}>
+                <Input.TextArea
+                  autoSize={{ minRows: 3, maxRows: 6 }}
+                  value={userNotiState.data?.content}
+                  onChange={onNotiContentChange}
+                />
+              </Col>
+            </Row>
+            <Row className="uranus-row">
+              <Col span={5}>
+                全体广播：
+              </Col>
+              <Col span={19}>
+                <Switch checked={userNotiState.broadcast} onChange={onBroadcastChange} />
               </Col>
             </Row>
           </div>
