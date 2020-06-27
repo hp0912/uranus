@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { INotificationEntity, ITagEntity, IUserEntity, IWebsiteSettingsEntity } from '../types';
+import { IArticleEntity, INotificationEntity, ITagEntity, IUserEntity, IWebsiteSettingsEntity } from '../types';
 
 const baseURL = 'http://localhost:9000';
 const httpClient = axios.create({
@@ -222,6 +222,22 @@ export const sendNotification = (data: { notification: INotificationEntity, broa
   return httpClient({
     method: 'POST',
     url: '/api/notification/sendNotification',
+    data,
+  });
+};
+
+// article
+export const articleGet = (articleId: string) => {
+  return httpClient({
+    method: 'GET',
+    url: `/api/article/get?articleId=${articleId}`,
+  });
+};
+
+export const articleSave = (data: IArticleEntity) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/article/save',
     data,
   });
 };

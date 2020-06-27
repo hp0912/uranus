@@ -38,12 +38,6 @@ export const CUserSettings: FC = (props) => {
     }
   }, [userContext.userState]);
 
-  // const getBase64 = useCallback((img, callback) => {
-  //   const reader = new FileReader();
-  //   reader.addEventListener('load', () => callback(reader.result));
-  //   reader.readAsDataURL(img);
-  // }, []);
-
   const onPreview = useCallback(async (file: UploadFile<any>) => {
     let src = file.url;
 

@@ -4,7 +4,7 @@ import { ColumnProps } from 'antd/lib/table/Column';
 import { SorterResult, TablePaginationConfig } from 'antd/lib/table/interface';
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { IArticleEntity } from '../../types';
+import { AuditStatus, IArticleEntity } from '../../types';
 import { useSetState } from '../../utils/commonHooks';
 
 interface IAdminArtListParams {
@@ -17,16 +17,16 @@ interface IAdminArtListParams {
 interface IAdminArtListState {
   data: IArticleEntity[];
   pagination: TablePaginationConfig;
-  currentOPId: number | null;
+  currentOPId: string | null;
   loading: boolean;
   auditing: boolean;
   deleting: boolean;
 }
 
-export const AdminArticleList: FC = (props) => {
+export const ArticleManagement: FC = (props) => {
   const history = useHistory();
   const match = useRouteMatch();
-  
+
   const [adminAriState, setAdminAriState] = useSetState<IAdminArtListState>({
     data: [],
     pagination: {
@@ -112,35 +112,35 @@ export const AdminArticleList: FC = (props) => {
             <>
               {
                 !record.auditStatus && adminAriState.auditing && adminAriState.currentOPId === record.id ?
-                <LoadingOutlined className="uranus-audit-icon" /> :
-                !record.auditStatus && (adminAriState.auditing || adminAriState.deleting) ?
-                <PauseCircleOutlined className="uranus-audit-icon" /> :
-                !record.auditStatus ?
-                (
-                  <Tooltip title="审核">
-                    <AuditOutlined className="uranus-audit-icon" />
-                  </Tooltip>
-                ) :
-                null
+                  <LoadingOutlined className="uranus-audit-icon" /> :
+                  !record.auditStatus && (adminAriState.auditing || adminAriState.deleting) ?
+                    <PauseCircleOutlined className="uranus-audit-icon" /> :
+                    !record.auditStatus ?
+                      (
+                        <Tooltip title="审核">
+                          <AuditOutlined className="uranus-audit-icon" />
+                        </Tooltip>
+                      ) :
+                      null
               }
               {
                 adminAriState.deleting && adminAriState.currentOPId === record.id ?
-                <LoadingOutlined /> :
-                (adminAriState.auditing || adminAriState.deleting) ?
-                <PauseCircleOutlined /> :
-                (
-                  <Popconfirm
-                    title="确定要删除该文章吗？"
-                    okText="确认"
-                    cancelText="取消"
-                    icon={<QuestionCircleOutlined className="uranus-delete-icon" />}
-                    onConfirm={() => { console.log(1); }}
-                  >
-                    <Tooltip title="删除">
-                      <DeleteOutlined />
-                    </Tooltip>
-                  </Popconfirm>
-                )
+                  <LoadingOutlined /> :
+                  (adminAriState.auditing || adminAriState.deleting) ?
+                    <PauseCircleOutlined /> :
+                    (
+                      <Popconfirm
+                        title="确定要删除该文章吗？"
+                        okText="确认"
+                        cancelText="取消"
+                        icon={<QuestionCircleOutlined className="uranus-delete-icon" />}
+                        onConfirm={() => { console.log(1); }}
+                      >
+                        <Tooltip title="删除">
+                          <DeleteOutlined />
+                        </Tooltip>
+                      </Popconfirm>
+                    )
               }
             </>
           );
@@ -158,16 +158,16 @@ export const AdminArticleList: FC = (props) => {
           resolve({} as any);
         }, 2000);
       });
-      
+
       setAdminAriState({
         data: [{
-          id: 100001,
+          id: '100001',
           title: "吼吼吼～",
           desc: "xxxxxx",
           content: "xxx",
           tags: [],
-          auditStatus: 0,
-          createdBy: 0,
+          auditStatus: AuditStatus.unapprove,
+          createdBy: "0",
           createdTime: 0,
           modifyTime: 0,
         }],
@@ -184,8 +184,8 @@ export const AdminArticleList: FC = (props) => {
   }, [setAdminAriState]);
 
   const onTableChange = useCallback((
-    pagination: TablePaginationConfig, 
-    filters: Record<string, React.ReactText[] | null>, 
+    pagination: TablePaginationConfig,
+    filters: Record<string, React.ReactText[] | null>,
     sorter: SorterResult<IArticleEntity> | SorterResult<IArticleEntity>[],
   ) => {
     if (!(sorter instanceof Array)) {
@@ -199,7 +199,7 @@ export const AdminArticleList: FC = (props) => {
   }, [getArticleList]);
 
   const articleAdd = useCallback(() => {
-    history.push(`${match.path}/articleAdd`);
+    history.push(`${match.path}/article_edit/new`);
   }, [history, match]);
 
   return (

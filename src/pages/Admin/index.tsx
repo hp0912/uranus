@@ -12,8 +12,8 @@ import React, { FC, useCallback, useContext, useState } from 'react';
 import { Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import UserAvatar from '../../components/Header/UserAvatar';
 import { UserContext } from '../../store/user';
-import { AdminArticleAdd } from './AdminArticleAdd';
-import { AdminArticleList } from './AdminArticleList';
+import { ArticleEdit } from './ArticleEdit';
+import { ArticleManagement } from './ArticleManagement';
 import { TagManagement } from './TagManagement';
 import { UserManagement } from './UserManagement';
 import { WebsiteManagement } from './WebsiteManagement';
@@ -60,7 +60,7 @@ const Admin: FC = (props) => {
   const selectedKeys: string[] = [];
 
   if (selectedKeysMatch && selectedKeysMatch[1]) {
-    if (selectedKeysMatch[1] === 'articleAdd') {
+    if (selectedKeysMatch[1] === 'article_edit') {
       selectedKeys.push(AdminMenuKey.article_management);
     } else {
       selectedKeys.push(selectedKeysMatch[1]);
@@ -112,8 +112,8 @@ const Admin: FC = (props) => {
         </Header>
         <Content className="uranus-admin-content">
           <Switch>
-            <Route path={match.path} exact component={AdminArticleList} />
-            <Route path={`${match.path}/articleAdd`} exact component={AdminArticleAdd} />
+            <Route path={match.path} exact component={ArticleManagement} />
+            <Route path={`${match.path}/article_edit/:articleId`} exact component={ArticleEdit} />
             <Route path={`${match.path}/${AdminMenuKey.tag_management}`} exact component={TagManagement} />
             <Route path={`${match.path}/${AdminMenuKey.user_management}`} exact component={UserManagement} />
             <Route path={`${match.path}/${AdminMenuKey.website_management}`} exact component={WebsiteManagement} />

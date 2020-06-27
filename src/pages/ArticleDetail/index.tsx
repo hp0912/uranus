@@ -211,21 +211,21 @@ export class ArticleDetailPage extends React.PureComponent {
         return hljs.highlightAuto(code).value;
       }
     })
-    .use(emoji)
-    .use(mark)
-    .use(ins)
-    .use(abbr)
-    .use(footnote)
-    .use(sup)
-    .use(sub)
-    .use(mdcontainer, 'uranus-warning')
-    .use(MdHeadingAnchor, { tocify: this.tocify });
-    
+      .use(emoji)
+      .use(mark)
+      .use(ins)
+      .use(abbr)
+      .use(footnote)
+      .use(sup)
+      .use(sub)
+      .use(mdcontainer, 'uranus-warning')
+      .use(MdHeadingAnchor, { tocify: this.tocify });
+
     this.md.renderer.rules.emoji = (token, idx) => {
       return twemoji.parse(token[idx].content);
     };
   }
-  
+
   render() {
     const html = this.md.render(markdown);
 
@@ -242,7 +242,7 @@ export class ArticleDetailPage extends React.PureComponent {
           right={(
             <>
               <UranusMotto />
-              { this.tocify.current && this.tocify.current.render() }
+              {this.tocify.current && this.tocify.current.render()}
             </>
           )}
         >

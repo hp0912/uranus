@@ -1,14 +1,28 @@
+export enum ShareWith {
+  private = 'private',
+  public = 'public',
+}
+
+export enum AuditStatus {
+  approved = 'approved',
+  unapprove = 'unapprove',
+}
+
 export interface IArticleEntity {
-  id: number;
-  title: string;
+  id?: string;
+  title?: string;
   coverPicture?: string;
   desc?: string;
   content?: string;
   tags?: number[];
-  auditStatus: number;
-  createdBy: number;
-  createdTime: number;
-  modifyTime: number;
+  charge?: boolean;
+  amount?: number;
+  shareWith?: ShareWith;
+  auditStatus?: AuditStatus;
+  createdBy?: string;
+  createdTime?: number;
+  modifyBy?: string;
+  modifyTime?: number;
 }
 
 export interface IUserEntity {
