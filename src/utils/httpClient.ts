@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IArticleEntity, INotificationEntity, ITagEntity, IUserEntity, IWebsiteSettingsEntity } from '../types';
+import { AuditStatus, IArticleEntity, INotificationEntity, ITagEntity, IUserEntity, IWebsiteSettingsEntity } from '../types';
 
 const baseURL = 'http://localhost:9000';
 const httpClient = axios.create({
@@ -231,6 +231,44 @@ export const articleGet = (articleId: string) => {
   return httpClient({
     method: 'GET',
     url: `/api/article/get?articleId=${articleId}`,
+  });
+};
+
+export const articleListForAdmin = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+  const query: string[] = [];
+  const { pagination: { current, pageSize }, searchValue } = params;
+
+  if (current) {
+    query.push(`current=${current}`);
+  }
+  if (pageSize) {
+    query.push(`pageSize=${pageSize}`);
+  }
+  if (searchValue) {
+    query.push(`searchValue=${searchValue}`);
+  }
+
+  const queryString = query.join('&');
+
+  return httpClient({
+    method: 'GET',
+    url: '/api/article/admin/list' + (queryString ? '?' + queryString : ''),
+  });
+};
+
+export const articleAudit = (data: { articleId: string, auditStatus: AuditStatus }) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/article/admin/audit',
+    data,
+  });
+};
+
+export const articleDeleteForAdmin = (data: { articleId: string }) => {
+  return httpClient({
+    method: 'DELETE',
+    url: '/api/article/admin/delete',
+    data,
   });
 };
 

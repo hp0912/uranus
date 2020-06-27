@@ -1,25 +1,24 @@
-import { AuditOutlined, DeleteOutlined, FormOutlined, LoadingOutlined, PauseCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Col, message, Popconfirm, Row, Table, Tooltip } from 'antd';
-import { ColumnProps } from 'antd/lib/table/Column';
-import { SorterResult, TablePaginationConfig } from 'antd/lib/table/interface';
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import { DeleteOutlined, EditOutlined, FormOutlined, LoadingOutlined, PauseCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { Breadcrumb, Button, Col, Input, message, Popconfirm, Row, Switch, Table, Tooltip } from 'antd';
+import { ColumnsType, SorterResult, TablePaginationConfig } from 'antd/lib/table/interface';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { AuditStatus, IArticleEntity } from '../../types';
+import { AuditStatus, IArticleEntity, IUserEntity } from '../../types';
+import { formatDate } from '../../utils';
 import { useSetState } from '../../utils/commonHooks';
+import { articleAudit, articleDeleteForAdmin, articleListForAdmin } from '../../utils/httpClient';
 
 interface IAdminArtListParams {
-  sortField?: string;
-  sortOrder?: 'descend' | 'ascend' | null | undefined;
-  filters?: Record<string, React.ReactText[] | null>;
+  searchValue: string;
   pagination: TablePaginationConfig;
 }
 
 interface IAdminArtListState {
+  searchValue: string;
   data: IArticleEntity[];
   pagination: TablePaginationConfig;
   currentOPId: string | null;
   loading: boolean;
-  auditing: boolean;
   deleting: boolean;
 }
 
@@ -27,16 +26,19 @@ export const ArticleManagement: FC = (props) => {
   const history = useHistory();
   const match = useRouteMatch();
 
+  const [userMap, setUserMap] = useState<{ [userId: string]: IUserEntity }>({});
   const [adminAriState, setAdminAriState] = useSetState<IAdminArtListState>({
+    searchValue: '',
     data: [],
     pagination: {
       current: 1,
-      pageSize: 50,
+      pageSize: 15,
+      pageSizeOptions: ["15", "50", "100"],
+      showQuickJumper: true,
       total: 0,
     },
     currentOPId: null,
     loading: false,
-    auditing: false,
     deleting: false,
   });
 
@@ -44,159 +46,196 @@ export const ArticleManagement: FC = (props) => {
     getArticleList();
   }, []);
 
-  const columns = useMemo<ColumnProps<IArticleEntity>[]>(() => {
-    return [
-      {
-        title: '文章标题',
-        dataIndex: 'title',
-        width: '20%',
-        align: 'left',
-        ellipsis: true,
-        render: (text: string, item) => {
-          return (
-            <span className="path">{text}</span>
-          );
-        },
+  const columns: ColumnsType<IArticleEntity> = [
+    {
+      title: '文章标题',
+      dataIndex: 'title',
+      width: '15%',
+      align: 'left',
+      ellipsis: true,
+    },
+    {
+      title: '文章简介',
+      dataIndex: 'desc',
+      width: '30%',
+      align: 'left',
+      ellipsis: true,
+    },
+    {
+      title: '审核状态',
+      dataIndex: 'auditStatus',
+      width: '10%',
+      align: 'center',
+      render: (auditStatus: AuditStatus, item) => {
+        return (
+          <Switch
+            checkedChildren="审核通过"
+            unCheckedChildren="待审核"
+            checked={auditStatus === AuditStatus.approved}
+            onChange={(checked: boolean) => { onAuditStatusChange(checked, item.id); }}
+          />
+        );
       },
-      {
-        title: '审核状态',
-        dataIndex: 'auditStatus',
-        width: '10%',
-        align: 'center',
-        filters: [
-          { text: '待审核', value: 0 },
-          { text: '审核通过', value: 1 },
-        ],
-        render: (auditStatus, item) => {
-          return <span>--</span>;
-        },
+    },
+    {
+      title: '创建人',
+      dataIndex: 'createdBy',
+      width: '10%',
+      align: 'center',
+      ellipsis: true,
+      render: (createdBy: string, item) => {
+        return <span>{userMap[createdBy].nickname}</span>;
       },
-      {
-        title: '创建人',
-        dataIndex: 'createdBy',
-        width: '10%',
-        align: 'center',
-        ellipsis: true,
-        render: (createdBy, item) => {
-          return <span>--</span>;
-        },
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createdTime',
+      width: '15%',
+      align: 'center',
+      sorter: true,
+      render: (createdTime: number, item) => {
+        return <span>{formatDate(createdTime)}</span>;
       },
-      {
-        title: '创建时间',
-        dataIndex: 'createdTime',
-        width: '15%',
-        align: 'center',
-        sorter: true,
-        render: (createdTime, item) => {
-          return <span>--</span>;
-        },
+    },
+    {
+      title: '修改时间',
+      dataIndex: 'modifyTime',
+      width: '15%',
+      align: 'center',
+      sorter: true,
+      render: (modifyTime: number, item) => {
+        return <span>{formatDate(modifyTime)}</span>;
       },
-      {
-        title: '修改时间',
-        dataIndex: 'modifyTime',
-        width: '10%',
-        align: 'center',
-        sorter: true,
-        render: (modifyTime, item) => {
-          return <span>--</span>;
-        },
+    },
+    {
+      title: '操作',
+      dataIndex: 'operation',
+      key: 'operation',
+      width: '5%',
+      align: 'center',
+      render: (text, record) => {
+        return (
+          <>
+            {
+              (
+                <a href={`/admin/article_edit/${record.id}`} target="__blank">
+                  <EditOutlined className="uranus-margin-right-8" />
+                </a>
+              )
+            }
+            {
+              adminAriState.deleting && adminAriState.currentOPId === record.id ?
+                <LoadingOutlined /> :
+                adminAriState.deleting ?
+                  <PauseCircleOutlined /> :
+                  (
+                    <Popconfirm
+                      title="确定要删除该文章吗？"
+                      okText="确认"
+                      cancelText="取消"
+                      icon={<QuestionCircleOutlined className="uranus-delete-icon" />}
+                      onConfirm={() => { onArticleDelete(record.id); }}
+                    >
+                      <Tooltip title="删除">
+                        <DeleteOutlined />
+                      </Tooltip>
+                    </Popconfirm>
+                  )
+            }
+          </>
+        );
       },
-      {
-        title: '操作',
-        dataIndex: 'operation',
-        key: 'operation',
-        width: '10%',
-        align: 'center',
-        render: (text, record) => {
-          return (
-            <>
-              {
-                !record.auditStatus && adminAriState.auditing && adminAriState.currentOPId === record.id ?
-                  <LoadingOutlined className="uranus-audit-icon" /> :
-                  !record.auditStatus && (adminAriState.auditing || adminAriState.deleting) ?
-                    <PauseCircleOutlined className="uranus-audit-icon" /> :
-                    !record.auditStatus ?
-                      (
-                        <Tooltip title="审核">
-                          <AuditOutlined className="uranus-audit-icon" />
-                        </Tooltip>
-                      ) :
-                      null
-              }
-              {
-                adminAriState.deleting && adminAriState.currentOPId === record.id ?
-                  <LoadingOutlined /> :
-                  (adminAriState.auditing || adminAriState.deleting) ?
-                    <PauseCircleOutlined /> :
-                    (
-                      <Popconfirm
-                        title="确定要删除该文章吗？"
-                        okText="确认"
-                        cancelText="取消"
-                        icon={<QuestionCircleOutlined className="uranus-delete-icon" />}
-                        onConfirm={() => { console.log(1); }}
-                      >
-                        <Tooltip title="删除">
-                          <DeleteOutlined />
-                        </Tooltip>
-                      </Popconfirm>
-                    )
-              }
-            </>
-          );
-        },
-      },
-    ];
-  }, [adminAriState]);
+    },
+  ];
 
-  const getArticleList = useCallback(async (params: IAdminArtListParams = { pagination: { current: 1, pageSize: 50 } }) => {
+  const onAction = useCallback(async (action: () => Promise<void>) => {
     try {
       setAdminAriState({ loading: true });
-      console.log(1);
-      await new Promise<any>((resolve) => {
-        setTimeout(() => {
-          resolve({} as any);
-        }, 2000);
+      const { pagination: { current, pageSize }, searchValue } = adminAriState;
+
+      await action();
+      const articlesResult = await articleListForAdmin({ pagination: { current, pageSize }, searchValue });
+      const { articles, users, total } = articlesResult.data.data;
+
+      const _userMap: { [userId: string]: IUserEntity } = {};
+      (users as IUserEntity[]).forEach(user => {
+        _userMap[user.id as string] = user;
       });
 
       setAdminAriState({
-        data: [{
-          id: '100001',
-          title: "吼吼吼～",
-          desc: "xxxxxx",
-          content: "xxx",
-          tags: [],
-          auditStatus: AuditStatus.unapprove,
-          createdBy: "0",
-          createdTime: 0,
-          modifyTime: 0,
-        }],
+        loading: false,
+        data: articles,
         pagination: {
+          ...adminAriState.pagination,
+          total,
+        },
+      });
+      setUserMap(_userMap);
+    } catch (ex) {
+      message.error(ex.message);
+      setAdminAriState({ loading: false });
+    }
+  }, [adminAriState, setAdminAriState]);
+
+  const onAuditStatusChange = useCallback(async (checked: boolean, articleId?: string) => {
+    onAction(async () => { await articleAudit({ articleId: articleId as string, auditStatus: checked ? AuditStatus.approved : AuditStatus.unapprove }); });
+  }, [onAction]);
+
+  const onArticleDelete = useCallback(async (articleId?: string) => {
+    onAction(async () => { await articleDeleteForAdmin({ articleId: articleId as string }); });
+  }, [onAction]);
+
+  const getArticleList = useCallback(async (params?: IAdminArtListParams) => {
+    try {
+      if (!params) {
+        params = { pagination: { current: 1, pageSize: 15 }, searchValue: adminAriState.searchValue };
+      }
+
+      setAdminAriState({ loading: true });
+
+      const articlesResult = await articleListForAdmin(params);
+      const { articles, users, total } = articlesResult.data.data;
+
+      const _userMap: { [userId: string]: IUserEntity } = {};
+      (users as IUserEntity[]).forEach(user => {
+        _userMap[user.id as string] = user;
+      });
+
+      setUserMap(_userMap);
+      setAdminAriState({
+        loading: false,
+        data: articles,
+        pagination: {
+          ...adminAriState.pagination,
           ...params.pagination,
-          total: 400,
+          total,
         },
       });
     } catch (ex) {
       message.error(ex.message);
-    } finally {
       setAdminAriState({ loading: false });
     }
-  }, [setAdminAriState]);
+  }, [adminAriState, setAdminAriState]);
+
+  const onSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setAdminAriState({ searchValue: event.target.value });
+  }, []);
+
+  const onSearch = useCallback(() => {
+    if (adminAriState.loading) {
+      return;
+    }
+    getArticleList();
+  }, [adminAriState.loading, getArticleList]);
 
   const onTableChange = useCallback((
     pagination: TablePaginationConfig,
     filters: Record<string, React.ReactText[] | null>,
     sorter: SorterResult<IArticleEntity> | SorterResult<IArticleEntity>[],
   ) => {
-    if (!(sorter instanceof Array)) {
-      getArticleList({
-        sortField: sorter.field as string,
-        sortOrder: sorter.order,
-        pagination,
-        filters,
-      });
-    }
-  }, [getArticleList]);
+    const params = { pagination, searchValue: adminAriState.searchValue };
+    getArticleList(params);
+  }, [adminAriState.searchValue, getArticleList]);
 
   const articleAdd = useCallback(() => {
     history.push(`${match.path}/article_edit/new`);
@@ -209,7 +248,18 @@ export const ArticleManagement: FC = (props) => {
       </Breadcrumb>
       <div style={{ padding: 5, minHeight: 360, background: "#fff" }}>
         <Row>
-          <Col span={16} />
+          <Col span={16}>
+            <div style={{ textAlign: "left", paddingBottom: 8, width: 300 }}>
+              <Input.Search
+                placeholder="根据文章标题、简介搜索"
+                enterButton
+                value={adminAriState.searchValue}
+                onChange={onSearchChange}
+                loading={adminAriState.loading}
+                onSearch={onSearch}
+              />
+            </div>
+          </Col>
           <Col span={8}>
             <div style={{ textAlign: "right", paddingBottom: 8 }}>
               <Button

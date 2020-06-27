@@ -16,10 +16,7 @@ interface IAdminUserListState {
   searchValue: string;
   data: IUserEntity[];
   pagination: TablePaginationConfig;
-  currentOPId: number | null;
   loading: boolean;
-  auditing: boolean;
-  deleting: boolean;
 }
 
 interface IUserEditState {
@@ -47,10 +44,7 @@ export const UserManagement: FC = (props) => {
       showQuickJumper: true,
       total: 0,
     },
-    currentOPId: null,
     loading: false,
-    auditing: false,
-    deleting: false,
   });
   const [userEditState, setUserEditState] = useSetState<IUserEditState>({ data: null, visible: false, loading: false });
   const [userNotiState, setUserNotiState] = useSetState<IUserNotiState>({ data: null, broadcast: false, username: null, visible: false, loading: false });
@@ -172,7 +166,7 @@ export const UserManagement: FC = (props) => {
       message.error(ex.message);
       setAdminUserState({ loading: false });
     }
-  }, [adminUserState.searchValue, setAdminUserState]);
+  }, [adminUserState, setAdminUserState]);
 
   const getUserList = useCallback(async (params?: IAdminUserListParams) => {
     try {
@@ -198,7 +192,7 @@ export const UserManagement: FC = (props) => {
       message.error(ex.message);
       setAdminUserState({ loading: false });
     }
-  }, [adminUserState.searchValue, setAdminUserState]);
+  }, [adminUserState, setAdminUserState]);
 
   const onTableChange = useCallback((
     pagination: TablePaginationConfig,
@@ -275,7 +269,7 @@ export const UserManagement: FC = (props) => {
       message.error('保存失败：' + ex.message);
       setUserEditState({ loading: false });
     }
-  }, [userEditState]);
+  }, [userEditState, adminUserState]);
 
   const onCancel = useCallback(() => {
     setUserEditState({ data: null, visible: false });

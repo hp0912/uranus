@@ -1,5 +1,5 @@
 import OSS from 'ali-oss';
-import { Affix, Breadcrumb, Button, Col, Input, InputNumber, message, Row, Select, Skeleton, Switch } from 'antd';
+import { Affix, Breadcrumb, Button, Col, Input, InputNumber, message, Modal, Row, Select, Skeleton, Switch } from 'antd';
 import { UploadFile } from 'antd/lib/upload/interface';
 import MarkdownIt from "markdown-it";
 import React, { FC, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react';
@@ -212,16 +212,30 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
       });
 
       setSaving(false);
-      message.success('保存成功');
+
+      if (state?.shareWith === ShareWith.private) {
+        message.success('保存成功');
+      } else {
+        if (userContext.userState && userContext.userState?.accessLevel < 7) {
+          Modal.success({
+            content: '保存成功，等待管理员审核',
+          });
+        } else if (userContext.userState) {
+          message.success('保存成功');
+        }
+      }
 
       if (params.articleId === 'new') {
         history.push(`/admin/article_edit/${result.data.data.id}`);
       }
     } catch (ex) {
-      message.error('保存失败: ' + ex.message);
+      Modal.error({
+        title: '保存失败',
+        content: ex.message,
+      });
       setSaving(false);
     }
-  }, [state, coverPicture, params.articleId, history]);
+  }, [state, coverPicture, params.articleId, history, userContext.userState]);
 
   return (
     <>
