@@ -1,87 +1,202 @@
-// import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
-import { /* Avatar, */ Avatar, List, Tag, Typography } from "antd";
-import React, { FC } from "react";
-import { Link } from "react-router-dom";
+import { Avatar, List, message, Tag } from "antd";
+import { PaginationConfig } from "antd/lib/pagination";
+import MarkdownIt from "markdown-it";
+import React, { FC, useCallback, useContext, useEffect, useMemo } from "react";
+import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { format } from "timeago.js";
+import url from 'url';
+import { UserContext } from "../../store/user";
+import { IArticleEntity, ITagEntity, IUserEntity } from "../../types";
+import { useSetState } from "../../utils/commonHooks";
+import { DEFAULTAVATAR } from "../../utils/constant";
+import { articleList } from "../../utils/httpClient";
 import { ArticleActions } from "../ArticleActions";
+import { ImageLazyLoad } from "../ImageLazyLoad";
+
+// markdown 插件
+import hljs from "highlight.js";
+import abbr from 'markdown-it-abbr';
+import emoji from 'markdown-it-emoji';
+import ins from 'markdown-it-ins';
+import mark from 'markdown-it-mark';
+import sub from 'markdown-it-sub';
+import sup from 'markdown-it-sup';
+import twemoji from 'twemoji';
+
+// 样式
+import "highlight.js/styles/vs2015.css";
+import 'react-markdown-editor-lite/lib/index.css';
 import "../components.css";
 import "./articleList.css";
 
-const avatar = require("../../assets/images/avatar.jpg");
-const paragConfig = { rows: 3, expandable: true };
+interface IArtListParams {
+  searchValue: string;
+  pagination: PaginationConfig;
+}
+
+interface IArticleListState {
+  articles: IArticleEntity[];
+  userMap: { [userId: string]: IUserEntity };
+  tagMap: { [tagId: string]: ITagEntity };
+  loading: boolean;
+  pagination: PaginationConfig;
+}
 
 export const ArticleList: FC = (props) => {
-  const listData: any[] = [];
+  const userContext = useContext(UserContext);
+  const history = useHistory();
+  const loca = useLocation();
+  const mat = useRouteMatch();
 
-  for (let i = 0; i < 23; i++) {
-    listData.push({
-      href: 'http://ant.design',
-      title: `ant design part ${i}`,
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      description:
-        'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-      content:
-        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+  // MarkdownIt
+  const md = useMemo<MarkdownIt>(() => {
+    const _md = new MarkdownIt({
+      html: true,
+      linkify: true,
+      typographer: true,
+      langPrefix: 'uranus-article-code hljs ',
+      highlight: (code, lang) => {
+        if (lang && hljs.getLanguage(lang)) {
+          return hljs.highlight(lang, code).value;
+        }
+        return hljs.highlightAuto(code).value;
+      }
     });
-  }
 
-  const utags = ['typescript'];
+    _md.use(emoji).use(mark).use(ins).use(abbr).use(sup).use(sub);
+
+    _md.renderer.rules.emoji = (token, idx) => {
+      return twemoji.parse(token[idx].content);
+    };
+
+    return _md;
+  }, []);
+
+  const [articleListState, setArticleListState] = useSetState<IArticleListState>({
+    articles: [],
+    userMap: {},
+    tagMap: {},
+    loading: false,
+    pagination: {
+      current: 1,
+      pageSize: 15,
+      pageSizeOptions: ["15", "50", "100"],
+      showQuickJumper: true,
+      hideOnSinglePage: true,
+      total: 0,
+    },
+  });
+
+  useEffect(() => {
+    const json = url.parse(loca.search, true, false);
+    const query = json.query;
+    const searchValue = query.searchValue ? query.searchValue as string : '';
+    const current = query.current ? query.current as string : '1';
+    const pageSize = query.pageSize ? query.pageSize as string : '15';
+    const params: IArtListParams = { pagination: { current: Number(current), pageSize: Number(pageSize) }, searchValue };
+
+    getArticleList(params);
+  }, [userContext.userState, loca.search]);
+
+  const getArticleList = useCallback(async (params: IArtListParams) => {
+    try {
+      setArticleListState({ loading: true });
+
+      const articlesResult = await articleList(params);
+      const { articles, users, tags, total } = articlesResult.data.data;
+
+      const userMap: { [userId: string]: IUserEntity } = {};
+      (users as IUserEntity[]).forEach(user => {
+        userMap[user.id as string] = user;
+      });
+
+      const tagMap: { [userId: string]: ITagEntity } = {};
+      (tags as ITagEntity[]).forEach(tag => {
+        tagMap[tag.id as string] = tag;
+      });
+
+      setArticleListState({
+        loading: false,
+        articles,
+        userMap,
+        tagMap,
+        pagination: {
+          ...articleListState.pagination,
+          ...params.pagination,
+          total,
+        },
+      });
+    } catch (ex) {
+      message.error(ex.message);
+      setArticleListState({ loading: false });
+    }
+  }, [articleListState]);
+
+  const onPageChange = (page: number, pageSize?: number) => {
+    const json = url.parse(loca.search, true, false);
+    const query = json.query;
+
+    query.current = page + '';
+    query.pageSize = pageSize ? pageSize + '' : '15';
+    const search = Object.keys(query).map(key => `${key}=${query[key]}`);
+
+    history.push(`${mat.path}?${search.join("&")}`);
+  };
 
   return (
-    <List
-      itemLayout="vertical"
-      size="large"
-      pagination={{
-        onChange: page => {
-          console.log(page);
-        },
-        pageSize: 10,
-      }}
-      dataSource={listData}
-      renderItem={item => (
-        <List.Item
-          key={item.title}
-        >
-          <div className="uranus-article-title">
-            <div className="user-avatar">
-              <Avatar size={50} src={avatar} />
-            </div>
-            <div className="article-title">
-              <div className="article-title-name">
-                <Link to="/articledetail">
-                  MM自动化测试从入门到精通
-                </Link>
+    <div style={{ paddingBottom: 15 }}>
+      <List
+        itemLayout="vertical"
+        size="large"
+        loading={articleListState.loading}
+        pagination={{
+          ...articleListState.pagination,
+          onChange: onPageChange,
+        }}
+        dataSource={articleListState.articles}
+        renderItem={item => (
+          <List.Item
+            key={item.title}
+          >
+            <div className="uranus-article-title">
+              <div className="user-avatar">
+                <Avatar size={50} src={articleListState.userMap[item.createdBy as string] && articleListState.userMap[item.createdBy as string].avatar || DEFAULTAVATAR} />
               </div>
-              <div className="article-title-others">
-                {
-                  utags.map(titem => {
-                    return (
-                      <Tag color="blue" key={titem}>{titem}</Tag>
-                    );
-                  })
-                }
-                <span className="article-title-timeago">
+              <div className="article-title">
+                <div className="article-title-name">
+                  <Link to="/articledetail" className="article-title-link">
+                    {item.title}
+                  </Link>
+                </div>
+                <div className="article-title-others">
                   {
-                    format(1588421050276, 'zh_CN')
+                    item.tags && item.tags.map(tagId => {
+                      return (
+                        <Tag
+                          color={articleListState.tagMap[tagId] && articleListState.tagMap[tagId].color}
+                          key={tagId}
+                        >
+                          {articleListState.tagMap[tagId] && articleListState.tagMap[tagId].name || "不存在的标签"}
+                        </Tag>
+                      );
+                    })
                   }
-                </span>
+                  <span className="article-title-timeago">
+                    {
+                      item.createdTime === item.modifyTime ?
+                        `${articleListState.userMap[item.createdBy as string] && articleListState.userMap[item.createdBy as string].nickname || "神秘人"} 发表于 ${format(item.createdTime as number, 'zh_CN')}` :
+                        `${articleListState.userMap[item.modifyBy as string] && articleListState.userMap[item.modifyBy as string].nickname || "神秘人"} 更新于 ${format(item.modifyTime as number, 'zh_CN')}`
+                    }
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="uranus-article-image-container">
-            <div className="uranus-article-image-sub">
-              <Link to="/articledetail">
-                <div className="uranus-article-image" />
-              </Link>
-            </div>
-          </div>
-          <Typography.Paragraph ellipsis={paragConfig} className="uranus-article-desc">
-            【CSS布局奇技淫巧：各种居中】居中是我们使用css来布局时常遇到的情况。使用css来进行居中时，有时一个属性就能搞定，有时则需要一定的技巧才能兼容到所有浏览器，本文就居中的一些常用方法做个简单的介绍。
-            【川大玻璃杯事件，一个玻璃杯引发的年度大戏】这几天被川大的“玻璃杯事件”刷屏啦！一个四川大学的妹子为了撩帅哥哥，故意打碎对方的玻璃杯，事后发现杯子超贵就发帖吐槽，结果男生也看到帖子……好了，现在马上出门买玻璃杯！
-          </Typography.Paragraph>
-          <ArticleActions />
-        </List.Item>
-      )}
-    />
+            <ImageLazyLoad articleId={item.id as string} coverURL={item.coverPicture as string} />
+            <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: md.render(item.desc || "这家伙很懒，什么都没留下") }} />
+            <ArticleActions />
+          </List.Item>
+        )}
+      />
+    </div>
   );
 };

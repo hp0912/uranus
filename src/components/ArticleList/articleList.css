@@ -12,6 +12,7 @@
 
 .uranus-article-title .article-title {
   flex: 1;
+  overflow: hidden;
   padding: 5px;
 }
 
@@ -21,9 +22,13 @@
   text-overflow: ellipsis;
 }
 
-.uranus-article-title .article-title-name {
+.article-title-link {
   font-weight: 600;
-  color: #1e90ff;
+  color: #333;
+}
+
+.article-title-link:hover {
+  color: #eb7350;
 }
 
 .uranus-article-title .article-title-timeago {

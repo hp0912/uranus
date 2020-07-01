@@ -234,6 +234,28 @@ export const articleGet = (articleId: string) => {
   });
 };
 
+export const articleList = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+  const query: string[] = [];
+  const { pagination: { current, pageSize }, searchValue } = params;
+
+  if (current) {
+    query.push(`current=${current}`);
+  }
+  if (pageSize) {
+    query.push(`pageSize=${pageSize}`);
+  }
+  if (searchValue) {
+    query.push(`searchValue=${searchValue}`);
+  }
+
+  const queryString = query.join('&');
+
+  return httpClient({
+    method: 'GET',
+    url: '/api/article/list' + (queryString ? '?' + queryString : ''),
+  });
+};
+
 export const articleListForAdmin = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
   const query: string[] = [];
   const { pagination: { current, pageSize }, searchValue } = params;

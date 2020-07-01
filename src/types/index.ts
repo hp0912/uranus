@@ -14,7 +14,7 @@ export interface IArticleEntity {
   coverPicture?: string;
   desc?: string;
   content?: string;
-  tags?: number[];
+  tags?: string[];
   charge?: boolean;
   amount?: number;
   shareWith?: ShareWith;

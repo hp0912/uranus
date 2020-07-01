@@ -118,7 +118,7 @@ export const ArticleManagement: FC = (props) => {
           <>
             {
               (
-                <a href={`/admin/article_edit/${record.id}`} target="__blank">
+                <a href={`/admin/article_edit/${record.id}`} target="_blank">
                   <EditOutlined className="uranus-margin-right-8" />
                 </a>
               )
