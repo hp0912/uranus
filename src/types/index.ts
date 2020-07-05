@@ -77,3 +77,13 @@ export interface INotificationEntity {
   time?: number;
   hasRead?: boolean;
 }
+
+export enum GoodsType {
+  article = 'article',
+}
+
+export enum OrderCode {
+  init = 0,
+  success = 200,
+  failure = 500,
+}

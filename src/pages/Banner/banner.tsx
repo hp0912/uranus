@@ -59,7 +59,7 @@ export const Banner: FC = (props) => {
       // 加载完毕生成画布
       render();
     }
-    
+
   }, [render]);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export const Banner: FC = (props) => {
 
   // 点击切换至首页
   const toBlogList = useCallback(() => {
-    history.push('/articlelist');
+    history.push('/articles');
   }, [history]);
 
   return (

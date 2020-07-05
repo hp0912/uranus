@@ -33,7 +33,7 @@ import "highlight.js/styles/vs2015.css";
 import 'react-markdown-editor-lite/lib/index.css';
 
 const css = {
-  MdEditor: { height: "500px" },
+  MdEditor: { height: "800px" },
 };
 
 const { TextArea } = Input;
@@ -91,16 +91,17 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
       Promise.all([
         articleGet(params.articleId),
         tagList(),
-      ]).then(([article, tagsResult]) => {
+      ]).then(([articleResult, tagsResult]) => {
         setTags(tagsResult.data.data);
-        dispatch({ type: UPDATEARTICLE, data: article.data.data });
+        const { article } = articleResult.data.data;
+        dispatch({ type: UPDATEARTICLE, data: article });
 
-        const coverPic = article.data.data.coverPicture;
+        const coverPic = article.coverPicture;
         const filename = coverPic.slice(coverPic.lastIndexOf('/'));
         const fileType = filename.slice(filename.lastIndexOf('.'));
 
         setCoverPicture([{
-          uid: article.data.data.createdBy,
+          uid: article.createdBy,
           size: 0,
           name: filename,
           type: `image/${fileType}`,
@@ -291,7 +292,7 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
                 value={state?.desc}
                 onChange={onDescChange}
                 placeholder="文章描述，支持markdown"
-                autoSize={{ minRows: 3, maxRows: 5 }}
+                autoSize={{ minRows: 10, maxRows: 30 }}
               />
             </Col>
           </Row>

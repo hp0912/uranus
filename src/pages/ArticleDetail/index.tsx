@@ -1,5 +1,8 @@
+import { FrownOutlined } from "@ant-design/icons";
+import { Result, Skeleton } from "antd";
 import MarkdownIt from "markdown-it";
-import React, { /* FC */ } from 'react';
+import React, { FC, useContext, useEffect, useMemo, useRef } from 'react';
+import { useParams } from "react-router-dom";
 import { Advertisement01 } from '../../components/Advertisement/Advertisement01';
 import { ArticleDetail } from '../../components/ArticleDetail';
 import { Content } from "../../components/Content";
@@ -7,6 +10,10 @@ import { Header } from '../../components/Header';
 import Tocify from "../../components/Tocify";
 import { UranusAvatar } from '../../components/UranusAvatar';
 import { UranusMotto } from '../../components/UranusMotto';
+import { UserContext } from "../../store/user";
+import { IArticleEntity, IUserEntity } from "../../types";
+import { useSetState } from "../../utils/commonHooks";
+import { articleGet } from "../../utils/httpClient";
 import { MdHeadingAnchor } from "../../utils/MdHeadingAnchor";
 
 // markdown 插件
@@ -21,185 +28,26 @@ import sub from 'markdown-it-sub';
 import sup from 'markdown-it-sup';
 import twemoji from 'twemoji';
 
-// css
+// 样式
 import "highlight.js/styles/vs2015.css";
+import 'react-markdown-editor-lite/lib/index.css';
 
-const markdown = `
-
-# 1. Terminology
-
-# 2. Requirements
-
-\`\`\`ts
-const a: number = 1;
-console.log(a);
-\`\`\`
-
-## 2.1. Promise States
-
-'123'
-
-"456"
-
-\`\`\`typescript
-const a: number = 1;
-console.log(a);
-\`\`\`
-
-\`\`\`text
-typescript
-\`\`\`
-
-\`\`\`text
-react-hooks
-\`\`\`
-
-\`\`\`css
-.avv {
-  background-color: red;
-  padding: 0;
+interface IArticleState {
+  article: IArticleEntity | null;
+  user: IUserEntity | null;
+  error: Error | null;
+  loading: boolean;
 }
-#app {
-  color: #ffff;
-}
-\`\`\`
 
-## 2.2. Promise States2
+export const ArticleDetailPage: FC = (props) => {
+  const userContext = useContext(UserContext);
+  const params = useParams<{ articleId: string }>();
 
-# 3. react-hooks
+  const tocify = useRef<Tocify>();
 
-111
-
-111
-
-111
-
-\`123456789\`
-
-1111
-
-111
-
-111
-
-# 4. react-hooks ==学不动了么 Vue3== 
-
-22
-
-22
-
-2222
-
-
-222
-
-==学不动了么 Vue3==
-
-222
-
-222
-
-
-222
-
-
-222
-
-# 5. ==学不动了么 Vue3==
-
-66666
-
-666666
-
-
-666666
-
-## 5.1. typescript
-
-> Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
->
-> Shortcuts (emoticons): :-) :-( 8-) ;)
-
-# 6. react-hooks
-
-5555555
-
-😊😊
-
-# 7. react-hooks
-
-77777
-
-77777
-
-++inserted++
-
-7777
-
-# 8. react-hooks
-
-8888
-
-
-[Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
-
-This is HTML abbreviation example.
-
-It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
-
-*[HTML]: Hyper Text Markup Language
-
-
-88
-
-[Footnotes](https://github.com/markdown-it/markdown-it-footnote)
-
-Footnote 1 link[^first].
-
-Footnote 2 link[^second].
-
-Inline footnote^[Text of inline footnote] definition.
-
-Duplicated footnote reference[^second].
-
-[^first]: Footnote **can have markup** and multiple paragraphs.
-
-[^second]: Footnote text.
-
-- 29^th^
-- H~2~O
-
-[Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
-
-This is HTML abbreviation example.
-
-It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
-
-*[HTML]: Hyper Text Markup Language
-
-[Custom containers](https://github.com/markdown-it/markdown-it-container)
-
-::: uranus-warning
-*here be dragons*
-:::
-
-\`\`\`html
-<div>
-  <span>
-    xxxxxx
-  </span>
-</div>
-\`\`\`
-`;
-
-export class ArticleDetailPage extends React.PureComponent {
-  md: MarkdownIt;
-  tocify: { current?: Tocify } = {};
-
-  constructor(props) {
-    super(props);
-
-    this.md = new MarkdownIt({
+  // MarkdownIt
+  const md = useMemo<MarkdownIt>(() => {
+    const _md = new MarkdownIt({
       html: true,
       linkify: true,
       typographer: true,
@@ -210,46 +58,77 @@ export class ArticleDetailPage extends React.PureComponent {
         }
         return hljs.highlightAuto(code).value;
       }
-    })
-      .use(emoji)
-      .use(mark)
-      .use(ins)
-      .use(abbr)
-      .use(footnote)
-      .use(sup)
-      .use(sub)
-      .use(mdcontainer, 'uranus-warning')
-      .use(MdHeadingAnchor, { tocify: this.tocify });
+    });
 
-    this.md.renderer.rules.emoji = (token, idx) => {
+    _md.use(emoji).use(mark).use(ins).use(abbr).use(footnote).use(sup).use(sub).use(mdcontainer, 'uranus-warning').use(MdHeadingAnchor, { tocify });
+
+    _md.renderer.rules.emoji = (token, idx) => {
       return twemoji.parse(token[idx].content);
     };
-  }
 
-  render() {
-    const html = this.md.render(markdown);
+    return _md;
+  }, []);
 
-    return (
-      <>
-        <Header />
-        <Content
-          left={(
-            <>
-              <UranusAvatar />
-              <Advertisement01 />
-            </>
-          )}
-          right={(
-            <>
-              <UranusMotto />
-              {this.tocify.current && this.tocify.current.render()}
-            </>
-          )}
-        >
-          <ArticleDetail html={html} />
-        </Content>
-      </>
-    );
-  }
-}
+  const [articleState, setArticleState] = useSetState<IArticleState>({
+    article: null,
+    user: null,
+    error: null,
+    loading: true,
+  });
+
+  useEffect(() => {
+    articleGet(params.articleId).then(result => {
+      const { article, user } = result.data.data;
+      setArticleState({ article, user, error: null, loading: false });
+    }).catch(reason => {
+      setArticleState({ article: null, user: null, error: reason, loading: false });
+    });
+  }, [userContext.userState, params.articleId]);
+
+  const articleDesc = md.render(articleState.article && articleState.article.desc || "");
+  const articleContent = md.render(articleState.article && articleState.article.content || "");
+
+  return (
+    <>
+      <Header />
+      <Content
+        left={(
+          <>
+            <UranusAvatar />
+            <Advertisement01 />
+          </>
+        )}
+        right={(
+          <>
+            <UranusMotto />
+            {tocify.current && tocify.current.tocItems.length > 0 && tocify.current.render()}
+          </>
+        )}
+      >
+        <Skeleton active loading={articleState.loading}>
+          {
+            articleState.article && articleState.user && !articleState.error &&
+            (
+              <ArticleDetail
+                article={articleState.article as IArticleEntity}
+                articleDesc={articleDesc}
+                articleContent={articleContent}
+                user={articleState.user as IUserEntity}
+              />
+            )
+          }
+          {
+            articleState.error &&
+            (
+              <Result
+                icon={<FrownOutlined />}
+                title={articleState.error.message}
+              />
+            )
+          }
+        </Skeleton>
+      </Content>
+    </>
+  );
+};
 

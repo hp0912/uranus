@@ -62,7 +62,7 @@ const UranusHeaderSearch = styled.div`
 `;
 
 export enum MenuKey {
-  articlelist = 'articlelist',
+  articles = 'articles',
   messageboard = 'messageboard',
   aboutus = 'aboutus',
 }
@@ -82,9 +82,9 @@ const Header: FC = (props) => {
 
   const onSearch = useCallback((value: string) => {
     if (value) {
-      history.push(`/${MenuKey.articlelist}?keyword=${value}`);
+      history.push(`/${MenuKey.articles}?keyword=${value}`);
     } else {
-      history.push(`/${MenuKey.articlelist}`);
+      history.push(`/${MenuKey.articles}`);
     }
   }, [history]);
 
@@ -126,7 +126,7 @@ const Header: FC = (props) => {
                 defaultSelectedKeys={selectedKeys}
                 onClick={onMenuClick}
               >
-                <Menu.Item key={MenuKey.articlelist} icon={<HomeOutlined />}>
+                <Menu.Item key={MenuKey.articles} icon={<HomeOutlined />}>
                   博客
                 </Menu.Item>
                 <Menu.Item key={MenuKey.messageboard} icon={<MessageOutlined />}>

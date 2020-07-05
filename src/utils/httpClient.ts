@@ -1,5 +1,13 @@
 import axios from 'axios';
-import { AuditStatus, IArticleEntity, INotificationEntity, ITagEntity, IUserEntity, IWebsiteSettingsEntity } from '../types';
+import {
+  AuditStatus,
+  GoodsType,
+  IArticleEntity,
+  INotificationEntity,
+  ITagEntity,
+  IUserEntity,
+  IWebsiteSettingsEntity,
+} from '../types';
 
 const baseURL = 'http://localhost:9000';
 const httpClient = axios.create({
@@ -298,6 +306,14 @@ export const articleSave = (data: IArticleEntity) => {
   return httpClient({
     method: 'POST',
     url: '/api/article/save',
+    data,
+  });
+};
+
+export const generateOrder = (data: { goodsType: GoodsType, goodsId: string }) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/order/generateOrder',
     data,
   });
 };

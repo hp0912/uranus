@@ -1,0 +1,11 @@
+@media screen and (min-width: 321px) {
+  .uranus-pay {
+    width: 318px !important;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .uranus-pay {
+    width: 95% !important;
+  }
+}

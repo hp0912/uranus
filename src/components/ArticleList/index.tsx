@@ -11,7 +11,7 @@ import { useSetState } from "../../utils/commonHooks";
 import { DEFAULTAVATAR } from "../../utils/constant";
 import { articleList } from "../../utils/httpClient";
 import { ArticleActions } from "../ArticleActions";
-import { ImageLazyLoad } from "../ImageLazyLoad";
+import { CoverLazyLoad } from "../CoverLazyLoad";
 
 // markdown 插件
 import hljs from "highlight.js";
@@ -164,7 +164,7 @@ export const ArticleList: FC = (props) => {
               </div>
               <div className="article-title">
                 <div className="article-title-name">
-                  <Link to="/articledetail" className="article-title-link">
+                  <Link to="/article" className="article-title-link">
                     {item.title}
                   </Link>
                 </div>
@@ -191,7 +191,7 @@ export const ArticleList: FC = (props) => {
                 </div>
               </div>
             </div>
-            <ImageLazyLoad articleId={item.id as string} coverURL={item.coverPicture as string} />
+            <CoverLazyLoad articleId={item.id as string} coverURL={item.coverPicture as string} />
             <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: md.render(item.desc || "这家伙很懒，什么都没留下") }} />
             <ArticleActions />
           </List.Item>

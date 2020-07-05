@@ -1,27 +1,48 @@
-import { Avatar, Breadcrumb, Space } from "antd";
-import React, { FC, useCallback } from "react";
-import { RouteComponentProps, useHistory, withRouter } from "react-router";
+import { Avatar, Breadcrumb, Button, message, Space } from "antd";
+import React, { FC, useCallback, useState } from "react";
+import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import { format } from "timeago.js";
+import { GoodsType, IArticleEntity, IUserEntity } from "../../types";
+import { generateOrder } from "../../utils/httpClient";
+import { CoverLazyLoad } from "../CoverLazyLoad";
+import { Pay } from '../Pay';
 
-import 'react-markdown-editor-lite/lib/index.css';
+// 样式
 import "../components.css";
 import "./articleDetail.css";
 
-const avatar = require("../../assets/images/avatar.jpg");
-
 interface IArticleDetailProps {
-  html: string;
+  article: IArticleEntity;
+  articleDesc: string;
+  articleContent: string;
+  user: IUserEntity;
 }
 
-type IProps = RouteComponentProps<any> & IArticleDetailProps;
+type IProps = RouteComponentProps & IArticleDetailProps;
 
 const ArticleDetailInner: FC<IProps> = (props) => {
-
   const history = useHistory();
 
+  const [orderLoading, setOrderLoading] = useState(false);
+  const [payState, setPayState] = useState({ visible: false });
+
   const goBack = useCallback(() => {
-    history.push('/articlelist');
+    history.push('/articles');
   }, [history]);
+
+  const onGenOrderClick = useCallback(async () => {
+    try {
+      setOrderLoading(true);
+
+      await generateOrder({ goodsType: GoodsType.article, goodsId: props.article.id as string });
+
+      setOrderLoading(false);
+      setPayState({ visible: true });
+    } catch (ex) {
+      message.error(ex.message);
+      setOrderLoading(false);
+    }
+  }, [props.article.id]);
 
   return (
     <div className="uranus-article-detail">
@@ -30,34 +51,55 @@ const ArticleDetailInner: FC<IProps> = (props) => {
           <span style={{ color: "#1890ff", cursor: "pointer" }} onClick={goBack}>博客</span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          霸道总裁
+          {props.article?.title}
         </Breadcrumb.Item>
       </Breadcrumb>
       <h2 className="uranus-title">
-        霸道总裁之总裁夫人手撕小三
+        {props.article?.title}
       </h2>
       <div className="uranus-sub-title">
         <Space size="small">
-          <Avatar size={30} src={avatar} />
-          <span>最后的轻语</span>
+          <Avatar size={30} src={props.user?.avatar} />
+          <span>{props.user?.nickname} </span>
           发表于
           {
-            format(1588421050276, 'zh_CN')
+            format(props.article?.createdTime as number, 'zh_CN')
           }
         </Space>
       </div>
-      <div className="uranus-article-image-container">
-        <div className="uranus-article-image-sub">
-          <div className="uranus-article-image" />
-        </div>
-      </div>
-      <p>
-        【CSS布局奇技淫巧：各种居中】居中是我们使用css来布局时常遇到的情况。使用css来进行居中时，有时一个属性就能搞定，有时则需要一定的技巧才能兼容到所有浏览器，本文就居中的一些常用方法做个简单的介绍。
-        【川大玻璃杯事件，一个玻璃杯引发的年度大戏】这几天被川大的“玻璃杯事件”刷屏啦！一个四川大学的妹子为了撩帅哥哥，故意打碎对方的玻璃杯，事后发现杯子超贵就发帖吐槽，结果男生也看到帖子……好了，现在马上出门买玻璃杯！
-      </p>
-      <div className="custom-html-style">
-        <div dangerouslySetInnerHTML={{ __html: props.html }} />
-      </div>
+      <CoverLazyLoad coverURL={props.article?.coverPicture as string} />
+      {
+        props.articleDesc &&
+        <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: props.articleDesc }} />
+      }
+      {
+        props.articleContent ?
+          <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: props.articleContent }} /> :
+          (
+            <div className="uranus-buying-guide">
+              <div className="uranus-buying-inner">
+                <div className="title">
+                  <b>此文章为付费内容</b>
+                </div>
+                <div className="desc">
+                  现在购买立即解锁全部内容
+                </div>
+                <Button
+                  type="primary"
+                  onClick={onGenOrderClick}
+                  loading={orderLoading}
+                >
+                  立即购买 ¥ {props.article.amount}
+                </Button>
+              </div>
+            </div>
+          )
+      }
+      <Pay
+        title={props.article.title as string}
+        visible={payState.visible}
+        onCancel={() => { return; }}
+      />
     </div>
   );
 };
