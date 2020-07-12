@@ -2,7 +2,7 @@ import { Avatar, Breadcrumb, Button, message, Space } from "antd";
 import React, { FC, useCallback, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import { format } from "timeago.js";
-import { GoodsType, IArticleEntity, IUserEntity } from "../../types";
+import { GoodsType, IArticleEntity, IOrderEntity, IUserEntity } from "../../types";
 import { generateOrder } from "../../utils/httpClient";
 import { CoverLazyLoad } from "../CoverLazyLoad";
 import { Pay } from '../Pay';
@@ -24,7 +24,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
   const history = useHistory();
 
   const [orderLoading, setOrderLoading] = useState(false);
-  const [payState, setPayState] = useState({ visible: false });
+  const [payState, setPayState] = useState<{ visible: boolean, order: IOrderEntity | null }>({ visible: false, order: null });
 
   const goBack = useCallback(() => {
     history.push('/articles');
@@ -34,15 +34,19 @@ const ArticleDetailInner: FC<IProps> = (props) => {
     try {
       setOrderLoading(true);
 
-      await generateOrder({ goodsType: GoodsType.article, goodsId: props.article.id as string });
+      const orderResult = await generateOrder({ goodsType: GoodsType.article, goodsId: props.article.id as string });
 
       setOrderLoading(false);
-      setPayState({ visible: true });
+      setPayState({ visible: true, order: orderResult.data.data });
     } catch (ex) {
       message.error(ex.message);
       setOrderLoading(false);
     }
   }, [props.article.id]);
+
+  const onGenOrderCancle = useCallback(() => {
+    setPayState({ visible: false, order: null });
+  }, []);
 
   return (
     <div className="uranus-article-detail">
@@ -98,7 +102,8 @@ const ArticleDetailInner: FC<IProps> = (props) => {
       <Pay
         title={props.article.title as string}
         visible={payState.visible}
-        onCancel={() => { return; }}
+        order={payState.order}
+        onCancel={onGenOrderCancle}
       />
     </div>
   );

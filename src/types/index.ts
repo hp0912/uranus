@@ -87,3 +87,27 @@ export enum OrderCode {
   success = 200,
   failure = 500,
 }
+
+export enum PayType {
+  AliPay = '1',
+  WeChatPay = '2',
+}
+
+export enum PayMethod {
+  scan = 'scan',
+  wap = 'wap',
+  cashier = 'cashier',
+}
+
+export interface IOrderEntity {
+  _id?: string;
+  id?: string;
+  goodsType?: GoodsType;
+  goodsId?: string;
+  totalPrice?: number;
+  userId?: string;
+  remark?: string;
+  code?: OrderCode;
+  status?: string;
+  createTime: number;
+}

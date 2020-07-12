@@ -7,6 +7,8 @@ import {
   ITagEntity,
   IUserEntity,
   IWebsiteSettingsEntity,
+  PayMethod,
+  PayType,
 } from '../types';
 
 const baseURL = 'http://localhost:9000';
@@ -314,6 +316,14 @@ export const generateOrder = (data: { goodsType: GoodsType, goodsId: string }) =
   return httpClient({
     method: 'POST',
     url: '/api/order/generateOrder',
+    data,
+  });
+};
+
+export const initPay = (data: { orderId: string, payType: PayType, payMethod: PayMethod }) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/pay/initPay',
     data,
   });
 };
