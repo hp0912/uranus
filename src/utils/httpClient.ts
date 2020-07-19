@@ -35,6 +35,28 @@ export const userStatus = () => {
   });
 };
 
+export const userSearch = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+  const query: string[] = [];
+  const { pagination: { current, pageSize }, searchValue } = params;
+
+  if (current) {
+    query.push(`current=${current}`);
+  }
+  if (pageSize) {
+    query.push(`pageSize=${pageSize}`);
+  }
+  if (searchValue) {
+    query.push(`searchValue=${searchValue}`);
+  }
+
+  const queryString = query.join('&');
+
+  return httpClient({
+    method: 'GET',
+    url: '/api/user/search' + (queryString ? '?' + queryString : ''),
+  });
+};
+
 export const userList = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
   const query: string[] = [];
   const { pagination: { current, pageSize }, searchValue } = params;

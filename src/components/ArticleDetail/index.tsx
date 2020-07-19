@@ -6,6 +6,7 @@ import { GoodsType, IArticleEntity, IOrderEntity, IUserEntity } from "../../type
 import { generateOrder } from "../../utils/httpClient";
 import { CoverLazyLoad } from "../CoverLazyLoad";
 import { Pay } from '../Pay';
+import { CommentEditor } from "../UranusComment/CommentEditor";
 
 // 样式
 import "../components.css";
@@ -78,7 +79,21 @@ const ArticleDetailInner: FC<IProps> = (props) => {
       }
       {
         props.articleContent ?
-          <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: props.articleContent }} /> :
+          (
+            <div>
+              <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: props.articleContent }} />
+              <CommentEditor
+                onSubmit={() => {
+                  return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                      resolve();
+                    }, 2000);
+                  });
+                }}
+                user={{ username: '', nickname: '', accessLevel: 0, avatar: 'https://img.houhoukang.com/uranus/user/5edcb630c1ae904d73a5d0af/avatar_1592139038627.jpg' }}
+              />
+            </div>
+          ) :
           (
             <div className="uranus-buying-guide">
               <div className="uranus-buying-inner">
