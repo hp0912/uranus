@@ -1,9 +1,10 @@
 import { Avatar, Breadcrumb, Button, message, Space } from "antd";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useContext, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import { format } from "timeago.js";
-import { GoodsType, IArticleEntity, IOrderEntity, IUserEntity } from "../../types";
-import { generateOrder } from "../../utils/httpClient";
+import { UserContext } from "../../store/user";
+import { CommentType, GoodsType, IArticleEntity, IOrderEntity, IUranusNode, IUserEntity } from "../../types";
+import { commentSubmit, generateOrder } from "../../utils/httpClient";
 import { CoverLazyLoad } from "../CoverLazyLoad";
 import { Pay } from '../Pay';
 import { CommentEditor } from "../UranusComment/CommentEditor";
@@ -22,6 +23,8 @@ interface IArticleDetailProps {
 type IProps = RouteComponentProps & IArticleDetailProps;
 
 const ArticleDetailInner: FC<IProps> = (props) => {
+  const userContext = useContext(UserContext);
+
   const history = useHistory();
 
   const [orderLoading, setOrderLoading] = useState(false);
@@ -48,6 +51,17 @@ const ArticleDetailInner: FC<IProps> = (props) => {
   const onGenOrderCancle = useCallback(() => {
     setPayState({ visible: false, order: null });
   }, []);
+
+  const onCommentSubmit = useCallback(async (comment: { rows: IUranusNode[][] }) => {
+    const { id } = props.article;
+
+    await commentSubmit({
+      commentType: CommentType.article,
+      targetId: id!,
+      parentId: '0',
+      content: comment,
+    });
+  }, [props.article]);
 
   return (
     <div className="uranus-article-detail">
@@ -83,14 +97,8 @@ const ArticleDetailInner: FC<IProps> = (props) => {
             <div>
               <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: props.articleContent }} />
               <CommentEditor
-                onSubmit={() => {
-                  return new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                      resolve();
-                    }, 2000);
-                  });
-                }}
-                user={{ username: '', nickname: '', accessLevel: 0, avatar: 'https://img.houhoukang.com/uranus/user/5edcb630c1ae904d73a5d0af/avatar_1592139038627.jpg' }}
+                onSubmit={onCommentSubmit}
+                user={userContext.userState}
               />
             </div>
           ) :

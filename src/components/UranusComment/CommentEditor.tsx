@@ -1,8 +1,9 @@
 import { SmileOutlined } from '@ant-design/icons';
 import { Button, message, Popover, Spin } from 'antd';
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { IUserEntity } from '../../types';
+import { IUranusNode, IUranusNodeType, IUserEntity } from '../../types';
 import { browserDetect } from '../../utils';
+import { DEFAULTAVATAR } from '../../utils/constant';
 import { userSearch } from '../../utils/httpClient';
 import { Emoji } from './Emoji';
 
@@ -10,7 +11,7 @@ import { Emoji } from './Emoji';
 import './commentEditor.css';
 
 interface ICommentEditorProps {
-  user: IUserEntity;
+  user: IUserEntity | null;
   onSubmit: (comment: { rows: IUranusNode[][] }) => Promise<void>;
 }
 
@@ -22,25 +23,9 @@ interface ICommentEditorState {
   showMention: boolean;
 }
 
-export enum IUranusNodeType {
-  div = 'div',
-  img = 'img',
-  span = 'span',
-  text = 'text',
-  br = 'br',
-}
-
-export interface IUranusNode {
-  nodeType: IUranusNodeType;
-  data?: string;
-  attr?: {
-    src?: string;
-    'data-id'?: string;
-    'data-code'?: string;
-  };
-}
-
 export const CommentEditor: FC<ICommentEditorProps> = (props) => {
+  const { user } = props;
+
   const editorRef = useRef<HTMLDivElement>(null);
   const lastRangeRef = useRef<Range>();
 
@@ -58,6 +43,10 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
   const [submitLoading, setSubmitLoading] = useState(false);
 
   useEffect(() => {
+    if (!user) {
+      return;
+    }
+
     const timer = setTimeout(() => {
       setMentionUsers((prevState) => {
         return Object.assign({}, prevState, { loading: true });
@@ -78,7 +67,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
         clearTimeout(timer);
       }
     };
-  }, [editorState.mentionSearch]);
+  }, [editorState.mentionSearch, user]);
 
   const setEditorFocus = useCallback(() => {
     if (editorRef.current) {
@@ -116,11 +105,20 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
         if (node instanceof HTMLDivElement) {
           if (index > 0) {
             rowCount++;
+            if (rowCount > 50) {
+              throw new Error('评论内容超过字数限制');
+            }
             contentJSON.rows[rowCount] = [];
           }
           const childNode = node.childNodes;
+          if (childNode.length > 100) {
+            throw new Error('评论内容超过字数限制');
+          }
           childNode.forEach(cnode => {
             if (cnode instanceof Text) {
+              if (cnode.data.length > 500) {
+                throw new Error('评论内容超过字数限制');
+              }
               contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.text, data: cnode.data });
             } else if (cnode instanceof HTMLImageElement) {
               const code = cnode.getAttribute('data-code');
@@ -144,6 +142,9 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
           contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.br });
         }
       } else if (node instanceof Text) {
+        if (node.data.length > 500) {
+          throw new Error('评论内容超过字数限制');
+        }
         contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.text, data: node.data });
       }
     });
@@ -230,28 +231,51 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
       clearEditor();
       setSubmitLoading(false);
     } catch (ex) {
+      message.error(ex.message);
       setSubmitLoading(false);
     }
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (user === null) {
+      return;
+    }
+
     if (event.keyCode === 13) {
       const editor = editorRef.current;
       // CtrlOrCmd+Enter 提交数据
       if (event.ctrlKey || event.metaKey) {
         const content = editor!.childNodes;
-        const data = convertToJson(content);
+        let data: { rows: IUranusNode[][] } = { rows: [] };
+
+        try {
+          data = convertToJson(content);
+        } catch (ex) {
+          message.error(ex.message);
+        }
+
         onCommentSubmit(data);
       }
     }
   };
 
   const onSubmitClick = useCallback(() => {
+    if (user === null) {
+      return;
+    }
+
     const editor = editorRef.current;
     const content = editor!.childNodes;
-    const data = convertToJson(content);
+    let data: { rows: IUranusNode[][] } = { rows: [] };
+
+    try {
+      data = convertToJson(content);
+    } catch (ex) {
+      message.error(ex.message);
+    }
+
     onCommentSubmit(data);
-  }, []);
+  }, [user]);
 
   const onEmojiVisibleChange = (visible: boolean) => {
     const newState = Object.assign({}, editorState);
@@ -355,12 +379,10 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
 
   }, [browserState.browser.safari]);
 
-  const { user } = props;
-
   return (
     <div className="uranus-comment-editor-container" onClick={setEditorFocus}>
       <div className="uranus-avatar-box">
-        <div className="comment-avatar" style={{ backgroundImage: `url(${user.avatar})` }} />
+        <div className="comment-avatar" style={{ backgroundImage: `url(${user && user.avatar ? user.avatar : DEFAULTAVATAR})` }} />
       </div>
       <div className="uranus-form-box">
         <div className="input-box">
@@ -368,7 +390,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
             className="uranus-comment-editor"
             ref={editorRef}
             contentEditable={true}
-            placeholder="请输入评论..."
+            placeholder={user ? "请输入评论..." : "请先登录..."}
             onInput={onEditorInput}
             onFocus={onFocus}
             onKeyDown={onKeyDown}
@@ -426,9 +448,10 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
             <Button
               type="primary"
               loading={submitLoading}
+              disabled={user === null}
               onClick={onSubmitClick}
             >
-              评论
+              {user ? "评论" : "登录后评论"}
             </Button>
           </div>
         </div>

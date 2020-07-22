@@ -28,6 +28,7 @@
 .uranus-form-box {
   flex: 1 1 auto;
   position: relative;
+  word-break: break-word;
 }
 
 .uranus-form-box .input-box {

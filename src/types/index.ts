@@ -33,6 +33,8 @@ export interface IUserEntity {
   accessLevel: number;
   signature?: string;
   personalProfile?: string;
+  isBanned?: boolean;
+  expires?: number;
   activated?: boolean;
   registerTime?: number;
 }
@@ -110,4 +112,33 @@ export interface IOrderEntity {
   code?: OrderCode;
   status?: string;
   createTime: number;
+}
+
+export enum CommentType {
+  article = 'article',
+}
+
+export enum IUranusNodeType {
+  div = 'div',
+  img = 'img',
+  span = 'span',
+  text = 'text',
+  br = 'br',
+}
+
+export interface IUranusNode {
+  nodeType: IUranusNodeType;
+  data?: string;
+  attr?: {
+    src?: string;
+    'data-id'?: string;
+    'data-code'?: string;
+  };
+}
+
+export interface ICommentInput {
+  commentType: CommentType;
+  targetId: string;
+  parentId: string;
+  content: { rows: IUranusNode[][] };
 }

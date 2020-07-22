@@ -3,6 +3,7 @@ import {
   AuditStatus,
   GoodsType,
   IArticleEntity,
+  ICommentInput,
   INotificationEntity,
   ITagEntity,
   IUserEntity,
@@ -330,6 +331,14 @@ export const articleSave = (data: IArticleEntity) => {
   return httpClient({
     method: 'POST',
     url: '/api/article/save',
+    data,
+  });
+};
+
+export const commentSubmit = (data: ICommentInput) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/comment/submit',
     data,
   });
 };
