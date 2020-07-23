@@ -61,6 +61,8 @@ const ArticleDetailInner: FC<IProps> = (props) => {
       parentId: '0',
       content: comment,
     });
+
+    message.success('评论成功');
   }, [props.article]);
 
   return (

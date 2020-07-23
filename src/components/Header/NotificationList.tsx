@@ -1,8 +1,11 @@
 import { CheckCircleOutlined, EyeOutlined, LockOutlined } from '@ant-design/icons';
-import { Avatar, Button, Col, List, message, Row, Skeleton, Tooltip } from 'antd';
+import { Avatar, Button, Col, List, message, Popover, Row, Skeleton, Tooltip } from 'antd';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { INotificationEntity } from '../../types';
 import { markAsRead, markAsReadForAll } from '../../utils/httpClient';
+
+// 样式
+import '../UranusComment/commentEditor.css';
 
 const count = 3;
 
@@ -123,9 +126,14 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
           <List.Item
             actions={[
               (
-                <Tooltip key="view" title={item.content}>
+                <Popover
+                  placement="top"
+                  content={<div className="uranus-comment-container" dangerouslySetInnerHTML={{ __html: item.content as string }} />}
+                  title={item.title}
+                  trigger="click"
+                >
                   <EyeOutlined />
-                </Tooltip>
+                </Popover>
               ),
               props.type === "hasnotread" ?
                 (
@@ -146,8 +154,8 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
               />
               <div>
                 {
-                  item.content && item.content.length > 30 ?
-                    item.content.substr(0, 30) + "..." :
+                  item.content && item.content.length > 15 ?
+                    item.content.substr(0, 15) + "..." :
                     item.content
                 }
               </div>

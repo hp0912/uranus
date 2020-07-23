@@ -1,6 +1,7 @@
 import { BellOutlined, EditOutlined } from '@ant-design/icons';
-import { Breadcrumb, Col, Input, InputNumber, message, Modal, Row, Switch, Table } from 'antd';
+import { Breadcrumb, Col, DatePicker, Input, InputNumber, message, Modal, Row, Space, Switch, Table } from 'antd';
 import { ColumnsType, SorterResult, TablePaginationConfig } from 'antd/lib/table/interface';
+import moment, { Moment } from 'moment';
 import React, { FC, useCallback, useEffect } from 'react';
 import { INotificationEntity, IUserEntity } from '../../types';
 import { formatDate } from '../../utils';
@@ -232,6 +233,18 @@ export const UserManagement: FC = (props) => {
     setUserEditState({ data: newUserProfile });
   }, [userEditState]);
 
+  const onIsBannedChange = useCallback((checked: boolean) => {
+    const newUserProfile = Object.assign({}, userEditState.data);
+    newUserProfile.isBanned = checked;
+    setUserEditState({ data: newUserProfile });
+  }, [userEditState]);
+
+  const onDatePickerOk = useCallback((date: Moment) => {
+    const newUserProfile = Object.assign({}, userEditState.data);
+    newUserProfile.expires = date.toDate().getTime();
+    setUserEditState({ data: newUserProfile });
+  }, [userEditState]);
+
   const onSignatureChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const newUserProfile = Object.assign({}, userEditState.data);
     newUserProfile.signature = event.target.value;
@@ -388,6 +401,17 @@ export const UserManagement: FC = (props) => {
               </Col>
               <Col span={19}>
                 <InputNumber value={userEditState.data?.accessLevel} precision={0} onChange={onAccessLevelChange} />
+              </Col>
+            </Row>
+            <Row className="uranus-row">
+              <Col span={5}>
+                禁言：
+              </Col>
+              <Col span={19}>
+                <Space>
+                  <Switch checked={!!userEditState.data?.isBanned} onChange={onIsBannedChange} />
+                  <DatePicker showTime value={userEditState.data?.expires ? moment(userEditState.data?.expires) : null} onOk={onDatePickerOk} />
+                </Space>
               </Col>
             </Row>
             <Row className="uranus-row">

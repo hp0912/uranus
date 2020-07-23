@@ -8,6 +8,12 @@
   border-radius: 3px;
 }
 
+.uranus-comment-container {
+  font: 12px arial;
+  line-height: 1.7;
+  color: #17181a;
+}
+
 .uranus-avatar-box {
   flex: 0 0 auto;
 }
