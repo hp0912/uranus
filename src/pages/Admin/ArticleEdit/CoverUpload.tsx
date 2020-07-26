@@ -66,12 +66,14 @@ export const CoverUpload: FC<ICoverUploadProps> = (props) => {
 
       stsAuthParams.current = sts;
     } catch (ex) {
+      message.error(ex.message || ex);
       return Promise.reject('获取sts权限失败');
     }
 
     if (validImage && limitSize) {
       return Promise.resolve();
     } else {
+      message.error('图片格式不支持或者图片大小超过限制');
       return Promise.reject(new Error('图片不合法'));
     }
   }, [userContext.userState]);

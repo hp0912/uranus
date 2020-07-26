@@ -8,11 +8,15 @@ import { userSearch } from '../../utils/httpClient';
 import { Emoji } from './Emoji';
 
 // 样式
-import './commentEditor.css';
+import './comment.css';
 
 interface ICommentEditorProps {
+  parentId: string;
   user: IUserEntity | null;
-  onSubmit: (comment: { rows: IUranusNode[][] }) => Promise<void>;
+  avatarVisible?: boolean;
+  clearEditor?: boolean;
+  autoFocus?: boolean;
+  onSubmit: (parentId: string, comment: { rows: IUranusNode[][] }) => Promise<void>;
 }
 
 interface ICommentEditorState {
@@ -24,7 +28,7 @@ interface ICommentEditorState {
 }
 
 export const CommentEditor: FC<ICommentEditorProps> = (props) => {
-  const { user } = props;
+  const { user, avatarVisible = true } = props;
 
   const editorRef = useRef<HTMLDivElement>(null);
   const lastRangeRef = useRef<Range>();
@@ -41,6 +45,12 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
   });
   const [mentionUsers, setMentionUsers] = useState<{ loading: boolean, users: IUserEntity[] }>({ loading: false, users: [] });
   const [submitLoading, setSubmitLoading] = useState(false);
+
+  useEffect(() => {
+    if (props.autoFocus) {
+      setEditorFocus();
+    }
+  }, []);
 
   useEffect(() => {
     if (!user) {
@@ -226,10 +236,12 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
     try {
       setSubmitLoading(true);
 
-      await props.onSubmit(comment);
+      await props.onSubmit(props.parentId, comment);
 
-      clearEditor();
-      setSubmitLoading(false);
+      if (props.clearEditor) {
+        clearEditor();
+        setSubmitLoading(false);
+      }
     } catch (ex) {
       message.error(ex.message);
       setSubmitLoading(false);
@@ -275,7 +287,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
     }
 
     onCommentSubmit(data);
-  }, [user]);
+  }, [user, onCommentSubmit]);
 
   const onEmojiVisibleChange = (visible: boolean) => {
     const newState = Object.assign({}, editorState);
@@ -381,9 +393,14 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
 
   return (
     <div className="uranus-comment-editor-container" onClick={setEditorFocus}>
-      <div className="uranus-avatar-box">
-        <div className="comment-avatar" style={{ backgroundImage: `url(${user && user.avatar ? user.avatar : DEFAULTAVATAR})` }} />
-      </div>
+      {
+        avatarVisible &&
+        (
+          <div className="uranus-avatar-box">
+            <div className="comment-avatar" style={{ backgroundImage: `url(${user && user.avatar ? user.avatar : DEFAULTAVATAR})` }} />
+          </div>
+        )
+      }
       <div className="uranus-form-box">
         <div className="input-box">
           <div

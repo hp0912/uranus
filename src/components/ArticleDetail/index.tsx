@@ -3,11 +3,11 @@ import React, { FC, useCallback, useContext, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import { format } from "timeago.js";
 import { UserContext } from "../../store/user";
-import { CommentType, GoodsType, IArticleEntity, IOrderEntity, IUranusNode, IUserEntity } from "../../types";
-import { commentSubmit, generateOrder } from "../../utils/httpClient";
+import { CommentType, GoodsType, IArticleEntity, ICommentEntity, IOrderEntity, IUranusNode, IUserEntity } from "../../types";
+import { commentDelete, commentSubmit, generateOrder } from "../../utils/httpClient";
 import { CoverLazyLoad } from "../CoverLazyLoad";
 import { Pay } from '../Pay';
-import { CommentEditor } from "../UranusComment/CommentEditor";
+import { UranusComment } from "../UranusComment";
 
 // 样式
 import "../components.css";
@@ -52,18 +52,22 @@ const ArticleDetailInner: FC<IProps> = (props) => {
     setPayState({ visible: false, order: null });
   }, []);
 
-  const onCommentSubmit = useCallback(async (comment: { rows: IUranusNode[][] }) => {
+  const onCommentSubmit = useCallback(async (parentId: string, comment: { rows: IUranusNode[][] }): Promise<ICommentEntity> => {
     const { id } = props.article;
 
-    await commentSubmit({
+    const result = await commentSubmit({
       commentType: CommentType.article,
       targetId: id!,
-      parentId: '0',
+      parentId,
       content: comment,
     });
 
-    message.success('评论成功');
+    return result.data.data;
   }, [props.article]);
+
+  const onCommentDelete = useCallback(async (commentId: string): Promise<void> => {
+    await commentDelete({ commentId });
+  }, []);
 
   return (
     <div className="uranus-article-detail">
@@ -98,8 +102,12 @@ const ArticleDetailInner: FC<IProps> = (props) => {
           (
             <div>
               <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: props.articleContent }} />
-              <CommentEditor
+              <UranusComment
+                commentType={CommentType.article}
+                targetId={props.article.id!}
+                parentId="0"
                 onSubmit={onCommentSubmit}
+                onDelete={onCommentDelete}
                 user={userContext.userState}
               />
             </div>

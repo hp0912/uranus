@@ -5,7 +5,7 @@ import { INotificationEntity } from '../../types';
 import { markAsRead, markAsReadForAll } from '../../utils/httpClient';
 
 // 样式
-import '../UranusComment/commentEditor.css';
+import '../UranusComment/comment.css';
 
 const count = 3;
 
@@ -33,13 +33,6 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
       setInitLoading(false);
     });
   }, []);
-
-  useEffect(() => {
-    // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-    // In real scene, you can using public method of react-virtualized:
-    // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-    window.dispatchEvent(new Event('resize'));
-  }, [list]);
 
   const onLoadMore = useCallback(async () => {
     setLoading(true);

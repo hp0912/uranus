@@ -4,6 +4,7 @@ import {
   GoodsType,
   IArticleEntity,
   ICommentInput,
+  ICommentListParams,
   INotificationEntity,
   ITagEntity,
   IUserEntity,
@@ -340,6 +341,34 @@ export const commentSubmit = (data: ICommentInput) => {
     method: 'POST',
     url: '/api/comment/submit',
     data,
+  });
+};
+
+export const commentDelete = (data: { commentId: string }) => {
+  return httpClient({
+    method: 'DELETE',
+    url: '/api/comment/delete',
+    data,
+  });
+};
+
+export const commentList = (params: ICommentListParams) => {
+  const query: string[] = [];
+  const { commentType, targetId, parentId, lastCommentId } = params;
+
+  query.push(`commentType=${commentType}`);
+  query.push(`targetId=${targetId}`);
+  query.push(`parentId=${parentId}`);
+
+  if (lastCommentId) {
+    query.push(`lastCommentId=${lastCommentId}`);
+  }
+
+  const queryString = query.join('&');
+
+  return httpClient({
+    method: 'GET',
+    url: '/api/comment/list?' + queryString,
   });
 };
 

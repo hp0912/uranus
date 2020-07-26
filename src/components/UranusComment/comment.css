@@ -2,7 +2,7 @@
   font: 12px arial;
   display: flex;
   position: relative;
-  margin: 15px 0;
+  margin-top: 15px;
   padding: 10px 15px;
   background-color: #ebf0f5;
   border-radius: 3px;
@@ -11,7 +11,8 @@
 .uranus-comment-container {
   font: 12px arial;
   line-height: 1.7;
-  color: #17181a;
+  word-break: break-word;
+  color: #333;
 }
 
 .uranus-avatar-box {
@@ -175,4 +176,56 @@
 .action-box .submit {
   flex: 0 0 auto;
   margin-left: auto;
+}
+
+.comment-list {
+  margin-left: 59px;
+}
+
+.sub-comment-list {
+  margin-left: 0 !important;
+  background-color: #f9f9f9;
+}
+
+.comment-item {
+  display: flex;
+  flex: 1;
+}
+
+.meta-box {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.reply-stat {
+  display: flex;
+  margin: 12px 0;
+  font-weight: 400;
+}
+
+.reply-stat .time {
+  font-size: 12px;
+  color: #8a9aa9;
+  cursor: default;
+}
+
+.reply-stat .delete {
+  padding-left: 3px;
+  font-size: 12px;
+  color: #8a9aa9;
+  cursor: pointer;
+}
+
+.reply-stat .action-box {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 12px;
+  color: #8a93a0;
+  user-select: none;
 }

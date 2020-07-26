@@ -118,6 +118,22 @@ export enum CommentType {
   article = 'article',
 }
 
+export interface ICommentEntity {
+  _id?: string;
+  id?: string;
+  commentType?: CommentType;
+  targetId?: string;
+  parentId?: string;
+  userId?: string;
+  userNicname?: string;
+  userAvatar?: string;
+  userAccessLevel?: number;
+  content?: string;
+  passed?: boolean;
+  addtime?: number;
+  children?: ICommentEntity[];
+}
+
 export enum IUranusNodeType {
   div = 'div',
   img = 'img',
@@ -141,4 +157,11 @@ export interface ICommentInput {
   targetId: string;
   parentId: string;
   content: { rows: IUranusNode[][] };
+}
+
+export interface ICommentListParams {
+  commentType: CommentType;
+  targetId: string;
+  parentId: string;
+  lastCommentId?: string;
 }
