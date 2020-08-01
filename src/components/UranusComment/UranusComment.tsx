@@ -24,7 +24,7 @@ interface IUranusCommentState {
 }
 
 export const UranusComment: FC<IUranusCommentProps> = (props) => {
-  const { commentType, targetId, parentId, user } = props;
+  const { className, commentType, targetId, parentId, user } = props;
 
   const [commentListState, setCommentListState] = useState<IUranusCommentState>({
     initLoading: true,
@@ -124,7 +124,7 @@ export const UranusComment: FC<IUranusCommentProps> = (props) => {
   const { initLoading, comments } = commentListState;
 
   return (
-    <div>
+    <div className={className}>
       <CommentEditor parentId={parentId} avatarVisible={true} clearEditor={true} user={user} onSubmit={onSubmit} />
       <CommentList
         commentType={CommentType.article}

@@ -51,15 +51,17 @@ export const CommentList: FC<ICommentListProps> = (props) => {
     }
   };
 
-  const loadMore = !initLoading && !commListState.noMore ? <Button type="link" block onClick={onLoadMore} loading={commListState.loadMoreLoading}>加载更多</Button> : null;
+  const loadMore = !initLoading && !commListState.noMore && comments.length > 0 ? <Button type="link" block onClick={onLoadMore} loading={commListState.loadMoreLoading}>加载更多</Button> : null;
 
   return (
     <div className={`comment-list ${className ? className : ""}`}>
       <List
         loading={initLoading}
         itemLayout="horizontal"
+        size="default"
         loadMore={loadMore}
         dataSource={comments}
+        locale={{ emptyText: "赞无评论" }}
         split={false}
         renderItem={(item) => (
           <List.Item>
@@ -96,7 +98,7 @@ export const CommentList: FC<ICommentListProps> = (props) => {
                       (
                         <div className="action-box" onClick={() => { onReplyClick(item); }}>
                           <MessageOutlined />
-                          <span style={{ marginLeft: 6 }}>回复</span>
+                          <span style={{ marginLeft: 6, marginRight: 6 }}>回复</span>
                         </div>
                       ) :
                       (

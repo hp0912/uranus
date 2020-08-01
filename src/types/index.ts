@@ -165,3 +165,7 @@ export interface ICommentListParams {
   parentId: string;
   lastCommentId?: string;
 }
+
+export enum LikesType {
+  article = 'article',
+}

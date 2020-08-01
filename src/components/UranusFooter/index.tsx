@@ -1,5 +1,8 @@
+import { BackTop } from "antd";
 import "aplayer/dist/APlayer.min.css";
 import React, { FC } from "react";
+
+// 样式
 import "./uranusFooter.css";
 
 export const UranusFooter: FC = (props) => {
@@ -13,6 +16,7 @@ export const UranusFooter: FC = (props) => {
         <span className="uranus-footer-item">©3020 Houhou </span>
         <span className="uranus-footer-item">京公网安备11000002000001号</span>
       </div>
+      <BackTop />
     </div>
   );
 };

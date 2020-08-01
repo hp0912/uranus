@@ -5,7 +5,10 @@
   margin-top: 15px;
   padding: 10px 15px;
   background-color: #ebf0f5;
-  border-radius: 3px;
+}
+
+.uranus-article-comment {
+  background-color: #ddddde;
 }
 
 .uranus-comment-container {
@@ -184,7 +187,7 @@
 
 .sub-comment-list {
   margin-left: 0 !important;
-  background-color: #f9f9f9;
+  background-color: #ceced0;
 }
 
 .comment-item {

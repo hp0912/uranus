@@ -1,13 +1,12 @@
 import { Avatar, Breadcrumb, Button, message, Space } from "antd";
-import React, { FC, useCallback, useContext, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import { format } from "timeago.js";
-import { UserContext } from "../../store/user";
-import { CommentType, GoodsType, IArticleEntity, ICommentEntity, IOrderEntity, IUranusNode, IUserEntity } from "../../types";
-import { commentDelete, commentSubmit, generateOrder } from "../../utils/httpClient";
+import { GoodsType, IArticleEntity, IOrderEntity, IUserEntity } from "../../types";
+import { generateOrder } from "../../utils/httpClient";
+import { ArticleActionsLazyLoad } from "../ArticleActions";
 import { CoverLazyLoad } from "../CoverLazyLoad";
 import { Pay } from '../Pay';
-import { UranusComment } from "../UranusComment";
 
 // 样式
 import "../components.css";
@@ -22,13 +21,17 @@ interface IArticleDetailProps {
 
 type IProps = RouteComponentProps & IArticleDetailProps;
 
-const ArticleDetailInner: FC<IProps> = (props) => {
-  const userContext = useContext(UserContext);
+const actionItemsStyle = { paddingTop: 10, borderTop: '1px solid #f2f2f5' };
 
+const ArticleDetailInner: FC<IProps> = (props) => {
   const history = useHistory();
 
   const [orderLoading, setOrderLoading] = useState(false);
   const [payState, setPayState] = useState<{ visible: boolean, order: IOrderEntity | null }>({ visible: false, order: null });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const goBack = useCallback(() => {
     history.push('/articles');
@@ -50,23 +53,6 @@ const ArticleDetailInner: FC<IProps> = (props) => {
 
   const onGenOrderCancle = useCallback(() => {
     setPayState({ visible: false, order: null });
-  }, []);
-
-  const onCommentSubmit = useCallback(async (parentId: string, comment: { rows: IUranusNode[][] }): Promise<ICommentEntity> => {
-    const { id } = props.article;
-
-    const result = await commentSubmit({
-      commentType: CommentType.article,
-      targetId: id!,
-      parentId,
-      content: comment,
-    });
-
-    return result.data.data;
-  }, [props.article]);
-
-  const onCommentDelete = useCallback(async (commentId: string): Promise<void> => {
-    await commentDelete({ commentId });
   }, []);
 
   return (
@@ -102,14 +88,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
           (
             <div>
               <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: props.articleContent }} />
-              <UranusComment
-                commentType={CommentType.article}
-                targetId={props.article.id!}
-                parentId="0"
-                onSubmit={onCommentSubmit}
-                onDelete={onCommentDelete}
-                user={userContext.userState}
-              />
+              <ArticleActionsLazyLoad article={props.article} autoExpand actionItemsStyle={actionItemsStyle} />
             </div>
           ) :
           (

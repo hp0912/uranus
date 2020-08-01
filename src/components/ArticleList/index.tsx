@@ -10,7 +10,7 @@ import { IArticleEntity, ITagEntity, IUserEntity } from "../../types";
 import { useSetState } from "../../utils/commonHooks";
 import { DEFAULTAVATAR } from "../../utils/constant";
 import { articleList } from "../../utils/httpClient";
-import { ArticleActions } from "../ArticleActions";
+import { ArticleActionsLazyLoad } from "../ArticleActions";
 import { CoverLazyLoad } from "../CoverLazyLoad";
 
 // markdown 插件
@@ -88,6 +88,15 @@ export const ArticleList: FC = (props) => {
   });
 
   useEffect(() => {
+    return () => {
+      const sTop = document.documentElement.scrollTop;
+      if (Number.isInteger(sTop)) {
+        localStorage.setItem('uranus-scrollTop', sTop + '');
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     const json = url.parse(loca.search, true, false);
     const query = json.query;
     const searchValue = query.searchValue ? query.searchValue as string : '';
@@ -126,6 +135,14 @@ export const ArticleList: FC = (props) => {
           total,
         },
       });
+
+      setTimeout(() => {
+        const scrollTop = localStorage.getItem('uranus-scrollTop');
+
+        if (scrollTop) {
+          window.scrollTo(0, Number(scrollTop));
+        }
+      }, 160);
     } catch (ex) {
       message.error(ex.message);
       setArticleListState({ loading: false });
@@ -133,6 +150,8 @@ export const ArticleList: FC = (props) => {
   }, [articleListState]);
 
   const onPageChange = (page: number, pageSize?: number) => {
+    localStorage.setItem('uranus-scrollTop', '0');
+
     const json = url.parse(loca.search, true, false);
     const query = json.query;
 
@@ -193,7 +212,7 @@ export const ArticleList: FC = (props) => {
             </div>
             <CoverLazyLoad articleId={item.id as string} coverURL={item.coverPicture as string} />
             <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: md.render(item.desc || "这家伙很懒，什么都没留下") }} />
-            <ArticleActions />
+            <ArticleActionsLazyLoad article={item} />
           </List.Item>
         )}
       />

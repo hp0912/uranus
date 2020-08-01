@@ -9,6 +9,7 @@ import {
   ITagEntity,
   IUserEntity,
   IWebsiteSettingsEntity,
+  LikesType,
   PayMethod,
   PayType,
 } from '../types';
@@ -268,6 +269,13 @@ export const articleGet = (articleId: string) => {
   });
 };
 
+export const articleActionDataGet = (articleId: string) => {
+  return httpClient({
+    method: 'GET',
+    url: `/api/article/actionDataGet?articleId=${articleId}`,
+  });
+};
+
 export const articleList = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
   const query: string[] = [];
   const { pagination: { current, pageSize }, searchValue } = params;
@@ -369,6 +377,22 @@ export const commentList = (params: ICommentListParams) => {
   return httpClient({
     method: 'GET',
     url: '/api/comment/list?' + queryString,
+  });
+};
+
+export const likesSubmit = (data: { likesType: LikesType, targetId: string }) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/likes/like',
+    data,
+  });
+};
+
+export const likesCancel = (data: { likesType: LikesType, targetId: string }) => {
+  return httpClient({
+    method: 'DELETE',
+    url: '/api/likes/cancel',
+    data,
   });
 };
 
