@@ -380,6 +380,44 @@ export const commentList = (params: ICommentListParams) => {
   });
 };
 
+export const commentListForAdmin = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+  const query: string[] = [];
+  const { pagination: { current, pageSize }, searchValue } = params;
+
+  if (current) {
+    query.push(`current=${current}`);
+  }
+  if (pageSize) {
+    query.push(`pageSize=${pageSize}`);
+  }
+  if (searchValue) {
+    query.push(`searchValue=${searchValue}`);
+  }
+
+  const queryString = query.join('&');
+
+  return httpClient({
+    method: 'GET',
+    url: '/api/comment/admin/list' + (queryString ? '?' + queryString : ''),
+  });
+};
+
+export const commentAudit = (data: { commentId: string, passed: boolean }) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/comment/admin/audit',
+    data,
+  });
+};
+
+export const commentDeleteForAdmin = (data: { commentId: string }) => {
+  return httpClient({
+    method: 'DELETE',
+    url: '/api/comment/admin/delete',
+    data,
+  });
+};
+
 export const likesSubmit = (data: { likesType: LikesType, targetId: string }) => {
   return httpClient({
     method: 'POST',

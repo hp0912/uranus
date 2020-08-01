@@ -14,6 +14,7 @@ import UserAvatar from '../../components/Header/UserAvatar';
 import { UserContext } from '../../store/user';
 import { ArticleEdit } from './ArticleEdit';
 import { ArticleManagement } from './ArticleManagement';
+import { CommentManagement } from './CommentManagement';
 import { TagManagement } from './TagManagement';
 import { UserManagement } from './UserManagement';
 import { WebsiteManagement } from './WebsiteManagement';
@@ -115,6 +116,7 @@ const Admin: FC = (props) => {
             <Route path={match.path} exact component={ArticleManagement} />
             <Route path={`${match.path}/article_edit/:articleId`} exact component={ArticleEdit} />
             <Route path={`${match.path}/${AdminMenuKey.tag_management}`} exact component={TagManagement} />
+            <Route path={`${match.path}/${AdminMenuKey.comment_management}`} exact component={CommentManagement} />
             <Route path={`${match.path}/${AdminMenuKey.user_management}`} exact component={UserManagement} />
             <Route path={`${match.path}/${AdminMenuKey.website_management}`} exact component={WebsiteManagement} />
           </Switch>

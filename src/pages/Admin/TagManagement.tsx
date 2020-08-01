@@ -10,7 +10,6 @@ import { Breadcrumb, Button, Col, Input, InputNumber, message, Modal, Popconfirm
 import { ColumnProps } from 'antd/lib/table/Column';
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { SketchPicker } from 'react-color';
-// import { useHistory, useRouteMatch } from 'react-router-dom';
 import { ITagEntity } from '../../types';
 import { useSetState } from '../../utils/commonHooks';
 import { tagDelete, tagList, tagSave } from '../../utils/httpClient';
@@ -29,8 +28,6 @@ interface ITagEditState extends ITagEntity {
 }
 
 export const TagManagement: FC = (props) => {
-  // const history = useHistory();
-  // const match = useRouteMatch();
 
   const [adminTagState, setAdminTagState] = useSetState<IAdminArtListState>({
     data: [],
