@@ -434,6 +434,28 @@ export const likesCancel = (data: { likesType: LikesType, targetId: string }) =>
   });
 };
 
+export const messageCount = () => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/message/count',
+  });
+};
+
+export const messageList = (params: { lastMessageId?: string }) => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/message/list' + (params.lastMessageId ? `?lastMessageId=${params.lastMessageId}` : ''),
+  });
+};
+
+export const messageSubmit = (data: { message: string }) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/message/submit',
+    data,
+  });
+};
+
 export const generateOrder = (data: { goodsType: GoodsType, goodsId: string }) => {
   return httpClient({
     method: 'POST',

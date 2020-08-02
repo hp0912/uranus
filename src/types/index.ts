@@ -169,3 +169,14 @@ export interface ICommentListParams {
 export enum LikesType {
   article = 'article',
 }
+
+export interface IMessageEntity {
+  _id?: string;
+  id?: string;
+  userId?: string;
+  userNicname?: string;
+  userAvatar?: string;
+  userAccessLevel?: number;
+  content?: string;
+  addtime?: number;
+}

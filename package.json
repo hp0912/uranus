@@ -21,6 +21,7 @@
     "antd-img-crop": "^3.4.2",
     "aplayer": "^1.10.1",
     "axios": "^0.19.2",
+    "barrage-ui": "^1.4.0",
     "codemirror": "^5.54.0",
     "customize-cra": "^0.9.1",
     "highlight.js": "^10.0.1",
