@@ -116,12 +116,12 @@ export const ArticleList: FC = (props) => {
 
       const userMap: { [userId: string]: IUserEntity } = {};
       (users as IUserEntity[]).forEach(user => {
-        userMap[user.id as string] = user;
+        userMap[user.id!] = user;
       });
 
       const tagMap: { [userId: string]: ITagEntity } = {};
       (tags as ITagEntity[]).forEach(tag => {
-        tagMap[tag.id as string] = tag;
+        tagMap[tag.id!] = tag;
       });
 
       setArticleListState({
@@ -147,7 +147,7 @@ export const ArticleList: FC = (props) => {
       message.error(ex.message);
       setArticleListState({ loading: false });
     }
-  }, [articleListState]);
+  }, [articleListState, setArticleListState]);
 
   const onPageChange = (page: number, pageSize?: number) => {
     localStorage.setItem('uranus-scrollTop', '0');
@@ -179,7 +179,7 @@ export const ArticleList: FC = (props) => {
           >
             <div className="uranus-article-title">
               <div className="user-avatar">
-                <Avatar size={50} src={articleListState.userMap[item.createdBy as string] && articleListState.userMap[item.createdBy as string].avatar || DEFAULTAVATAR} />
+                <Avatar size={50} src={articleListState.userMap[item.createdBy!] ? articleListState.userMap[item.createdBy!].avatar : DEFAULTAVATAR} />
               </div>
               <div className="article-title">
                 <div className="article-title-name">
@@ -192,10 +192,10 @@ export const ArticleList: FC = (props) => {
                     item.tags && item.tags.map(tagId => {
                       return (
                         <Tag
-                          color={articleListState.tagMap[tagId] && articleListState.tagMap[tagId].color}
+                          color={articleListState.tagMap[tagId] ? articleListState.tagMap[tagId].color : undefined}
                           key={tagId}
                         >
-                          {articleListState.tagMap[tagId] && articleListState.tagMap[tagId].name || "不存在的标签"}
+                          {articleListState.tagMap[tagId] ? articleListState.tagMap[tagId].name : "不存在的标签"}
                         </Tag>
                       );
                     })
@@ -203,14 +203,14 @@ export const ArticleList: FC = (props) => {
                   <span className="article-title-timeago">
                     {
                       item.createdTime === item.modifyTime ?
-                        `${articleListState.userMap[item.createdBy as string] && articleListState.userMap[item.createdBy as string].nickname || "神秘人"} 发表于 ${format(item.createdTime as number, 'zh_CN')}` :
-                        `${articleListState.userMap[item.modifyBy as string] && articleListState.userMap[item.modifyBy as string].nickname || "神秘人"} 更新于 ${format(item.modifyTime as number, 'zh_CN')}`
+                        `${articleListState.userMap[item.createdBy!] ? articleListState.userMap[item.createdBy!].nickname : "神秘人"} 发表于 ${format(item.createdTime!, 'zh_CN')}` :
+                        `${articleListState.userMap[item.modifyBy!] ? articleListState.userMap[item.modifyBy!].nickname : "神秘人"} 更新于 ${format(item.modifyTime as number, 'zh_CN')}`
                     }
                   </span>
                 </div>
               </div>
             </div>
-            <CoverLazyLoad articleId={item.id as string} coverURL={item.coverPicture as string} />
+            <CoverLazyLoad articleId={item.id!} coverURL={item.coverPicture!} />
             <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: md.render(item.desc || "这家伙很懒，什么都没留下") }} />
             <ArticleActionsLazyLoad article={item} />
           </List.Item>

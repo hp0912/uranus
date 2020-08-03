@@ -456,6 +456,36 @@ export const messageSubmit = (data: { message: string }) => {
   });
 };
 
+export const messageListForAdmin = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+  const query: string[] = [];
+  const { pagination: { current, pageSize }, searchValue } = params;
+
+  if (current) {
+    query.push(`current=${current}`);
+  }
+  if (pageSize) {
+    query.push(`pageSize=${pageSize}`);
+  }
+  if (searchValue) {
+    query.push(`searchValue=${searchValue}`);
+  }
+
+  const queryString = query.join('&');
+
+  return httpClient({
+    method: 'GET',
+    url: '/api/message/admin/list' + (queryString ? '?' + queryString : ''),
+  });
+};
+
+export const messageDeleteForAdmin = (data: { messageId: string }) => {
+  return httpClient({
+    method: 'DELETE',
+    url: '/api/message/admin/delete',
+    data,
+  });
+};
+
 export const generateOrder = (data: { goodsType: GoodsType, goodsId: string }) => {
   return httpClient({
     method: 'POST',
