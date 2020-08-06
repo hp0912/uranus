@@ -76,6 +76,10 @@ export const SignIn: FC<ISignInProps> = (props) => {
     }
   }, [signInState]);
 
+  const onGitHubOAuth = useCallback(() => {
+    window.open('https://github.com/login/oauth/authorize?client_id=b0263da0ed583f782b96&redirect_uri=http://localhost:3000/github/oauth/authorize');
+  }, []);
+
   return (
     <Space direction="vertical" size={12} className="uranus-auth-body">
       <Input
@@ -119,7 +123,7 @@ export const SignIn: FC<ISignInProps> = (props) => {
       <div className="uranus-auth-third">
         <Avatar className="uranus-auth-third-item" size={33} icon={<QqOutlined />} />
         <Avatar className="uranus-auth-third-item" size={33} icon={<WechatOutlined />} />
-        <Avatar className="uranus-auth-third-item" size={33} icon={<GithubOutlined />} />
+        <Avatar className="uranus-auth-third-item" size={33} icon={<GithubOutlined onClick={onGitHubOAuth} />} />
       </div>
     </Space>
   );

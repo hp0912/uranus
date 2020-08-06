@@ -9,6 +9,7 @@ export const routeConfig: IRouteConfig[] = [
   { title: '吼吼', path: '/', exact: true, component: 'Home' },
   { title: '博客列表', path: '/articles', exact: true, component: 'ArticleList' },
   { title: '博客详情', path: '/article/:articleId', exact: true, component: 'ArticleDetail' },
+  { title: '第三方授权登录', path: '/:thirdParty/oauth/authorize', exact: true, component: 'ThirdPartyOAuth' },
   { title: '留言板', path: '/messageboard', exact: true, component: 'MessageBoard' },
   { title: '关于我们', path: '/aboutus', exact: true, component: 'AboutUs' },
   { title: '个人设置', path: '/user/settings', exact: true, component: 'UserSettings' },

@@ -6,6 +6,7 @@ import { ArticleDetailPage } from "./ArticleDetail";
 import { ArticleListPage } from "./ArticleList";
 import Banner from "./Banner";
 import MessageBoard from "./MessageBoard";
+import { ThirdPartyOAuth } from "./ThirdPartyOAuth";
 import UserSettings from "./User/Settings";
 
 export default {
@@ -13,6 +14,7 @@ export default {
   ArticleList: ArticleListPage,
   ArticleDetail: ArticleDetailPage,
   UserSettings,
+  ThirdPartyOAuth,
   MessageBoard: React.lazy<typeof MessageBoard>(() => import('./MessageBoard')),
   AboutUs: React.lazy<typeof AboutUs>(() => import('./AboutUs')),
   Admin: React.lazy<typeof Admin>(() => import('./Admin')),

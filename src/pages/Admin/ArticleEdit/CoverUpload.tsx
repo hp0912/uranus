@@ -105,7 +105,7 @@ export const CoverUpload: FC<ICoverUploadProps> = (props) => {
       previewVisible: true,
       previewTitle: file.name || (file.url && file.url.substring(file.url.lastIndexOf('/') + 1)),
     });
-  }, []);
+  }, [getBase64, setCoverState]);
 
   const onChange = useCallback((info: UploadChangeParam<UploadFile>) => {
     if (info.file.status === 'done') {
@@ -116,7 +116,7 @@ export const CoverUpload: FC<ICoverUploadProps> = (props) => {
 
   const onCancel = useCallback(() => {
     setCoverState({ previewVisible: false });
-  }, []);
+  }, [setCoverState]);
 
   return (
     <div className="uranus-cover-upload">

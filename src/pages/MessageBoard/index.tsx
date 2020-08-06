@@ -125,7 +125,7 @@ const MessageBoard: FC = (props) => {
 
   const onMessageChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setMessageState({ message: event.target.value });
-  }, []);
+  }, [setMessageState]);
 
   const onMessageSubmit = useCallback(async (value: string) => {
     try {
@@ -146,7 +146,7 @@ const MessageBoard: FC = (props) => {
       message.error(ex.message);
       setMessageState({ loading: false });
     }
-  }, []);
+  }, [setMessageState]);
 
   return (
     <>

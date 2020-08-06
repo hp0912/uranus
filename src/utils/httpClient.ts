@@ -501,3 +501,11 @@ export const initPay = (data: { orderId: string, payType: PayType, payMethod: Pa
     data,
   });
 };
+
+export const githubOAuth = (code: string) => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/oauth/github?code=' + code,
+    timeout: 12000,
+  });
+};
