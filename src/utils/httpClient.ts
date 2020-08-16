@@ -13,12 +13,12 @@ import {
   PayMethod,
   PayType,
 } from '../types';
+import { baseURL } from './constant';
 
-const baseURL = 'http://localhost:9000';
 const httpClient = axios.create({
   baseURL,
   timeout: 5000,
-  withCredentials: true, // 允许跨域 cookie
+  withCredentials: process.env.NODE_ENV === 'development' ? true : false, // 允许跨域 cookie
   headers: { 'X-Requested-With': 'XMLHttpRequest' }
 });
 
