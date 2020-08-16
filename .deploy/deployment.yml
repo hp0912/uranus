@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uranus-frontend
+spec:
+  selector:
+    matchLabels:
+      app: uranus-frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: uranus-frontend
+    spec:
+      containers:
+      - name: uranus-frontend
+        image: registry.cn-shenzhen.aliyuncs.com/houhou/uranus-frontend:{TAG}
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: CONFIG_ENV
+            value: prod
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /favicon.ico
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 5
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /favicon.ico
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 5
