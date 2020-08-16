@@ -1,4 +1,4 @@
-import { ConfigProvider } from "antd";
+import { ConfigProvider, message } from "antd";
 import zhCN from 'antd/es/locale/zh_CN';
 import React, { FC, useEffect, useReducer } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -16,6 +16,8 @@ const App: FC = () => {
   useEffect(() => {
     userStatus().then(result => {
       userDispatch({ type: SETUSER, data: result.data.data });
+    }).catch(reason => {
+      message.error(reason.message);
     });
   }, []);
 
