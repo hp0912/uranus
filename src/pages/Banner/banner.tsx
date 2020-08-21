@@ -80,7 +80,7 @@ export const Banner: FC = (props) => {
 
   // 点击切换至首页
   const toBlogList = useCallback(() => {
-    history.push('/articles');
+    history.push('/frontend');
   }, [history]);
 
   return (

@@ -59,7 +59,7 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
   }, [history]);
 
   const onGoBackFrontendClick = useCallback(() => {
-    history.push(`/articles`);
+    history.push(`/frontend`);
   }, [history]);
 
   const onSingOutClick = useCallback(async () => {

@@ -6,8 +6,9 @@ import { Content } from "../../components/Content";
 import { Header } from '../../components/Header';
 import { UranusAvatar } from '../../components/UranusAvatar';
 import { UranusMotto } from '../../components/UranusMotto';
+import { ArticleCategory } from '../../types';
 
-export const ArticleListPage: FC = (props) => {
+export const FrontendPage: FC = (props) => {
   return (
     <>
       <Header />
@@ -25,7 +26,7 @@ export const ArticleListPage: FC = (props) => {
           </>
         )}
       >
-        <ArticleList />
+        <ArticleList category={ArticleCategory.frontend} />
       </Content>
     </>
   );

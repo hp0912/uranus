@@ -1,3 +1,8 @@
+export enum ArticleCategory {
+  frontend = 'frontend',
+  gossip = 'gossip',
+}
+
 export enum ShareWith {
   private = 'private',
   public = 'public',
@@ -11,6 +16,7 @@ export enum AuditStatus {
 export interface IArticleEntity {
   id?: string;
   title?: string;
+  category?: ArticleCategory;
   coverPicture?: string;
   desc?: string;
   content?: string;

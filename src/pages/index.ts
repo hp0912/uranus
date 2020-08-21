@@ -3,15 +3,17 @@ import NoMatch from "./404/NoMatch";
 import AboutUs from "./AboutUs";
 import Admin from "./Admin";
 import { ArticleDetailPage } from "./ArticleDetail";
-import { ArticleListPage } from "./ArticleList";
 import Banner from "./Banner";
+import { FrontendPage } from "./Frontend";
+import { GossipPage } from "./Gossip";
 import MessageBoard from "./MessageBoard";
 import { ThirdPartyOAuth } from "./ThirdPartyOAuth";
 import UserSettings from "./User/Settings";
 
 export default {
   Home: Banner,
-  ArticleList: ArticleListPage,
+  FrontendPage,
+  GossipPage,
   ArticleDetail: ArticleDetailPage,
   UserSettings,
   ThirdPartyOAuth,

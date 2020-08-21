@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  ArticleCategory,
   AuditStatus,
   GoodsType,
   IArticleEntity,
@@ -276,9 +277,11 @@ export const articleActionDataGet = (articleId: string) => {
   });
 };
 
-export const articleList = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+export const articleList = (params: { category: ArticleCategory, pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
   const query: string[] = [];
-  const { pagination: { current, pageSize }, searchValue } = params;
+  const { category, pagination: { current, pageSize }, searchValue } = params;
+
+  query.push(`category=${category}`);
 
   if (current) {
     query.push(`current=${current}`);

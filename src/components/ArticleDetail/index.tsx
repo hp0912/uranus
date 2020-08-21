@@ -34,7 +34,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
   }, []);
 
   const goBack = useCallback(() => {
-    history.push('/articles');
+    history.goBack();
   }, [history]);
 
   const onGenOrderClick = useCallback(async () => {

@@ -8,7 +8,7 @@ import { HtmlType } from 'react-markdown-editor-lite/editor/preview';
 import { RouteComponentProps, useHistory, useParams, withRouter } from "react-router";
 import { reducer, UPDATEARTICLE } from '../../../store/articleEdit';
 import { UserContext } from '../../../store/user';
-import { IArticleEntity, ITagEntity, ShareWith } from '../../../types';
+import { ArticleCategory, IArticleEntity, ITagEntity, ShareWith } from '../../../types';
 import { AliyunOSSDir, AliyunOSSHost } from '../../../utils/constant';
 import { articleGet, articleSave, stsAuth, tagList } from '../../../utils/httpClient';
 import { CoverUpload } from './CoverUpload';
@@ -131,6 +131,10 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
     dispatch({ type: UPDATEARTICLE, data: { shareWith: value } });
   }, []);
 
+  const onCategoryChange = useCallback((value) => {
+    dispatch({ type: UPDATEARTICLE, data: { category: value } });
+  }, []);
+
   const onDescChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
     dispatch({ type: UPDATEARTICLE, data: { desc: event.target.value } });
   }, []);
@@ -203,6 +207,7 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
       const result = await articleSave({
         id: params.articleId === 'new' ? 'new' : state?.id,
         title: state?.title,
+        category: state?.category,
         coverPicture: coverPicture[0].url,
         desc: state?.desc,
         content: state?.content,
@@ -245,9 +250,21 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
       </Breadcrumb>
       <div style={{ padding: 5, minHeight: 360, background: "#fff" }}>
         <Skeleton loading={initLoading}>
-          <Row>
+          <Row className="uranus-row">
             <Col span={24}>
               <Input placeholder="文章标题" value={state?.title} onChange={onTitleChange} />
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <Select placeholder="文章类别" className="uranus-row-select" value={state?.category} onChange={onCategoryChange}>
+                <Select.Option value={ArticleCategory.frontend}>
+                  前端优选
+                </Select.Option>
+                <Select.Option value={ArticleCategory.gossip}>
+                  神秘空间
+                </Select.Option>
+              </Select>
             </Col>
           </Row>
           <Row>
