@@ -1,3 +1,13 @@
+.uranus-user-avatar-frontend {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.uranus-user-avatar-backend {
+  display: inline-block;
+}
+
 .uranus-menu-container::after {
   content: "";
   height: 0;

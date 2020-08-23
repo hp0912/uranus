@@ -188,7 +188,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
               </div>
               <div className="article-title">
                 <div className="article-title-name">
-                  <Link to="/article" className="article-title-link">
+                  <Link to={`/article/detail/${item.id!}`} className="article-title-link">
                     {item.title}
                   </Link>
                 </div>

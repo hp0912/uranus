@@ -10,9 +10,9 @@ import { Button, Layout, Menu, Result } from 'antd';
 import { ClickParam } from "antd/lib/menu";
 import React, { FC, useCallback, useContext, useState } from 'react';
 import { Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { ArticleEdit } from '../../components/ArticleEdit';
 import UserAvatar from '../../components/Header/UserAvatar';
 import { UserContext } from '../../store/user';
-import { ArticleEdit } from './ArticleEdit';
 import { ArticleManagement } from './ArticleManagement';
 import { CommentManagement } from './CommentManagement';
 import { MessageManagement } from './MessageManagement';
@@ -21,6 +21,7 @@ import { UserManagement } from './UserManagement';
 import { WebsiteManagement } from './WebsiteManagement';
 
 // 样式
+import '../../App.css';
 import './admin.css';
 
 const { Content, Sider, Header } = Layout;

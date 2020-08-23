@@ -1,10 +1,11 @@
 import { DownOutlined, LogoutOutlined, NotificationOutlined, RobotOutlined, SettingOutlined } from '@ant-design/icons';
-import { Avatar, Badge, Dropdown, Menu, message, Modal } from 'antd';
+import { Avatar, Badge, Dropdown, Menu, message, Modal, Tooltip } from 'antd';
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import { SETUSER, UserContext } from '../../store/user';
 import { notificationCount, signOut } from '../../utils/httpClient';
 import { UserNotification } from './UserNotification';
+import { WriteIcon } from './WriteIcon';
 
 const bodyStyle = {
   padding: '6px 8px 10px 8px',
@@ -41,6 +42,10 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
 
     return () => { clearInterval(timer); };
   }, []);
+
+  const onArticleEditClick = useCallback(() => {
+    history.push(`/article/edit/new`);
+  }, [history]);
 
   const onUserSettingClick = useCallback(() => {
     history.push(`/user/settings`);
@@ -125,7 +130,15 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
   );
 
   return (
-    <>
+    <div className={props.isBackend ? "uranus-user-avatar-backend" : "uranus-user-avatar-frontend"}>
+      {
+        !props.isBackend &&
+        (
+          <Tooltip title="写博客">
+            <WriteIcon onClick={onArticleEditClick} />
+          </Tooltip>
+        )
+      }
       <Dropdown
         placement="bottomRight"
         trigger={['click']}
@@ -157,7 +170,7 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
       >
         <UserNotification />
       </Modal>
-    </>
+    </div>
   );
 };
 

@@ -1,11 +1,11 @@
 import { message, Modal, Upload } from 'antd';
 import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
 import React, { FC, useCallback, useContext, useRef } from 'react';
-import { UserContext } from '../../../store/user';
-import { ISTSAuthForFormResult } from '../../../types';
-import { useSetState } from '../../../utils/commonHooks';
-import { AliyunOSSDir, AliyunOSSHost } from '../../../utils/constant';
-import { stsAuthForForm } from '../../../utils/httpClient';
+import { UserContext } from '../../store/user';
+import { ISTSAuthForFormResult } from '../../types';
+import { useSetState } from '../../utils/commonHooks';
+import { AliyunOSSDir, AliyunOSSHost } from '../../utils/constant';
+import { stsAuthForForm } from '../../utils/httpClient';
 import { CoverUploadButton } from './CoverUploadButton';
 
 // 样式
@@ -112,6 +112,7 @@ export const CoverUpload: FC<ICoverUploadProps> = (props) => {
       info.fileList[0].url = `${AliyunOSSHost}/${(info.file as any).aliyunOSSFilename}`;
     }
     props.onChange(info.fileList);
+    // eslint-disable-next-line
   }, [props.onChange]);
 
   const onCancel = useCallback(() => {

@@ -33,18 +33,22 @@ export const SignIn: FC<ISignInProps> = (props) => {
 
   const onUserNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSignInState({ username: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onPasswordChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSignInState({ password: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const signUp = useCallback(() => {
     safeProps.current.switchMode(AuthMode.signup);
+    // eslint-disable-next-line
   }, []);
 
   const resetPassword = useCallback(() => {
     safeProps.current.switchMode(AuthMode.resetPassword);
+    // eslint-disable-next-line
   }, []);
 
   const onSignInClick = useCallback(async () => {
@@ -74,6 +78,7 @@ export const SignIn: FC<ISignInProps> = (props) => {
       message.error(ex.message);
       setLoading(false);
     }
+    // eslint-disable-next-line
   }, [signInState]);
 
   const onGitHubOAuth = useCallback(() => {

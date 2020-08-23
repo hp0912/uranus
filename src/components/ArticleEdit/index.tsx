@@ -2,15 +2,15 @@ import OSS from 'ali-oss';
 import { Affix, Breadcrumb, Button, Col, Input, InputNumber, message, Modal, Row, Select, Skeleton, Switch } from 'antd';
 import { UploadFile } from 'antd/lib/upload/interface';
 import MarkdownIt from "markdown-it";
-import React, { FC, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react';
+import React, { FC, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import MdEditor from 'react-markdown-editor-lite';
 import { HtmlType } from 'react-markdown-editor-lite/editor/preview';
-import { RouteComponentProps, useHistory, useParams, withRouter } from "react-router";
-import { reducer, UPDATEARTICLE } from '../../../store/articleEdit';
-import { UserContext } from '../../../store/user';
-import { ArticleCategory, IArticleEntity, ITagEntity, ShareWith } from '../../../types';
-import { AliyunOSSDir, AliyunOSSHost } from '../../../utils/constant';
-import { articleGet, articleSave, stsAuth, tagList } from '../../../utils/httpClient';
+import { RouteComponentProps, useHistory, useParams, withRouter } from "react-router-dom";
+import { reducer, UPDATEARTICLE } from '../../store/articleEdit';
+import { UserContext } from '../../store/user';
+import { ArticleCategory, IArticleEntity, ITagEntity, ShareWith } from '../../types';
+import { AliyunOSSDir, AliyunOSSHost } from '../../utils/constant';
+import { articleGet, articleSave, stsAuth, tagList } from '../../utils/httpClient';
 import { CoverUpload } from './CoverUpload';
 
 // 图标
@@ -27,10 +27,12 @@ import mark from 'markdown-it-mark';
 import sub from 'markdown-it-sub';
 import sup from 'markdown-it-sup';
 import twemoji from 'twemoji';
+import { UranusPrompt } from '../UranusPrompt';
 
 // css
 import "highlight.js/styles/vs2015.css";
 import 'react-markdown-editor-lite/lib/index.css';
+import './articleEdit.css';
 
 const css = {
   MdEditor: { height: "800px" },
@@ -38,7 +40,12 @@ const css = {
 
 const { TextArea } = Input;
 
-const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) => {
+interface IArticleEditProps {
+  baseURL?: string;
+  breadcrumbClassName?: string;
+}
+
+const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleEditProps> = (props) => {
   const userContext = useContext(UserContext);
 
   // MarkdownIt
@@ -68,11 +75,14 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
   const params = useParams<{ articleId: string }>();
   const history = useHistory();
 
+  const [promptVisible, setPromptVisible] = useState(false);
   const [initLoading, setInitLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [tags, setTags] = useState<ITagEntity[]>([]);
   const [coverPicture, setCoverPicture] = useState<UploadFile[]>([]);
   const [state, dispatch] = useReducer<(preState: IArticleEntity | null, action: { type: string, data: IArticleEntity | null }) => IArticleEntity | null>(reducer, null);
+
+  const unsavedChanges = useRef(false);
 
   useEffect(() => {
     if (params.articleId === 'new') {
@@ -116,26 +126,32 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
   }, [params.articleId]);
 
   const onTitleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { title: event.target.value } });
   }, []);
 
   const onCoverChange = useCallback((fileList: UploadFile[]) => {
+    unsavedChanges.current = true;
     setCoverPicture(fileList);
   }, []);
 
   const onTagChange = useCallback((value) => {
+    unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { tags: value } });
   }, []);
 
   const onShareWithChange = useCallback((value) => {
+    unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { shareWith: value } });
   }, []);
 
   const onCategoryChange = useCallback((value) => {
+    unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { category: value } });
   }, []);
 
   const onDescChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { desc: event.target.value } });
   }, []);
 
@@ -144,10 +160,12 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
   }, [md]);
 
   const onChargeChange = useCallback((checked: boolean) => {
+    unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: checked ? { charge: checked } : { charge: checked, amount: 0 } });
   }, []);
 
   const onAmountChange = useCallback((value) => {
+    unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { amount: value } });
   }, []);
 
@@ -155,6 +173,7 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
     text: string;
     html: string;
   }, event?: React.ChangeEvent<HTMLTextAreaElement>) => {
+    unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { content: data.text } });
   }, []);
 
@@ -231,8 +250,11 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
         }
       }
 
+      unsavedChanges.current = false;
+
       if (params.articleId === 'new') {
-        history.push(`/admin/article_edit/${result.data.data.id}`);
+        const baseURL = props.baseURL ? props.baseURL : '/admin/article_edit/';
+        history.push(`${baseURL}${result.data.data.id}`);
       }
     } catch (ex) {
       Modal.error({
@@ -241,11 +263,32 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
       });
       setSaving(false);
     }
-  }, [state, coverPicture, params.articleId, history, userContext.userState]);
+  }, [state, coverPicture, params.articleId, history, userContext.userState, props.baseURL]);
+
+  const hasChange = useCallback((): boolean => {
+    if (unsavedChanges.current) {
+      setPromptVisible(true);
+      return true;
+    }
+
+    return false;
+  }, []);
+
+  const onPromptConfirm = useCallback((nextRouter: string | null) => {
+    setPromptVisible(false);
+    unsavedChanges.current = false;
+    if (nextRouter) {
+      history.push(nextRouter);
+    }
+  }, [history]);
+
+  const onPromptCancle = useCallback((nextRouter: string | null) => {
+    setPromptVisible(false);
+  }, []);
 
   return (
     <>
-      <Breadcrumb className="uranus-admin-breadcrumb">
+      <Breadcrumb className={props.breadcrumbClassName ? props.breadcrumbClassName : "uranus-admin-breadcrumb"}>
         <Breadcrumb.Item>编辑文章</Breadcrumb.Item>
       </Breadcrumb>
       <div style={{ padding: 5, minHeight: 360, background: "#fff" }}>
@@ -352,6 +395,12 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }>> = (props) 
             </Affix>
           </Col>
         </Row>
+        <UranusPrompt
+          visible={promptVisible}
+          hasChange={hasChange}
+          onConfirm={onPromptConfirm}
+          onCancle={onPromptCancle}
+        />
       </div>
     </>
   );

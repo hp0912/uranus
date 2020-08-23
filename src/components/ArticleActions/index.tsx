@@ -44,6 +44,7 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
     }).catch(reason => {
       message.error(reason.message);
     });
+    // eslint-disable-next-line
   }, [props.article.id, userContext.userState]);
 
   const onCommentSubmit = useCallback(async (parentId: string, comment: { rows: IUranusNode[][] }): Promise<ICommentEntity> => {
@@ -88,6 +89,7 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
       setActionData({ likesLoading: false });
       message.error(ex.message);
     }
+    // eslint-disable-next-line
   }, [props.article.id, actionData.liked]);
 
   const onCommentClick = useCallback(() => {

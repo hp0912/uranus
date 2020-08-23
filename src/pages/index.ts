@@ -3,6 +3,7 @@ import NoMatch from "./404/NoMatch";
 import AboutUs from "./AboutUs";
 import Admin from "./Admin";
 import { ArticleDetailPage } from "./ArticleDetail";
+import ArticleEditPage from "./ArticleEdit";
 import Banner from "./Banner";
 import { FrontendPage } from "./Frontend";
 import { GossipPage } from "./Gossip";
@@ -17,6 +18,7 @@ export default {
   ArticleDetail: ArticleDetailPage,
   UserSettings,
   ThirdPartyOAuth,
+  ArticleEditPage: React.lazy<typeof ArticleEditPage>(() => import('./ArticleEdit')),
   MessageBoard: React.lazy<typeof MessageBoard>(() => import('./MessageBoard')),
   AboutUs: React.lazy<typeof AboutUs>(() => import('./AboutUs')),
   Admin: React.lazy<typeof Admin>(() => import('./Admin')),

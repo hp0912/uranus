@@ -83,10 +83,11 @@ export const ArticleDetailPage: FC = (props) => {
     }).catch(reason => {
       setArticleState({ article: null, user: null, error: reason, loading: false });
     });
+    // eslint-disable-next-line
   }, [userContext.userState, params.articleId]);
 
-  const articleDesc = md.render(articleState.article && articleState.article.desc || "");
-  const articleContent = md.render(articleState.article && articleState.article.content || "");
+  const articleDesc = md.render(articleState.article && articleState.article.desc ? articleState.article.desc : "");
+  const articleContent = md.render(articleState.article && articleState.article.content ? articleState.article.content : "");
 
   return (
     <>
