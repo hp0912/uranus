@@ -301,6 +301,28 @@ export const articleList = (params: { category: ArticleCategory, pagination: { c
   });
 };
 
+export const myArticles = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+  const query: string[] = [];
+  const { pagination: { current, pageSize }, searchValue } = params;
+
+  if (current) {
+    query.push(`current=${current}`);
+  }
+  if (pageSize) {
+    query.push(`pageSize=${pageSize}`);
+  }
+  if (searchValue) {
+    query.push(`searchValue=${searchValue}`);
+  }
+
+  const queryString = query.join('&');
+
+  return httpClient({
+    method: 'GET',
+    url: '/api/article/myArticles' + (queryString ? '?' + queryString : ''),
+  });
+};
+
 export const articleListForAdmin = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
   const query: string[] = [];
   const { pagination: { current, pageSize }, searchValue } = params;
@@ -335,6 +357,14 @@ export const articleDeleteForAdmin = (data: { articleId: string }) => {
   return httpClient({
     method: 'DELETE',
     url: '/api/article/admin/delete',
+    data,
+  });
+};
+
+export const articleDelete = (data: { id: string }) => {
+  return httpClient({
+    method: 'DELETE',
+    url: '/api/article/delete',
     data,
   });
 };

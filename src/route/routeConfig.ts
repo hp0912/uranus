@@ -15,6 +15,7 @@ export const routeConfig: IRouteConfig[] = [
   { title: '留言板', path: '/messageboard', exact: true, component: 'MessageBoard' },
   { title: '关于我们', path: '/aboutus', exact: true, component: 'AboutUs' },
   { title: '个人设置', path: '/user/settings', exact: true, component: 'UserSettings' },
+  { title: '我的主页', path: '/user/homepages', exact: true, component: 'UserHomePages' },
   { title: '后台管理', path: '/admin', exact: false, component: 'Admin' },
   { title: '404', path: '*', exact: true, component: 'NoMatch' },
 ];

@@ -1,4 +1,4 @@
-import { DownOutlined, LogoutOutlined, NotificationOutlined, RobotOutlined, SettingOutlined } from '@ant-design/icons';
+import { DownOutlined, LogoutOutlined, NotificationOutlined, RobotOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Badge, Dropdown, Menu, message, Modal, Tooltip } from 'antd';
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
@@ -51,6 +51,10 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
     history.push(`/user/settings`);
   }, [history]);
 
+  const onUserHomePagesClick = useCallback(() => {
+    history.push(`/user/homepages`);
+  }, [history]);
+
   const onNotificationClick = useCallback(() => {
     setNotiVisible(true);
   }, []);
@@ -89,6 +93,11 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
       <Menu.Item key="userSettings">
         <span onClick={onUserSettingClick} >
           <SettingOutlined /> 个人设置
+        </span>
+      </Menu.Item>
+      <Menu.Item key="userHomePages">
+        <span onClick={onUserHomePagesClick} >
+          <UserOutlined /> 我的主页
         </span>
       </Menu.Item>
       <Menu.Item key="notification">

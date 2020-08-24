@@ -38,6 +38,18 @@ const css = {
   MdEditor: { height: "800px" },
 };
 
+const articleInit: IArticleEntity = {
+  title: '',
+  category: undefined,
+  coverPicture: '',
+  desc: '',
+  content: '',
+  tags: [],
+  charge: false,
+  amount: 0,
+  shareWith: ShareWith.private,
+};
+
 const { TextArea } = Input;
 
 interface IArticleEditProps {
@@ -87,7 +99,7 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
   useEffect(() => {
     if (params.articleId === 'new') {
       Promise.all([
-        Promise.resolve<IArticleEntity>({ coverPicture: "", tags: [], charge: false, shareWith: ShareWith.private }),
+        Promise.resolve<IArticleEntity>(articleInit),
         tagList(),
       ]).then(([article, tagsResult]) => {
         setTags(tagsResult.data.data);

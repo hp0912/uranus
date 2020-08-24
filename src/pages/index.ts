@@ -9,6 +9,7 @@ import { FrontendPage } from "./Frontend";
 import { GossipPage } from "./Gossip";
 import MessageBoard from "./MessageBoard";
 import { ThirdPartyOAuth } from "./ThirdPartyOAuth";
+import UserHomePages from "./User/HomePages";
 import UserSettings from "./User/Settings";
 
 export default {
@@ -17,6 +18,7 @@ export default {
   GossipPage,
   ArticleDetail: ArticleDetailPage,
   UserSettings,
+  UserHomePages,
   ThirdPartyOAuth,
   ArticleEditPage: React.lazy<typeof ArticleEditPage>(() => import('./ArticleEdit')),
   MessageBoard: React.lazy<typeof MessageBoard>(() => import('./MessageBoard')),
