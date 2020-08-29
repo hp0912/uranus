@@ -58,3 +58,12 @@
 .uranus-notification-top-01 {
   text-align: right;
 }
+
+@media screen and (max-width: 576px) {
+  .uranus-nickname {
+    display: none;
+  }
+  .uranus-article-edit {
+    display: none;
+  }
+}

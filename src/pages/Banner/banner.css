@@ -53,6 +53,24 @@
   height: 100%;
 }
 
+@media screen and (min-width: 1200px) {
+  .blog_banner_text p {
+    font-size: 36px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .blog_banner_text p {
+    font-size: 27px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .blog_banner_text p {
+    font-size: 18px;
+  }
+}
+
 @keyframes textAni {
   0% {
     opacity: 0;

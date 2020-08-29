@@ -111,7 +111,7 @@ const Header: FC = (props) => {
     <UranusHeader>
       <Row>
         <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={3} />
-        <Col xs={24} sm={24} md={24} lg={14} xl={12} xxl={12}>
+        <Col xs={18} sm={18} md={18} lg={14} xl={12} xxl={12}>
           <div className="uranus-menu-container">
             <div className="uranus-menu-container-left">
               <UranusHeaderLogo>
@@ -143,7 +143,7 @@ const Header: FC = (props) => {
             </div>
           </div>
         </Col>
-        <Col xs={18} sm={18} md={18} lg={5} xl={4} xxl={3}>
+        <Col xs={0} sm={0} md={0} lg={5} xl={4} xxl={3}>
           <UranusHeaderSearch>
             <Search
               placeholder="请输入关键字..."

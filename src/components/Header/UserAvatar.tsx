@@ -143,7 +143,7 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
       {
         !props.isBackend &&
         (
-          <Tooltip title="写博客">
+          <Tooltip className="uranus-article-edit" title="写博客">
             <WriteIcon onClick={onArticleEditClick} />
           </Tooltip>
         )
@@ -158,7 +158,7 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
           <Badge count={notifications ? <div className="uranus-badge">{notifications}</div> : 0}>
             <Avatar className="uranus-avatar-image" size={props.avatarSize} src={userContext.userState?.avatar} />
           </Badge>
-          <span style={{ paddingLeft: 8, paddingRight: 8 }}>
+          <span className="uranus-nickname" style={{ paddingLeft: 8, paddingRight: 8 }}>
             {
               userContext.userState && userContext.userState.nickname.length > 11 ?
                 userContext.userState.nickname.substr(0, 8) + "..." :
