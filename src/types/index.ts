@@ -186,3 +186,14 @@ export interface IMessageEntity {
   content?: string;
   addtime?: number;
 }
+
+export enum TokenType {
+  article = 'article',
+}
+
+export interface ITokenEntity {
+  id?: string;
+  tokenType?: TokenType;
+  targetId?: string;
+  expires?: number;
+}

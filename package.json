@@ -23,6 +23,7 @@
     "axios": "^0.19.2",
     "barrage-ui": "^1.4.0",
     "codemirror": "^5.54.0",
+    "copy-to-clipboard": "^3.3.1",
     "customize-cra": "^0.9.1",
     "highlight.js": "^10.0.1",
     "lodash": "^4.17.19",

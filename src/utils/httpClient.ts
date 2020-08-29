@@ -13,6 +13,7 @@ import {
   LikesType,
   PayMethod,
   PayType,
+  TokenType,
 } from '../types';
 import { baseURL } from './constant';
 
@@ -540,5 +541,20 @@ export const githubOAuth = (code: string) => {
     method: 'GET',
     url: '/api/oauth/github?code=' + code,
     timeout: 12000,
+  });
+};
+
+export const getToken = (params: { tokenType: TokenType, targetId: string }) => {
+  return httpClient({
+    method: 'GET',
+    url: `/api/token/get?tokenType=${params.tokenType}&targetId=${params.targetId}`,
+  });
+};
+
+export const updateToken = (data: { tokenType: TokenType, targetId: string }) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/token/update',
+    data,
   });
 };

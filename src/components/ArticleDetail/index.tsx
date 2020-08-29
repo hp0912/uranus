@@ -1,9 +1,12 @@
-import { Avatar, Breadcrumb, Button, message, Space } from "antd";
+import { CopyOutlined, LoadingOutlined, ShareAltOutlined, SyncOutlined } from "@ant-design/icons";
+import { Avatar, Breadcrumb, Button, Col, message, Modal, Row, Space, Tooltip } from "antd";
+import copy from 'copy-to-clipboard';
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import { format } from "timeago.js";
-import { GoodsType, IArticleEntity, IOrderEntity, IUserEntity } from "../../types";
-import { generateOrder } from "../../utils/httpClient";
+import { GoodsType, IArticleEntity, IOrderEntity, ITokenEntity, IUserEntity, ShareWith, TokenType } from "../../types";
+import { formatDate } from "../../utils";
+import { generateOrder, getToken, updateToken } from "../../utils/httpClient";
 import { ArticleActionsLazyLoad } from "../ArticleActions";
 import { CoverLazyLoad } from "../CoverLazyLoad";
 import { Pay } from '../Pay';
@@ -28,6 +31,9 @@ const ArticleDetailInner: FC<IProps> = (props) => {
 
   const [orderLoading, setOrderLoading] = useState(false);
   const [payState, setPayState] = useState<{ visible: boolean, order: IOrderEntity | null }>({ visible: false, order: null });
+  const [shareState, setShareState] = useState<{ loading: boolean, visible: boolean, data: ITokenEntity | null }>({ loading: false, visible: false, data: null });
+
+  const { host, protocol } = window.location;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,6 +42,37 @@ const ArticleDetailInner: FC<IProps> = (props) => {
   const goBack = useCallback(() => {
     history.goBack();
   }, [history]);
+
+  const onShareClick = useCallback(async () => {
+    setShareState({ loading: true, visible: false, data: null });
+    try {
+      const result = await getToken({ tokenType: TokenType.article, targetId: props.article.id! });
+      setShareState({ loading: false, visible: true, data: result.data.data });
+    } catch (ex) {
+      message.error(ex.message);
+      setShareState({ loading: false, visible: false, data: null });
+    }
+  }, [shareState, props.article.id]);
+
+  const onShareCancel = useCallback(() => {
+    setShareState({ loading: false, visible: false, data: null });
+  }, []);
+
+  const onTokenUpdate = useCallback(async () => {
+    setShareState({ loading: true, visible: true, data: shareState.data });
+    try {
+      const result = await updateToken({ tokenType: TokenType.article, targetId: props.article.id! });
+      setShareState({ loading: false, visible: true, data: result.data.data });
+    } catch (ex) {
+      message.error(ex.message);
+      setShareState({ loading: false, visible: true, data: null });
+    }
+  }, [shareState, props.article.id]);
+
+  const onTokenCopy = useCallback(() => {
+    copy(`${protocol}//${host}/article/detail/${props.article.id}?token=${shareState.data!.id}`);
+    message.success('已经成功复制到剪切板');
+  }, [shareState, props.article.id]);
 
   const onGenOrderClick = useCallback(async () => {
     try {
@@ -75,6 +112,18 @@ const ArticleDetailInner: FC<IProps> = (props) => {
           发表于
           {
             format(props.article?.createdTime as number, 'zh_CN')
+          }
+          {
+            props.article.shareWith === ShareWith.private &&
+            (
+              <Tooltip title="生成私享链接">
+                {
+                  shareState.loading ?
+                    <LoadingOutlined /> :
+                    <ShareAltOutlined onClick={onShareClick} />
+                }
+              </Tooltip>
+            )
           }
         </Space>
       </div>
@@ -117,6 +166,53 @@ const ArticleDetailInner: FC<IProps> = (props) => {
         order={payState.order}
         onCancel={onGenOrderCancle}
       />
+      <Modal
+        visible={shareState.visible}
+        title="生成私享链接"
+        footer={null}
+        onCancel={onShareCancel}
+      >
+        <div>
+          <Row className="uranus-row">
+            <Col span={6}>
+              分享链接：
+            </Col>
+            <Col span={18}>
+              {
+                shareState.data &&
+                (
+                  <>
+                    <span className="uranus-margin-right-8">{`${protocol}//${host}/article/detail/${props.article.id}?token=${shareState.data.id}`}</span>
+                    <Tooltip title="复制链接">
+                      <CopyOutlined className="uranus-margin-right-8" onClick={onTokenCopy} />
+                    </Tooltip>
+                    {
+                      shareState.loading ?
+                        <LoadingOutlined /> :
+                        (
+                          <Tooltip title="刷新链接">
+                            <SyncOutlined onClick={onTokenUpdate} />
+                          </Tooltip>
+                        )
+                    }
+                  </>
+                )
+              }
+            </Col>
+          </Row>
+          <Row className="uranus-row">
+            <Col span={6}>
+              链接到期时间：
+            </Col>
+            <Col span={18}>
+              {
+                shareState.data &&
+                <span>{formatDate(shareState.data.expires!)}</span>
+              }
+            </Col>
+          </Row>
+        </div>
+      </Modal>
     </div>
   );
 };
