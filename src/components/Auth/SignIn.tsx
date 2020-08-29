@@ -82,7 +82,7 @@ export const SignIn: FC<ISignInProps> = (props) => {
   }, [signInState]);
 
   const onGitHubOAuth = useCallback(() => {
-    window.open('https://github.com/login/oauth/authorize?client_id=b0263da0ed583f782b96&redirect_uri=http://localhost:3000/github/oauth/authorize');
+    window.open('https://github.com/login/oauth/authorize?client_id=b0263da0ed583f782b96&redirect_uri=https://houhoukang.com/github/oauth/authorize');
   }, []);
 
   return (
