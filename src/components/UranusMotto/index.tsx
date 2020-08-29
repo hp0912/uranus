@@ -1,3 +1,4 @@
+import { message } from "antd";
 import React, { FC, useEffect, useState } from "react";
 import { websiteMotto } from "../../utils/httpClient";
 
@@ -20,7 +21,12 @@ export const UranusMotto: FC = (props) => {
 
   useEffect(() => {
     websiteMotto().then(result => {
-      setMotto(result.data.data);
+      const m = result.data.data;
+      if (m) {
+        setMotto(result.data.data);
+      }
+    }).catch((reason) => {
+      message.error(reason.message);
     });
   }, []);
 

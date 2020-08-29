@@ -4,10 +4,12 @@ import ImgCrop from 'antd-img-crop';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { RcFile, UploadFile } from 'antd/lib/upload/interface';
 import React, { FC, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useHistory } from "react-router-dom";
 import { SETUSER, UserContext } from '../../store/user';
 import { ISTSAuthForFormResult, IUserEntity } from '../../types';
 import { AliyunOSSDir, AliyunOSSHost } from '../../utils/constant';
 import { stsAuthForForm, updateUserProfile } from '../../utils/httpClient';
+import { UranusPrompt } from '../UranusPrompt';
 
 // 样式
 import 'antd/lib/slider/style/index.css';
@@ -15,7 +17,9 @@ import './user.css';
 
 export const CUserSettings: FC = (props) => {
   const userContext = useContext(UserContext);
+  const history = useHistory();
 
+  const [promptVisible, setPromptVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [userProfile, setUserProfile] = useState<IUserEntity | null>(() => {
@@ -26,6 +30,7 @@ export const CUserSettings: FC = (props) => {
     return null;
   });
 
+  const unsavedChanges = useRef(false);
   const stsAuthParams = useRef<ISTSAuthForFormResult>({
     OSSAccessKeyId: '',
     policy: '',
@@ -118,6 +123,7 @@ export const CUserSettings: FC = (props) => {
 
     if (info.file.status === 'done') {
       setLoading(false);
+      unsavedChanges.current = true;
 
       const newUserProfile = Object.assign({}, userProfile);
       newUserProfile.avatar = `${AliyunOSSHost}/${(info.file as any).aliyunOSSFilename}`;
@@ -129,18 +135,21 @@ export const CUserSettings: FC = (props) => {
   const onNicknameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const newUserProfile = Object.assign({}, userProfile);
     newUserProfile.nickname = event.target.value;
+    unsavedChanges.current = true;
     setUserProfile(newUserProfile);
   }, [userProfile]);
 
   const onSignatureChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const newUserProfile = Object.assign({}, userProfile);
     newUserProfile.signature = event.target.value;
+    unsavedChanges.current = true;
     setUserProfile(newUserProfile);
   }, [userProfile]);
 
   const onPersonalProfileChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newUserProfile = Object.assign({}, userProfile);
     newUserProfile.personalProfile = event.target.value;
+    unsavedChanges.current = true;
     setUserProfile(newUserProfile);
   }, [userProfile]);
 
@@ -188,6 +197,7 @@ export const CUserSettings: FC = (props) => {
       const result = await updateUserProfile(userProfile);
 
       setSaving(false);
+      unsavedChanges.current = false;
       message.success('保存成功');
 
       if (userContext.userDispatch) {
@@ -198,6 +208,27 @@ export const CUserSettings: FC = (props) => {
       setSaving(false);
     }
   }, [userContext, userProfile]);
+
+  const hasChange = useCallback((): boolean => {
+    if (unsavedChanges.current) {
+      setPromptVisible(true);
+      return true;
+    }
+
+    return false;
+  }, []);
+
+  const onPromptConfirm = useCallback((nextRouter: string | null) => {
+    setPromptVisible(false);
+    unsavedChanges.current = false;
+    if (nextRouter) {
+      history.push(nextRouter);
+    }
+  }, [history]);
+
+  const onPromptCancle = useCallback((nextRouter: string | null) => {
+    setPromptVisible(false);
+  }, []);
 
   if (!userContext.userState) {
     return (
@@ -301,6 +332,12 @@ export const CUserSettings: FC = (props) => {
           </Button>
         </Col>
       </Row>
+      <UranusPrompt
+        visible={promptVisible}
+        hasChange={hasChange}
+        onConfirm={onPromptConfirm}
+        onCancle={onPromptCancle}
+      />
     </div>
   );
 };

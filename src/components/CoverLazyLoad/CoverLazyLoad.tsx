@@ -17,7 +17,7 @@ export const CoverLazyLoad: FC<ICoverLazyLoadProps> = (props) => {
           {
             articleId ?
               (
-                <Link to={`/article/${articleId}`}>
+                <Link to={`/article/detail/${articleId}`}>
                   <div className="uranus-article-image" style={{ backgroundImage: `url(${coverURL})` }} />
                 </Link>
               ) :

@@ -47,3 +47,15 @@
     filter: blur(2px);
   }
 }
+
+@media screen and (max-width: 768px) {
+  .uranus-article-image {
+    height: 200px !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .uranus-article-image {
+    height: 150px !important;
+  }
+}

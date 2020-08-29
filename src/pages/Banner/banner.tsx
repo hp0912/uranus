@@ -53,8 +53,8 @@ export const Banner: FC = (props) => {
   useEffect(() => {
     const cn = canvas.current;
     if (cn) {
-      cn.height = window.innerHeight;
-      cn.width = window.innerWidth;
+      cn.height = window.outerHeight;
+      cn.width = window.outerWidth;
       setCanvasContext2D(cn.getContext('2d') as CanvasRenderingContext2D);
       // 加载完毕生成画布
       render();
@@ -80,7 +80,7 @@ export const Banner: FC = (props) => {
 
   // 点击切换至首页
   const toBlogList = useCallback(() => {
-    history.push('/articles');
+    history.push('/frontend');
   }, [history]);
 
   return (

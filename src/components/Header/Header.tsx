@@ -1,4 +1,4 @@
-import { HomeOutlined, IdcardOutlined, MessageOutlined } from "@ant-design/icons";
+import { HomeOutlined, IdcardOutlined, InstagramOutlined, MessageOutlined } from "@ant-design/icons";
 import { Col, Input, Menu, Row } from "antd";
 import { ClickParam } from "antd/lib/menu";
 import React, { FC, useCallback, useContext, useState } from "react";
@@ -62,7 +62,8 @@ const UranusHeaderSearch = styled.div`
 `;
 
 export enum MenuKey {
-  articles = 'articles',
+  frontend = 'frontend',
+  gossip = 'gossip',
   messageboard = 'messageboard',
   aboutus = 'aboutus',
 }
@@ -82,9 +83,9 @@ const Header: FC = (props) => {
 
   const onSearch = useCallback((value: string) => {
     if (value) {
-      history.push(`/${MenuKey.articles}?keyword=${value}`);
+      history.push(`/${MenuKey.frontend}?keyword=${value}`);
     } else {
-      history.push(`/${MenuKey.articles}`);
+      history.push(`/${MenuKey.frontend}`);
     }
   }, [history]);
 
@@ -110,7 +111,7 @@ const Header: FC = (props) => {
     <UranusHeader>
       <Row>
         <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={3} />
-        <Col xs={24} sm={24} md={24} lg={14} xl={12} xxl={12}>
+        <Col xs={18} sm={18} md={18} lg={14} xl={12} xxl={12}>
           <div className="uranus-menu-container">
             <div className="uranus-menu-container-left">
               <UranusHeaderLogo>
@@ -126,8 +127,11 @@ const Header: FC = (props) => {
                 defaultSelectedKeys={selectedKeys}
                 onClick={onMenuClick}
               >
-                <Menu.Item key={MenuKey.articles} icon={<HomeOutlined />}>
-                  博客
+                <Menu.Item key={MenuKey.frontend} icon={<HomeOutlined />}>
+                  前端优选
+                </Menu.Item>
+                <Menu.Item key={MenuKey.gossip} icon={<InstagramOutlined />}>
+                  神秘空间
                 </Menu.Item>
                 <Menu.Item key={MenuKey.messageboard} icon={<MessageOutlined />}>
                   留言板
@@ -139,7 +143,7 @@ const Header: FC = (props) => {
             </div>
           </div>
         </Col>
-        <Col xs={18} sm={18} md={18} lg={5} xl={4} xxl={3}>
+        <Col xs={0} sm={0} md={0} lg={5} xl={4} xxl={3}>
           <UranusHeaderSearch>
             <Search
               placeholder="请输入关键字..."

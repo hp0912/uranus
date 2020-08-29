@@ -6,7 +6,7 @@ import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { format } from "timeago.js";
 import url from 'url';
 import { UserContext } from "../../store/user";
-import { IArticleEntity, ITagEntity, IUserEntity } from "../../types";
+import { ArticleCategory, IArticleEntity, ITagEntity, IUserEntity } from "../../types";
 import { useSetState } from "../../utils/commonHooks";
 import { DEFAULTAVATAR } from "../../utils/constant";
 import { articleList } from "../../utils/httpClient";
@@ -30,8 +30,13 @@ import "../components.css";
 import "./articleList.css";
 
 interface IArtListParams {
+  category: ArticleCategory;
   searchValue: string;
   pagination: PaginationConfig;
+}
+
+interface IArticleListProps {
+  category: ArticleCategory;
 }
 
 interface IArticleListState {
@@ -42,7 +47,7 @@ interface IArticleListState {
   pagination: PaginationConfig;
 }
 
-export const ArticleList: FC = (props) => {
+export const ArticleList: FC<IArticleListProps> = (props) => {
   const userContext = useContext(UserContext);
   const history = useHistory();
   const loca = useLocation();
@@ -99,13 +104,13 @@ export const ArticleList: FC = (props) => {
   useEffect(() => {
     const json = url.parse(loca.search, true, false);
     const query = json.query;
-    const searchValue = query.searchValue ? query.searchValue as string : '';
+    const searchValue = query.keyword ? query.keyword as string : '';
     const current = query.current ? query.current as string : '1';
     const pageSize = query.pageSize ? query.pageSize as string : '15';
-    const params: IArtListParams = { pagination: { current: Number(current), pageSize: Number(pageSize) }, searchValue };
+    const params: IArtListParams = { category: props.category, pagination: { current: Number(current), pageSize: Number(pageSize) }, searchValue };
 
     getArticleList(params);
-  }, [userContext.userState, loca.search]);
+  }, [userContext.userState, loca.search, props.category]);
 
   const getArticleList = useCallback(async (params: IArtListParams) => {
     try {
@@ -183,7 +188,7 @@ export const ArticleList: FC = (props) => {
               </div>
               <div className="article-title">
                 <div className="article-title-name">
-                  <Link to="/article" className="article-title-link">
+                  <Link to={`/article/detail/${item.id!}`} className="article-title-link">
                     {item.title}
                   </Link>
                 </div>
