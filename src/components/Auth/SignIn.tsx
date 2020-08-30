@@ -5,7 +5,7 @@ import {
   WechatOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Divider, Input, message, Space } from "antd";
-import React, { FC, useCallback, useContext, useState } from "react";
+import React, { FC, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { SETUSER, UserContext } from "../../store/user";
 import { useSafeProps, useSetState } from "../../utils/commonHooks";
 import { signIn } from "../../utils/httpClient";
@@ -30,6 +30,13 @@ export const SignIn: FC<ISignInProps> = (props) => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [signInState, setSignInState] = useSetState<ISignInState>({ username: '', password: '' });
+  const authTimer = useRef<number>();
+
+  useEffect(() => {
+    return () => {
+      window.clearInterval(authTimer.current);
+    };
+  }, []);
 
   const onUserNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSignInState({ username: event.target.value });
@@ -82,7 +89,17 @@ export const SignIn: FC<ISignInProps> = (props) => {
   }, [signInState]);
 
   const onGitHubOAuth = useCallback(() => {
-    window.open('https://github.com/login/oauth/authorize?client_id=b0263da0ed583f782b96&redirect_uri=https://houhoukang.com/github/oauth/authorize');
+    window.clearInterval(authTimer.current);
+    window.localStorage.setItem("OAUTH_LOGIN_URL", window.location.href);
+
+    const newWin = window.open('https://github.com/login/oauth/authorize?client_id=b0263da0ed583f782b96&redirect_uri=https://houhoukang.com/github/oauth/authorize');
+
+    authTimer.current = window.setInterval(() => {
+      if (newWin && newWin.closed) {
+        window.clearInterval(authTimer.current);
+        window.location.reload();
+      }
+    }, 300);
   }, []);
 
   return (

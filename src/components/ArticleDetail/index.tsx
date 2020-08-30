@@ -52,7 +52,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
       message.error(ex.message);
       setShareState({ loading: false, visible: false, data: null });
     }
-  }, [shareState, props.article.id]);
+  }, [props.article.id]);
 
   const onShareCancel = useCallback(() => {
     setShareState({ loading: false, visible: false, data: null });
@@ -72,7 +72,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
   const onTokenCopy = useCallback(() => {
     copy(`${protocol}//${host}/article/detail/${props.article.id}?token=${shareState.data!.id}`);
     message.success('已经成功复制到剪切板');
-  }, [shareState, props.article.id]);
+  }, [shareState, props.article.id, protocol, host]);
 
   const onGenOrderClick = useCallback(async () => {
     try {

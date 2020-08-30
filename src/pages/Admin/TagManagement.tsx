@@ -7,8 +7,8 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons';
 import { Breadcrumb, Button, Col, Input, InputNumber, message, Modal, Popconfirm, Row, Table, Tooltip } from 'antd';
-import { ColumnProps } from 'antd/lib/table/Column';
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import { ColumnsType } from 'antd/lib/table/interface';
+import React, { FC, useCallback, useEffect } from 'react';
 import { SketchPicker } from 'react-color';
 import { ITagEntity } from '../../types';
 import { useSetState } from '../../utils/commonHooks';
@@ -46,73 +46,71 @@ export const TagManagement: FC = (props) => {
     getTagList();
   }, []);
 
-  const columns = useMemo<ColumnProps<ITagEntity>[]>(() => {
-    return [
-      {
-        title: '标签名称',
-        dataIndex: 'name',
-        width: '50%',
-        align: 'left',
-        ellipsis: true,
-        render: (text: string, item) => {
-          return (
-            <span>{text}</span>
-          );
-        },
+  const columns: ColumnsType<ITagEntity> = [
+    {
+      title: '标签名称',
+      dataIndex: 'name',
+      width: '50%',
+      align: 'left',
+      ellipsis: true,
+      render: (text: string, item) => {
+        return (
+          <span>{text}</span>
+        );
       },
-      {
-        title: '标签颜色',
-        dataIndex: 'color',
-        width: '20%',
-        align: 'center',
-        render: (color: string, item) => {
-          return <div style={{ width: "100%", height: 25, backgroundColor: color }} />;
-        },
+    },
+    {
+      title: '标签颜色',
+      dataIndex: 'color',
+      width: '20%',
+      align: 'center',
+      render: (color: string, item) => {
+        return <div style={{ width: "100%", height: 25, backgroundColor: color }} />;
       },
-      {
-        title: '排序',
-        dataIndex: 'index',
-        width: '20%',
-        align: 'center',
-        render: (index: number, item) => {
-          return <span>{index}</span>;
-        },
+    },
+    {
+      title: '排序',
+      dataIndex: 'index',
+      width: '20%',
+      align: 'center',
+      render: (index: number, item) => {
+        return <span>{index}</span>;
       },
-      {
-        title: '操作',
-        dataIndex: 'operation',
-        key: 'operation',
-        width: '10%',
-        align: 'center',
-        render: (text, record) => {
-          return (
-            <>
-              <EditOutlined className="uranus-margin-right-8" onClick={() => { onTagEditClick(record); }} />
-              {
-                adminTagState.deleting && adminTagState.currentOPId === record.id ?
-                  <LoadingOutlined /> :
-                  adminTagState.deleting ?
-                    <PauseCircleOutlined /> :
-                    (
-                      <Popconfirm
-                        title="确定要删除该标签吗？"
-                        okText="确认"
-                        cancelText="取消"
-                        icon={<QuestionCircleOutlined className="uranus-delete-icon" />}
-                        onConfirm={() => { onTagDelClick(record.id); }}
-                      >
-                        <Tooltip title="删除">
-                          <DeleteOutlined />
-                        </Tooltip>
-                      </Popconfirm>
-                    )
-              }
-            </>
-          );
-        },
+    },
+    {
+      title: '操作',
+      dataIndex: 'operation',
+      key: 'operation',
+      width: '10%',
+      align: 'center',
+      render: (text, record) => {
+        return (
+          <>
+            <EditOutlined className="uranus-margin-right-8" onClick={() => { onTagEditClick(record); }} />
+            {
+              adminTagState.deleting && adminTagState.currentOPId === record.id ?
+                <LoadingOutlined /> :
+                adminTagState.deleting ?
+                  <PauseCircleOutlined /> :
+                  (
+                    <Popconfirm
+                      title="确定要删除该标签吗？"
+                      okText="确认"
+                      cancelText="取消"
+                      icon={<QuestionCircleOutlined className="uranus-delete-icon" />}
+                      onConfirm={() => { onTagDelClick(record.id); }}
+                    >
+                      <Tooltip title="删除">
+                        <DeleteOutlined />
+                      </Tooltip>
+                    </Popconfirm>
+                  )
+            }
+          </>
+        );
       },
-    ];
-  }, [adminTagState]);
+    },
+  ];
 
   const getTagList = useCallback(async () => {
     try {
@@ -125,6 +123,7 @@ export const TagManagement: FC = (props) => {
       message.error(ex.message);
       setAdminTagState({ loading: false });
     }
+    // eslint-disable-next-line
   }, []);
 
   const onTagAddClick = useCallback(() => {
@@ -136,6 +135,7 @@ export const TagManagement: FC = (props) => {
       color: '#fff',
       index: 0,
     });
+    // eslint-disable-next-line
   }, []);
 
   const onTagEditClick = useCallback((record: ITagEntity) => {
@@ -147,6 +147,7 @@ export const TagManagement: FC = (props) => {
       color: record.color,
       index: record.index,
     });
+    // eslint-disable-next-line
   }, []);
 
   const onTagDelClick = useCallback(async (id?: string) => {
@@ -161,18 +162,22 @@ export const TagManagement: FC = (props) => {
       message.error('删除失败：' + ex.message);
       setAdminTagState({ deleting: false, currentOPId: null });
     }
+    // eslint-disable-next-line
   }, []);
 
   const onTagNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setTagEditState({ name: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onChangeComplete = useCallback((color, event) => {
     setTagEditState({ color: color.hex });
+    // eslint-disable-next-line
   }, []);
 
   const onTagIndexChange = useCallback((value) => {
     setTagEditState({ index: value });
+    // eslint-disable-next-line
   }, []);
 
   const onOk = useCallback(async () => {
@@ -205,6 +210,7 @@ export const TagManagement: FC = (props) => {
       message.error('保存失败：' + ex.message);
       setTagEditState({ loading: false });
     }
+    // eslint-disable-next-line
   }, [tagEditState]);
 
   const onCancel = useCallback(() => {
@@ -216,6 +222,7 @@ export const TagManagement: FC = (props) => {
       color: '#fff',
       index: 0,
     });
+    // eslint-disable-next-line
   }, []);
 
   return (

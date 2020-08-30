@@ -218,6 +218,7 @@ export const CommentManagement: FC = () => {
 
   const onSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setCommentsState({ searchValue: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onSearch = useCallback(() => {

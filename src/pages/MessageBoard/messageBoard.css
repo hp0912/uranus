@@ -7,7 +7,8 @@
 
 .message-submit {
   position: absolute;
-  width: 450px;
+  width: 90%;
+  max-width: 450px;
   margin: 0 ;
   left: 50%;
   bottom: 10%;
