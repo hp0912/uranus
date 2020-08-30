@@ -167,7 +167,8 @@ export const UserManagement: FC = (props) => {
       message.error(ex.message);
       setAdminUserState({ loading: false });
     }
-  }, [adminUserState, setAdminUserState]);
+    // eslint-disable-next-line
+  }, [adminUserState]);
 
   const getUserList = useCallback(async (params?: IAdminUserListParams) => {
     try {
@@ -193,7 +194,8 @@ export const UserManagement: FC = (props) => {
       message.error(ex.message);
       setAdminUserState({ loading: false });
     }
-  }, [adminUserState, setAdminUserState]);
+    // eslint-disable-next-line
+  }, [adminUserState]);
 
   const onTableChange = useCallback((
     pagination: TablePaginationConfig,
@@ -206,6 +208,7 @@ export const UserManagement: FC = (props) => {
 
   const onSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setAdminUserState({ searchValue: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onSearch = useCallback(() => {
@@ -219,42 +222,49 @@ export const UserManagement: FC = (props) => {
     const newUserProfile = Object.assign({}, userEditState.data);
     newUserProfile.avatar = event.target.value;
     setUserEditState({ data: newUserProfile });
+    // eslint-disable-next-line
   }, [userEditState]);
 
   const onNicknameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const newUserProfile = Object.assign({}, userEditState.data);
     newUserProfile.nickname = event.target.value;
     setUserEditState({ data: newUserProfile });
+    // eslint-disable-next-line
   }, [userEditState]);
 
   const onAccessLevelChange = useCallback((value) => {
     const newUserProfile = Object.assign({}, userEditState.data);
     newUserProfile.accessLevel = value;
     setUserEditState({ data: newUserProfile });
+    // eslint-disable-next-line
   }, [userEditState]);
 
   const onIsBannedChange = useCallback((checked: boolean) => {
     const newUserProfile = Object.assign({}, userEditState.data);
     newUserProfile.isBanned = checked;
     setUserEditState({ data: newUserProfile });
+    // eslint-disable-next-line
   }, [userEditState]);
 
   const onDatePickerOk = useCallback((date: Moment) => {
     const newUserProfile = Object.assign({}, userEditState.data);
     newUserProfile.expires = date.toDate().getTime();
     setUserEditState({ data: newUserProfile });
+    // eslint-disable-next-line
   }, [userEditState]);
 
   const onSignatureChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const newUserProfile = Object.assign({}, userEditState.data);
     newUserProfile.signature = event.target.value;
     setUserEditState({ data: newUserProfile });
+    // eslint-disable-next-line
   }, [userEditState]);
 
   const onPersonalProfileChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newUserProfile = Object.assign({}, userEditState.data);
     newUserProfile.personalProfile = event.target.value;
     setUserEditState({ data: newUserProfile });
+    // eslint-disable-next-line
   }, [userEditState]);
 
   const onOk = useCallback(async () => {
@@ -282,32 +292,38 @@ export const UserManagement: FC = (props) => {
       message.error('保存失败：' + ex.message);
       setUserEditState({ loading: false });
     }
+    // eslint-disable-next-line
   }, [userEditState, adminUserState]);
 
   const onCancel = useCallback(() => {
     setUserEditState({ data: null, visible: false });
+    // eslint-disable-next-line
   }, []);
 
   const onBroadcastChange = useCallback((checked: boolean) => {
     setUserNotiState({ broadcast: checked });
+    // eslint-disable-next-line
   }, []);
 
   const onNotiTitleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const noti = Object.assign({}, userNotiState.data);
     noti.title = event.target.value;
     setUserNotiState({ data: noti });
+    // eslint-disable-next-line
   }, [userNotiState]);
 
   const onNotiDescChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const noti = Object.assign({}, userNotiState.data);
     noti.desc = event.target.value;
     setUserNotiState({ data: noti });
+    // eslint-disable-next-line
   }, [userNotiState]);
 
   const onNotiContentChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const noti = Object.assign({}, userNotiState.data);
     noti.content = event.target.value;
     setUserNotiState({ data: noti });
+    // eslint-disable-next-line
   }, [userNotiState]);
 
   const onNotiOk = useCallback(async () => {
@@ -334,10 +350,12 @@ export const UserManagement: FC = (props) => {
       message.error('发送失败：' + ex.message);
       setUserNotiState({ loading: false });
     }
+    // eslint-disable-next-line
   }, [userNotiState]);
 
   const onNotiCancel = useCallback(() => {
     setUserNotiState({ data: null, visible: false, username: null });
+    // eslint-disable-next-line
   }, []);
 
   return (

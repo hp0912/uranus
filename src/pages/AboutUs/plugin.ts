@@ -16,7 +16,7 @@ function markdownInit() {
         inside: {
           variable: { pattern: /^(!?\[)[^\]]+/, lookbehind: !0 },
           string: /(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\((?:\\.|[^)\\])*\))$/,
-          punctuation: /^[\[\]!:]|[<>]/,
+          punctuation: /^[[\]!:]|[<>]/,
         },
         alias: "url",
       },

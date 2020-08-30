@@ -130,6 +130,7 @@ export const MyBlog: FC = () => {
       message.error(ex.message);
       setMyBlogState({ deleting: false, currentOPId: null });
     }
+    // eslint-disable-next-line
   }, [myBlogState]);
 
   const geMyBlogs = useCallback(async (params?: IMyBlogParams) => {
@@ -156,6 +157,7 @@ export const MyBlog: FC = () => {
       message.error(ex.message);
       setMyBlogState({ loading: false });
     }
+    // eslint-disable-next-line
   }, [myBlogState]);
 
   const onTableChange = useCallback((
@@ -167,6 +169,7 @@ export const MyBlog: FC = () => {
 
   const onSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setMyBlogState({ searchValue: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onSearch = useCallback(() => {

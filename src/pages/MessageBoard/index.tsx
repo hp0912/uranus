@@ -106,7 +106,7 @@ const MessageBoard: FC = (props) => {
           barrage.setConfig({ duration: -1 });
 
           messages.forEach(msg => {
-            const bar = message2Barrage(msg, now - timeRef.current);
+            const bar = message2Barrage(msg, now - timeRef.current > 20000 ? now - timeRef.current - 20000 : now - timeRef.current);
             barrage.add(bar);
             messagesRef.current.push(bar);
           });

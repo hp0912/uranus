@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import url from 'url';
 import { Header } from "../../components/Header";
+import { browserDetect } from "../../utils";
 import { githubOAuth } from "../../utils/httpClient";
 
 // 图标
@@ -30,10 +31,19 @@ export const ThirdPartyOAuth: FC = (props) => {
 
     if (typeof query.code === 'string') {
       githubOAuth(query.code).then(() => {
-        if (window.opener) {
-          window.close();
+        const { browser } = browserDetect(window.navigator.userAgent);
+        const URL = window.localStorage.getItem("OAUTH_LOGIN_URL");
+
+        if (browser.wechat && URL) {
+          window.location.href = URL;
         } else {
-          history.push('/');
+          setTimeout(() => {
+            if (window.opener) {
+              window.close();
+            } else {
+              history.go(-1);
+            }
+          }, 3000);
         }
       }).catch(reason => {
         Modal.error({
@@ -45,13 +55,6 @@ export const ThirdPartyOAuth: FC = (props) => {
         });
       });
     }
-
-    window.onbeforeunload = () => {
-      if (window.opener) {
-        window.opener.location.reload();
-        window.close();
-      }
-    };
   }, [loca.search, history]);
 
   return (

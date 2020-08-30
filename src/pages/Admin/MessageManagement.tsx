@@ -162,6 +162,7 @@ export const MessageManagement: FC = () => {
 
   const onSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setMessagesState({ searchValue: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onSearch = useCallback(() => {
