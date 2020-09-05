@@ -20,6 +20,7 @@ interface IArticleDetailProps {
   articleDesc: string;
   articleContent: string;
   user: IUserEntity;
+  refresh: () => Promise<void>;
 }
 
 type IProps = RouteComponentProps & IArticleDetailProps;
@@ -92,6 +93,11 @@ const ArticleDetailInner: FC<IProps> = (props) => {
     setPayState({ visible: false, order: null });
   }, []);
 
+  const onPaySuccess = useCallback(async () => {
+    await props.refresh();
+    setPayState({ visible: false, order: null });
+  }, [props.refresh]);
+
   return (
     <div className="uranus-article-detail">
       <Breadcrumb>
@@ -160,12 +166,18 @@ const ArticleDetailInner: FC<IProps> = (props) => {
             </div>
           )
       }
-      <Pay
-        title={props.article.title as string}
-        visible={payState.visible}
-        order={payState.order}
-        onCancel={onGenOrderCancle}
-      />
+      {
+        payState.order &&
+        (
+          <Pay
+            title={props.article.title as string}
+            visible={payState.visible}
+            order={payState.order}
+            onSuccess={onPaySuccess}
+            onCancel={onGenOrderCancle}
+          />
+        )
+      }
       <Modal
         visible={shareState.visible}
         title="生成私享链接"

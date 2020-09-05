@@ -1,8 +1,11 @@
 import { AlipayOutlined, QuestionCircleOutlined, WechatOutlined } from "@ant-design/icons";
 import { Button, Col, message, Modal, Row, Select, Tooltip } from "antd";
-import React, { FC, useCallback, useState } from "react";
-import { IOrderEntity, PayMethod, PayType } from "../../types";
-import { initPay } from "../../utils/httpClient";
+import QRCode from 'qrcode.react';
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import { IOrderEntity, PayCode, PayMethod, PayType } from "../../types";
+import { browserDetect, IBrowserDetect, IOSDetect } from "../../utils";
+import { useSetState } from "../../utils/commonHooks";
+import { initPay, queryPayStatus } from "../../utils/httpClient";
 
 // 样式
 import './pay.css';
@@ -12,6 +15,7 @@ interface IPayProps {
   visible: boolean;
   order: IOrderEntity | null;
   onCancel: () => void;
+  onSuccess?: () => Promise<void>;
 }
 
 interface IPayState {
@@ -19,56 +23,128 @@ interface IPayState {
   wechatPayLoading: boolean;
   aliPayLoading: boolean;
   QRCodeVisible: boolean;
+  QRCodeURL?: string;
+}
+
+interface IPayResponse {
+  return_code: string;
+  return_msg?: string;
+  err_code?: string;
+  err_msg?: string;
+  nonce_str: string;
+  sign: string;
+  goods_detail?: string;
+  mchid: string;
+  order_id: string;
+  out_trade_no: string;
+  total_fee: string;
+  code_url: string;
+}
+
+interface IScanPayResponse extends IPayResponse {
+  code_url: string;
 }
 
 export const Pay: FC<IPayProps> = (props) => {
   const { title, visible, order } = props;
 
+  const [browserState] = useState<{ browser: IBrowserDetect, os: IOSDetect }>(() => {
+    return browserDetect(window.navigator.userAgent);
+  });
   const [payMethod, setPayMethod] = useState(PayMethod.scan);
-  const [payState, setPayState] = useState<IPayState>({
+  const [payState, setPayState] = useSetState<IPayState>({
     payType: null,
     wechatPayLoading: false,
     aliPayLoading: false,
     QRCodeVisible: false,
+    QRCodeURL: '',
   });
+
+  const payStatusTimer = useRef(0);
+
+  useEffect(() => {
+    return () => {
+      clearInterval(payStatusTimer.current);
+    };
+  }, []);
 
   const onPayMethodChange = useCallback((value: PayMethod) => {
     setPayMethod(value);
   }, []);
 
+  const queryStatus = useCallback(async (orderId: string) => {
+    const result = await queryPayStatus(orderId);
+    const { code, status } = result.data.data;
+
+    if (code === PayCode.success) {
+      clearInterval(payStatusTimer.current);
+      setPayState({ payType: null, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: false });
+      if (props.onSuccess) {
+        props.onSuccess();
+      }
+    } else if (code === PayCode.failure) {
+      clearInterval(payStatusTimer.current);
+      setPayState({ payType: null, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: false });
+      message.error(status);
+    }
+    // eslint-disable-next-line
+  }, [props.onSuccess]);
+
   const onWechatClick = useCallback(async () => {
     try {
+      clearInterval(payStatusTimer.current);
       setPayState({ payType: null, wechatPayLoading: true, aliPayLoading: false, QRCodeVisible: false });
 
-      await initPay({ orderId: '5ef6daf7b6de5e1c0634d1eb', payType: PayType.WeChatPay, payMethod });
+      const payResult = await initPay({ orderId: order!.id!, payType: PayType.WeChatPay, payMethod });
+      const pay: IScanPayResponse = payResult.data.data;
 
-      setPayState({ payType: PayType.WeChatPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true });
+      if (payMethod === PayMethod.scan) {
+        const QRCodeURL = pay.code_url;
+        setPayState({ payType: PayType.WeChatPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true, QRCodeURL });
+        payStatusTimer.current = window.setInterval(queryStatus, 3000, order!.id!);
+      }
     } catch (ex) {
-      setPayState({ payType: PayType.WeChatPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true });
+      if (payMethod === PayMethod.scan) {
+        setPayState({ payType: PayType.WeChatPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true });
+      }
       message.error(ex.message);
     }
-  }, [payMethod]);
+    // eslint-disable-next-line
+  }, [payMethod, order!.id, queryStatus]);
 
   const onAlipayClick = useCallback(async () => {
     try {
+      clearInterval(payStatusTimer.current);
       setPayState({ payType: null, wechatPayLoading: false, aliPayLoading: true, QRCodeVisible: false });
 
-      await initPay({ orderId: '5ef6daf7b6de5e1c0634d1eb', payType: PayType.AliPay, payMethod });
+      const payResult = await initPay({ orderId: order!.id!, payType: PayType.AliPay, payMethod });
+      const pay: IScanPayResponse = payResult.data.data;
 
-      setPayState({ payType: PayType.AliPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true });
+      if (payMethod === PayMethod.scan) {
+        const QRCodeURL = pay.code_url;
+        setPayState({ payType: PayType.AliPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true, QRCodeURL });
+        payStatusTimer.current = window.setInterval(queryStatus, 3000, order!.id!);
+      }
     } catch (ex) {
-      setPayState({ payType: PayType.AliPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true });
+      if (payMethod === PayMethod.scan) {
+        setPayState({ payType: PayType.AliPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true });
+      }
       message.error(ex.message);
     }
-  }, [payMethod]);
+    // eslint-disable-next-line
+  }, [payMethod, order!.id, queryStatus]);
 
   const onGobackClick = useCallback(() => {
+    clearInterval(payStatusTimer.current);
     setPayState({ payType: null, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: false });
+    // eslint-disable-next-line
   }, []);
 
   const onCancel = useCallback(() => {
+    clearInterval(payStatusTimer.current);
     props.onCancel();
     setPayState({ payType: null, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: false });
+    // eslint-disable-next-line
   }, [props.onCancel]);
 
   if (!visible || !order) {
@@ -113,8 +189,8 @@ export const Pay: FC<IPayProps> = (props) => {
               <Col span={16} className="pay-item-right">
                 <Select className="pay-method" bordered={false} value={payMethod} onChange={onPayMethodChange}>
                   <Select.Option value={PayMethod.scan}>二维码支付</Select.Option>
-                  <Select.Option value={PayMethod.wap}>H5支付</Select.Option>
-                  <Select.Option value={PayMethod.cashier}>微信收银台</Select.Option>
+                  <Select.Option disabled={!browserState.os.phone} value={PayMethod.wap}>H5支付</Select.Option>
+                  <Select.Option disabled={!browserState.os.phone} value={PayMethod.cashier}>微信收银台</Select.Option>
                 </Select>
               </Col>
             </Row>
@@ -158,8 +234,12 @@ export const Pay: FC<IPayProps> = (props) => {
           <div>
             <Row className="uranus-row">
               <Col span={24}>
-                <div style={{ height: 230 }}>
-                  123
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <QRCode
+                    value={payState.QRCodeURL}
+                    size={250}
+                    fgColor="#000000"
+                  />
                 </div>
               </Col>
             </Row>

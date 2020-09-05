@@ -37,6 +37,7 @@
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "prismjs": "^1.21.0",
+    "qrcode.react": "^1.0.0",
     "react": "^16.12.0",
     "react-app-rewired": "^2.1.5",
     "react-codemirror2": "^7.2.1",
