@@ -1,7 +1,7 @@
 import { FrownOutlined } from "@ant-design/icons";
 import { Result, Skeleton } from "antd";
 import MarkdownIt from "markdown-it";
-import React, { FC, useContext, useEffect, useMemo, useRef } from 'react';
+import React, { FC, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { useParams } from "react-router-dom";
 import { Advertisement01 } from '../../components/Advertisement/Advertisement01';
 import { ArticleDetail } from '../../components/ArticleDetail';
@@ -86,6 +86,15 @@ export const ArticleDetailPage: FC = (props) => {
     // eslint-disable-next-line
   }, [userContext.userState, params.articleId]);
 
+  const refresh = useCallback(async () => {
+    articleGet(params.articleId).then(result => {
+      const { article, user } = result.data.data;
+      setArticleState({ article, user, error: null, loading: false });
+    }).catch(reason => {
+      setArticleState({ article: null, user: null, error: reason, loading: false });
+    });
+  }, [params.articleId]);
+
   const articleDesc = md.render(articleState.article && articleState.article.desc ? articleState.article.desc : "");
   const articleContent = md.render(articleState.article && articleState.article.content ? articleState.article.content : "");
 
@@ -111,10 +120,11 @@ export const ArticleDetailPage: FC = (props) => {
             articleState.article && articleState.user && !articleState.error &&
             (
               <ArticleDetail
-                article={articleState.article as IArticleEntity}
+                article={articleState.article}
                 articleDesc={articleDesc}
                 articleContent={articleContent}
-                user={articleState.user as IUserEntity}
+                user={articleState.user}
+                refresh={refresh}
               />
             )
           }

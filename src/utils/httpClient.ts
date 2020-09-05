@@ -536,6 +536,13 @@ export const initPay = (data: { orderId: string, payType: PayType, payMethod: Pa
   });
 };
 
+export const queryPayStatus = (orderId: string) => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/pay/queryStatus?orderId=' + orderId,
+  });
+};
+
 export const githubOAuth = (code: string) => {
   return httpClient({
     method: 'GET',

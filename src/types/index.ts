@@ -97,8 +97,8 @@ export enum OrderCode {
 }
 
 export enum PayType {
-  AliPay = '1',
-  WeChatPay = '2',
+  AliPay = 'alipay',
+  WeChatPay = 'wechat',
 }
 
 export enum PayMethod {
@@ -118,6 +118,12 @@ export interface IOrderEntity {
   code?: OrderCode;
   status?: string;
   createTime: number;
+}
+
+export enum PayCode {
+  init = 0,
+  success = 200,
+  failure = 500,
 }
 
 export enum CommentType {
