@@ -173,7 +173,7 @@ export const Pay: FC<IPayProps> = (props) => {
       }
     } catch (ex) {
       if (payMethod === PayMethod.scan) {
-        setPayState({ payType: PayType.WeChatPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true });
+        setPayState({ payType: PayType.WeChatPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: false });
       }
       message.error(ex.message);
     }
@@ -198,7 +198,7 @@ export const Pay: FC<IPayProps> = (props) => {
       }
     } catch (ex) {
       if (payMethod === PayMethod.scan) {
-        setPayState({ payType: PayType.AliPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true });
+        setPayState({ payType: PayType.AliPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: false });
       }
       message.error(ex.message);
     }
