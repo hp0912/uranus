@@ -38,11 +38,14 @@ interface IPayResponse {
   order_id: string;
   out_trade_no: string;
   total_fee: string;
-  code_url: string;
 }
 
 interface IScanPayResponse extends IPayResponse {
   code_url: string;
+}
+
+interface IWAPPayResponse extends IPayResponse {
+  mweb_url: string;
 }
 
 export const Pay: FC<IPayProps> = (props) => {
@@ -96,12 +99,15 @@ export const Pay: FC<IPayProps> = (props) => {
       setPayState({ payType: null, wechatPayLoading: true, aliPayLoading: false, QRCodeVisible: false });
 
       const payResult = await initPay({ orderId: order!.id!, payType: PayType.WeChatPay, payMethod });
-      const pay: IScanPayResponse = payResult.data.data;
 
       if (payMethod === PayMethod.scan) {
+        const pay: IScanPayResponse = payResult.data.data;
         const QRCodeURL = pay.code_url;
         setPayState({ payType: PayType.WeChatPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true, QRCodeURL });
         payStatusTimer.current = window.setInterval(queryStatus, 3000, order!.id!);
+      } else if (payMethod === PayMethod.wap) {
+        const pay: IWAPPayResponse = payResult.data.data;
+        window.location.href = pay.mweb_url;
       }
     } catch (ex) {
       if (payMethod === PayMethod.scan) {
@@ -118,9 +124,9 @@ export const Pay: FC<IPayProps> = (props) => {
       setPayState({ payType: null, wechatPayLoading: false, aliPayLoading: true, QRCodeVisible: false });
 
       const payResult = await initPay({ orderId: order!.id!, payType: PayType.AliPay, payMethod });
-      const pay: IScanPayResponse = payResult.data.data;
 
       if (payMethod === PayMethod.scan) {
+        const pay: IScanPayResponse = payResult.data.data;
         const QRCodeURL = pay.code_url;
         setPayState({ payType: PayType.AliPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true, QRCodeURL });
         payStatusTimer.current = window.setInterval(queryStatus, 3000, order!.id!);
@@ -190,7 +196,7 @@ export const Pay: FC<IPayProps> = (props) => {
                 <Select className="pay-method" bordered={false} value={payMethod} onChange={onPayMethodChange}>
                   <Select.Option value={PayMethod.scan}>二维码支付</Select.Option>
                   <Select.Option disabled={!browserState.os.phone} value={PayMethod.wap}>H5支付</Select.Option>
-                  <Select.Option disabled={!browserState.os.phone} value={PayMethod.cashier}>微信收银台</Select.Option>
+                  <Select.Option disabled={!browserState.os.phone} value={PayMethod.cashier}>收银台</Select.Option>
                 </Select>
               </Col>
             </Row>
