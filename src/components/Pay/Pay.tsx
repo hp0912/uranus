@@ -2,6 +2,7 @@ import { AlipayOutlined, QuestionCircleOutlined, WechatOutlined } from "@ant-des
 import { Button, Col, message, Modal, Row, Select, Tooltip } from "antd";
 import QRCode from 'qrcode.react';
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import url from 'url';
 import { IOrderEntity, PayCode, PayMethod, PayType } from "../../types";
 import { browserDetect, IBrowserDetect, IOSDetect } from "../../utils";
 import { useSetState } from "../../utils/commonHooks";
@@ -26,6 +27,19 @@ interface IPayState {
   QRCodeURL?: string;
 }
 
+interface IPayData {
+  mchid: string; // 平台分配商户号
+  out_trade_no: string; // 用户端自主生成的订单号
+  total_fee: number; // 单位：分
+  body: string; // 商品描述
+  notify_url: string; // 通知回调地址
+  type: PayType;
+  goods_detail?: string; // 商品详情
+  attach?: string; // 附加的其他参数
+  nonce_str: string; // 随机字符串 增加安全性
+  sign: string; // 签名
+}
+
 interface IPayResponse {
   return_code: string;
   return_msg?: string;
@@ -48,6 +62,10 @@ interface IWAPPayResponse extends IPayResponse {
   mweb_url: string;
 }
 
+interface ICashierPayData extends IPayData {
+  redirect_url: string;
+}
+
 export const Pay: FC<IPayProps> = (props) => {
   const { title, visible, order } = props;
 
@@ -62,14 +80,46 @@ export const Pay: FC<IPayProps> = (props) => {
     QRCodeVisible: false,
     QRCodeURL: '',
   });
+  const [wechatH5State, setWechatH5State] = useState<{ mweb_url: string, nonce_str: string, prepay_id: string, package: string }>({
+    mweb_url: '',
+    nonce_str: '',
+    prepay_id: '',
+    package: '',
+  });
+  const [cashierState, setCashierState] = useState<ICashierPayData>({
+    mchid: '',
+    out_trade_no: '',
+    total_fee: 0,
+    body: '',
+    notify_url: '',
+    type: PayType.WeChatPay,
+    goods_detail: '',
+    nonce_str: '',
+    sign: '',
+    redirect_url: '',
+  });
 
   const payStatusTimer = useRef(0);
+  const cashierForm = React.createRef<HTMLFormElement>();
+  const wechatH5Form = React.createRef<HTMLFormElement>();
 
   useEffect(() => {
     return () => {
       clearInterval(payStatusTimer.current);
     };
   }, []);
+
+  useEffect(() => {
+    if (cashierState.nonce_str) {
+      cashierForm.current?.submit();
+    }
+  }, [cashierState.nonce_str]);
+
+  useEffect(() => {
+    if (wechatH5State.nonce_str) {
+      wechatH5Form.current?.submit();
+    }
+  }, [wechatH5State.nonce_str]);
 
   const onPayMethodChange = useCallback((value: PayMethod) => {
     setPayMethod(value);
@@ -107,7 +157,19 @@ export const Pay: FC<IPayProps> = (props) => {
         payStatusTimer.current = window.setInterval(queryStatus, 3000, order!.id!);
       } else if (payMethod === PayMethod.wap) {
         const pay: IWAPPayResponse = payResult.data.data;
-        window.location.href = pay.mweb_url;
+        const strArr = pay.mweb_url.split('?');
+        const json = url.parse('?' + strArr[1], true, false);
+        const query = json.query;
+
+        setWechatH5State({
+          nonce_str: pay.nonce_str,
+          mweb_url: strArr[0],
+          prepay_id: query.prepay_id as string,
+          package: query.package as string,
+        });
+      } else if (payMethod === PayMethod.cashier) {
+        const pay: ICashierPayData = payResult.data.data;
+        setCashierState(pay);
       }
     } catch (ex) {
       if (payMethod === PayMethod.scan) {
@@ -130,6 +192,9 @@ export const Pay: FC<IPayProps> = (props) => {
         const QRCodeURL = pay.code_url;
         setPayState({ payType: PayType.AliPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: true, QRCodeURL });
         payStatusTimer.current = window.setInterval(queryStatus, 3000, order!.id!);
+      } else if (payMethod === PayMethod.cashier) {
+        const pay: ICashierPayData = payResult.data.data;
+        setCashierState(pay);
       }
     } catch (ex) {
       if (payMethod === PayMethod.scan) {
@@ -215,22 +280,26 @@ export const Pay: FC<IPayProps> = (props) => {
                 </Button>
               </Col>
             </Row>
-            <Row className="uranus-row">
-              <Col span={24}>
-                <Button
-                  type="primary"
-                  size="large"
-                  loading={payState.aliPayLoading}
-                  block
-                  onClick={onAlipayClick}
-                  disabled={payState.wechatPayLoading || payMethod === PayMethod.cashier}
-                  icon={<AlipayOutlined />}
-                >
-                  支付宝支付
-                </Button>
-              </Col>
-            </Row>
-            <p style={{ color: "red", fontSize: 12 }}>温馨提示: 微信内打开推荐使用微信收银台付款</p>
+            {
+              payMethod !== PayMethod.wap &&
+              (
+                <Row className="uranus-row">
+                  <Col span={24}>
+                    <Button
+                      type="primary"
+                      size="large"
+                      loading={payState.aliPayLoading}
+                      block
+                      onClick={onAlipayClick}
+                      disabled={payState.wechatPayLoading || browserState.browser.wechat}
+                      icon={<AlipayOutlined />}
+                    >
+                      支付宝支付
+                    </Button>
+                  </Col>
+                </Row>
+              )
+            }
           </div>
         )
       }
@@ -278,6 +347,21 @@ export const Pay: FC<IPayProps> = (props) => {
           </div>
         )
       }
+      <form action={`https://admin.xunhuweb.com${cashierState.type === PayType.WeChatPay ? "/pay/cashier" : "/alipaycashier"}`} method="get" ref={cashierForm}>
+        <input type="hidden" name="mchid" value={cashierState.mchid} />
+        <input type="hidden" name="out_trade_no" value={cashierState.out_trade_no} />
+        <input type="hidden" name="total_fee" value={cashierState.total_fee} />
+        <input type="hidden" name="body" value={cashierState.body} />
+        <input type="hidden" name="notify_url" value={cashierState.notify_url} />
+        <input type="hidden" name="redirect_url" value={cashierState.redirect_url} />
+        <input type="hidden" name="type" value={cashierState.type} />
+        <input type="hidden" name="nonce_str" value={cashierState.nonce_str} />
+        <input type="hidden" name="sign" value={cashierState.sign} />
+      </form>
+      <form action={wechatH5State.mweb_url} method="get" ref={wechatH5Form}>
+        <input type="hidden" name="prepay_id" value={wechatH5State.prepay_id} />
+        <input type="hidden" name="package" value={wechatH5State.package} />
+      </form>
     </Modal>
   );
 };
