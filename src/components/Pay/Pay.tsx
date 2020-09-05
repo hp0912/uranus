@@ -172,13 +172,11 @@ export const Pay: FC<IPayProps> = (props) => {
         setCashierState(pay);
       }
     } catch (ex) {
-      if (payMethod === PayMethod.scan) {
-        setPayState({ payType: PayType.WeChatPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: false });
-      }
+      props.onCancel();
       message.error(ex.message);
     }
     // eslint-disable-next-line
-  }, [payMethod, order!.id, queryStatus]);
+  }, [payMethod, order!.id, queryStatus, props.onCancel]);
 
   const onAlipayClick = useCallback(async () => {
     try {
@@ -197,13 +195,11 @@ export const Pay: FC<IPayProps> = (props) => {
         setCashierState(pay);
       }
     } catch (ex) {
-      if (payMethod === PayMethod.scan) {
-        setPayState({ payType: PayType.AliPay, wechatPayLoading: false, aliPayLoading: false, QRCodeVisible: false });
-      }
+      props.onCancel();
       message.error(ex.message);
     }
     // eslint-disable-next-line
-  }, [payMethod, order!.id, queryStatus]);
+  }, [payMethod, order!.id, queryStatus, props.onCancel]);
 
   const onGobackClick = useCallback(() => {
     clearInterval(payStatusTimer.current);
