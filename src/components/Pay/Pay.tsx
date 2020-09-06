@@ -256,12 +256,18 @@ export const Pay: FC<IPayProps> = (props) => {
               <Col span={16} className="pay-item-right">
                 <Select className="pay-method" bordered={false} value={payMethod} onChange={onPayMethodChange}>
                   <Select.Option value={PayMethod.scan}>二维码支付</Select.Option>
-                  <Select.Option disabled={!browserState.os.phone} value={PayMethod.wap}>H5支付</Select.Option>
-                  <Select.Option disabled={!browserState.os.phone} value={PayMethod.cashier}>收银台</Select.Option>
+                  {
+                    browserState.os.phone && !browserState.browser.wechat && // 手机端非微信浏览器
+                    <Select.Option value={PayMethod.wap}>H5支付</Select.Option>
+                  }
+                  {
+                    browserState.os.phone && // 手机端
+                    <Select.Option disabled={!browserState.os.phone} value={PayMethod.cashier}>收银台</Select.Option>
+                  }
                 </Select>
               </Col>
             </Row>
-            <Row className="uranus-row">
+            <Row className={`uranus-row ${payMethod === PayMethod.cashier && !browserState.browser.wechat ? "uranus-pay-hidden" : ""}`}>{/** 微信收银台只能在微信内使用 */}
               <Col span={24}>
                 <Button
                   type="primary"
@@ -276,26 +282,21 @@ export const Pay: FC<IPayProps> = (props) => {
                 </Button>
               </Col>
             </Row>
-            {
-              payMethod !== PayMethod.wap &&
-              (
-                <Row className="uranus-row">
-                  <Col span={24}>
-                    <Button
-                      type="primary"
-                      size="large"
-                      loading={payState.aliPayLoading}
-                      block
-                      onClick={onAlipayClick}
-                      disabled={payState.wechatPayLoading || browserState.browser.wechat}
-                      icon={<AlipayOutlined />}
-                    >
-                      支付宝支付
-                    </Button>
-                  </Col>
-                </Row>
-              )
-            }
+            <Row className={`uranus-row ${payMethod === PayMethod.wap || (payMethod === PayMethod.cashier && browserState.browser.wechat) ? "uranus-pay-hidden" : ""}`}>{/** 支付宝的H5支付使用收银台接口, 微信内无法使用支付宝收银台 */}
+              <Col span={24}>
+                <Button
+                  type="primary"
+                  size="large"
+                  loading={payState.aliPayLoading}
+                  block
+                  onClick={onAlipayClick}
+                  disabled={payState.wechatPayLoading}
+                  icon={<AlipayOutlined />}
+                >
+                  支付宝支付
+                </Button>
+              </Col>
+            </Row>
           </div>
         )
       }
