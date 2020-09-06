@@ -19,16 +19,18 @@
   margin: 5px 0;
 }
 
-.custom-html-style code{
+.custom-html-style code {
   padding: .5em !important;
+  background-color: #fbe5e1 !important;
 }
 
 .custom-html-style pre {
   padding: 0 !important;
+  background-color: #fbe5e1 !important;
 }
 
 .custom-html-style .hljs {
-  background-color: #1E1E1E !important;
+  background-color: #1C1D21!important;
 }
 
 .uranus-404 {

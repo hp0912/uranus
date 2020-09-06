@@ -30,7 +30,7 @@ import twemoji from 'twemoji';
 import { UranusPrompt } from '../UranusPrompt';
 
 // css
-import "highlight.js/styles/vs2015.css";
+import "highlight.js/styles/an-old-hope.css";
 import 'react-markdown-editor-lite/lib/index.css';
 import './articleEdit.css';
 

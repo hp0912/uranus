@@ -29,7 +29,7 @@ import sup from 'markdown-it-sup';
 import twemoji from 'twemoji';
 
 // 样式
-import "highlight.js/styles/vs2015.css";
+import "highlight.js/styles/an-old-hope.css";
 import 'react-markdown-editor-lite/lib/index.css';
 
 interface IArticleState {
