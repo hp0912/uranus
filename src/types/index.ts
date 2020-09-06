@@ -94,6 +94,7 @@ export enum OrderCode {
   init = 0,
   success = 200,
   failure = 500,
+  refund = 204,
 }
 
 export enum PayType {

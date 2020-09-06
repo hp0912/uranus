@@ -1,8 +1,10 @@
-import { DollarCircleOutlined, TwitterOutlined } from '@ant-design/icons';
-import { Breadcrumb, Empty, Result, Tabs } from 'antd';
+import { DollarCircleOutlined, TaobaoOutlined, TwitterOutlined } from '@ant-design/icons';
+import { Breadcrumb, Result, Tabs } from 'antd';
 import React, { FC, useContext } from 'react';
 import { UserContext } from '../../store/user';
+import { myOrders, orderReceivables } from '../../utils/httpClient';
 import { MyBlog } from './MyBlog';
+import { MyOrders } from './MyOrders';
 
 // 样式
 import './user.css';
@@ -59,7 +61,20 @@ export const CUserHomePages: FC = (props) => {
             }
             key="my-receivables"
           >
-            <Empty />
+            <MyOrders dataSource={orderReceivables} />
+          </TabPane>
+          <TabPane
+            tab={
+              (
+                <span>
+                  <TaobaoOutlined />
+                  我的订单
+                </span>
+              )
+            }
+            key="my-order"
+          >
+            <MyOrders dataSource={myOrders} />
           </TabPane>
         </Tabs>
       </div>

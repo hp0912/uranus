@@ -528,6 +528,50 @@ export const generateOrder = (data: { goodsType: GoodsType, goodsId: string }) =
   });
 };
 
+export const orderReceivables = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+  const query: string[] = [];
+  const { pagination: { current, pageSize }, searchValue } = params;
+
+  if (current) {
+    query.push(`current=${current}`);
+  }
+  if (pageSize) {
+    query.push(`pageSize=${pageSize}`);
+  }
+  if (searchValue) {
+    query.push(`searchValue=${searchValue}`);
+  }
+
+  const queryString = query.join('&');
+
+  return httpClient({
+    method: 'GET',
+    url: '/api/order/receivables' + (queryString ? '?' + queryString : ''),
+  });
+};
+
+export const myOrders = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+  const query: string[] = [];
+  const { pagination: { current, pageSize }, searchValue } = params;
+
+  if (current) {
+    query.push(`current=${current}`);
+  }
+  if (pageSize) {
+    query.push(`pageSize=${pageSize}`);
+  }
+  if (searchValue) {
+    query.push(`searchValue=${searchValue}`);
+  }
+
+  const queryString = query.join('&');
+
+  return httpClient({
+    method: 'GET',
+    url: '/api/order/mine' + (queryString ? '?' + queryString : ''),
+  });
+};
+
 export const initPay = (data: { orderId: string, payType: PayType, payMethod: PayMethod }) => {
   return httpClient({
     method: 'POST',

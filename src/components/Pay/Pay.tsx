@@ -113,12 +113,14 @@ export const Pay: FC<IPayProps> = (props) => {
     if (cashierState.nonce_str) {
       cashierForm.current?.submit();
     }
+    // eslint-disable-next-line
   }, [cashierState.nonce_str]);
 
   useEffect(() => {
     if (wechatH5State.nonce_str) {
       wechatH5Form.current?.submit();
     }
+    // eslint-disable-next-line
   }, [wechatH5State.nonce_str]);
 
   const onPayMethodChange = useCallback((value: PayMethod) => {

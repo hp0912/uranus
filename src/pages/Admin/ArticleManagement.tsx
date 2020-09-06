@@ -118,7 +118,7 @@ export const ArticleManagement: FC = (props) => {
           <>
             {
               (
-                <a href={`/admin/article_edit/${record.id}`} target="_blank">
+                <a href={`/admin/article_edit/${record.id}`} target="_blank" rel="noopener noreferrer">
                   <EditOutlined className="uranus-margin-right-8" />
                 </a>
               )
@@ -215,10 +215,12 @@ export const ArticleManagement: FC = (props) => {
       message.error(ex.message);
       setAdminAriState({ loading: false });
     }
-  }, [adminAriState, setAdminAriState]);
+    // eslint-disable-next-line
+  }, [adminAriState]);
 
   const onSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setAdminAriState({ searchValue: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onSearch = useCallback(() => {

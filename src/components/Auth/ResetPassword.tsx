@@ -47,22 +47,27 @@ export const ResetPassword: FC<IResetPasswordProps> = (props) => {
 
   const switchMode = useCallback(() => {
     safeProps.current.switchMode(AuthMode.signin);
+    // eslint-disable-next-line
   }, []);
 
   const onUserNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setResetPasswordState({ username: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onPasswordChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setResetPasswordState({ password: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onConfirmPasswordChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setResetPasswordState({ confirmPassword: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onSmsChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setResetPasswordState({ sms: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onSendSmsClick = useCallback(async () => {
@@ -96,6 +101,7 @@ export const ResetPassword: FC<IResetPasswordProps> = (props) => {
     } finally {
       setLoadingState({ smsLoading: false });
     }
+    // eslint-disable-next-line
   }, [resetPasswordState.username]);
 
   const onResetPasswordClick = useCallback(async () => {
@@ -131,6 +137,7 @@ export const ResetPassword: FC<IResetPasswordProps> = (props) => {
     } finally {
       setLoadingState({ loading: false });
     }
+    // eslint-disable-next-line
   }, [resetPasswordState]);
 
   return (
@@ -163,7 +170,7 @@ export const ResetPassword: FC<IResetPasswordProps> = (props) => {
         onChange={onSmsChange}
         addonAfter={(
           <Button type="link" loading={loadingState.smsLoading} disabled={smsDisabled} onClick={onSendSmsClick}>
-            { smsText }
+            {smsText}
           </Button>
         )}
       />

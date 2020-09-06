@@ -53,22 +53,27 @@ export const SignUp: FC<ISignUpProps> = (props) => {
 
   const switchMode = useCallback(() => {
     safeProps.current.switchMode(AuthMode.signin);
+    // eslint-disable-next-line
   }, []);
 
   const onUserNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSignUpState({ username: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onPasswordChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSignUpState({ password: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onConfirmPasswordChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSignUpState({ confirmPassword: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onSmsChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSignUpState({ sms: event.target.value });
+    // eslint-disable-next-line
   }, []);
 
   const onSendSmsClick = useCallback(async () => {
@@ -102,6 +107,7 @@ export const SignUp: FC<ISignUpProps> = (props) => {
     } finally {
       setLoadingState({ smsLoading: false });
     }
+    // eslint-disable-next-line
   }, [signUpState.username]);
 
   const onSignUpClick = useCallback(async () => {
@@ -137,6 +143,7 @@ export const SignUp: FC<ISignUpProps> = (props) => {
     } finally {
       setLoadingState({ loading: false });
     }
+    // eslint-disable-next-line
   }, [signUpState]);
 
   return (
@@ -169,7 +176,7 @@ export const SignUp: FC<ISignUpProps> = (props) => {
         onChange={onSmsChange}
         addonAfter={(
           <Button type="link" loading={loadingState.smsLoading} disabled={smsDisabled} onClick={onSendSmsClick}>
-            { smsText }
+            {smsText}
           </Button>
         )}
       />
