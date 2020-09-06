@@ -87,7 +87,11 @@ export const MyOrders: FC<IMyOrdersProps> = (props) => {
             return <span>支付成功</span>;
           case OrderCode.failure:
             return <span>支付失败</span>;
-          case OrderCode.refund:
+          case OrderCode.refunding:
+            return <span>等待退款</span>;
+          case OrderCode.refund_fail:
+            return <span>退款失败</span>;
+          case OrderCode.refunded:
             return <span>已退款</span>;
           default:
             return "--";

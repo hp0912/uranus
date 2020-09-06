@@ -4,6 +4,7 @@ import {
   GlobalOutlined,
   MessageOutlined,
   TagOutlined,
+  TaobaoCircleOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, Result } from 'antd';
@@ -16,6 +17,7 @@ import { UserContext } from '../../store/user';
 import { ArticleManagement } from './ArticleManagement';
 import { CommentManagement } from './CommentManagement';
 import { MessageManagement } from './MessageManagement';
+import { OrderManagement } from './OrderManagement';
 import { TagManagement } from './TagManagement';
 import { UserManagement } from './UserManagement';
 import { WebsiteManagement } from './WebsiteManagement';
@@ -31,6 +33,7 @@ export enum AdminMenuKey {
   tag_management = 'tag_management',
   comment_management = 'comment_management',
   message_management = 'message_management',
+  order_management = 'order_management',
   user_management = 'user_management',
   website_management = 'website_management',
 }
@@ -101,6 +104,9 @@ const Admin: FC = (props) => {
           <Menu.Item key={AdminMenuKey.message_management} icon={<MessageOutlined />}>
             留言管理
           </Menu.Item>
+          <Menu.Item key={AdminMenuKey.order_management} icon={<TaobaoCircleOutlined />}>
+            订单管理
+          </Menu.Item>
           <Menu.Item key={AdminMenuKey.user_management} icon={<UserOutlined />}>
             用户管理
           </Menu.Item>
@@ -120,6 +126,7 @@ const Admin: FC = (props) => {
             <Route path={`${match.path}/${AdminMenuKey.tag_management}`} exact component={TagManagement} />
             <Route path={`${match.path}/${AdminMenuKey.comment_management}`} exact component={CommentManagement} />
             <Route path={`${match.path}/${AdminMenuKey.message_management}`} exact component={MessageManagement} />
+            <Route path={`${match.path}/${AdminMenuKey.order_management}`} exact component={OrderManagement} />
             <Route path={`${match.path}/${AdminMenuKey.user_management}`} exact component={UserManagement} />
             <Route path={`${match.path}/${AdminMenuKey.website_management}`} exact component={WebsiteManagement} />
           </Switch>

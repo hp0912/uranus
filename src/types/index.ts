@@ -94,7 +94,9 @@ export enum OrderCode {
   init = 0,
   success = 200,
   failure = 500,
-  refund = 204,
+  refunding = 201,
+  refunded = 202,
+  refund_fail = 204,
 }
 
 export enum PayType {
@@ -125,6 +127,9 @@ export enum PayCode {
   init = 0,
   success = 200,
   failure = 500,
+  refunding = 201,
+  refunded = 202,
+  refund_fail = 204,
 }
 
 export enum CommentType {

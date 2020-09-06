@@ -572,6 +572,36 @@ export const myOrders = (params: { pagination: { current?: number, pageSize?: nu
   });
 };
 
+export const getOrdersForAdmin = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+  const query: string[] = [];
+  const { pagination: { current, pageSize }, searchValue } = params;
+
+  if (current) {
+    query.push(`current=${current}`);
+  }
+  if (pageSize) {
+    query.push(`pageSize=${pageSize}`);
+  }
+  if (searchValue) {
+    query.push(`searchValue=${searchValue}`);
+  }
+
+  const queryString = query.join('&');
+
+  return httpClient({
+    method: 'GET',
+    url: '/api/order/admin/get' + (queryString ? '?' + queryString : ''),
+  });
+};
+
+export const orderRefundForAdmin = (data: { orderId: string }) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/order/admin/refund',
+    data,
+  });
+};
+
 export const initPay = (data: { orderId: string, payType: PayType, payMethod: PayMethod }) => {
   return httpClient({
     method: 'POST',
