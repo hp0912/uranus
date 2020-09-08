@@ -602,7 +602,7 @@ export const orderRefundForAdmin = (data: { orderId: string }) => {
   });
 };
 
-export const initPay = (data: { orderId: string, payType: PayType, payMethod: PayMethod }) => {
+export const initPay = (data: { orderId: string, payType: PayType, payMethod: PayMethod, token?: string }) => {
   return httpClient({
     method: 'POST',
     url: '/api/pay/initPay',

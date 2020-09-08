@@ -150,7 +150,9 @@ export const Pay: FC<IPayProps> = (props) => {
       clearInterval(payStatusTimer.current);
       setPayState({ payType: null, wechatPayLoading: true, aliPayLoading: false, QRCodeVisible: false });
 
-      const payResult = await initPay({ orderId: order!.id!, payType: PayType.WeChatPay, payMethod });
+      const q = url.parse(window.location.search, true, false);
+      const qo = q.query;
+      const payResult = await initPay({ orderId: order!.id!, payType: PayType.WeChatPay, payMethod, token: qo.token as string });
 
       if (payMethod === PayMethod.scan) {
         const pay: IScanPayResponse = payResult.data.data;
@@ -185,7 +187,9 @@ export const Pay: FC<IPayProps> = (props) => {
       clearInterval(payStatusTimer.current);
       setPayState({ payType: null, wechatPayLoading: false, aliPayLoading: true, QRCodeVisible: false });
 
-      const payResult = await initPay({ orderId: order!.id!, payType: PayType.AliPay, payMethod });
+      const q = url.parse(window.location.search, true, false);
+      const qo = q.query;
+      const payResult = await initPay({ orderId: order!.id!, payType: PayType.AliPay, payMethod, token: qo.token as string });
 
       if (payMethod === PayMethod.scan) {
         const pay: IScanPayResponse = payResult.data.data;
