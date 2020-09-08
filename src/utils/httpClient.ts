@@ -264,10 +264,10 @@ export const sendNotification = (data: { notification: INotificationEntity, broa
 };
 
 // article
-export const articleGet = (articleId: string) => {
+export const articleGet = (articleId: string, token?: string) => {
   return httpClient({
     method: 'GET',
-    url: `/api/article/get?articleId=${articleId}`,
+    url: `/api/article/get?articleId=${articleId}${token ? '&token=' + token : ''}`,
   });
 };
 

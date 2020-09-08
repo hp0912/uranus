@@ -12,6 +12,7 @@ import { UranusAvatar } from '../../components/UranusAvatar';
 import { UranusMotto } from '../../components/UranusMotto';
 import { UserContext } from "../../store/user";
 import { IArticleEntity, IUserEntity } from "../../types";
+import { getTokenFromQueryString } from "../../utils";
 import { useSetState } from "../../utils/commonHooks";
 import { articleGet } from "../../utils/httpClient";
 import { MdHeadingAnchor } from "../../utils/MdHeadingAnchor";
@@ -77,7 +78,8 @@ export const ArticleDetailPage: FC = (props) => {
   });
 
   useEffect(() => {
-    articleGet(params.articleId).then(result => {
+    console.log(getTokenFromQueryString())
+    articleGet(params.articleId, getTokenFromQueryString()).then(result => {
       const { article, user } = result.data.data;
       setArticleState({ article, user, error: null, loading: false });
     }).catch(reason => {
@@ -87,7 +89,7 @@ export const ArticleDetailPage: FC = (props) => {
   }, [userContext.userState, params.articleId]);
 
   const refresh = useCallback(async () => {
-    articleGet(params.articleId).then(result => {
+    articleGet(params.articleId, getTokenFromQueryString()).then(result => {
       const { article, user } = result.data.data;
       setArticleState({ article, user, error: null, loading: false });
     }).catch(reason => {
