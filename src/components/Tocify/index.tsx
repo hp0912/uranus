@@ -40,7 +40,7 @@ export default class Tocify {
       let lastItem = last(items) as ITocItem; // 最后一个 item
 
       if (item.level > lastItem.level) { // item 是 lastItem 的 children
-        for (let i = lastItem.level + 1; i <= 2; i++) {
+        for (let i = lastItem.level + 1; i <= 6; i++) {
           const { children } = lastItem;
           if (!children) { // 如果 children 不存在
             lastItem.children = [item];
@@ -77,11 +77,11 @@ export default class Tocify {
 
   render() {
     return (
-      <Anchor 
-        affix 
-        showInkInFixed 
-        offsetTop={55} 
-        targetOffset={55} 
+      <Anchor
+        affix
+        showInkInFixed
+        offsetTop={55}
+        targetOffset={55}
         className="uranus-card uranus-article-nav"
         onClick={this.onClick}
       >

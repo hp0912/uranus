@@ -19,9 +19,9 @@
   margin: 5px 0;
 }
 
-.custom-html-style code {
-  padding: .5em !important;
-  background-color: #fbe5e1 !important;
+.custom-html-style code:not(.uranus-article-code) {
+  color: #f77e29 !important;
+  background-color: #eaeaea59 !important;
 }
 
 .custom-html-style pre {
@@ -29,7 +29,9 @@
   background-color: #fbe5e1 !important;
 }
 
-.custom-html-style .hljs {
+.uranus-article-code {
+  font-family: Menlo, monospace;
+  padding: .5em !important;
   background-color: #1C1D21!important;
 }
 

@@ -1,44 +1,56 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 吼吼的个人博客
 
-## Available Scripts
+> 技术栈
 
-In the project directory, you can run:
+* React
 
-### `yarn start`
+* React Hooks
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* antd
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+* typescript
 
-### `yarn test`
+* docker
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* k8s
 
-### `yarn build`
+* github actions 自动部署、持续集成
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> 博客功能
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+* 博客列表、博客详情、代码高亮
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* 留言板
 
-### `yarn eject`
+* 关于我
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* 阿里云oss图片自动上传
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* 博客评论，支持艾特和表情
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* 博客点赞
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* github授权登录
 
-## Learn More
+* 知识付费，博客支持付费阅读，接入微信和支付宝支付
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> 启动项目
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+```
+// clone项目
+git clone git@github.com:hp0912/uranus-frontend.git
+
+// 进入项目所在目录
+cd uranus-frontend
+
+// 安装依赖
+yarn
+
+// 启动项目
+yarn start
+```
+
+后端项目地址：[https://github.com/hp0912/uranus-backend](https://github.com/hp0912/uranus-backend)
+
+线上地址：[https://houhoukang.com](https://houhoukang.com)
