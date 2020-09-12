@@ -147,7 +147,7 @@ export const ResetPassword: FC<IResetPasswordProps> = (props) => {
   }, [resetPasswordState]);
 
   return (
-    <Space direction="vertical" size={12} className="uranus-auth-body">
+    <Space direction="vertical" size={12} className="uranus-width100">
       <Input
         size="large"
         placeholder="请输入手机号"

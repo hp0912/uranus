@@ -2,13 +2,15 @@ import { ConfigProvider, message } from "antd";
 import zhCN from 'antd/es/locale/zh_CN';
 import React, { FC, useEffect, useReducer } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import './App.css';
 import { SkinContainer } from './components/SkinContainer';
 import { UranusFooter } from './components/UranusFooter';
 import UranusRoute from "./route";
 import { reducer, SETUSER, UserContext } from './store/user';
 import { IUserEntity } from "./types";
 import { userStatus } from "./utils/httpClient";
+
+// 样式
+import './App.css';
 
 const App: FC = () => {
   const [userState, userDispatch] = useReducer<(preState: IUserEntity | null, action: { type: string, data: IUserEntity | null }) => IUserEntity | null>(reducer, null);

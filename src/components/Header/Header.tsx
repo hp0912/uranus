@@ -163,7 +163,7 @@ const Header: FC = (props) => {
             <Search
               placeholder="请输入关键字..."
               onSearch={onSearch}
-              className="uranus-header-search"
+              className="uranus-width100"
             />
           </UranusHeaderSearch>
         </Col>

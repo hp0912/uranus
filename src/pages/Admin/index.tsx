@@ -23,7 +23,6 @@ import { UserManagement } from './UserManagement';
 import { WebsiteManagement } from './WebsiteManagement';
 
 // 样式
-import '../../App.css';
 import './admin.css';
 
 const { Content, Sider, Header } = Layout;
