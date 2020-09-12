@@ -41,6 +41,7 @@ export const MyBlog: FC = () => {
 
   useEffect(() => {
     geMyBlogs();
+    // eslint-disable-next-line
   }, []);
 
   const columns: ColumnsType<IArticleEntity> = [

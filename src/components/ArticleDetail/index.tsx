@@ -105,6 +105,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
   const onPaySuccess = useCallback(async () => {
     await props.refresh();
     setPayState({ visible: false, order: null });
+    // eslint-disable-next-line
   }, [props.refresh]);
 
   return (

@@ -2,6 +2,7 @@ import { CheckCircleOutlined, EyeOutlined, LockOutlined } from '@ant-design/icon
 import { Avatar, Button, Col, List, message, Modal, Popover, Row, Skeleton, Tooltip } from 'antd';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { INotificationEntity } from '../../types';
+import { useSafeProps } from '../../utils/commonHooks';
 import { markAsRead, markAsReadForAll } from '../../utils/httpClient';
 
 // 样式
@@ -24,21 +25,24 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
   const [data, setData] = useState<INotification[]>([]);
   const [list, setList] = useState<INotification[]>([]);
 
+  const safeProps = useSafeProps<INotificationListProps>(props);
+
   useEffect(() => {
-    props.getData().then(result => {
+    safeProps.current.getData().then(result => {
       setInitLoading(false);
       setData(result.data.data);
       setList(result.data.data);
     }).catch(reason => {
       setInitLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   const onLoadMore = useCallback(async () => {
     setLoading(true);
     setList(data.concat([...new Array(count)].map(() => ({ loading: true }))));
 
-    const result = await props.getData(data.length ? data[data.length - 1].id : undefined);
+    const result = await safeProps.current.getData(data.length ? data[data.length - 1].id : undefined);
     const newData = data.concat(result.data.data);
 
     if (result.data.data.length === 0) {
@@ -48,6 +52,7 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
     setLoading(false);
     setData(newData);
     setList(newData);
+    // eslint-disable-next-line
   }, [data, list]);
 
   const onMarkAsReadClick = useCallback(async (noti: INotificationEntity) => {

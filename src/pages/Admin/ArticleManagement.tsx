@@ -44,6 +44,7 @@ export const ArticleManagement: FC = (props) => {
 
   useEffect(() => {
     getArticleList();
+    // eslint-disable-next-line
   }, []);
 
   const columns: ColumnsType<IArticleEntity> = [

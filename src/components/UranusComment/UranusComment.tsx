@@ -1,6 +1,7 @@
 import { message, Modal } from 'antd';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { CommentType, ICommentEntity, IUranusNode, IUserEntity } from '../../types';
+import { useSafeProps } from '../../utils/commonHooks';
 import { commentList } from '../../utils/httpClient';
 import { CommentEditor } from './CommentEditor';
 import { CommentList } from './CommentList';
@@ -31,6 +32,8 @@ export const UranusComment: FC<IUranusCommentProps> = (props) => {
     comments: [],
   });
   const [replyComment, setReplyComment] = useState<ICommentEntity | null>(null);
+
+  const safeProps = useSafeProps<IUranusCommentProps>(props);
 
   useEffect(() => {
     commentList({ commentType, targetId, parentId }).then(result => {
@@ -76,7 +79,7 @@ export const UranusComment: FC<IUranusCommentProps> = (props) => {
   }, [replyComment]);
 
   const onSubmit = useCallback(async (pId: string, comment: { rows: IUranusNode[][] }) => {
-    const commResult = await props.onSubmit(pId, comment);
+    const commResult = await safeProps.current.onSubmit(pId, comment);
     const newComments = commentListState.comments.slice();
 
     if (commResult.parentId === '0') {
@@ -95,11 +98,12 @@ export const UranusComment: FC<IUranusCommentProps> = (props) => {
 
     setReplyComment(null);
     message.success('评论成功');
-  }, [props.onSubmit, commentListState]);
+    // eslint-disable-next-line
+  }, [commentListState]);
 
   const onDelete = useCallback(async (comment: ICommentEntity) => {
     try {
-      await props.onDelete(comment.id!);
+      await safeProps.current.onDelete(comment.id!);
       const newComments = commentListState.comments.slice();
 
       if (comment.parentId === '0') {
@@ -122,7 +126,8 @@ export const UranusComment: FC<IUranusCommentProps> = (props) => {
         content: ex.message,
       });
     }
-  }, [props.onDelete, commentListState]);
+    // eslint-disable-next-line
+  }, [commentListState]);
 
   const { initLoading, comments } = commentListState;
 

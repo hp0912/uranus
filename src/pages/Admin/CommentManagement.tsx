@@ -41,6 +41,7 @@ export const CommentManagement: FC = () => {
 
   useEffect(() => {
     getComments();
+    // eslint-disable-next-line
   }, []);
 
   const columns: ColumnsType<ICommentEntity> = [

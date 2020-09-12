@@ -44,6 +44,7 @@ export const TagManagement: FC = (props) => {
 
   useEffect(() => {
     getTagList();
+    // eslint-disable-next-line
   }, []);
 
   const columns: ColumnsType<ITagEntity> = [

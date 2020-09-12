@@ -38,6 +38,7 @@ export const MessageManagement: FC = () => {
 
   useEffect(() => {
     getMessages();
+    // eslint-disable-next-line
   }, []);
 
   const columns: ColumnsType<IMessageEntity> = [

@@ -52,6 +52,7 @@ export const UserManagement: FC = (props) => {
 
   useEffect(() => {
     getUserList();
+    // eslint-disable-next-line
   }, []);
 
   const columns: ColumnsType<IUserEntity> = [

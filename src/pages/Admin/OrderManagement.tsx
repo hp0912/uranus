@@ -40,6 +40,7 @@ export const OrderManagement: FC = () => {
 
   useEffect(() => {
     getOrders();
+    // eslint-disable-next-line
   }, []);
 
   const columns: ColumnsType<IOrderEntity> = [

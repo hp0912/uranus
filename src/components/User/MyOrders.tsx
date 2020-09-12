@@ -43,6 +43,7 @@ export const MyOrders: FC<IMyOrdersProps> = (props) => {
 
   useEffect(() => {
     geMyOrders();
+    // eslint-disable-next-line
   }, []);
 
   const columns: ColumnsType<IOrderEntity> = [

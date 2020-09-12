@@ -3,6 +3,7 @@ import { Button, message, Modal, Popover, Spin } from 'antd';
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { IUranusNode, IUranusNodeType, IUserEntity } from '../../types';
 import { browserDetect } from '../../utils';
+import { useSafeProps } from '../../utils/commonHooks';
 import { DEFAULTAVATAR } from '../../utils/constant';
 import { userSearch } from '../../utils/httpClient';
 import { Emoji } from './Emoji';
@@ -33,6 +34,8 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
   const editorRef = useRef<HTMLDivElement>(null);
   const lastRangeRef = useRef<Range>();
 
+  const safeProps = useSafeProps<ICommentEditorProps>(props);
+
   const [browserState] = useState(() => {
     return browserDetect(navigator.userAgent);
   });
@@ -47,9 +50,10 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
   const [submitLoading, setSubmitLoading] = useState(false);
 
   useEffect(() => {
-    if (props.autoFocus) {
+    if (safeProps.current.autoFocus) {
       setEditorFocus();
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -286,7 +290,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
     }
   };
 
-  const onSubmitClick = useCallback(() => {
+  const onSubmitClick = () => {
     if (user === null) {
       return;
     }
@@ -306,7 +310,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
     }
 
     onCommentSubmit(data);
-  }, [user, onCommentSubmit]);
+  };
 
   const onEmojiVisibleChange = (visible: boolean) => {
     const newState = Object.assign({}, editorState);

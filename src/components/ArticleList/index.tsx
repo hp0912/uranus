@@ -110,6 +110,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
     const params: IArtListParams = { category: props.category, pagination: { current: Number(current), pageSize: Number(pageSize) }, searchValue };
 
     getArticleList(params);
+    // eslint-disable-next-line
   }, [userContext.userState, loca.search, props.category]);
 
   const getArticleList = useCallback(async (params: IArtListParams) => {
