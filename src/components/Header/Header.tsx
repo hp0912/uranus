@@ -6,6 +6,7 @@ import { useHistory, useRouteMatch, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from '../../store/user';
+import { browserDetect } from "../../utils";
 import { Auth } from "../Auth";
 import { AuthMode } from "../Auth/SignUp";
 import UserAvatar from './UserAvatar';
@@ -76,6 +77,10 @@ const Header: FC = (props) => {
 
   const [authVisible, setAuthVisible] = useState<boolean>(false);
   const [authState, setAuthState] = useState<AuthMode>(AuthMode.none);
+  const [isPC] = useState(() => {
+    const { os } = browserDetect(window.navigator.userAgent);
+    return !os.phone && !os.tablet;
+  });
 
   const onMenuClick = useCallback((param: ClickParam) => {
     history.push(`/${param.key}`);
@@ -133,12 +138,22 @@ const Header: FC = (props) => {
                 <Menu.Item key={MenuKey.gossip} icon={<InstagramOutlined />}>
                   神秘空间
                 </Menu.Item>
-                <Menu.Item key={MenuKey.messageboard} icon={<MessageOutlined />}>
-                  留言板
-                </Menu.Item>
-                <Menu.Item key={MenuKey.aboutus} icon={<IdcardOutlined />}>
-                  关于我
-                </Menu.Item>
+                {
+                  isPC &&
+                  (
+                    <Menu.Item key={MenuKey.messageboard} icon={<MessageOutlined />}>
+                      留言板
+                    </Menu.Item>
+                  )
+                }
+                {
+                  isPC &&
+                  (
+                    <Menu.Item key={MenuKey.aboutus} icon={<IdcardOutlined />}>
+                      关于我
+                    </Menu.Item>
+                  )
+                }
               </Menu>
             </div>
           </div>

@@ -78,7 +78,6 @@ export const ArticleDetailPage: FC = (props) => {
   });
 
   useEffect(() => {
-    console.log(getTokenFromQueryString())
     articleGet(params.articleId, getTokenFromQueryString()).then(result => {
       const { article, user } = result.data.data;
       setArticleState({ article, user, error: null, loading: false });

@@ -7,10 +7,6 @@
   background-color: #ebf0f5;
 }
 
-.uranus-article-comment {
-  background-color: #ddddde;
-}
-
 .uranus-comment-container {
   font: 12px arial;
   line-height: 1.7;
@@ -187,7 +183,7 @@
 
 .sub-comment-list {
   margin-left: 0 !important;
-  background-color: #ceced0;
+  background-color: #ddddde;
 }
 
 .comment-item {

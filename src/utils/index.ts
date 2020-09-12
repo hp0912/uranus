@@ -30,7 +30,7 @@ export interface IBrowserDetect {
   firefox: boolean;
   ie: boolean;
   safari: boolean;
-  webview: boolean;
+  webview?: boolean;
   wechat: boolean;
   baidu: boolean;
   qq: boolean;
