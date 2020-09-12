@@ -32,6 +32,24 @@ httpClient.interceptors.response.use(result => {
   }
 });
 
+const parseQueryString = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }): string => {
+  const query: string[] = [];
+  const { pagination: { current, pageSize }, searchValue } = params;
+
+  if (current) {
+    query.push(`current=${current}`);
+  }
+  if (pageSize) {
+    query.push(`pageSize=${pageSize}`);
+  }
+  if (searchValue) {
+    query.push(`searchValue=${searchValue}`);
+  }
+
+  const queryString = query.join('&');
+  return queryString ? '?' + queryString : '';
+};
+
 // user
 export const userStatus = () => {
   return httpClient({
@@ -41,46 +59,16 @@ export const userStatus = () => {
 };
 
 export const userSearch = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
-  const query: string[] = [];
-  const { pagination: { current, pageSize }, searchValue } = params;
-
-  if (current) {
-    query.push(`current=${current}`);
-  }
-  if (pageSize) {
-    query.push(`pageSize=${pageSize}`);
-  }
-  if (searchValue) {
-    query.push(`searchValue=${searchValue}`);
-  }
-
-  const queryString = query.join('&');
-
   return httpClient({
     method: 'GET',
-    url: '/api/user/search' + (queryString ? '?' + queryString : ''),
+    url: '/api/user/search' + parseQueryString(params),
   });
 };
 
 export const userList = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
-  const query: string[] = [];
-  const { pagination: { current, pageSize }, searchValue } = params;
-
-  if (current) {
-    query.push(`current=${current}`);
-  }
-  if (pageSize) {
-    query.push(`pageSize=${pageSize}`);
-  }
-  if (searchValue) {
-    query.push(`searchValue=${searchValue}`);
-  }
-
-  const queryString = query.join('&');
-
   return httpClient({
     method: 'GET',
-    url: '/api/user/admin/userList' + (queryString ? '?' + queryString : ''),
+    url: '/api/user/admin/userList' + parseQueryString(params),
   });
 };
 
@@ -279,70 +267,26 @@ export const articleActionDataGet = (articleId: string) => {
 };
 
 export const articleList = (params: { category: ArticleCategory, pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
-  const query: string[] = [];
-  const { category, pagination: { current, pageSize }, searchValue } = params;
-
-  query.push(`category=${category}`);
-
-  if (current) {
-    query.push(`current=${current}`);
-  }
-  if (pageSize) {
-    query.push(`pageSize=${pageSize}`);
-  }
-  if (searchValue) {
-    query.push(`searchValue=${searchValue}`);
-  }
-
-  const queryString = query.join('&');
+  const { category } = params;
+  const queryString = parseQueryString(params);
 
   return httpClient({
     method: 'GET',
-    url: '/api/article/list' + (queryString ? '?' + queryString : ''),
+    url: `/api/article/list${queryString ? `${queryString}&category=${category}` : `?category=${category}`}`,
   });
 };
 
 export const myArticles = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
-  const query: string[] = [];
-  const { pagination: { current, pageSize }, searchValue } = params;
-
-  if (current) {
-    query.push(`current=${current}`);
-  }
-  if (pageSize) {
-    query.push(`pageSize=${pageSize}`);
-  }
-  if (searchValue) {
-    query.push(`searchValue=${searchValue}`);
-  }
-
-  const queryString = query.join('&');
-
   return httpClient({
     method: 'GET',
-    url: '/api/article/myArticles' + (queryString ? '?' + queryString : ''),
+    url: '/api/article/myArticles' + parseQueryString(params),
   });
 };
 
 export const articleListForAdmin = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
-  const query: string[] = [];
-  const { pagination: { current, pageSize }, searchValue } = params;
-
-  if (current) {
-    query.push(`current=${current}`);
-  }
-  if (pageSize) {
-    query.push(`pageSize=${pageSize}`);
-  }
-  if (searchValue) {
-    query.push(`searchValue=${searchValue}`);
-  }
-
-  const queryString = query.join('&');
-
   return httpClient({
     method: 'GET',
-    url: '/api/article/admin/list' + (queryString ? '?' + queryString : ''),
+    url: '/api/article/admin/list' + parseQueryString(params),
   });
 };
 
@@ -415,24 +359,9 @@ export const commentList = (params: ICommentListParams) => {
 };
 
 export const commentListForAdmin = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
-  const query: string[] = [];
-  const { pagination: { current, pageSize }, searchValue } = params;
-
-  if (current) {
-    query.push(`current=${current}`);
-  }
-  if (pageSize) {
-    query.push(`pageSize=${pageSize}`);
-  }
-  if (searchValue) {
-    query.push(`searchValue=${searchValue}`);
-  }
-
-  const queryString = query.join('&');
-
   return httpClient({
     method: 'GET',
-    url: '/api/comment/admin/list' + (queryString ? '?' + queryString : ''),
+    url: '/api/comment/admin/list' + parseQueryString(params),
   });
 };
 
@@ -491,24 +420,9 @@ export const messageSubmit = (data: { message: string }) => {
 };
 
 export const messageListForAdmin = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
-  const query: string[] = [];
-  const { pagination: { current, pageSize }, searchValue } = params;
-
-  if (current) {
-    query.push(`current=${current}`);
-  }
-  if (pageSize) {
-    query.push(`pageSize=${pageSize}`);
-  }
-  if (searchValue) {
-    query.push(`searchValue=${searchValue}`);
-  }
-
-  const queryString = query.join('&');
-
   return httpClient({
     method: 'GET',
-    url: '/api/message/admin/list' + (queryString ? '?' + queryString : ''),
+    url: '/api/message/admin/list' + parseQueryString(params),
   });
 };
 
@@ -529,68 +443,23 @@ export const generateOrder = (data: { goodsType: GoodsType, goodsId: string }) =
 };
 
 export const orderReceivables = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
-  const query: string[] = [];
-  const { pagination: { current, pageSize }, searchValue } = params;
-
-  if (current) {
-    query.push(`current=${current}`);
-  }
-  if (pageSize) {
-    query.push(`pageSize=${pageSize}`);
-  }
-  if (searchValue) {
-    query.push(`searchValue=${searchValue}`);
-  }
-
-  const queryString = query.join('&');
-
   return httpClient({
     method: 'GET',
-    url: '/api/order/receivables' + (queryString ? '?' + queryString : ''),
+    url: '/api/order/receivables' + parseQueryString(params),
   });
 };
 
 export const myOrders = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
-  const query: string[] = [];
-  const { pagination: { current, pageSize }, searchValue } = params;
-
-  if (current) {
-    query.push(`current=${current}`);
-  }
-  if (pageSize) {
-    query.push(`pageSize=${pageSize}`);
-  }
-  if (searchValue) {
-    query.push(`searchValue=${searchValue}`);
-  }
-
-  const queryString = query.join('&');
-
   return httpClient({
     method: 'GET',
-    url: '/api/order/mine' + (queryString ? '?' + queryString : ''),
+    url: '/api/order/mine' + parseQueryString(params),
   });
 };
 
 export const getOrdersForAdmin = (params: { pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
-  const query: string[] = [];
-  const { pagination: { current, pageSize }, searchValue } = params;
-
-  if (current) {
-    query.push(`current=${current}`);
-  }
-  if (pageSize) {
-    query.push(`pageSize=${pageSize}`);
-  }
-  if (searchValue) {
-    query.push(`searchValue=${searchValue}`);
-  }
-
-  const queryString = query.join('&');
-
   return httpClient({
     method: 'GET',
-    url: '/api/order/admin/get' + (queryString ? '?' + queryString : ''),
+    url: '/api/order/admin/get' + parseQueryString(params),
   });
 };
 
