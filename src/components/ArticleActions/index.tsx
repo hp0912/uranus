@@ -87,7 +87,10 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
       setActionData({ viewCount, commentCount, likesCount, liked, likesLoading: false });
     } catch (ex) {
       setActionData({ likesLoading: false });
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
     }
     // eslint-disable-next-line
   }, [props.article.id, actionData.liked]);

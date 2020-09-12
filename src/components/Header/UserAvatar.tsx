@@ -83,7 +83,10 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
         userContext.userDispatch({ type: SETUSER, data: null });
       }
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
       setMenuDisabled(false);
     }
   }, [userContext]);

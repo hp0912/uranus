@@ -1,5 +1,5 @@
 import { MessageOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Button, List, message, Popconfirm, Tag, Tooltip } from 'antd';
+import { Button, List, message, Modal, Popconfirm, Tag, Tooltip } from 'antd';
 import React, { FC, useState } from 'react';
 import { format } from "timeago.js";
 import { CommentType, ICommentEntity, IUranusNode, IUserEntity } from '../../types';
@@ -46,7 +46,10 @@ export const CommentList: FC<ICommentListProps> = (props) => {
         setCommListState({ loadMoreLoading: false, noMore: false });
       }
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
       setCommListState({ loadMoreLoading: false, noMore: false });
     }
   };

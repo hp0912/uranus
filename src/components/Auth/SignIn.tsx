@@ -4,7 +4,7 @@ import {
   QqOutlined,
   WechatOutlined,
 } from "@ant-design/icons";
-import { Avatar, Button, Divider, Input, message, Space } from "antd";
+import { Avatar, Button, Divider, Input, message, Modal, Space } from "antd";
 import React, { FC, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { SETUSER, UserContext } from "../../store/user";
 import { useSafeProps, useSetState } from "../../utils/commonHooks";
@@ -82,7 +82,10 @@ export const SignIn: FC<ISignInProps> = (props) => {
 
       safeProps.current.onCancel();
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
       setLoading(false);
     }
     // eslint-disable-next-line

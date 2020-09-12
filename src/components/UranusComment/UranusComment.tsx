@@ -1,4 +1,4 @@
-import { message } from 'antd';
+import { message, Modal } from 'antd';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { CommentType, ICommentEntity, IUranusNode, IUserEntity } from '../../types';
 import { commentList } from '../../utils/httpClient';
@@ -117,7 +117,10 @@ export const UranusComment: FC<IUranusCommentProps> = (props) => {
 
       message.success('删除成功');
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
     }
   }, [props.onDelete, commentListState]);
 

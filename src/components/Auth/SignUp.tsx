@@ -1,5 +1,5 @@
 import { KeyOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Input, message, Space } from "antd";
+import { Button, Input, message, Modal, Space } from "antd";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useSafeProps, useSetState } from "../../utils/commonHooks";
 import { sendSms, signUp } from "../../utils/httpClient";
@@ -103,7 +103,10 @@ export const SignUp: FC<ISignUpProps> = (props) => {
         }
       }, 1000);
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
     } finally {
       setLoadingState({ smsLoading: false });
     }
@@ -139,7 +142,10 @@ export const SignUp: FC<ISignUpProps> = (props) => {
         switchMode(); // 切换到登录页
       }, 16);
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
     } finally {
       setLoadingState({ loading: false });
     }

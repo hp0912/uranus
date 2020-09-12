@@ -1,5 +1,5 @@
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Col, Input, message, Result, Row, Upload } from 'antd';
+import { Breadcrumb, Button, Col, Input, message, Modal, Result, Row, Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { RcFile, UploadFile } from 'antd/lib/upload/interface';
@@ -81,13 +81,19 @@ export const CUserSettings: FC = (props) => {
     const validImage = file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png' || file.type === 'image/webp';
 
     if (!validImage) {
-      message.error('非法的图片格式');
+      Modal.error({
+        title: '错误',
+        content: '非法的图片格式',
+      });
     }
 
     const limitSize = file.size / 1024 / 1024 < 2.5;
 
     if (!limitSize) {
-      message.error('图片大小不得超过2.5M');
+      Modal.error({
+        title: '错误',
+        content: '图片大小不得超过2.5M',
+      });
     }
 
     try {
@@ -99,14 +105,16 @@ export const CUserSettings: FC = (props) => {
 
       stsAuthParams.current = sts;
     } catch (ex) {
-      message.error(ex.message || ex);
+      Modal.error({
+        title: '错误',
+        content: ex.message || ex,
+      });
       return Promise.reject('获取sts权限失败');
     }
 
     if (validImage && limitSize) {
       return Promise.resolve();
     } else {
-      message.error('图片格式不支持或者图片大小超过限制');
       return Promise.reject(new Error('图片不合法'));
     }
   }, [userContext.userState]);
@@ -204,7 +212,10 @@ export const CUserSettings: FC = (props) => {
         userContext.userDispatch({ type: SETUSER, data: result.data.data });
       }
     } catch (ex) {
-      message.error('保存失败: ' + ex.message);
+      Modal.error({
+        title: '错误',
+        content: '保存失败: ' + ex.message,
+      });
       setSaving(false);
     }
   }, [userContext, userProfile]);

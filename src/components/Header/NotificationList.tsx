@@ -1,5 +1,5 @@
 import { CheckCircleOutlined, EyeOutlined, LockOutlined } from '@ant-design/icons';
-import { Avatar, Button, Col, List, message, Popover, Row, Skeleton, Tooltip } from 'antd';
+import { Avatar, Button, Col, List, message, Modal, Popover, Row, Skeleton, Tooltip } from 'antd';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { INotificationEntity } from '../../types';
 import { markAsRead, markAsReadForAll } from '../../utils/httpClient';
@@ -66,7 +66,10 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
     } catch (ex) {
       setInitLoading(false);
       setLoading(false);
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
     }
   }, [data]);
 
@@ -84,7 +87,10 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
     } catch (ex) {
       setInitLoading(false);
       setLoading(false);
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
     }
   }, []);
 

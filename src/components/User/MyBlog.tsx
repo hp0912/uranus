@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, LoadingOutlined, PauseCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Input, message, Popconfirm, Table, Tooltip } from 'antd';
+import { Input, message, Modal, Popconfirm, Table, Tooltip } from 'antd';
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table/interface';
 import React, { FC, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -127,7 +127,10 @@ export const MyBlog: FC = () => {
         },
       });
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
       setMyBlogState({ deleting: false, currentOPId: null });
     }
     // eslint-disable-next-line

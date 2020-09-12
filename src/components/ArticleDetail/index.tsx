@@ -50,7 +50,10 @@ const ArticleDetailInner: FC<IProps> = (props) => {
       const result = await getToken({ tokenType: TokenType.article, targetId: props.article.id! });
       setShareState({ loading: false, visible: true, data: result.data.data });
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
       setShareState({ loading: false, visible: false, data: null });
     }
   }, [props.article.id]);
@@ -65,7 +68,10 @@ const ArticleDetailInner: FC<IProps> = (props) => {
       const result = await updateToken({ tokenType: TokenType.article, targetId: props.article.id! });
       setShareState({ loading: false, visible: true, data: result.data.data });
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
       setShareState({ loading: false, visible: true, data: null });
     }
   }, [shareState, props.article.id]);
@@ -84,7 +90,10 @@ const ArticleDetailInner: FC<IProps> = (props) => {
       setOrderLoading(false);
       setPayState({ visible: true, order: orderResult.data.data });
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
       setOrderLoading(false);
     }
   }, [props.article.id]);

@@ -107,7 +107,10 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
         dispatch({ type: UPDATEARTICLE, data: article });
         setInitLoading(false);
       }).catch(reason => {
-        message.error(reason.message);
+        Modal.error({
+          title: '错误',
+          content: reason.message,
+        });
       });
     } else {
       Promise.all([
@@ -132,7 +135,10 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
         }]);
         setInitLoading(false);
       }).catch(reason => {
-        message.error(reason.message);
+        Modal.error({
+          title: '错误',
+          content: reason.message,
+        });
       });
     }
   }, [params.articleId]);

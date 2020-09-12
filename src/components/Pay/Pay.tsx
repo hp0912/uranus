@@ -177,7 +177,10 @@ export const Pay: FC<IPayProps> = (props) => {
       }
     } catch (ex) {
       props.onCancel();
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
     }
     // eslint-disable-next-line
   }, [payMethod, order!.id, queryStatus, props.onCancel]);
@@ -202,7 +205,10 @@ export const Pay: FC<IPayProps> = (props) => {
       }
     } catch (ex) {
       props.onCancel();
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
     }
     // eslint-disable-next-line
   }, [payMethod, order!.id, queryStatus, props.onCancel]);

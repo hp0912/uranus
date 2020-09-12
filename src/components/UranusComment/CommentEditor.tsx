@@ -1,5 +1,5 @@
 import { SmileOutlined } from '@ant-design/icons';
-import { Button, message, Popover, Spin } from 'antd';
+import { Button, message, Modal, Popover, Spin } from 'antd';
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { IUranusNode, IUranusNodeType, IUserEntity } from '../../types';
 import { browserDetect } from '../../utils';
@@ -243,7 +243,10 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
         setSubmitLoading(false);
       }
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
       setSubmitLoading(false);
     }
   };
@@ -253,7 +256,15 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
       return;
     }
 
-    if (event.keyCode === 13) {
+    let isEnterKey = false;
+
+    if (event.key !== undefined && event.key === '13') {
+      isEnterKey = true;
+    } else if (event.keyCode !== undefined && event.keyCode === 13) {
+      isEnterKey = true;
+    }
+
+    if (isEnterKey) {
       const editor = editorRef.current;
       // CtrlOrCmd+Enter 提交数据
       if (event.ctrlKey || event.metaKey) {
@@ -263,7 +274,11 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
         try {
           data = convertToJson(content);
         } catch (ex) {
-          message.error(ex.message);
+          Modal.error({
+            title: '错误',
+            content: ex.message,
+          });
+          return;
         }
 
         onCommentSubmit(data);
@@ -283,7 +298,11 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
     try {
       data = convertToJson(content);
     } catch (ex) {
-      message.error(ex.message);
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
+      return;
     }
 
     onCommentSubmit(data);
