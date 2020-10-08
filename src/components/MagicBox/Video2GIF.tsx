@@ -24,6 +24,10 @@ export const Video2GIF: FC = (props) => {
 
   const onCancel = useCallback(() => {
     setVisible(false);
+    setVideoState({ fileName: '', videoSrc: '', progress: '' });
+    setPreviewVisible(false);
+    setGifSrc('');
+    setLoading(false);
   }, []);
 
   const onFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
