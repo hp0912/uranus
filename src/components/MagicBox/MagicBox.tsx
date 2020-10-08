@@ -2,12 +2,13 @@ import { SketchOutlined } from "@ant-design/icons";
 import { Card, Tooltip } from "antd";
 import React, { FC } from "react";
 import styled from "styled-components";
+import { ExpectIcon } from "./ExpectIcon";
+import { MusicIcon } from "./MusicIcon";
+import { QRCodeGen } from "./QRCodeGen";
+import { Video2GIF } from "./Video2GIF";
 
 // 样式
 import "../components.css";
-import { ExpectIcon } from "./ExpectIcon";
-import { MusicIcon } from "./MusicIcon";
-import { QRCodeIcon } from "./QRCodeIcon";
 
 const MagicBoxContent = styled.div`
   display: flex;
@@ -28,12 +29,10 @@ export const MagicBox: FC = (props) => {
             </Tooltip>
           </a>
           <span>
-            <Tooltip title="文字转二维码">
-              <QRCodeIcon />
-            </Tooltip>
+            <QRCodeGen />
           </span>
           <span>
-            <ExpectIcon />
+            <Video2GIF />
           </span>
           <span>
             <ExpectIcon />
