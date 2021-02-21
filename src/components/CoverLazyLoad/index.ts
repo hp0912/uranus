@@ -1,1 +1,0 @@
-export { CoverLazyLoad } from './CoverLazyLoad';
