@@ -28,6 +28,7 @@ export const Video2GIF: FC = (props) => {
     setPreviewVisible(false);
     setGifSrc('');
     setLoading(false);
+    // eslint-disable-next-line
   }, []);
 
   const onFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
