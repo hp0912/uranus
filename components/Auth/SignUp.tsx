@@ -4,6 +4,9 @@ import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useSafeProps, useSetState } from "../../utils/commonHooks";
 import { sendSms, signUp } from "../../utils/httpClient";
 
+// 样式
+import styles from "./auth.module.css";
+
 export enum AuthMode {
   signup = 'signup',
   signin = 'signin',
@@ -157,21 +160,21 @@ export const SignUp: FC<ISignUpProps> = (props) => {
       <Input
         size="large"
         placeholder="请输入手机号"
-        prefix={<UserOutlined className="uranus-auth-prefix" />}
+        prefix={<UserOutlined className={styles.uranusAuthPrefix} />}
         value={signUpState.username}
         onChange={onUserNameChange}
       />
       <Input.Password
         size="large"
         placeholder="请输入密码"
-        prefix={<KeyOutlined className="uranus-auth-prefix" />}
+        prefix={<KeyOutlined className={styles.uranusAuthPrefix} />}
         value={signUpState.password}
         onChange={onPasswordChange}
       />
       <Input.Password
         size="large"
         placeholder="确认密码"
-        prefix={<KeyOutlined className="uranus-auth-prefix" />}
+        prefix={<KeyOutlined className={styles.uranusAuthPrefix} />}
         value={signUpState.confirmPassword}
         onChange={onConfirmPasswordChange}
       />

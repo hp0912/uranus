@@ -6,8 +6,6 @@ import { Gl } from "./canvas";
 
 // 样式
 import styles from "./banner.module.css";
-// 图片
-const avatar = require("../../assets/images/avatar.jpg");
 
 const GlList: Gl[] = [];
 
@@ -86,13 +84,18 @@ export const Banner: FC = (props) => {
         <p>{poem}</p>
         <Link href="/frontend">
           <div className={styles.blogBannerBtn}>
-            <Avatar size={140} src={avatar} />
+            <Avatar size={140} src="/images/avatar.jpg" />
           </div>
         </Link>
       </div>
       <div className={styles.blogBannerCircle}>
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-          <circle cx={window.innerWidth / 2} cy={window.innerHeight / 2} r={scale} fill="#fff" />
+          <circle
+            cx={window.innerWidth / 2}
+            cy={window.innerHeight / 2}
+            r={scale}
+            fill="#fff"
+          />
         </svg>
       </div>
     </div>

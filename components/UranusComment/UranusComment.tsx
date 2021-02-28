@@ -7,7 +7,7 @@ import { CommentEditor } from './CommentEditor';
 import { CommentList } from './CommentList';
 
 // 样式
-import './comment.css';
+import './comment.module.css';
 
 interface IUranusCommentProps {
   className?: string;

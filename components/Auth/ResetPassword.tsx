@@ -5,6 +5,9 @@ import { useSafeProps, useSetState } from "../../utils/commonHooks";
 import { resetPassword, sendSms } from "../../utils/httpClient";
 import { AuthMode } from "./SignUp";
 
+// 样式
+import styles from "./auth.module.css";
+
 interface IResetPasswordProps {
   switchMode: (m: AuthMode) => void;
 }
@@ -151,21 +154,21 @@ export const ResetPassword: FC<IResetPasswordProps> = (props) => {
       <Input
         size="large"
         placeholder="请输入手机号"
-        prefix={<UserOutlined className="uranus-auth-prefix" />}
+        prefix={<UserOutlined className={styles.uranusAuthPrefix} />}
         value={resetPasswordState.username}
         onChange={onUserNameChange}
       />
       <Input.Password
         size="large"
         placeholder="输入新密码"
-        prefix={<KeyOutlined className="uranus-auth-prefix" />}
+        prefix={<KeyOutlined className={styles.uranusAuthPrefix} />}
         value={resetPasswordState.password}
         onChange={onPasswordChange}
       />
       <Input.Password
         size="large"
         placeholder="确认新密码"
-        prefix={<KeyOutlined className="uranus-auth-prefix" />}
+        prefix={<KeyOutlined className={styles.uranusAuthPrefix} />}
         value={resetPasswordState.confirmPassword}
         onChange={onConfirmPasswordChange}
       />

@@ -7,7 +7,7 @@ import { formatDate } from '../../utils';
 import { CommentEditor } from './CommentEditor';
 
 // 样式
-import './comment.css';
+import styles from './comment.module.css';
 
 interface ICommentListProps {
   className?: string;
@@ -57,7 +57,7 @@ export const CommentList: FC<ICommentListProps> = (props) => {
   const loadMore = !initLoading && !commListState.noMore && comments.length > 0 ? <Button type="link" block onClick={onLoadMore} loading={commListState.loadMoreLoading}>加载更多</Button> : null;
 
   return (
-    <div className={`comment-list ${className ? className : ""}`}>
+    <div className={`${styles.commentList} ${className ? className : ""}`}>
       <List
         loading={initLoading}
         itemLayout="horizontal"
@@ -68,19 +68,19 @@ export const CommentList: FC<ICommentListProps> = (props) => {
         split={false}
         renderItem={(item) => (
           <List.Item>
-            <div className="comment-item">
-              <div className="uranus-avatar-box">
-                <div className="comment-avatar" style={{ backgroundImage: `url(${item.userAvatar})` }} />
+            <div className={styles.commentItem}>
+              <div className={styles.uranusAvatarBox}>
+                <div className={styles.commentAvatar} style={{ backgroundImage: `url(${item.userAvatar})` }} />
               </div>
               <div style={{ flex: "1 1 auto", borderBottom: "1px solid #f1f1f1" }}>
-                <div className="meta-box">
+                <div className={styles.metaBox}>
                   <span style={{ paddingRight: 10 }}>{item.userNicname}</span>
                   <Tag color={"#" + (4095 - item.userAccessLevel! * 300).toString(16)}>{"Lv" + item.userAccessLevel}</Tag>
                 </div>
-                <div className="uranus-comment-container" style={{ marginTop: 8 }} dangerouslySetInnerHTML={{ __html: item.content! }} />
-                <div className="reply-stat">
+                <div className={styles.uranusCommentContainer} style={{ marginTop: 8 }} dangerouslySetInnerHTML={{ __html: item.content! }} />
+                <div className={styles.replyStat}>
                   <Tooltip title={formatDate(item.addtime!)}>
-                    <time className="time">{format(item.addtime!, 'zh_CN')}</time>
+                    <time className={styles.time}>{format(item.addtime!, 'zh_CN')}</time>
                   </Tooltip>
                   {
                     user && user.id === item.userId &&
@@ -92,20 +92,20 @@ export const CommentList: FC<ICommentListProps> = (props) => {
                         icon={<QuestionCircleOutlined />}
                         onConfirm={() => { onDelete(item); }}
                       >
-                        <span className="delete">· 删除</span>
+                        <span className={styles.delete}>· 删除</span>
                       </Popconfirm>
                     )
                   }
                   {
                     user !== null ?
                       (
-                        <div className="action-box" onClick={() => { onReplyClick(item); }}>
+                        <div className={styles.actionBox} onClick={() => { onReplyClick(item); }}>
                           <MessageOutlined />
                           <span style={{ marginLeft: 6, marginRight: 6 }}>回复</span>
                         </div>
                       ) :
                       (
-                        <div className="action-box">
+                        <div className={styles.actionBox}>
                           <MessageOutlined />
                           <span style={{ marginLeft: 6 }}>登录后回复</span>
                         </div>
@@ -128,7 +128,7 @@ export const CommentList: FC<ICommentListProps> = (props) => {
                   item.children && item.children.length > 0 &&
                   (
                     <CommentList
-                      className="sub-comment-list"
+                      className={styles.subCommentList}
                       commentType={props.commentType}
                       targetId={props.targetId}
                       parentId={item.id!}

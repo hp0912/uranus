@@ -1,4 +1,6 @@
 declare const styles: {
+  readonly "uranusHeaderLogo": string;
+  readonly "uranusHeaderImage": string;
   readonly "uranusUserAvatarFrontend": string;
   readonly "uranusUserAvatarBackend": string;
   readonly "uranusMenuContainer": string;
@@ -10,6 +12,7 @@ declare const styles: {
   readonly "uranusBadge": string;
   readonly "uranusNotificationTop": string;
   readonly "uranusNotificationTop01": string;
+  readonly "uranusMenuItemHide": string;
   readonly "uranusNickname": string;
   readonly "uranusArticleEdit": string;
 };

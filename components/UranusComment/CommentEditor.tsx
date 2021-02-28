@@ -9,7 +9,7 @@ import { userSearch } from '../../utils/httpClient';
 import { Emoji } from './Emoji';
 
 // 样式
-import './comment.css';
+import styles from './comment.module.css';
 
 interface ICommentEditorProps {
   parentId: string;
@@ -386,7 +386,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
 
   const onEmojiClick = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const img = event.target as HTMLImageElement;
-    if (!img.className.includes('emoji-element')) {
+    if (!img.className.includes(styles.emojiElement)) {
       return;
     }
 
@@ -402,7 +402,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
     if (selections) {
       const range = selections.getRangeAt(0);
       const newNode = document.createElement('img');
-      newNode.className = 'uranus-emoji';
+      newNode.className = styles.uranusEmoji;
       newNode.setAttribute('data-code', img.src.substr(-7, 3));
       newNode.setAttribute('src', img.src);
       range.insertNode(newNode);
@@ -415,19 +415,19 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
   }, [browserState.browser.safari]);
 
   return (
-    <div className="uranus-comment-editor-container" onClick={setEditorFocus}>
+    <div className={styles.uranusCommentEditorContainer} onClick={setEditorFocus}>
       {
         avatarVisible &&
         (
-          <div className="uranus-avatar-box">
-            <div className="comment-avatar" style={{ backgroundImage: `url(${user && user.avatar ? user.avatar : DEFAULTAVATAR})` }} />
+          <div className={styles.uranusAvatarBox}>
+            <div className={styles.commentAvatar} style={{ backgroundImage: `url(${user && user.avatar ? user.avatar : DEFAULTAVATAR})` }} />
           </div>
         )
       }
-      <div className="uranus-form-box">
-        <div className="input-box">
+      <div className={styles.uranusFormBox}>
+        <div className={styles.inputBox}>
           <div
-            className="uranus-comment-editor"
+            className={styles.uranusCommentEditor}
             ref={editorRef}
             contentEditable={true}
             placeholder={user ? "请输入评论..." : "请先登录..."}
@@ -439,7 +439,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
           />
         </div>
         <div
-          className="mention-box"
+          className={styles.mentionBox}
           style={{
             display: editorState.showMention ? 'block' : 'none',
             top: editorState.mentionTop,
@@ -452,7 +452,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
               mentionUsers.users.length > 0 && mentionUsers.users.map(muser => {
                 return (
                   <p
-                    className="mention-item"
+                    className={styles.mentionItem}
                     key={muser.id}
                     data-id={muser.id}
                     data-name={muser.nickname}
@@ -468,9 +468,9 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
             }
           </Spin>
         </div>
-        <div className="action-box">
-          <div className="emoji">
-            <div className="emoji-box">
+        <div className={styles.actionBox}>
+          <div className={styles.emoji}>
+            <div className={styles.emojiBox}>
               <Popover
                 visible={editorState.showEmoji}
                 onVisibleChange={onEmojiVisibleChange}
@@ -483,7 +483,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
               </Popover>
             </div>
           </div>
-          <div className="submit">
+          <div className={styles.submit}>
             <span style={{ color: "#c2c2c2", marginRight: 8, fontSize: 13 }}>Ctrl or ⌘ + Enter</span>
             <Button
               type="primary"

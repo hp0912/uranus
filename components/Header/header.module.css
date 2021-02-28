@@ -1,3 +1,18 @@
+.uranus-header-logo {
+  height: 46px;
+  text-align: center;
+  padding: 0 2px 0 8px;
+  float: left;
+}
+.uranus-header-image {
+  width: 80px;
+  height: 46px;
+  background-image: url(/images/logo-houhou.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
 .uranus-user-avatar-frontend {
   display: flex;
   justify-content: space-around;
@@ -53,6 +68,12 @@
 
 .uranus-notification-top-01 {
   text-align: right;
+}
+
+@media screen and (max-width: 768px) {
+  .uranus-menu-item-hide {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 576px) {

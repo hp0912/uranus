@@ -4,7 +4,8 @@ import { ResetPassword } from "./ResetPassword";
 import { SignIn } from "./SignIn";
 import { AuthMode, SignUp } from "./SignUp";
 
-import "./auth.css";
+// 样式
+import styles from "./auth.module.css";
 
 interface IAuthProps {
   mode: AuthMode;
@@ -39,7 +40,7 @@ export const Auth: FC<IAuthProps> = (props) => {
 
   return (
     <Modal
-      className="uranus-auth"
+      className={styles.uranusAuth}
       title={title}
       visible={props.visible}
       destroyOnClose

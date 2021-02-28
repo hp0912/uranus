@@ -6,7 +6,7 @@ import { useSafeProps } from '../../utils/commonHooks';
 import { markAsRead, markAsReadForAll } from '../../utils/httpClient';
 
 // 样式
-import '../UranusComment/comment.css';
+import commentStyles from '../UranusComment/comment.module.css';
 
 const count = 3;
 
@@ -132,7 +132,7 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
               (
                 <Popover
                   placement="top"
-                  content={<div className="uranus-comment-container" dangerouslySetInnerHTML={{ __html: item.content as string }} />}
+                  content={<div className={commentStyles.uranusCommentContainer} dangerouslySetInnerHTML={{ __html: item.content as string }} />}
                   title={item.title}
                   trigger="click"
                 >
