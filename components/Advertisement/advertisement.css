@@ -1,0 +1,21 @@
+.uranus-advertisement-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.advertisement01 {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.advertisement01-wechatpay {
+  margin-bottom: -8px;
+  width: 100%;
+}
+
+.advertisement01-alipay {
+  margin-bottom: -8px;
+  width: 100%;
+}

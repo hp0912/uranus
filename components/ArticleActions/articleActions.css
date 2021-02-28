@@ -1,0 +1,20 @@
+.uranus-article-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #808080;
+  font-size: 13px;
+}
+
+.uranus-article-actions .actions-item {
+  display: inline-block;
+  min-width: 50px;
+  cursor: pointer;
+}
+
+.uranus-article-comment .comment-list .ant-list .ant-list-item {
+  padding: 12px 0 !important;
+  border-bottom: none !important;
+}

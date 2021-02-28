@@ -1,0 +1,35 @@
+declare const styles: {
+  readonly "uranusCommentEditorContainer": string;
+  readonly "uranusCommentContainer": string;
+  readonly "uranusAvatarBox": string;
+  readonly "commentAvatar": string;
+  readonly "uranusFormBox": string;
+  readonly "inputBox": string;
+  readonly "uranusCommentEditor": string;
+  readonly "uranusMention": string;
+  readonly "mentionBox": string;
+  readonly "mentionItem": string;
+  readonly "actionBox": string;
+  readonly "emoji": string;
+  readonly "emojiBox": string;
+  readonly "emojiContainer": string;
+  readonly "emojiDots": string;
+  readonly "slickActive": string;
+  readonly "slickDotsBottom": string;
+  readonly "emojiContent": string;
+  readonly "emojiPicker": string;
+  readonly "emojis": string;
+  readonly "item": string;
+  readonly "emojiElement": string;
+  readonly "uranusEmoji": string;
+  readonly "submit": string;
+  readonly "commentList": string;
+  readonly "subCommentList": string;
+  readonly "commentItem": string;
+  readonly "metaBox": string;
+  readonly "replyStat": string;
+  readonly "time": string;
+  readonly "delete": string;
+};
+export = styles;
+

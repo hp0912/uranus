@@ -1,0 +1,65 @@
+.uranus-user-avatar-frontend {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.uranus-user-avatar-backend {
+  display: inline-block;
+}
+
+.uranus-menu-container::after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+.uranus-menu-container-left {
+  width: 90px;
+  float: left;
+}
+
+.uranus-menu-container-right {
+  overflow: hidden;
+}
+
+.uranus-header-login-container {
+  text-align: center;
+  margin: 8px;
+  line-height: 30px;
+}
+
+.uranus-header-login, .uranus-header-register {
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.uranus-badge {
+  font-size: 12px;
+  background-color: #f5222d;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 3px;
+}
+
+.uranus-notification-top {
+  margin-top: -12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.uranus-notification-top-01 {
+  text-align: right;
+}
+
+@media screen and (max-width: 576px) {
+  .uranus-nickname {
+    display: none;
+  }
+  .uranus-article-edit {
+    display: none;
+  }
+}
