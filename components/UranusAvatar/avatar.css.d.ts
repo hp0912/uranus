@@ -1,14 +1,14 @@
 declare const styles: {
-  readonly "uranusAvatarBg": string;
-  readonly "uranusAvatar": string;
-  readonly "uranusAvatarImage": string;
-  readonly "wechatCount": string;
-  readonly "uranusSocialSignal": string;
-  readonly "socialSignalSub": string;
-  readonly "uranusAvatarUsername": string;
-  readonly "socialSignal01": string;
-  readonly "socialSignal02": string;
-  readonly "socialSignal02Item": string;
+  readonly "uranus-avatar-bg": string;
+  readonly "uranus-avatar": string;
+  readonly "uranus-avatar-image": string;
+  readonly "wechat-count": string;
+  readonly "uranus-social-signal": string;
+  readonly "social-signal-sub": string;
+  readonly "uranus-avatar-username": string;
+  readonly "social-signal-01": string;
+  readonly "social-signal-02": string;
+  readonly "social-signal-02-item": string;
 };
 export = styles;
 

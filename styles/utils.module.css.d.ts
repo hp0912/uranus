@@ -5,7 +5,7 @@ declare const styles: {
   readonly "headingMd": string;
   readonly "borderCircle": string;
   readonly "colorInherit": string;
-  readonly "padding1Px": string;
+  readonly "padding1px": string;
   readonly "list": string;
   readonly "listItem": string;
   readonly "lightText": string;

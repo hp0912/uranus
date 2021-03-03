@@ -27,38 +27,43 @@ export const Banner: FC = (props) => {
   }, []);
 
   const anim = useCallback(() => {
-    window.requestAnimationFrame(anim);
-    if (canvasContext2D) {
-      canvasContext2D.fillStyle = 'rgba(0,0,0,0.1)';
-      canvasContext2D.fillRect(0, 0, window.innerWidth, window.innerHeight);
-      GlList.forEach((item) => {
-        item.draw();
-      });
+    if (typeof window !== 'undefined') { // 服务端渲染
+      window.requestAnimationFrame(anim);
+      if (canvasContext2D) {
+        canvasContext2D.fillStyle = 'rgba(0,0,0,0.1)';
+        canvasContext2D.fillRect(0, 0, window.innerWidth, window.innerHeight);
+        GlList.forEach((item) => {
+          item.draw();
+        });
+      }
     }
   }, [canvasContext2D]);
 
   const render = useCallback(() => {
-    const x = window.innerWidth;
-    const y = window.innerHeight;
+    if (typeof window !== 'undefined') {
+      const x = window.innerWidth;
+      const y = window.innerHeight;
 
-    if (canvasContext2D) {
-      for (let i = 0; i < Math.floor(x / 2); i++) {
-        GlList.push(new Gl(canvasContext2D, x / 2, y / 2, gc(), Math.random() / 300));
+      if (canvasContext2D) {
+        for (let i = 0; i < Math.floor(x / 2); i++) {
+          GlList.push(new Gl(canvasContext2D, x / 2, y / 2, gc(), Math.random() / 300));
+        }
+        anim();
       }
-      anim();
     }
   }, [canvasContext2D, anim, gc]);
 
   useEffect(() => {
-    const cn = canvas.current;
-    if (cn) {
-      cn.height = window.outerHeight;
-      cn.width = window.outerWidth;
-      setCanvasContext2D(cn.getContext('2d') as CanvasRenderingContext2D);
-      // 加载完毕生成画布
-      render();
+    if (typeof window !== 'undefined') {
+      const cn = canvas.current;
+      if (cn) {
+        cn.height = window.outerHeight;
+        cn.width = window.outerWidth;
+        setCanvasContext2D(cn.getContext('2d') as CanvasRenderingContext2D);
+        // 加载完毕生成画布
+        render();
+      }
     }
-
   }, [render]);
 
   useEffect(() => {
@@ -78,25 +83,31 @@ export const Banner: FC = (props) => {
   }, [poem]);
 
   return (
-    <div className={styles.blogBanner}>
+    <div className={styles.blog_banner}>
       <canvas ref={canvas}>你的浏览器不支持canvas，请更换为Chrome打开</canvas>
-      <div className={styles.blogBannerText}>
+      <div className={styles.blog_banner_text}>
         <p>{poem}</p>
         <Link href="/frontend">
-          <div className={styles.blogBannerBtn}>
+          <a className={styles.blog_banner_btn}>
             <Avatar size={140} src="/images/avatar.jpg" />
-          </div>
+          </a>
         </Link>
       </div>
-      <div className={styles.blogBannerCircle}>
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-          <circle
-            cx={window.innerWidth / 2}
-            cy={window.innerHeight / 2}
-            r={scale}
-            fill="#fff"
-          />
-        </svg>
+      <div className={styles.blog_banner_circle}>
+        {
+          typeof window === 'undefined' ?
+            null :
+            (
+              <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <circle
+                  cx={window.innerWidth / 2}
+                  cy={window.innerHeight / 2}
+                  r={scale}
+                  fill="#fff"
+                />
+              </svg>
+            )
+        }
       </div>
     </div>
   );

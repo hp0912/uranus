@@ -1,8 +1,8 @@
 declare const styles: {
-  readonly "uranusAdvertisementCard": string;
+  readonly "uranus-advertisement-card": string;
   readonly "advertisement01": string;
-  readonly "advertisement01Wechatpay": string;
-  readonly "advertisement01Alipay": string;
+  readonly "advertisement01-wechatpay": string;
+  readonly "advertisement01-alipay": string;
 };
 export = styles;
 

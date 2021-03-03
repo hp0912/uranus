@@ -1,8 +1,8 @@
 declare const styles: {
-  readonly "uranusUserSettings": string;
-  readonly "uranusUserHomepages": string;
-  readonly "userSettingsLabel": string;
-  readonly "uranusCustomTabBar": string;
+  readonly "uranus-user-settings": string;
+  readonly "uranus-user-homepages": string;
+  readonly "user-settings-label": string;
+  readonly "uranus-custom-tab-bar": string;
 };
 export = styles;
 

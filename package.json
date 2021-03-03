@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "gen-css-types": "tcm -c -p './!(node_modules|build)/**/*.css'"
+    "gen-css-types": "tcm -p './!(node_modules|build)/**/*.css'"
   },
   "dependencies": {
     "ali-oss": "^6.13.2",
@@ -31,7 +31,6 @@
     "react-lazyload": "^3.2.0",
     "react-markdown-editor-lite": "^1.2.4",
     "react-router-dom": "^5.2.0",
-    "styled-components": "^5.2.1",
     "timeago.js": "^4.0.2",
     "twemoji": "^13.0.1",
     "url": "^0.11.0"
@@ -43,7 +42,6 @@
     "@types/qrcode.react": "^1.0.1",
     "@types/react": "^17.0.2",
     "@types/react-router-dom": "^5.1.7",
-    "@types/styled-components": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/eslint-plugin-tslint": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",

@@ -1,6 +1,6 @@
 declare const styles: {
-  readonly "uranusMotto": string;
-  readonly "uranusMottoItem": string;
+  readonly "uranus-motto": string;
+  readonly "uranus-motto-item": string;
 };
 export = styles;
 

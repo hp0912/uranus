@@ -1,9 +1,9 @@
 declare const styles: {
-  readonly "uranusCard": string;
-  readonly "uranusArticleImageContainer": string;
-  readonly "uranusArticleImageSub": string;
-  readonly "uranusArticleImage": string;
-  readonly "uranusArticleDesc": string;
+  readonly "uranus-card": string;
+  readonly "uranus-article-image-container": string;
+  readonly "uranus-article-image-sub": string;
+  readonly "uranus-article-image": string;
+  readonly "uranus-article-desc": string;
 };
 export = styles;
 

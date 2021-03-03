@@ -1,9 +1,9 @@
 declare const styles: {
-  readonly "uranusArticleDetail": string;
-  readonly "uranusTitle": string;
-  readonly "uranusSubTitle": string;
-  readonly "uranusBuyingGuide": string;
-  readonly "uranusBuyingInner": string;
+  readonly "uranus-article-detail": string;
+  readonly "uranus-title": string;
+  readonly "uranus-sub-title": string;
+  readonly "uranus-buying-guide": string;
+  readonly "uranus-buying-inner": string;
   readonly "title": string;
   readonly "desc": string;
 };

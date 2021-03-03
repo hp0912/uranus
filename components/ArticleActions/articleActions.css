@@ -14,7 +14,7 @@
   cursor: pointer;
 }
 
-.uranus-article-comment .comment-list .ant-list .ant-list-item {
+.uranus-article-comment .comment-list :global(.ant-list) :global(.ant-list-item) {
   padding: 12px 0 !important;
   border-bottom: none !important;
 }

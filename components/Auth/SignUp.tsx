@@ -160,21 +160,21 @@ export const SignUp: FC<ISignUpProps> = (props) => {
       <Input
         size="large"
         placeholder="请输入手机号"
-        prefix={<UserOutlined className={styles.uranusAuthPrefix} />}
+        prefix={<UserOutlined className={styles["uranus-auth-prefix"]} />}
         value={signUpState.username}
         onChange={onUserNameChange}
       />
       <Input.Password
         size="large"
         placeholder="请输入密码"
-        prefix={<KeyOutlined className={styles.uranusAuthPrefix} />}
+        prefix={<KeyOutlined className={styles["uranus-auth-prefix"]} />}
         value={signUpState.password}
         onChange={onPasswordChange}
       />
       <Input.Password
         size="large"
         placeholder="确认密码"
-        prefix={<KeyOutlined className={styles.uranusAuthPrefix} />}
+        prefix={<KeyOutlined className={styles["uranus-auth-prefix"]} />}
         value={signUpState.confirmPassword}
         onChange={onConfirmPasswordChange}
       />

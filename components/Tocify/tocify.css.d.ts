@@ -1,5 +1,5 @@
 declare const styles: {
-  readonly "uranusArticleNav": string;
+  readonly "uranus-article-nav": string;
 };
 export = styles;
 

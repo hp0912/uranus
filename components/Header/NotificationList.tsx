@@ -132,7 +132,7 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
               (
                 <Popover
                   placement="top"
-                  content={<div className={commentStyles.uranusCommentContainer} dangerouslySetInnerHTML={{ __html: item.content as string }} />}
+                  content={<div className={commentStyles['uranus-comment-container']} dangerouslySetInnerHTML={{ __html: item.content as string }} />}
                   title={item.title}
                   trigger="click"
                 >

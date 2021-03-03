@@ -1,9 +1,9 @@
 declare const styles: {
-  readonly "blogBanner": string;
-  readonly "blogBannerText": string;
+  readonly "blog_banner": string;
+  readonly "blog_banner_text": string;
   readonly "textAni": string;
-  readonly "blogBannerBtn": string;
-  readonly "blogBannerCircle": string;
+  readonly "blog_banner_btn": string;
+  readonly "blog_banner_circle": string;
 };
 export = styles;
 

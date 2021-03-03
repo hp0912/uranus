@@ -4,7 +4,6 @@ import { MenuInfo } from "rc-menu/lib/interface";
 import React, { FC, useCallback, useContext, useState } from "react";
 import { withRouter, useRouter } from 'next/router';
 import Link from 'next/link';
-import styled from "styled-components";
 import { UserContext } from '../../store/user';
 import { Auth } from "../Auth";
 import { AuthMode } from "../Auth/SignUp";
@@ -14,34 +13,6 @@ import UserAvatar from './UserAvatar';
 import styles from "./header.module.css";
 
 const { Search } = Input;
-
-const UranusHeader = styled.div`
-  position: fixed;
-  top: 0;
-  z-index: 999;
-  width: 100%;
-  background: 0 0;
-  background-image: linear-gradient(rgba(15,25,50,.5) 0,rgba(15,25,50,.5) 100%);
-  box-shadow: 0 1px 3px rgba(26,26,26,.1);
-  .ant-menu-horizontal {
-    border-bottom: none;
-  }
-  .ant-menu {
-    background: 0 0;
-    color: #fff;
-  }
-`;
-
-const UranusHeaderSearch = styled.div`
-  height: 30px;
-  margin: 8px 0 8px 8px;
-  .ant-input-affix-wrapper {
-    background: 0 0;
-  }
-  .ant-input {
-    background: 0 0;
-  }
-`;
 
 export enum MenuKey {
   frontend = 'frontend',
@@ -89,19 +60,19 @@ const Header: FC = (props) => {
   const selectedKeys = selectedKeysMatch && selectedKeysMatch[1] ? [selectedKeysMatch[1]] : [];
 
   return (
-    <UranusHeader>
+    <div className={styles["uranus-header"]}>
       <Row>
         <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={3} />
         <Col xs={18} sm={18} md={18} lg={14} xl={12} xxl={12}>
-          <div className={styles.uranusMenuContainer}>
-            <div className={styles.uranusMenuContainerLeft}>
-              <div className={styles.uranusHeaderLogo}>
+          <div className={styles["uranus-menu-container"]}>
+            <div className={styles["uranus-menu-container-left"]}>
+              <div className={styles["uranus-header-logo"]}>
                 <Link href="/">
-                  <div className={styles.uranusHeaderImage} />
+                  <div className={styles["uranus-header-image"]} />
                 </Link>
               </div>
             </div>
-            <div className={styles.uranusMenuContainerRight}>
+            <div className={styles["uranus-menu-container-right"]}>
               <Menu
                 theme="light"
                 mode="horizontal"
@@ -114,10 +85,10 @@ const Header: FC = (props) => {
                 <Menu.Item key={MenuKey.gossip} icon={<InstagramOutlined />}>
                   神秘空间
                 </Menu.Item>
-                <Menu.Item className={styles.uranusMenuItemHide} key={MenuKey.messageboard} icon={<MessageOutlined />}>
+                <Menu.Item className={styles["uranus-menu-item-hide"]} key={MenuKey.messageboard} icon={<MessageOutlined />}>
                   留言板
                 </Menu.Item>
-                <Menu.Item className={styles.uranusMenuItemHide} key={MenuKey.aboutus} icon={<IdcardOutlined />}>
+                <Menu.Item className={styles["uranus-menu-item-hide"]} key={MenuKey.aboutus} icon={<IdcardOutlined />}>
                   关于我
                 </Menu.Item>
               </Menu>
@@ -125,23 +96,23 @@ const Header: FC = (props) => {
           </div>
         </Col>
         <Col xs={0} sm={0} md={0} lg={5} xl={4} xxl={3}>
-          <UranusHeaderSearch>
+          <div className={styles["uranus-header-search"]}>
             <Search
               placeholder="请输入关键字..."
               onSearch={onSearch}
               className="uranus-width100"
             />
-          </UranusHeaderSearch>
+          </div>
         </Col>
         <Col xs={6} sm={6} md={6} lg={5} xl={4} xxl={4}>
-          <div className={styles.uranusHeaderLoginContainer}>
+          <div className={styles["uranus-header-login-container"]}>
             {
               userContext.userState ?
                 <UserAvatar isBackend={false} avatarColor="#fff" avatarSize={30} /> :
                 (
                   <>
-                    <span className={styles.uranusHeaderLogin} onClick={onSignInClick}>登录·</span>
-                    <span className={styles.uranusHeaderRegister} onClick={onSignUpClick}>注册</span>
+                    <span className={styles["uranus-header-login"]} onClick={onSignInClick}>登录·</span>
+                    <span className={styles["uranus-header-register"]} onClick={onSignUpClick}>注册</span>
                   </>
                 )
             }
@@ -150,7 +121,7 @@ const Header: FC = (props) => {
         <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={2} />
       </Row>
       <Auth mode={authState} visible={authVisible} onCancel={onAuthCancel} />
-    </UranusHeader>
+    </div>
   );
 };
 

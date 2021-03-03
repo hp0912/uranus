@@ -1,9 +1,46 @@
+.uranus-header {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  background: 0 0;
+  background-image: linear-gradient(rgba(15,25,50,.5) 0,rgba(15,25,50,.5) 100%);
+  box-shadow: 0 1px 3px rgba(26,26,26,.1);
+}
+
+.uranus-header :global(.ant-menu-horizontal) {
+  border-bottom: none;
+}
+
+.uranus-header :global(.ant-menu) {
+  background: 0 0;
+  color: #fff;
+}
+
+.uranus-header-search {
+  height: 30px;
+  margin: 8px 0 8px 8px;
+}
+
+.uranus-header-search :global(.ant-input-group-addon) {
+  background: 0 0;
+}
+
+.uranus-header-search :global(.ant-input-search-button) {
+  background: 0 0;
+}
+
+.uranus-header-search :global(.ant-input) {
+  background: 0 0;
+}
+
 .uranus-header-logo {
   height: 46px;
   text-align: center;
   padding: 0 2px 0 8px;
   float: left;
 }
+
 .uranus-header-image {
   width: 80px;
   height: 46px;

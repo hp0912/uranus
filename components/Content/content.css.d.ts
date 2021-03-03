@@ -1,8 +1,8 @@
 declare const styles: {
-  readonly "uranusContentLeft": string;
-  readonly "uranusContentRight": string;
-  readonly "uranusContentCenter": string;
-  readonly "uranusContent": string;
+  readonly "uranus-content-left": string;
+  readonly "uranus-content-right": string;
+  readonly "uranus-content-center": string;
+  readonly "uranus-content": string;
 };
 export = styles;
 

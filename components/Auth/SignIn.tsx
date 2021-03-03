@@ -112,21 +112,21 @@ export const SignIn: FC<ISignInProps> = (props) => {
       <Input
         size="large"
         placeholder="请输入手机号"
-        prefix={<UserOutlined className={styles.uranusAuthPrefix} />}
+        prefix={<UserOutlined className={styles["uranus-auth-prefix"]} />}
         value={signInState.username}
         onChange={onUserNameChange}
       />
       <Input.Password
         size="large"
         placeholder="请输入密码"
-        prefix={<KeyOutlined className={styles.uranusAuthPrefix} />}
+        prefix={<KeyOutlined className={styles["uranus-auth-prefix"]} />}
         value={signInState.password}
         onChange={onPasswordChange}
       />
       <Button type="primary" size="large" loading={loading} block onClick={onSignInClick}>
         登录
       </Button>
-      <div className={styles.uranusPromptBox}>
+      <div className={styles["uranus-prompt-box"]}>
         <span>
           没有账号?
           <Button
@@ -147,10 +147,10 @@ export const SignIn: FC<ISignInProps> = (props) => {
         注册登录即表示同意<b>用户协议</b>、<b>隐私政策</b>
       </p>
       <Divider style={dividerStyle}>第三方登录</Divider>
-      <div className={styles.uranusAuthThird}>
-        <Avatar className={styles.uranusAuthThirdItem} size={33} icon={<QqOutlined />} />
-        <Avatar className={styles.uranusAuthThirdItem} size={33} icon={<WechatOutlined />} />
-        <Avatar className={styles.uranusAuthThirdItem} size={33} icon={<GithubOutlined onClick={onGitHubOAuth} />} />
+      <div className={styles["uranus-auth-third"]}>
+        <Avatar className={styles["uranus-auth-third-item"]} size={33} icon={<QqOutlined />} />
+        <Avatar className={styles["uranus-auth-third-item"]} size={33} icon={<WechatOutlined />} />
+        <Avatar className={styles["uranus-auth-third-item"]} size={33} icon={<GithubOutlined onClick={onGitHubOAuth} />} />
       </div>
     </Space>
   );
