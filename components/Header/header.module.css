@@ -12,6 +12,14 @@
   border-bottom: none;
 }
 
+.uranus-header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a {
+  color: #fff;
+}
+
+.uranus-header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a:hover {
+  color: #1890ff;
+}
+
 .uranus-header :global(.ant-menu) {
   background: 0 0;
   color: #fff;

@@ -1,6 +1,5 @@
 import { HomeOutlined, IdcardOutlined, InstagramOutlined, MessageOutlined } from "@ant-design/icons";
 import { Col, Input, Menu, Row } from "antd";
-import { MenuInfo } from "rc-menu/lib/interface";
 import React, { FC, useCallback, useContext, useState } from "react";
 import { withRouter, useRouter } from 'next/router';
 import Link from 'next/link';
@@ -28,10 +27,6 @@ const Header: FC = (props) => {
 
   const [authVisible, setAuthVisible] = useState<boolean>(false);
   const [authState, setAuthState] = useState<AuthMode>(AuthMode.none);
-
-  const onMenuClick = useCallback((param: MenuInfo) => {
-    router.push(`/${param.key}`);
-  }, [router]);
 
   const onSearch = useCallback((value: string) => {
     if (value) {
@@ -61,14 +56,16 @@ const Header: FC = (props) => {
 
   return (
     <div className={styles["uranus-header"]}>
-      <Row>
+      <Row style={{ rowGap: 0 }}>
         <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={3} />
         <Col xs={18} sm={18} md={18} lg={14} xl={12} xxl={12}>
           <div className={styles["uranus-menu-container"]}>
             <div className={styles["uranus-menu-container-left"]}>
               <div className={styles["uranus-header-logo"]}>
                 <Link href="/">
-                  <div className={styles["uranus-header-image"]} />
+                  <a>
+                    <div className={styles["uranus-header-image"]} />
+                  </a>
                 </Link>
               </div>
             </div>
@@ -77,19 +74,34 @@ const Header: FC = (props) => {
                 theme="light"
                 mode="horizontal"
                 defaultSelectedKeys={selectedKeys}
-                onClick={onMenuClick}
               >
                 <Menu.Item key={MenuKey.frontend} icon={<HomeOutlined />}>
-                  前端优选
+                  <Link href="/frontend">
+                    <a>
+                      前端优选
+                    </a>
+                  </Link>
                 </Menu.Item>
                 <Menu.Item key={MenuKey.gossip} icon={<InstagramOutlined />}>
-                  神秘空间
+                  <Link href="/gossip">
+                    <a>
+                      神秘空间
+                    </a>
+                  </Link>
                 </Menu.Item>
                 <Menu.Item className={styles["uranus-menu-item-hide"]} key={MenuKey.messageboard} icon={<MessageOutlined />}>
-                  留言板
+                  <Link href="/messageboard">
+                    <a>
+                      留言板
+                    </a>
+                  </Link>
                 </Menu.Item>
                 <Menu.Item className={styles["uranus-menu-item-hide"]} key={MenuKey.aboutus} icon={<IdcardOutlined />}>
-                  关于我
+                  <Link href="/aboutus">
+                    <a>
+                      关于我
+                    </a>
+                  </Link>
                 </Menu.Item>
               </Menu>
             </div>

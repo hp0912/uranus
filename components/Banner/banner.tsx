@@ -82,6 +82,13 @@ export const Banner: FC = (props) => {
     }
   }, [poem]);
 
+  const [circleState, setCircle] = useState({ cx: 900, cy: 600 });
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCircle({ cx: window.innerWidth, cy: window.innerHeight });
+    }
+  }, []);
+
   return (
     <div className={styles.blog_banner}>
       <canvas ref={canvas}>你的浏览器不支持canvas，请更换为Chrome打开</canvas>
@@ -94,20 +101,14 @@ export const Banner: FC = (props) => {
         </Link>
       </div>
       <div className={styles.blog_banner_circle}>
-        {
-          typeof window === 'undefined' ?
-            null :
-            (
-              <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                <circle
-                  cx={window.innerWidth / 2}
-                  cy={window.innerHeight / 2}
-                  r={scale}
-                  fill="#fff"
-                />
-              </svg>
-            )
-        }
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <circle
+            cx={circleState.cx}
+            cy={circleState.cy}
+            r={scale}
+            fill="#fff"
+          />
+        </svg>
       </div>
     </div>
   );
