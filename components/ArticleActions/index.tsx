@@ -9,7 +9,7 @@ import { articleActionDataGet, commentDelete, commentSubmit, likesCancel, likesS
 import { UranusComment } from "../UranusComment";
 
 // 样式
-import "./articleActions.css";
+import styles from "./articleActions.module.css";
 
 interface IArticleActionsProps {
   article: IArticleEntity;
@@ -101,16 +101,16 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
 
   return (
     <div>
-      <div className="uranus-article-actions" style={props.actionItemsStyle}>
-        <span className="actions-item">
+      <div className={styles["uranus-article-actions"]} style={props.actionItemsStyle}>
+        <span className={styles["actions-item"]}>
           <EyeOutlined /> {actionData.viewCount > 0 ? actionData.viewCount : null}
         </span>
         <Divider type="vertical" />
-        <span className="actions-item" onClick={onStartClick}>
+        <span className={styles["actions-item"]} onClick={onStartClick}>
           <StarOutlined /> 1
         </span>
         <Divider type="vertical" />
-        <span className="actions-item" onClick={onLikeClick}>
+        <span className={styles["actions-item"]} onClick={onLikeClick}>
           {
             actionData.likesLoading ?
               <LoadingOutlined /> :
@@ -121,7 +121,7 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
           {actionData.likesCount > 0 ? actionData.likesCount : null}
         </span>
         <Divider type="vertical" />
-        <span className="actions-item" onClick={onCommentClick}>
+        <span className={styles["actions-item"]} onClick={onCommentClick}>
           <MessageOutlined /> {actionData.commentCount > 0 ? actionData.commentCount : null}
         </span>
       </div>
@@ -129,7 +129,7 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
         commentVisible &&
         (
           <UranusComment
-            className="uranus-article-comment"
+            className={styles["uranus-article-comment"]}
             commentType={CommentType.article}
             targetId={props.article.id!}
             parentId="0"

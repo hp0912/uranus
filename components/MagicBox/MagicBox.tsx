@@ -7,12 +7,12 @@ import { QRCodeGen } from "./QRCodeGen";
 import { Video2GIF } from "./Video2GIF";
 
 // 样式
-import "../components.css";
+import componentStyles from "../components.module.css";
 import styles from "./magicBox.module.css";
 
 export const MagicBox: FC = (props) => {
   return (
-    <div className="uranus-card">
+    <div className={componentStyles["uranus-card"]}>
       <Card title="更多功能" size="small" extra={<SketchOutlined />}>
         <div className={styles["magic-box-content"]}>
           <a href="/uranus-music" target="_blank" rel="noopener noreferrer">

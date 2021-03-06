@@ -2,9 +2,9 @@ import { Avatar, List, message, Tag } from "antd";
 import { PaginationConfig } from "antd/lib/pagination";
 import MarkdownIt from "markdown-it";
 import React, { FC, useCallback, useContext, useEffect, useMemo } from "react";
-import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { format } from "timeago.js";
-import url from 'url';
 import { UserContext } from "../../store/user";
 import { ArticleCategory, IArticleEntity, ITagEntity, IUserEntity } from "../../types";
 import { useSetState } from "../../utils/commonHooks";
@@ -26,8 +26,7 @@ import twemoji from 'twemoji';
 // 样式
 import "highlight.js/styles/an-old-hope.css";
 import 'react-markdown-editor-lite/lib/index.css';
-import "../components.css";
-import "./articleList.css";
+import styles from "./articleList.module.css";
 
 interface IArtListParams {
   category: ArticleCategory;
@@ -49,9 +48,7 @@ interface IArticleListState {
 
 export const ArticleList: FC<IArticleListProps> = (props) => {
   const userContext = useContext(UserContext);
-  const history = useHistory();
-  const loca = useLocation();
-  const mat = useRouteMatch();
+  const router = useRouter();
 
   // MarkdownIt
   const md = useMemo<MarkdownIt>(() => {
@@ -102,8 +99,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    const json = url.parse(loca.search, true, false);
-    const query = json.query;
+    const query = router.query;
     const searchValue = query.keyword ? query.keyword as string : '';
     const current = query.current ? query.current as string : '1';
     const pageSize = query.pageSize ? query.pageSize as string : '15';
@@ -111,7 +107,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
 
     getArticleList(params);
     // eslint-disable-next-line
-  }, [userContext.userState, loca.search, props.category]);
+  }, [userContext.userState, router.query, props.category]);
 
   const getArticleList = useCallback(async (params: IArtListParams) => {
     try {
@@ -155,19 +151,6 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
     }
   }, [articleListState, setArticleListState]);
 
-  const onPageChange = (page: number, pageSize?: number) => {
-    localStorage.setItem('uranus-scrollTop', '0');
-
-    const json = url.parse(loca.search, true, false);
-    const query = json.query;
-
-    query.current = page + '';
-    query.pageSize = pageSize ? pageSize + '' : '15';
-    const search = Object.keys(query).map(key => `${key}=${query[key]}`);
-
-    history.push(`${mat.path}?${search.join("&")}`);
-  };
-
   return (
     <div style={{ paddingBottom: 15 }}>
       <List
@@ -176,24 +159,23 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
         loading={articleListState.loading}
         pagination={{
           ...articleListState.pagination,
-          onChange: onPageChange,
         }}
         dataSource={articleListState.articles}
         renderItem={item => (
           <List.Item
             key={item.title}
           >
-            <div className="uranus-article-title">
-              <div className="user-avatar">
+            <div className={styles["uranus-article-title"]}>
+              <div className={styles["user-avatar"]}>
                 <Avatar size={50} src={articleListState.userMap[item.createdBy!] ? articleListState.userMap[item.createdBy!].avatar : DEFAULTAVATAR} />
               </div>
-              <div className="article-title">
-                <div className="article-title-name">
-                  <Link to={`/article/detail/${item.id!}`} className="article-title-link">
-                    {item.title}
+              <div className={styles["article-title"]}>
+                <div className={styles["article-title-name"]}>
+                  <Link href={`/article/detail/${item.id!}`}>
+                    <a className={styles["article-title-link"]}>{item.title}</a>
                   </Link>
                 </div>
-                <div className="article-title-others">
+                <div className={styles["article-title-others"]}>
                   {
                     item.tags && item.tags.map(tagId => {
                       return (
@@ -206,7 +188,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
                       );
                     })
                   }
-                  <span className="article-title-timeago">
+                  <span className={styles["article-title-timeago"]}>
                     {
                       item.createdTime === item.modifyTime ?
                         `${articleListState.userMap[item.createdBy!] ? articleListState.userMap[item.createdBy!].nickname : "神秘人"} 发表于 ${format(item.createdTime!, 'zh_CN')}` :

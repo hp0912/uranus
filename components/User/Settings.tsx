@@ -13,7 +13,7 @@ import { UranusPrompt } from '../UranusPrompt';
 
 // 样式
 import 'antd/lib/slider/style/index.css';
-import './user.css';
+import styles from './user.module.css';
 
 export const CUserSettings: FC = (props) => {
   const userContext = useContext(UserContext);
@@ -253,7 +253,7 @@ export const CUserSettings: FC = (props) => {
   }
 
   return (
-    <div className="uranus-user-settings">
+    <div className={styles["uranus-user-settings"]}>
       <Breadcrumb>
         <Breadcrumb.Item>
           <span>用户中心</span>
@@ -262,8 +262,8 @@ export const CUserSettings: FC = (props) => {
           个人设置
         </Breadcrumb.Item>
       </Breadcrumb>
-      <Row className="uranus-row uranus-row-first">
-        <Col span={4} className="user-settings-label">
+      <Row className="uranus-row uranus-row-first" style={{ rowGap: 0 }}>
+        <Col span={4} className={styles["user-settings-label"]}>
           <b>用户头像</b>
         </Col>
         <Col span={20}>
@@ -271,7 +271,7 @@ export const CUserSettings: FC = (props) => {
             <Upload
               name="file"
               listType="picture-card"
-              className="avatar-uploader"
+              className={styles["avatar-uploader"]}
               showUploadList={false}
               action={AliyunOSSHost}
               onPreview={onPreview}
@@ -286,7 +286,7 @@ export const CUserSettings: FC = (props) => {
                   (
                     <div>
                       {loading ? <LoadingOutlined /> : <PlusOutlined />}
-                      <div className="ant-upload-text">Upload</div>
+                      <div className={styles["ant-upload-text"]}>Upload</div>
                     </div>
                   )
               }
@@ -294,8 +294,8 @@ export const CUserSettings: FC = (props) => {
           </ImgCrop>
         </Col>
       </Row>
-      <Row className="uranus-row">
-        <Col span={4} className="user-settings-label">
+      <Row className="uranus-row" style={{ rowGap: 0 }}>
+        <Col span={4} className={styles["user-settings-label"]}>
           <b>用户昵称</b>
         </Col>
         <Col span={20}>
@@ -306,8 +306,8 @@ export const CUserSettings: FC = (props) => {
           />
         </Col>
       </Row>
-      <Row className="uranus-row">
-        <Col span={4} className="user-settings-label">
+      <Row className="uranus-row" style={{ rowGap: 0 }}>
+        <Col span={4} className={styles["user-settings-label"]}>
           <b>个性签名</b>
         </Col>
         <Col span={20}>
@@ -318,8 +318,8 @@ export const CUserSettings: FC = (props) => {
           />
         </Col>
       </Row>
-      <Row className="uranus-row">
-        <Col span={4} className="user-settings-label">
+      <Row className="uranus-row" style={{ rowGap: 0 }}>
+        <Col span={4} className={styles["user-settings-label"]}>
           <b>个人简介</b>
         </Col>
         <Col span={20}>
@@ -331,8 +331,8 @@ export const CUserSettings: FC = (props) => {
           />
         </Col>
       </Row>
-      <Row className="uranus-row">
-        <Col span={24} className="save">
+      <Row className="uranus-row" style={{ rowGap: 0 }}>
+        <Col span={24} className={styles["save"]}>
           <Button
             type="primary"
             size="large"

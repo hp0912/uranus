@@ -54,10 +54,6 @@
   min-height: 32px;
 }
 
-.uranus-mention {
-  color: #ff8f18;
-}
-
 .uranus-comment-editor:empty::before {
   content: attr(placeholder);
   position: absolute;
@@ -150,26 +146,6 @@
   padding: 5px 4.5px;
   cursor: pointer;
   list-style: none;
-}
-
-.emoji-element {
-  width: 22px;
-  height: 22px;
-  display: block;
-  border-style: none;
-}
-
-.uranus-emoji {
-  vertical-align: sub;
-  width: 16px;
-  height: 16px;
-  cursor: default;
-  margin: 0 1px;
-}
-
-.emoji-element:hover {
-  transition: all .3s;
-  transform: scale(1.3);
 }
 
 .action-box .submit {

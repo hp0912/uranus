@@ -386,7 +386,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
 
   const onEmojiClick = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const img = event.target as HTMLImageElement;
-    if (!img.className.includes(styles['emoji-element'])) {
+    if (!img.className.includes('emoji-element')) {
       return;
     }
 
@@ -402,7 +402,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
     if (selections) {
       const range = selections.getRangeAt(0);
       const newNode = document.createElement('img');
-      newNode.className = styles['uranus-emoji'];
+      newNode.className = 'uranus-emoji';
       newNode.setAttribute('data-code', img.src.substr(-7, 3));
       newNode.setAttribute('src', img.src);
       range.insertNode(newNode);

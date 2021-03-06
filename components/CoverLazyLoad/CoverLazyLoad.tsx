@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import LazyLoad from 'react-lazyload';
-import { Link } from "react-router-dom";
+import Link from 'next/link';
+
+// 样式
+import styles from "../components.module.css";
 
 interface ICoverLazyLoadProps {
   articleId?: string;
@@ -12,16 +15,16 @@ export const CoverLazyLoad: FC<ICoverLazyLoadProps> = (props) => {
 
   return (
     <LazyLoad height={250} offset={100}>
-      <div className="uranus-article-image-container">
-        <div className="uranus-article-image-sub">
+      <div className={styles["uranus-article-image-container"]}>
+        <div className={styles["uranus-article-image-sub"]}>
           {
             articleId ?
               (
-                <Link to={`/article/detail/${articleId}`}>
-                  <div className="uranus-article-image" style={{ backgroundImage: `url(${coverURL})` }} />
+                <Link href={`/article/detail/${articleId}`}>
+                  <div className={styles["uranus-article-image"]} style={{ backgroundImage: `url(${coverURL})` }} />
                 </Link>
               ) :
-              <div className="uranus-article-image" style={{ backgroundImage: `url(${coverURL})` }} />
+              <div className={styles["uranus-article-image"]} style={{ backgroundImage: `url(${coverURL})` }} />
           }
         </div>
       </div>

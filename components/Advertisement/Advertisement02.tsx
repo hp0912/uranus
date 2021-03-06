@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { websiteAdvertisement } from "../../utils/httpClient";
 
 // 样式
-import "./advertisement.css";
+import styles from "../components.module.css";
 
 export const Advertisement02: FC = (props) => {
   const [advertisement, setAdvertisement] = useState(() => {
@@ -30,7 +30,7 @@ export const Advertisement02: FC = (props) => {
 
   return (
     <Affix offsetTop={55}>
-      <div className="uranus-card" dangerouslySetInnerHTML={{ __html: advertisement }} />
+      <div className={styles["uranus-card"]} dangerouslySetInnerHTML={{ __html: advertisement }} />
     </Affix>
   );
 };

@@ -1,6 +1,8 @@
 import { Col, Row } from "antd";
 import React, { FC, ReactElement } from "react";
-import "./content.css";
+
+// 样式
+import styles from "./content.module.css";
 
 interface IContentProps {
   left: ReactElement;
@@ -9,18 +11,18 @@ interface IContentProps {
 
 export const Content: FC<IContentProps> = (props) => {
   return (
-    <Row className="uranus-content">
+    <Row className={styles["uranus-content"]} style={{ rowGap: 0 }}>
       <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={3} />
       <Col xs={0} sm={0} md={0} lg={5} xl={4} xxl={3}>
-        <div className="uranus-content-left">
+        <div className={styles["uranus-content-left"]}>
           {props.left}
         </div>
       </Col>
-      <Col xs={24} sm={24} md={24} lg={14} xl={12} xxl={12} className="uranus-content-center">
+      <Col xs={24} sm={24} md={24} lg={14} xl={12} xxl={12} className={styles["uranus-content-center"]}>
         {props.children}
       </Col>
       <Col xs={0} sm={0} md={0} lg={5} xl={4} xxl={4}>
-        <div className="uranus-content-right">
+        <div className={styles["uranus-content-right"]}>
           {props.right}
         </div>
       </Col>

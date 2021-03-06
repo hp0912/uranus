@@ -1,10 +1,6 @@
 declare const styles: {
   readonly "uranus-header": string;
-  readonly "ant-menu-horizontal": string;
-  readonly "ant-menu": string;
   readonly "uranus-header-search": string;
-  readonly "ant-input-affix-wrapper": string;
-  readonly "ant-input": string;
   readonly "uranus-header-logo": string;
   readonly "uranus-header-image": string;
   readonly "uranus-user-avatar-frontend": string;

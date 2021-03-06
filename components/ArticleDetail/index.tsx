@@ -12,8 +12,7 @@ import { CoverLazyLoad } from "../CoverLazyLoad";
 import { Pay } from '../Pay';
 
 // 样式
-import "../components.css";
-import "./articleDetail.css";
+import styles from "./articleDetail.module.css";
 
 interface IArticleDetailProps {
   article: IArticleEntity;
@@ -109,7 +108,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
   }, [props.refresh]);
 
   return (
-    <div className="uranus-article-detail">
+    <div className={styles["uranus-article-detail"]}>
       <Breadcrumb>
         <Breadcrumb.Item>
           <span style={{ color: "#1890ff", cursor: "pointer" }} onClick={goBack}>博客</span>
@@ -118,10 +117,10 @@ const ArticleDetailInner: FC<IProps> = (props) => {
           {props.article?.title}
         </Breadcrumb.Item>
       </Breadcrumb>
-      <h2 className="uranus-title">
+      <h2 className={styles["uranus-title"]}>
         {props.article?.title}
       </h2>
-      <div className="uranus-sub-title">
+      <div className={styles["uranus-sub-title"]}>
         <Space size="small">
           <Avatar size={30} src={props.user?.avatar} />
           <span>{props.user?.nickname} </span>
@@ -157,12 +156,12 @@ const ArticleDetailInner: FC<IProps> = (props) => {
             </div>
           ) :
           (
-            <div className="uranus-buying-guide">
-              <div className="uranus-buying-inner">
-                <div className="title">
+            <div className={styles["uranus-buying-guide"]}>
+              <div className={styles["uranus-buying-inner"]}>
+                <div className={styles["title"]}>
                   <b>此文章为付费内容</b>
                 </div>
-                <div className="desc">
+                <div className={styles["desc"]}>
                   现在购买立即解锁全部内容
                 </div>
                 <Button
@@ -195,7 +194,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
         onCancel={onShareCancel}
       >
         <div>
-          <Row className="uranus-row">
+          <Row className="uranus-row" style={{ rowGap: 0 }}>
             <Col span={6}>
               分享链接：
             </Col>
@@ -222,7 +221,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
               }
             </Col>
           </Row>
-          <Row className="uranus-row">
+          <Row className="uranus-row" style={{ rowGap: 0 }}>
             <Col span={6}>
               链接到期时间：
             </Col>

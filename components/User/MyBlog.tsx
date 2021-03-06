@@ -2,12 +2,14 @@ import { DeleteOutlined, EditOutlined, LoadingOutlined, PauseCircleOutlined, Que
 import { Input, message, Modal, Popconfirm, Table, Tooltip } from 'antd';
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table/interface';
 import React, { FC, useCallback, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { AuditStatus, IArticleEntity } from '../../types';
 import { formatDate } from '../../utils';
 import { useSetState } from '../../utils/commonHooks';
 import { articleDelete, myArticles } from '../../utils/httpClient';
 
+// 样式
+import styles from '../ArticleEdit/articleEdit.module.css';
 interface IMyBlogParams {
   searchValue: string;
   pagination: TablePaginationConfig;
@@ -81,7 +83,7 @@ export const MyBlog: FC = () => {
       render: (e, item) => {
         return (
           <>
-            <Link to={`/article/edit/${item.id}`}>
+            <Link href={`/article/edit/${item.id}`}>
               <EditOutlined className="uranus-margin-right-8" />
             </Link>
             {
@@ -94,7 +96,7 @@ export const MyBlog: FC = () => {
                       title="确定要删除该博客吗？"
                       okText="确认"
                       cancelText="取消"
-                      icon={<QuestionCircleOutlined className="uranus-delete-icon" />}
+                      icon={<QuestionCircleOutlined className={styles["uranus-delete-icon"]} />}
                       onConfirm={() => { onMyBlogDelete(item.id!); }}
                     >
                       <Tooltip title="删除">

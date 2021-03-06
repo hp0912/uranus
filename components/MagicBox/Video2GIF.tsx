@@ -192,7 +192,7 @@ export const Video2GIF: FC = (props) => {
         footer={null}
         onCancel={onCancel}
       >
-        <Row>
+        <Row style={{ rowGap: 0 }}>
           <Col span={19}>
             <Input value={videoState.fileName} placeholder="点击这里上传视频" readOnly onClick={onUploadClick} />
             <input type="file" ref={fileInputRef} style={{ display: "none" }} accept=".mp4, .ogg, .webm" onChange={onFileChange} />
@@ -204,7 +204,7 @@ export const Video2GIF: FC = (props) => {
         {
           previewVisible &&
           (
-            <Row>
+            <Row style={{ rowGap: 0 }}>
               <Col span={24}>
                 <p style={{ margin: "15px 0" }}><b>预览</b></p>
                 <video style={{ width: "100%" }} src={videoState.videoSrc} controls preload="true" />
@@ -215,7 +215,7 @@ export const Video2GIF: FC = (props) => {
         {
           videoState.progress !== '' &&
           (
-            <Row>
+            <Row style={{ rowGap: 0 }}>
               <Col span={24}>
                 <p style={{ margin: "15px 0", color: "#f7cf02" }}>{videoState.progress}</p>
               </Col>
@@ -225,7 +225,7 @@ export const Video2GIF: FC = (props) => {
         {
           gifSrc !== '' &&
           (
-            <Row>
+            <Row style={{ rowGap: 0 }}>
               <Col span={24}>
                 <a href={gifSrc} target="_blank" rel="noopener noreferrer">
                   <img style={{ width: "100%" }} src={gifSrc} alt="gif" />
@@ -234,7 +234,7 @@ export const Video2GIF: FC = (props) => {
             </Row>
           )
         }
-        <Row>
+        <Row style={{ rowGap: 0 }}>
           <Col span={24}>
             <p style={{ margin: "15px 0 8px 0" }}><b>说明</b></p>
             <p style={{ margin: "8px 0", color: "#2b95e2" }}>全部转换均在浏览器内进行，不会消耗设备流量</p>

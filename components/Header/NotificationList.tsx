@@ -106,7 +106,7 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
       {
         props.type === "hasnotread" ?
           (
-            <Row className="uranus-notification-top">
+            <Row className="uranus-notification-top" style={{ rowGap: 0 }}>
               <Col span={16} />
               <Col span={8} className="uranus-notification-top-01">
                 <Button

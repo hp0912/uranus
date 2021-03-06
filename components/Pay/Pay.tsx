@@ -9,7 +9,7 @@ import { useSetState } from "../../utils/commonHooks";
 import { initPay, queryPayStatus } from "../../utils/httpClient";
 
 // 样式
-import './pay.css';
+import styles from './pay.module.css';
 
 interface IPayProps {
   title: string;
@@ -232,7 +232,7 @@ export const Pay: FC<IPayProps> = (props) => {
 
   return (
     <Modal
-      className="uranus-pay"
+      className={styles["uranus-pay"]}
       title={title.length > 15 ? title.substr(0, 15) + "..." : title}
       visible={visible}
       destroyOnClose
@@ -244,20 +244,20 @@ export const Pay: FC<IPayProps> = (props) => {
         !payState.QRCodeVisible &&
         (
           <div>
-            <Row className="uranus-row">
-              <Col className="pay-item-left" span={8}>支付总额</Col>
-              <Col className="pay-item-right" span={16}>¥ {order.totalPrice! / 100} 元</Col>
+            <Row className="uranus-row" style={{ rowGap: 0 }}>
+              <Col className={styles["pay-item-left"]} span={8}>支付总额</Col>
+              <Col className={styles["pay-item-right"]} span={16}>¥ {order.totalPrice! / 100} 元</Col>
             </Row>
-            <Row className="uranus-row">
-              <Col className="pay-item-left" span={8}>
+            <Row className="uranus-row" style={{ rowGap: 0 }}>
+              <Col className={styles["pay-item-left"]} span={8}>
                 <span style={{ paddingRight: 4 }}>支付方式</span>
                 <Tooltip
                   title={
                     (
                       <div>
-                        <p className="pay-method-tips">二维码支付：二维码支付是指用户通过微信、支付宝扫码完成支付的模式</p>
-                        <p className="pay-method-tips">H5支付：H5支付主要是在手机等移动设备中通过浏览器来唤起微信或支付宝支付</p>
-                        <p className="pay-method-tips">微信收银台：在微信浏览器内调用微信支付模块完成支付</p>
+                        <p className={styles["pay-method-tips"]}>二维码支付：二维码支付是指用户通过微信、支付宝扫码完成支付的模式</p>
+                        <p className={styles["pay-method-tips"]}>H5支付：H5支付主要是在手机等移动设备中通过浏览器来唤起微信或支付宝支付</p>
+                        <p className={styles["pay-method-tips"]}>微信收银台：在微信浏览器内调用微信支付模块完成支付</p>
                       </div>
                     )
                   }
@@ -265,8 +265,8 @@ export const Pay: FC<IPayProps> = (props) => {
                   <QuestionCircleOutlined style={{ color: "red" }} />
                 </Tooltip>
               </Col>
-              <Col span={16} className="pay-item-right">
-                <Select className="pay-method" bordered={false} value={payMethod} onChange={onPayMethodChange}>
+              <Col span={16} className={styles["pay-item-right"]}>
+                <Select className={styles["pay-method"]} bordered={false} value={payMethod} onChange={onPayMethodChange}>
                   <Select.Option value={PayMethod.scan}>二维码支付</Select.Option>
                   {
                     browserState.os.phone && !browserState.browser.wechat && // 手机端非微信浏览器
@@ -279,7 +279,7 @@ export const Pay: FC<IPayProps> = (props) => {
                 </Select>
               </Col>
             </Row>
-            <Row className={`uranus-row ${payMethod === PayMethod.cashier && !browserState.browser.wechat ? "uranus-pay-hidden" : ""}`}>{/** 微信收银台只能在微信内使用 */}
+            <Row style={{ rowGap: 0 }} className={`uranus-row ${payMethod === PayMethod.cashier && !browserState.browser.wechat ? "uranus-pay-hidden" : ""}`}>{/** 微信收银台只能在微信内使用 */}
               <Col span={24}>
                 <Button
                   type="primary"
@@ -294,7 +294,7 @@ export const Pay: FC<IPayProps> = (props) => {
                 </Button>
               </Col>
             </Row>
-            <Row className={`uranus-row ${payMethod === PayMethod.wap || (payMethod === PayMethod.cashier && browserState.browser.wechat) ? "uranus-pay-hidden" : ""}`}>{/** 支付宝的H5支付使用收银台接口, 微信内无法使用支付宝收银台 */}
+            <Row style={{ rowGap: 0 }} className={`uranus-row ${payMethod === PayMethod.wap || (payMethod === PayMethod.cashier && browserState.browser.wechat) ? "uranus-pay-hidden" : ""}`}>{/** 支付宝的H5支付使用收银台接口, 微信内无法使用支付宝收银台 */}
               <Col span={24}>
                 <Button
                   type="primary"
@@ -316,7 +316,7 @@ export const Pay: FC<IPayProps> = (props) => {
         payState.QRCodeVisible &&
         (
           <div>
-            <Row className="uranus-row">
+            <Row className="uranus-row" style={{ rowGap: 0 }}>
               <Col span={24}>
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                   <QRCode
@@ -327,21 +327,21 @@ export const Pay: FC<IPayProps> = (props) => {
                 </div>
               </Col>
             </Row>
-            <Row className="uranus-row">
+            <Row className="uranus-row" style={{ rowGap: 0 }}>
               <Col span={24}>
-                <div className="pay-tips">
+                <div className={styles["pay-tips"]}>
                   {
                     payState.payType === PayType.WeChatPay &&
-                    <><WechatOutlined className="wechat-pay-icon" /><span style={{ paddingLeft: 8 }}>微信扫码支付</span></>
+                    <><WechatOutlined className={styles["wechat-pay-icon"]} /><span style={{ paddingLeft: 8 }}>微信扫码支付</span></>
                   }
                   {
                     payState.payType === PayType.AliPay &&
-                    <><AlipayOutlined className="ali-pay-icon" /><span style={{ paddingLeft: 8 }}>支付宝扫码支付</span></>
+                    <><AlipayOutlined className={styles["ali-pay-icon"]} /><span style={{ paddingLeft: 8 }}>支付宝扫码支付</span></>
                   }
                 </div>
               </Col>
             </Row>
-            <Row>
+            <Row style={{ rowGap: 0 }}>
               <Col span={24}>
                 <Button
                   type="primary"

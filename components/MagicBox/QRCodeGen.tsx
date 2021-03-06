@@ -45,7 +45,7 @@ export const QRCodeGen: FC = (props) => {
         footer={null}
         onCancel={onCancel}
       >
-        <Row>
+        <Row style={{ rowGap: 0 }}>
           <Col span={19}>
             <Input
               value={QRCodeText}
@@ -60,7 +60,7 @@ export const QRCodeGen: FC = (props) => {
         {
           Imgvisible &&
           (
-            <Row>
+            <Row style={{ rowGap: 0 }}>
               <Col span={24}>
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 25 }}>
                   <QRCode

@@ -3,8 +3,8 @@ import React, { FC, useEffect, useState } from "react";
 import { websiteMotto } from "../../utils/httpClient";
 
 // 样式
-import "../components.css";
-import "./uranusMotto.css";
+import componentStyles from "../components.module.css";
+import styles from "./uranusMotto.module.css";
 
 export const UranusMotto: FC = (props) => {
   const [motto, setMotto] = useState(() => {
@@ -31,8 +31,8 @@ export const UranusMotto: FC = (props) => {
   }, []);
 
   return (
-    <div className="uranus-card">
-      <div className="uranus-motto" dangerouslySetInnerHTML={{ __html: motto }} />
+    <div className={componentStyles["uranus-card"]}>
+      <div className={styles["uranus-motto"]} dangerouslySetInnerHTML={{ __html: motto }} />
     </div>
   );
 };

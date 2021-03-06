@@ -1,6 +1,9 @@
 import { Carousel } from 'antd';
 import React, { FC } from 'react';
 
+// 样式
+import styles from './comment.module.css';
+
 const emojis: { title: string, title_cn: string, url: string }[] = [
   {
     title: 'Heart',
@@ -370,15 +373,15 @@ interface IEmojiProps {
 
 export const Emoji: FC<IEmojiProps> = (props) => {
   return (
-    <div className="emoji-container">
+    <div className={styles["emoji-container"]}>
       <Carousel dots={{ className: "emoji-dots" }}>
-        <div className="emoji-content">
-          <div className="emoji-picker" onClick={props.onEmojiClick}>
-            <ul className="emojis">
+        <div className={styles["emoji-content"]}>
+          <div className={styles["emoji-picker"]} onClick={props.onEmojiClick}>
+            <ul className={styles["emojis"]}>
               {
                 emojis.slice(0, 36).map(emoji => {
                   return (
-                    <li className="item" key={emoji.title}>
+                    <li className={styles["item"]} key={emoji.title}>
                       <img className="emoji-element" draggable={false} src={emoji.url} alt={emoji.title_cn} />
                     </li>
                   );
@@ -387,13 +390,13 @@ export const Emoji: FC<IEmojiProps> = (props) => {
             </ul>
           </div>
         </div>
-        <div className="emoji-content">
-          <div className="emoji-picker" onClick={props.onEmojiClick}>
-            <ul className="emojis">
+        <div className={styles["emoji-content"]}>
+          <div className={styles["emoji-picker"]} onClick={props.onEmojiClick}>
+            <ul className={styles["emojis"]}>
               {
                 emojis.slice(36).map(emoji => {
                   return (
-                    <li className="item" key={emoji.title}>
+                    <li className={styles["item"]} key={emoji.title}>
                       <img className="emoji-element" draggable={false} src={emoji.url} alt={emoji.title_cn} />
                     </li>
                   );

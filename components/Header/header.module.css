@@ -20,6 +20,10 @@
   color: #1890ff;
 }
 
+.uranus-header :global(.ant-menu-horizontal) > :global(.ant-menu-item-selected) a {
+  color: #1890ff;
+}
+
 .uranus-header :global(.ant-menu) {
   background: 0 0;
   color: #fff;

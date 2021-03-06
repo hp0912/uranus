@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import styles from "./avatar.module.css";
+
 export const WechatCount: FC = (props) => {
-  return <div className="wechat-count" />;
+  return <div className={styles["wechat-count"]} />;
 };

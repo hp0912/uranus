@@ -7,7 +7,7 @@ import { MyBlog } from './MyBlog';
 import { MyOrders } from './MyOrders';
 
 // 样式
-import './user.css';
+import styles from './user.module.css';
 
 const { TabPane } = Tabs;
 
@@ -26,7 +26,7 @@ export const CUserHomePages: FC = (props) => {
   }
 
   return (
-    <div className="uranus-user-homepages">
+    <div className={styles["uranus-user-homepages"]}>
       <Breadcrumb>
         <Breadcrumb.Item>
           <span>用户中心</span>

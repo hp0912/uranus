@@ -26,7 +26,7 @@
 }
 
 .wechat-count {
-  background-image: url(../../assets/images/WechatIMG640.jpeg);
+  background-image: url(/images/WechatIMG640.jpeg);
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: scroll;

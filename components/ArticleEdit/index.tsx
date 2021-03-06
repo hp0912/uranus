@@ -32,7 +32,7 @@ import { UranusPrompt } from '../UranusPrompt';
 // css
 import "highlight.js/styles/an-old-hope.css";
 import 'react-markdown-editor-lite/lib/index.css';
-import './articleEdit.css';
+import styles from './articleEdit.module.css';
 
 const css = {
   MdEditor: { height: "800px" },
@@ -311,12 +311,12 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
       </Breadcrumb>
       <div style={{ padding: 5, minHeight: 360, background: "#fff" }}>
         <Skeleton loading={initLoading}>
-          <Row className="uranus-row">
+          <Row className="uranus-row" style={{ rowGap: 0 }}>
             <Col span={24}>
               <Input placeholder="文章标题" value={state?.title} onChange={onTitleChange} />
             </Col>
           </Row>
-          <Row>
+          <Row style={{ rowGap: 0 }}>
             <Col span={24}>
               <Select placeholder="文章类别" className="uranus-row-select" value={state?.category} onChange={onCategoryChange}>
                 <Select.Option value={ArticleCategory.frontend}>
@@ -328,12 +328,12 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
               </Select>
             </Col>
           </Row>
-          <Row>
+          <Row style={{ rowGap: 0 }}>
             <Col span={24}>
               <CoverUpload value={coverPicture} onChange={onCoverChange} />
             </Col>
           </Row>
-          <Row className="uranus-row">
+          <Row className="uranus-row" style={{ rowGap: 0 }}>
             <Col span={24}>
               <Select
                 mode="multiple"
@@ -352,7 +352,7 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
               </Select>
             </Col>
           </Row>
-          <Row className="uranus-row">
+          <Row className="uranus-row" style={{ rowGap: 0 }}>
             <Col span={24}>
               <Select placeholder="文章可见范围" className="uranus-row-select" value={state?.shareWith} onChange={onShareWithChange}>
                 <Select.Option value={ShareWith.private}>
@@ -364,7 +364,7 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
               </Select>
             </Col>
           </Row>
-          <Row className="uranus-row">
+          <Row className="uranus-row" style={{ rowGap: 0 }}>
             <Col span={24}>
               <TextArea
                 value={state?.desc}
@@ -374,7 +374,7 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
               />
             </Col>
           </Row>
-          <Row className="uranus-row">
+          <Row className="uranus-row" style={{ rowGap: 0 }}>
             <Col span={24}>
               <Switch
                 checkedChildren="付费阅读"
@@ -382,10 +382,10 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
                 checked={state?.charge}
                 onChange={onChargeChange}
               />
-              <InputNumber className="uranus-article-amount" placeholder="付费金额 [元]" min={0.01} disabled={!state?.charge} value={state?.amount} precision={2} onChange={onAmountChange} />
+              <InputNumber className={styles["uranus-article-amount"]} placeholder="付费金额 [元]" min={0.01} disabled={!state?.charge} value={state?.amount} precision={2} onChange={onAmountChange} />
             </Col>
           </Row>
-          <Row className="uranus-row">
+          <Row className="uranus-row" style={{ rowGap: 0 }}>
             <Col span={24}>
               <MdEditor
                 value={state?.content}
@@ -397,8 +397,8 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
             </Col>
           </Row>
         </Skeleton>
-        <Row className="uranus-row">
-          <Col span={24} className="save">
+        <Row className="uranus-row" style={{ rowGap: 0 }}>
+          <Col span={24} className={styles["save"]}>
             <Affix offsetBottom={5}>
               <Button
                 size="large"

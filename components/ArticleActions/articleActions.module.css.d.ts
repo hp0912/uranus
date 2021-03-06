@@ -3,8 +3,6 @@ declare const styles: {
   readonly "actions-item": string;
   readonly "uranus-article-comment": string;
   readonly "comment-list": string;
-  readonly "ant-list": string;
-  readonly "ant-list-item": string;
 };
 export = styles;
 

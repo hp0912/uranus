@@ -9,7 +9,7 @@ import { stsAuthForForm } from '../../utils/httpClient';
 import { CoverUploadButton } from './CoverUploadButton';
 
 // 样式
-import "./coverUpload.css";
+import styles from "./coverUpload.module.css";
 
 interface ICoverUploadProps {
   value: UploadFile[];
@@ -132,7 +132,7 @@ export const CoverUpload: FC<ICoverUploadProps> = (props) => {
   }, [setCoverState]);
 
   return (
-    <div className="uranus-cover-upload">
+    <div className={styles["uranus-cover-upload"]}>
       <Upload
         name="file"
         action={AliyunOSSHost}
