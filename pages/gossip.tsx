@@ -36,7 +36,7 @@ export default function FrontendPage(props: IArticleListProps) {
           </>
         )}
       >
-        <ArticleList {...props} category={ArticleCategory.frontend} />
+        <ArticleList {...props} category={ArticleCategory.gossip} />
       </Content>
     </>
   );
@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { current, pageSize, searchValue } = parseQuery(context.query);
 
   const params: IArtListParams = {
-    category: ArticleCategory.frontend,
+    category: ArticleCategory.gossip,
     searchValue: encodeURIComponent(searchValue),
     pagination: {
       current,
