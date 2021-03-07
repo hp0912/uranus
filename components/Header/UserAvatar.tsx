@@ -1,11 +1,15 @@
 import { DownOutlined, LogoutOutlined, NotificationOutlined, RobotOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Badge, Dropdown, Menu, message, Modal, Tooltip } from 'antd';
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
-import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
+import { useRouter } from 'next/router';
 import { SETUSER, UserContext } from '../../store/user';
 import { notificationCount, signOut } from '../../utils/httpClient';
 import { UserNotification } from './UserNotification';
 import { WriteIcon } from './WriteIcon';
+
+// 样式
+import headerStyles from './header.module.css';
+import avatarStyles from '../UranusAvatar/avatar.module.css';
 
 const bodyStyle = {
   padding: '6px 8px 10px 8px',
@@ -17,9 +21,9 @@ interface IUserAvatarProps {
   avatarSize: number;
 }
 
-const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
+const UserAvatar: FC<IUserAvatarProps> = (props) => {
   const userContext = useContext(UserContext);
-  const history = useHistory();
+  const router = useRouter();
 
   const [menuDisabled, setMenuDisabled] = useState(false);
   const [notifications, setNotifications] = useState(0);
@@ -44,16 +48,16 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
   }, []);
 
   const onArticleEditClick = useCallback(() => {
-    history.push(`/article/edit/new`);
-  }, [history]);
+    router.push(`/article/edit/new`);
+  }, [router]);
 
   const onUserSettingClick = useCallback(() => {
-    history.push(`/user/settings`);
-  }, [history]);
+    router.push(`/user/settings`);
+  }, [router]);
 
   const onUserHomePagesClick = useCallback(() => {
-    history.push(`/user/homepages`);
-  }, [history]);
+    router.push(`/user/homepages`);
+  }, [router]);
 
   const onNotificationClick = useCallback(() => {
     setNotiVisible(true);
@@ -64,12 +68,12 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
   }, []);
 
   const onBackManageClick = useCallback(() => {
-    history.push(`/admin`);
-  }, [history]);
+    router.push(`/admin`);
+  }, [router]);
 
   const onGoBackFrontendClick = useCallback(() => {
-    history.push(`/frontend`);
-  }, [history]);
+    router.push(`/frontend`);
+  }, [router]);
 
   const onSingOutClick = useCallback(async () => {
     try {
@@ -142,11 +146,11 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
   );
 
   return (
-    <div className={props.isBackend ? "uranus-user-avatar-backend" : "uranus-user-avatar-frontend"}>
+    <div className={props.isBackend ? headerStyles["uranus-user-avatar-backend"] : headerStyles["uranus-user-avatar-frontend"]}>
       {
         !props.isBackend &&
         (
-          <Tooltip className="uranus-article-edit" title="写博客">
+          <Tooltip className={headerStyles["uranus-article-edit"]} title="写博客">
             <WriteIcon onClick={onArticleEditClick} />
           </Tooltip>
         )
@@ -158,10 +162,10 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
         overlay={UserMenu}
       >
         <span style={{ color: props.avatarColor, cursor: "pointer" }} onClick={e => e.preventDefault()}>
-          <Badge count={notifications ? <div className="uranus-badge">{notifications}</div> : 0}>
-            <Avatar className="uranus-avatar-image" size={props.avatarSize} src={userContext.userState?.avatar} />
+          <Badge count={notifications ? <div className={headerStyles["uranus-badge"]}>{notifications}</div> : 0}>
+            <Avatar className={avatarStyles['uranus-avatar-image']} size={props.avatarSize} src={userContext.userState?.avatar} />
           </Badge>
-          <span className="uranus-nickname" style={{ paddingLeft: 8, paddingRight: 8 }}>
+          <span className={headerStyles["uranus-nickname"]} style={{ paddingLeft: 8, paddingRight: 8 }}>
             {
               userContext.userState && userContext.userState.nickname.length > 11 ?
                 userContext.userState.nickname.substr(0, 8) + "..." :
@@ -186,4 +190,4 @@ const UserAvatar: FC<IUserAvatarProps & RouteComponentProps> = (props) => {
   );
 };
 
-export default withRouter(UserAvatar);
+export default UserAvatar;

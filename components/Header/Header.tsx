@@ -1,7 +1,7 @@
 import { HomeOutlined, IdcardOutlined, InstagramOutlined, MessageOutlined } from "@ant-design/icons";
 import { Col, Input, Menu, Row } from "antd";
 import React, { FC, useCallback, useContext, useState } from "react";
-import { withRouter, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { UserContext } from '../../store/user';
 import { Auth } from "../Auth";
@@ -137,4 +137,4 @@ const Header: FC = (props) => {
   );
 };
 
-export default withRouter(Header);
+export default Header;

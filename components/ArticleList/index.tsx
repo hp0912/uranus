@@ -1,17 +1,18 @@
 import { Avatar, List, message, Tag } from "antd";
 import { PaginationConfig } from "antd/lib/pagination";
 import MarkdownIt from "markdown-it";
-import React, { FC, useCallback, useContext, useEffect, useMemo } from "react";
+import React, { FC, useContext, useEffect, useMemo, useRef } from "react";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { format } from "timeago.js";
 import { UserContext } from "../../store/user";
 import { ArticleCategory, IArticleEntity, ITagEntity, IUserEntity } from "../../types";
 import { useSetState } from "../../utils/commonHooks";
-import { DEFAULTAVATAR } from "../../utils/constant";
+import { DEFAULTAVATAR, defaultPageSize } from "../../utils/constant";
 import { articleList } from "../../utils/httpClient";
 import { ArticleActionsLazyLoad } from "../ArticleActions";
 import { CoverLazyLoad } from "../CoverLazyLoad";
+import { ParsedUrlQuery } from "node:querystring";
 
 // markdown 插件
 import hljs from "highlight.js";
@@ -28,14 +29,20 @@ import "highlight.js/styles/an-old-hope.css";
 import 'react-markdown-editor-lite/lib/index.css';
 import styles from "./articleList.module.css";
 
-interface IArtListParams {
+export interface IArtListParams {
   category: ArticleCategory;
   searchValue: string;
   pagination: PaginationConfig;
 }
 
-interface IArticleListProps {
+export interface IArticleListProps {
   category: ArticleCategory;
+  articles: IArticleEntity[],
+  users: IUserEntity[],
+  tags: ITagEntity[],
+  total: number;
+  current: number,
+  pageSize: number,
 }
 
 interface IArticleListState {
@@ -44,6 +51,41 @@ interface IArticleListState {
   tagMap: { [tagId: string]: ITagEntity };
   loading: boolean;
   pagination: PaginationConfig;
+}
+
+function Array2Map<T extends { id?: string }>(arr: T[]): { [id: string]: T } {
+  const dataMap: { [id: string]: T } = {};
+  arr.forEach(data => {
+    dataMap[data.id!] = data;
+  });
+  return dataMap;
+}
+
+export function parseQuery(query: ParsedUrlQuery): { current: number, pageSize: number, searchValue: string } {
+  const { keyword: search, current: cur, pageSize: size } = query;
+
+  let searchValue: string = '';
+  if (typeof search === 'string') {
+    searchValue = search;
+  } else if (search instanceof Array) {
+    searchValue = search[0];
+  }
+
+  let current: number = 1;
+  if (typeof cur === 'string') {
+    current = Number(cur) || 1;
+  } else if (cur instanceof Array) {
+    current = Number(cur[0]);
+  }
+
+  let pageSize: number = defaultPageSize;
+  if (typeof size === 'string') {
+    pageSize = Number(size);
+  } else if (size instanceof Array) {
+    pageSize = Number(size[0]);
+  }
+
+  return { current, pageSize, searchValue };
 }
 
 export const ArticleList: FC<IArticleListProps> = (props) => {
@@ -74,19 +116,25 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
     return _md;
   }, []);
 
-  const [articleListState, setArticleListState] = useSetState<IArticleListState>({
-    articles: [],
-    userMap: {},
-    tagMap: {},
-    loading: false,
-    pagination: {
-      current: 1,
-      pageSize: 15,
-      pageSizeOptions: ["15", "50", "100"],
-      showQuickJumper: true,
-      hideOnSinglePage: true,
-      total: 0,
-    },
+  const [articleListState, setArticleListState] = useSetState<IArticleListState>(() => {
+    const { articles, tags, users, total, current, pageSize } = props;
+    const userMap = Array2Map(users);
+    const tagMap = Array2Map(tags);
+
+    return {
+      articles,
+      userMap,
+      tagMap,
+      loading: false,
+      pagination: {
+        current,
+        pageSize,
+        pageSizeOptions: ["15", "50", "100"],
+        showQuickJumper: false,
+        hideOnSinglePage: true,
+        total,
+      },
+    };
   });
 
   useEffect(() => {
@@ -98,33 +146,14 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
     };
   }, []);
 
-  useEffect(() => {
-    const query = router.query;
-    const searchValue = query.keyword ? query.keyword as string : '';
-    const current = query.current ? query.current as string : '1';
-    const pageSize = query.pageSize ? query.pageSize as string : '15';
-    const params: IArtListParams = { category: props.category, pagination: { current: Number(current), pageSize: Number(pageSize) }, searchValue };
-
-    getArticleList(params);
-    // eslint-disable-next-line
-  }, [userContext.userState, router.query, props.category]);
-
-  const getArticleList = useCallback(async (params: IArtListParams) => {
+  const getArticleList = async (params: IArtListParams) => {
     try {
       setArticleListState({ loading: true });
 
       const articlesResult = await articleList(params);
       const { articles, users, tags, total } = articlesResult.data.data;
-
-      const userMap: { [userId: string]: IUserEntity } = {};
-      (users as IUserEntity[]).forEach(user => {
-        userMap[user.id!] = user;
-      });
-
-      const tagMap: { [userId: string]: ITagEntity } = {};
-      (tags as ITagEntity[]).forEach(tag => {
-        tagMap[tag.id!] = tag;
-      });
+      const userMap = Array2Map(users as IUserEntity[]);
+      const tagMap = Array2Map(tags as ITagEntity[]);
 
       setArticleListState({
         loading: false,
@@ -149,7 +178,34 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
       message.error(ex.message);
       setArticleListState({ loading: false });
     }
-  }, [articleListState, setArticleListState]);
+  };
+
+  const isFirstRender = useRef(true);
+  const artListRef = useRef<(params: IArtListParams) => Promise<void>>(getArticleList);
+  artListRef.current = getArticleList;
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    const { current, pageSize, searchValue } = parseQuery(router.query);
+    const params: IArtListParams = { category: props.category, pagination: { current, pageSize }, searchValue };
+
+    artListRef.current(params);
+    // eslint-disable-next-line
+  }, [userContext.userState, props.category, router.query.current, router.query.pageSize, router.query.searchValue]);
+
+  const onPageChange = (page: number, pageSize?: number) => {
+    localStorage.setItem('uranus-scrollTop', '0');
+  };
+
+  const onShowSizeChange = (current: number, size: number) => {
+    localStorage.setItem('uranus-scrollTop', '0');
+    const { searchValue } = parseQuery(router.query);
+    router.push(`${router.pathname}?current=${current}&pageSize=${size}${searchValue ? `&keyword=${searchValue}` : ""}`);
+  };
 
   return (
     <div style={{ paddingBottom: 15 }}>
@@ -159,6 +215,21 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
         loading={articleListState.loading}
         pagination={{
           ...articleListState.pagination,
+          showSizeChanger: true,
+          onChange: onPageChange,
+          onShowSizeChange,
+          itemRender: (
+            page: number,
+            type: "page" | "prev" | "next" | "jump-prev" | "jump-next",
+            originalElement: React.ReactElement<HTMLElement, string | React.JSXElementConstructor<any>>,
+          ) => {
+            const { pageSize, searchValue } = parseQuery(router.query);
+            return (
+              <Link href={`${router.pathname}?current=${page}&pageSize=${pageSize}${searchValue ? `&keyword=${searchValue}` : ""}`}>
+                {originalElement}
+              </Link>
+            );
+          },
         }}
         dataSource={articleListState.articles}
         renderItem={item => (

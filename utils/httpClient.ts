@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { IncomingHttpHeaders } from 'http';
 import {
   ArticleCategory,
   AuditStatus,
@@ -51,10 +52,11 @@ const parseQueryString = (params: { pagination: { current?: number, pageSize?: n
 };
 
 // user
-export const userStatus = () => {
+export const userStatus = (headers?: IncomingHttpHeaders) => {
   return httpClient({
     method: 'GET',
     url: '/api/user/status',
+    headers,
   });
 };
 
@@ -266,13 +268,17 @@ export const articleActionDataGet = (articleId: string) => {
   });
 };
 
-export const articleList = (params: { category: ArticleCategory, pagination: { current?: number, pageSize?: number }, searchValue?: string }) => {
+export const articleList = (
+  params: { category: ArticleCategory, pagination: { current?: number, pageSize?: number }, searchValue?: string },
+  headers?: IncomingHttpHeaders,
+) => {
   const { category } = params;
   const queryString = parseQueryString(params);
 
   return httpClient({
     method: 'GET',
     url: `/api/article/list${queryString ? `${queryString}&category=${category}` : `?category=${category}`}`,
+    headers,
   });
 };
 
