@@ -17,6 +17,14 @@ declare const styles: {
   readonly "emoji-element": string;
   readonly "uranus-emoji": string;
   readonly "uranus-mention": string;
+  readonly "uranus_about_us_container": string;
+  readonly "token": string;
+  readonly "selector": string;
+  readonly "property": string;
+  readonly "punctuation": string;
+  readonly "uranus_about_us_code": string;
+  readonly "uranus_about_us_box": string;
+  readonly "breath": string;
 };
 export = styles;
 
