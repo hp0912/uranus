@@ -236,17 +236,17 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
           <List.Item
             key={item.title}
           >
-            <div className={styles["uranus-article-title"]}>
-              <div className={styles["user-avatar"]}>
+            <div className={styles.uranus_article_title}>
+              <div className={styles.user_avatar}>
                 <Avatar size={50} src={articleListState.userMap[item.createdBy!] ? articleListState.userMap[item.createdBy!].avatar : DEFAULTAVATAR} />
               </div>
-              <div className={styles["article-title"]}>
-                <div className={styles["article-title-name"]}>
+              <div className={styles.article_title}>
+                <div className={styles.article_title_name}>
                   <Link href={`/article/detail/${item.id!}`}>
-                    <a className={styles["article-title-link"]}>{item.title}</a>
+                    <a className={styles.article_title_link}>{item.title}</a>
                   </Link>
                 </div>
-                <div className={styles["article-title-others"]}>
+                <div className={styles.article_title_others}>
                   {
                     item.tags && item.tags.map(tagId => {
                       return (
@@ -259,7 +259,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
                       );
                     })
                   }
-                  <span className={styles["article-title-timeago"]}>
+                  <span className={styles.article_title_timeago}>
                     {
                       item.createdTime === item.modifyTime ?
                         `${articleListState.userMap[item.createdBy!] ? articleListState.userMap[item.createdBy!].nickname : "神秘人"} 发表于 ${format(item.createdTime!, 'zh_CN')}` :

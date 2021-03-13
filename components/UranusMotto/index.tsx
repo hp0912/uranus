@@ -31,8 +31,8 @@ export const UranusMotto: FC = (props) => {
   }, []);
 
   return (
-    <div className={componentStyles["uranus-card"]}>
-      <div className={styles["uranus-motto"]} dangerouslySetInnerHTML={{ __html: motto }} />
+    <div className={componentStyles.uranus_card}>
+      <div className={styles.uranus_motto} dangerouslySetInnerHTML={{ __html: motto }} />
     </div>
   );
 };

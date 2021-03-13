@@ -382,7 +382,7 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
                 checked={state?.charge}
                 onChange={onChargeChange}
               />
-              <InputNumber className={styles["uranus-article-amount"]} placeholder="付费金额 [元]" min={0.01} disabled={!state?.charge} value={state?.amount} precision={2} onChange={onAmountChange} />
+              <InputNumber className={styles.uranus_article_amount} placeholder="付费金额 [元]" min={0.01} disabled={!state?.charge} value={state?.amount} precision={2} onChange={onAmountChange} />
             </Col>
           </Row>
           <Row className="uranus-row" style={{ rowGap: 0 }}>
@@ -398,7 +398,7 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
           </Row>
         </Skeleton>
         <Row className="uranus-row" style={{ rowGap: 0 }}>
-          <Col span={24} className={styles["save"]}>
+          <Col span={24} className="save">
             <Affix offsetBottom={5}>
               <Button
                 size="large"

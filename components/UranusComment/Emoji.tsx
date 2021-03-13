@@ -373,15 +373,15 @@ interface IEmojiProps {
 
 export const Emoji: FC<IEmojiProps> = (props) => {
   return (
-    <div className={styles["emoji-container"]}>
+    <div className={styles.emoji_container}>
       <Carousel dots={{ className: "emoji-dots" }}>
-        <div className={styles["emoji-content"]}>
-          <div className={styles["emoji-picker"]} onClick={props.onEmojiClick}>
-            <ul className={styles["emojis"]}>
+        <div className={styles.emoji_content}>
+          <div className={styles.emoji_picker} onClick={props.onEmojiClick}>
+            <ul className={styles.emojis}>
               {
                 emojis.slice(0, 36).map(emoji => {
                   return (
-                    <li className={styles["item"]} key={emoji.title}>
+                    <li className={styles.item} key={emoji.title}>
                       <img className="emoji-element" draggable={false} src={emoji.url} alt={emoji.title_cn} />
                     </li>
                   );
@@ -390,13 +390,13 @@ export const Emoji: FC<IEmojiProps> = (props) => {
             </ul>
           </div>
         </div>
-        <div className={styles["emoji-content"]}>
-          <div className={styles["emoji-picker"]} onClick={props.onEmojiClick}>
-            <ul className={styles["emojis"]}>
+        <div className={styles.emoji_content}>
+          <div className={styles.emoji_picker} onClick={props.onEmojiClick}>
+            <ul className={styles.emojis}>
               {
                 emojis.slice(36).map(emoji => {
                   return (
-                    <li className={styles["item"]} key={emoji.title}>
+                    <li className={styles.item} key={emoji.title}>
                       <img className="emoji-element" draggable={false} src={emoji.url} alt={emoji.title_cn} />
                     </li>
                   );

@@ -154,21 +154,21 @@ export const ResetPassword: FC<IResetPasswordProps> = (props) => {
       <Input
         size="large"
         placeholder="请输入手机号"
-        prefix={<UserOutlined className={styles["uranus-auth-prefix"]} />}
+        prefix={<UserOutlined className={styles.uranus_auth_prefix} />}
         value={resetPasswordState.username}
         onChange={onUserNameChange}
       />
       <Input.Password
         size="large"
         placeholder="输入新密码"
-        prefix={<KeyOutlined className={styles["uranus-auth-prefix"]} />}
+        prefix={<KeyOutlined className={styles.uranus_auth_prefix} />}
         value={resetPasswordState.password}
         onChange={onPasswordChange}
       />
       <Input.Password
         size="large"
         placeholder="确认新密码"
-        prefix={<KeyOutlined className={styles["uranus-auth-prefix"]} />}
+        prefix={<KeyOutlined className={styles.uranus_auth_prefix} />}
         value={resetPasswordState.confirmPassword}
         onChange={onConfirmPasswordChange}
       />

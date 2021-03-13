@@ -1,9 +1,9 @@
 declare const styles: {
-  readonly "uranus-admin-breadcrumb-frontend": string;
-  readonly "uranus-admin-breadcrumb": string;
-  readonly "uranus-audit-icon": string;
-  readonly "uranus-delete-icon": string;
-  readonly "uranus-article-amount": string;
+  readonly "uranus_admin_breadcrumb_frontend": string;
+  readonly "uranus_admin_breadcrumb": string;
+  readonly "uranus_audit_icon": string;
+  readonly "uranus_delete_icon": string;
+  readonly "uranus_article_amount": string;
 };
 export = styles;
 

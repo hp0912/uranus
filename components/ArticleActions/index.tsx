@@ -101,16 +101,16 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
 
   return (
     <div>
-      <div className={styles["uranus-article-actions"]} style={props.actionItemsStyle}>
-        <span className={styles["actions-item"]}>
+      <div className={styles.uranus_article_actions} style={props.actionItemsStyle}>
+        <span className={styles.actions_item}>
           <EyeOutlined /> {actionData.viewCount > 0 ? actionData.viewCount : null}
         </span>
         <Divider type="vertical" />
-        <span className={styles["actions-item"]} onClick={onStartClick}>
+        <span className={styles.actions_item} onClick={onStartClick}>
           <StarOutlined /> 1
         </span>
         <Divider type="vertical" />
-        <span className={styles["actions-item"]} onClick={onLikeClick}>
+        <span className={styles.actions_item} onClick={onLikeClick}>
           {
             actionData.likesLoading ?
               <LoadingOutlined /> :
@@ -121,7 +121,7 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
           {actionData.likesCount > 0 ? actionData.likesCount : null}
         </span>
         <Divider type="vertical" />
-        <span className={styles["actions-item"]} onClick={onCommentClick}>
+        <span className={styles.actions_item} onClick={onCommentClick}>
           <MessageOutlined /> {actionData.commentCount > 0 ? actionData.commentCount : null}
         </span>
       </div>
@@ -129,7 +129,7 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
         commentVisible &&
         (
           <UranusComment
-            className={styles["uranus-article-comment"]}
+            className={styles.uranus_article_comment}
             commentType={CommentType.article}
             targetId={props.article.id!}
             parentId="0"

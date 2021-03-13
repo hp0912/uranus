@@ -4,5 +4,5 @@ import React, { FC } from "react";
 import styles from "./index.module.css";
 
 export const UranusSkin: FC = () => {
-  return <div className={styles["skin-container"]} />;
+  return <div className={styles.skin_container} />;
 };

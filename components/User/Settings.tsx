@@ -253,7 +253,7 @@ export const CUserSettings: FC = (props) => {
   }
 
   return (
-    <div className={styles["uranus-user-settings"]}>
+    <div className={styles.uranus_user_settings}>
       <Breadcrumb>
         <Breadcrumb.Item>
           <span>用户中心</span>
@@ -263,7 +263,7 @@ export const CUserSettings: FC = (props) => {
         </Breadcrumb.Item>
       </Breadcrumb>
       <Row className="uranus-row uranus-row-first" style={{ rowGap: 0 }}>
-        <Col span={4} className={styles["user-settings-label"]}>
+        <Col span={4} className={styles.user_settings_label}>
           <b>用户头像</b>
         </Col>
         <Col span={20}>
@@ -271,7 +271,7 @@ export const CUserSettings: FC = (props) => {
             <Upload
               name="file"
               listType="picture-card"
-              className={styles["avatar-uploader"]}
+              className="avatar-uploader"
               showUploadList={false}
               action={AliyunOSSHost}
               onPreview={onPreview}
@@ -286,7 +286,7 @@ export const CUserSettings: FC = (props) => {
                   (
                     <div>
                       {loading ? <LoadingOutlined /> : <PlusOutlined />}
-                      <div className={styles["ant-upload-text"]}>Upload</div>
+                      <div className="ant-upload-text">Upload</div>
                     </div>
                   )
               }
@@ -295,7 +295,7 @@ export const CUserSettings: FC = (props) => {
         </Col>
       </Row>
       <Row className="uranus-row" style={{ rowGap: 0 }}>
-        <Col span={4} className={styles["user-settings-label"]}>
+        <Col span={4} className={styles.user_settings_label}>
           <b>用户昵称</b>
         </Col>
         <Col span={20}>
@@ -307,7 +307,7 @@ export const CUserSettings: FC = (props) => {
         </Col>
       </Row>
       <Row className="uranus-row" style={{ rowGap: 0 }}>
-        <Col span={4} className={styles["user-settings-label"]}>
+        <Col span={4} className={styles.user_settings_label}>
           <b>个性签名</b>
         </Col>
         <Col span={20}>
@@ -319,7 +319,7 @@ export const CUserSettings: FC = (props) => {
         </Col>
       </Row>
       <Row className="uranus-row" style={{ rowGap: 0 }}>
-        <Col span={4} className={styles["user-settings-label"]}>
+        <Col span={4} className={styles.user_settings_label}>
           <b>个人简介</b>
         </Col>
         <Col span={20}>
@@ -332,7 +332,7 @@ export const CUserSettings: FC = (props) => {
         </Col>
       </Row>
       <Row className="uranus-row" style={{ rowGap: 0 }}>
-        <Col span={24} className={styles["save"]}>
+        <Col span={24} className="save">
           <Button
             type="primary"
             size="large"

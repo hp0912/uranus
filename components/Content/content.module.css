@@ -1,21 +1,21 @@
-.uranus-content-left, .uranus-content-right {
+.uranus_content_left, .uranus_content_right {
   margin-left: 8px;
   margin-right: 8px;
 }
 
-.uranus-content-center {
+.uranus_content_center {
   background-color: #fff;
 }
 
 @media screen and (min-width: 992px) {
-  .uranus-content {
+  .uranus_content {
     margin-top: 55px;
     min-height: 100vh;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .uranus-content {
+  .uranus_content {
     margin-top: 47px;
     min-height: 100vh;
   }

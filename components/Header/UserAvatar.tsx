@@ -146,11 +146,11 @@ const UserAvatar: FC<IUserAvatarProps> = (props) => {
   );
 
   return (
-    <div className={props.isBackend ? headerStyles["uranus-user-avatar-backend"] : headerStyles["uranus-user-avatar-frontend"]}>
+    <div className={props.isBackend ? headerStyles.uranus_user_avatar_backend : headerStyles.uranus_user_avatar_frontend}>
       {
         !props.isBackend &&
         (
-          <Tooltip className={headerStyles["uranus-article-edit"]} title="写博客">
+          <Tooltip className={headerStyles.uranus_article_edit} title="写博客">
             <WriteIcon onClick={onArticleEditClick} />
           </Tooltip>
         )
@@ -162,10 +162,10 @@ const UserAvatar: FC<IUserAvatarProps> = (props) => {
         overlay={UserMenu}
       >
         <span style={{ color: props.avatarColor, cursor: "pointer" }} onClick={e => e.preventDefault()}>
-          <Badge count={notifications ? <div className={headerStyles["uranus-badge"]}>{notifications}</div> : 0}>
+          <Badge count={notifications ? <div className={headerStyles.uranus_badge}>{notifications}</div> : 0}>
             <Avatar className={avatarStyles['uranus-avatar-image']} size={props.avatarSize} src={userContext.userState?.avatar} />
           </Badge>
-          <span className={headerStyles["uranus-nickname"]} style={{ paddingLeft: 8, paddingRight: 8 }}>
+          <span className={headerStyles.uranus_nickname} style={{ paddingLeft: 8, paddingRight: 8 }}>
             {
               userContext.userState && userContext.userState.nickname.length > 11 ?
                 userContext.userState.nickname.substr(0, 8) + "..." :

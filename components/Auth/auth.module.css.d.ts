@@ -1,9 +1,9 @@
 declare const styles: {
-  readonly "uranus-auth": string;
-  readonly "uranus-auth-prefix": string;
-  readonly "uranus-prompt-box": string;
-  readonly "uranus-auth-third": string;
-  readonly "uranus-auth-third-item": string;
+  readonly "uranus_auth": string;
+  readonly "uranus_auth_prefix": string;
+  readonly "uranus_prompt_box": string;
+  readonly "uranus_auth_third": string;
+  readonly "uranus_auth_third_item": string;
 };
 export = styles;
 

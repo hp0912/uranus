@@ -1,40 +1,40 @@
 @media screen and (min-width: 321px) {
-  .uranus-pay {
+  .uranus_pay {
     width: 318px !important;
   }
 }
 
 @media screen and (max-width: 320px) {
-  .uranus-pay {
+  .uranus_pay {
     width: 95% !important;
   }
 }
 
-.pay-item-left {
+.pay_item_left {
   text-align: left;
   line-height: 28px;
   font-size: 15px;
   color: #333;
 }
 
-.pay-item-right {
+.pay_item_right {
   text-align: right;
   font-size: 18px;
   font-weight: 500;
   color: #333;
 }
 
-.pay-method {
+.pay_method {
   width: 80%;
   height: 28px;
 }
 
-.pay-method-tips {
+.pay_method_tips {
   font-size: 12px;
   color: red;
 }
 
-.pay-tips {
+.pay_tips {
   font-size: 16px;
   font-weight: 500;
   display: flex;
@@ -42,16 +42,16 @@
   justify-items: center;
 }
 
-.wechat-pay-icon {
+.wechat_pay_icon {
   font-size: 25px;
   color: #03c800;
 }
 
-.ali-pay-icon {
+.ali_pay_icon {
   font-size: 25px;
   color: #00a0e9;
 }
 
-.uranus-pay-hidden {
+.uranus_pay_hidden {
   display: none;
 }

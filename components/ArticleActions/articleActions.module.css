@@ -1,4 +1,4 @@
-.uranus-article-actions {
+.uranus_article_actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,13 +8,13 @@
   font-size: 13px;
 }
 
-.uranus-article-actions .actions-item {
+.uranus_article_actions .actions_item {
   display: inline-block;
   min-width: 50px;
   cursor: pointer;
 }
 
-.uranus-article-comment .comment-list :global(.ant-list) :global(.ant-list-item) {
+.uranus_article_comment .comment_list :global(.ant-list) :global(.ant-list-item) {
   padding: 12px 0 !important;
   border-bottom: none !important;
 }

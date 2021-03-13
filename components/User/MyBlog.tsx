@@ -96,7 +96,7 @@ export const MyBlog: FC = () => {
                       title="确定要删除该博客吗？"
                       okText="确认"
                       cancelText="取消"
-                      icon={<QuestionCircleOutlined className={styles["uranus-delete-icon"]} />}
+                      icon={<QuestionCircleOutlined className={styles.uranus_delete_icon} />}
                       onConfirm={() => { onMyBlogDelete(item.id!); }}
                     >
                       <Tooltip title="删除">

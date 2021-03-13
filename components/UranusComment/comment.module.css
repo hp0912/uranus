@@ -1,4 +1,4 @@
-.uranus-comment-editor-container {
+.uranus_comment_editor_container {
   font: 12px arial;
   display: flex;
   position: relative;
@@ -7,18 +7,18 @@
   background-color: #ebf0f5;
 }
 
-.uranus-comment-container {
+.uranus_comment_container {
   font: 12px arial;
   line-height: 1.7;
   word-break: break-word;
   color: #333;
 }
 
-.uranus-avatar-box {
+.uranus_avatar_box {
   flex: 0 0 auto;
 }
 
-.uranus-avatar-box .comment-avatar {
+.uranus_avatar_box .comment_avatar {
   display: inline-block;
   position: relative;
   background-position: 50%;
@@ -31,20 +31,20 @@
   border-radius: 50%;
 }
 
-.uranus-form-box {
+.uranus_form_box {
   flex: 1 1 auto;
   position: relative;
   word-break: break-word;
 }
 
-.uranus-form-box .input-box {
+.uranus_form_box .input_box {
   font-size: 0;
   background-color: #fff;
   border: 1px solid #007fff;
   border-radius: 3px;
 }
 
-.uranus-comment-editor {
+.uranus_comment_editor {
   position: relative;
   padding: 6px 10px;
   font-size: 12px;
@@ -54,7 +54,7 @@
   min-height: 32px;
 }
 
-.uranus-comment-editor:empty::before {
+.uranus_comment_editor:empty::before {
   content: attr(placeholder);
   position: absolute;
   opacity: .4;
@@ -62,7 +62,7 @@
   user-select: none;
 }
 
-.mention-box {
+.mention_box {
   position: absolute;
   background-color: #fff;
   padding: 2px;
@@ -74,7 +74,7 @@
   box-shadow: 0 1px 3px rgba(26,26,26,.1);
 }
 
-.mention-item {
+.mention_item {
   padding: 6px 8px;
   margin: 0;
   color: #333;
@@ -84,22 +84,22 @@
   text-overflow: ellipsis;
 }
 
-.mention-item:hover {
+.mention_item:hover {
   background-color: #f2f2f5;
   color: #eb7350;
 }
 
-.uranus-form-box .action-box {
+.uranus_form_box .action_box {
   display: flex;
   align-items: center;
   margin-top: 6px;
 }
 
-.action-box .emoji {
+.action_box .emoji {
   position: relative;
 }
 
-.emoji .emoji-box {
+.emoji .emoji_box {
   display: flex;
   align-items: center;
   position: relative;
@@ -108,29 +108,29 @@
   font-size: 18px;
 }
 
-.emoji-container {
+.emoji_container {
   width: 186px;
 }
 
-.emoji-dots li button {
+.emoji_dots li button {
   background: #364d79 !important;
 }
 
-.emoji-dots li.slick-active button {
+.emoji_dots li.slick_active button {
   background: #015fcc !important;
 }
 
-.emoji-container .slick-dots-bottom {
+.emoji_container .slick_dots_bottom {
   bottom: 0 !important;
   margin-bottom: 2px !important;
 }
 
-.emoji-content {
+.emoji_content {
   overflow: auto;
   margin-bottom: 10px;
 }
 
-.emoji-picker .emojis {
+.emoji_picker .emojis {
   max-width: 280px;
   max-height: 225px;
   display: flex;
@@ -141,33 +141,33 @@
   padding: 0;
 }
 
-.emoji-picker .emojis .item {
+.emoji_picker .emojis .item {
   font-size: 16px;
   padding: 5px 4.5px;
   cursor: pointer;
   list-style: none;
 }
 
-.action-box .submit {
+.action_box .submit {
   flex: 0 0 auto;
   margin-left: auto;
 }
 
-.comment-list {
+.comment_list {
   margin-left: 59px;
 }
 
-.sub-comment-list {
+.sub_comment_list {
   margin-left: 0 !important;
   background-color: #ddddde;
 }
 
-.comment-item {
+.comment_item {
   display: flex;
   flex: 1;
 }
 
-.meta-box {
+.meta_box {
   display: flex;
   align-items: center;
   font-size: 13px;
@@ -175,26 +175,26 @@
   white-space: nowrap;
 }
 
-.reply-stat {
+.reply_stat {
   display: flex;
   margin: 12px 0;
   font-weight: 400;
 }
 
-.reply-stat .time {
+.reply_stat .time {
   font-size: 12px;
   color: #8a9aa9;
   cursor: default;
 }
 
-.reply-stat .delete {
+.reply_stat .delete {
   padding-left: 3px;
   font-size: 12px;
   color: #8a9aa9;
   cursor: pointer;
 }
 
-.reply-stat .action-box {
+.reply_stat .action_box {
   flex: 0 0 auto;
   display: flex;
   align-items: center;

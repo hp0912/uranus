@@ -26,7 +26,7 @@ export const CUserHomePages: FC = (props) => {
   }
 
   return (
-    <div className={styles["uranus-user-homepages"]}>
+    <div className={styles.uranus_user_homepages}>
       <Breadcrumb>
         <Breadcrumb.Item>
           <span>用户中心</span>

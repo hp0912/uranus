@@ -30,7 +30,7 @@ export const Advertisement02: FC = (props) => {
 
   return (
     <Affix offsetTop={55}>
-      <div className={styles["uranus-card"]} dangerouslySetInnerHTML={{ __html: advertisement }} />
+      <div className={styles.uranus_card} dangerouslySetInnerHTML={{ __html: advertisement }} />
     </Affix>
   );
 };

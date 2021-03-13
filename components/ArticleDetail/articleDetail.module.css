@@ -1,16 +1,16 @@
-.uranus-article-detail .uranus-title {
+.uranus_article_detail .uranus_title {
   margin-top: .5em;
   text-align: center;
 }
 
-.uranus-article-detail .uranus-sub-title {
+.uranus_article_detail .uranus_sub_title {
   text-align: center;
   color: #909090;
   font-size: 13px;
   padding: 5px;
 }
 
-.uranus-buying-guide {
+.uranus_buying_guide {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
@@ -24,7 +24,7 @@
   align-items: center;
 }
 
-.uranus-buying-inner {
+.uranus_buying_inner {
   display: flex;
   margin-left: auto;
   margin-right: auto;
@@ -35,32 +35,32 @@
   z-index: 0;
 }
 
-.uranus-buying-guide .uranus-buying-inner .title {
+.uranus_buying_guide .uranus_buying_inner .title {
   font-size: 18px;
   margin-bottom: 12px;
   color: #000;
 }
 
-.uranus-buying-guide .uranus-buying-inner .desc {
+.uranus_buying_guide .uranus_buying_inner .desc {
   font-size: 15px;
   margin-bottom: 16px;
   color: #7d7d7d;
 }
 
 @media screen and (min-width: 992px) {
-  .uranus-article-detail {
+  .uranus_article_detail {
     padding: 8px 24px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .uranus-article-detail {
+  .uranus_article_detail {
     padding: 8px 16px;
   }
 }
 
 @media screen and (max-width: 576px) {
-  .uranus-article-detail {
+  .uranus_article_detail {
     padding: 6px 8px;
   }
 }

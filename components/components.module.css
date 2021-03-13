@@ -1,4 +1,4 @@
-.uranus-card {
+.uranus_card {
   position: relative;
   width: 100%;
   background: #fff;
@@ -8,7 +8,7 @@
   box-shadow: 0 1px 3px rgba(26,26,26,.1);
 }
 
-.uranus-article-image-container {
+.uranus_article_image_container {
   border: 0;
   border-radius: 4px;
   margin-top: .5em;
@@ -17,12 +17,12 @@
   box-shadow: 1px 1px 3px 1px rgba(0,0,0,.2) !important;
 }
 
-.uranus-article-image-sub {
+.uranus_article_image_sub {
   border-radius: 4px;
   overflow: hidden;
 }
 
-.uranus-article-image {
+.uranus_article_image {
   height: 250px;
   position: relative;
   display: block;
@@ -34,14 +34,14 @@
   background-image: url(https://img.houhoukang.com/uranus/system/default-cover.jpg);
 }
 
-.uranus-article-desc {
+.uranus_article_desc {
   font-family: arial;
   font-size: 14px;
   color: #333;
 }
 
 @media screen and (min-width: 1200px) {
-  .uranus-article-image-container:hover .uranus-article-image {
+  .uranus_article_image_container:hover .uranus_article_image {
     -webkit-transform: scale(1.2);
     transform: scale(1.2);
     filter: blur(2px);
@@ -49,13 +49,13 @@
 }
 
 @media screen and (max-width: 768px) {
-  .uranus-article-image {
+  .uranus_article_image {
     height: 200px !important;
   }
 }
 
 @media screen and (max-width: 576px) {
-  .uranus-article-image {
+  .uranus_article_image {
     height: 150px !important;
   }
 }

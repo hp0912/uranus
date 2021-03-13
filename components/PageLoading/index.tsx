@@ -5,7 +5,7 @@ import styles from "./pageLoading.module.css";
 
 export const PageLoading = () => {
   return (
-    <div className={styles["uranus_page_loading"]}>
+    <div className={styles.uranus_page_loading}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
       >

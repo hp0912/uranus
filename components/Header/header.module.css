@@ -1,4 +1,4 @@
-.uranus-header {
+.uranus_header {
   position: fixed;
   top: 0;
   z-index: 999;
@@ -8,52 +8,52 @@
   box-shadow: 0 1px 3px rgba(26,26,26,.1);
 }
 
-.uranus-header :global(.ant-menu-horizontal) {
+.uranus_header :global(.ant-menu-horizontal) {
   border-bottom: none;
 }
 
-.uranus-header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a {
+.uranus_header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a {
   color: #fff;
 }
 
-.uranus-header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a:hover {
+.uranus_header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a:hover {
   color: #1890ff;
 }
 
-.uranus-header :global(.ant-menu-horizontal) > :global(.ant-menu-item-selected) a {
+.uranus_header :global(.ant-menu-horizontal) > :global(.ant-menu-item-selected) a {
   color: #1890ff;
 }
 
-.uranus-header :global(.ant-menu) {
+.uranus_header :global(.ant-menu) {
   background: 0 0;
   color: #fff;
 }
 
-.uranus-header-search {
+.uranus_header_search {
   height: 30px;
   margin: 8px 0 8px 8px;
 }
 
-.uranus-header-search :global(.ant-input-group-addon) {
+.uranus_header_search :global(.ant-input-group-addon) {
   background: 0 0;
 }
 
-.uranus-header-search :global(.ant-input-search-button) {
+.uranus_header_search :global(.ant-input-search-button) {
   background: 0 0;
 }
 
-.uranus-header-search :global(.ant-input) {
+.uranus_header_search :global(.ant-input) {
   background: 0 0;
 }
 
-.uranus-header-logo {
+.uranus_header_logo {
   height: 46px;
   text-align: center;
   padding: 0 2px 0 8px;
   float: left;
 }
 
-.uranus-header-image {
+.uranus_header_image {
   width: 80px;
   height: 46px;
   background-image: url(/images/logo-houhou.png);
@@ -62,17 +62,17 @@
   background-attachment: scroll;
   background-size: cover;
 }
-.uranus-user-avatar-frontend {
+.uranus_user_avatar_frontend {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.uranus-user-avatar-backend {
+.uranus_user_avatar_backend {
   display: inline-block;
 }
 
-.uranus-menu-container::after {
+.uranus_menu_container::after {
   content: "";
   height: 0;
   line-height: 0;
@@ -81,28 +81,28 @@
   clear: both;
 }
 
-.uranus-menu-container-left {
+.uranus_menu_container_left {
   width: 90px;
   float: left;
 }
 
-.uranus-menu-container-right {
+.uranus_menu_container_right {
   overflow: hidden;
 }
 
-.uranus-header-login-container {
+.uranus_header_login_container {
   text-align: center;
   margin: 8px;
   line-height: 30px;
 }
 
-.uranus-header-login, .uranus-header-register {
+.uranus_header_login, .uranus_header_register {
   font-size: 14px;
   color: #fff;
   cursor: pointer;
 }
 
-.uranus-badge {
+.uranus_badge {
   font-size: 12px;
   background-color: #f5222d;
   color: #fff;
@@ -110,26 +110,26 @@
   padding: 2px 3px;
 }
 
-.uranus-notification-top {
+.uranus_notification_top {
   margin-top: -12px;
   border-bottom: 1px solid #f0f0f0;
 }
 
-.uranus-notification-top-01 {
+.uranus_notification_top_01 {
   text-align: right;
 }
 
 @media screen and (max-width: 768px) {
-  .uranus-menu-item-hide {
+  .uranus_menu_item_hide {
     display: none;
   }
 }
 
 @media screen and (max-width: 576px) {
-  .uranus-nickname {
+  .uranus_nickname {
     display: none;
   }
-  .uranus-article-edit {
+  .uranus_article_edit {
     display: none;
   }
 }

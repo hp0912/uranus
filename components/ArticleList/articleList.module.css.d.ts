@@ -1,11 +1,11 @@
 declare const styles: {
-  readonly "uranus-article-title": string;
-  readonly "user-avatar": string;
-  readonly "article-title": string;
-  readonly "article-title-name": string;
-  readonly "article-title-others": string;
-  readonly "article-title-link": string;
-  readonly "article-title-timeago": string;
+  readonly "uranus_article_title": string;
+  readonly "user_avatar": string;
+  readonly "article_title": string;
+  readonly "article_title_name": string;
+  readonly "article_title_others": string;
+  readonly "article_title_link": string;
+  readonly "article_title_timeago": string;
 };
 export = styles;
 

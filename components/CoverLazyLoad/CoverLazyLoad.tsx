@@ -15,16 +15,16 @@ export const CoverLazyLoad: FC<ICoverLazyLoadProps> = (props) => {
 
   return (
     <LazyLoad height={250} offset={100}>
-      <div className={styles["uranus-article-image-container"]}>
-        <div className={styles["uranus-article-image-sub"]}>
+      <div className={styles.uranus_article_image_container}>
+        <div className={styles.uranus_article_image_sub}>
           {
             articleId ?
               (
                 <Link href={`/article/detail/${articleId}`}>
-                  <div className={styles["uranus-article-image"]} style={{ backgroundImage: `url(${coverURL})` }} />
+                  <div className={styles.uranus_article_image} style={{ backgroundImage: `url(${coverURL})` }} />
                 </Link>
               ) :
-              <div className={styles["uranus-article-image"]} style={{ backgroundImage: `url(${coverURL})` }} />
+              <div className={styles.uranus_article_image} style={{ backgroundImage: `url(${coverURL})` }} />
           }
         </div>
       </div>

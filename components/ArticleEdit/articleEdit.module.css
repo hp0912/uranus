@@ -1,21 +1,21 @@
-.uranus-admin-breadcrumb-frontend {
+.uranus_admin_breadcrumb_frontend {
   margin: 10px 5px;
   font-weight: 500;
 }
 
-.uranus-admin-breadcrumb {
+.uranus_admin_breadcrumb {
   margin: 16px 0;
 }
 
-.uranus-audit-icon {
+.uranus_audit_icon {
   margin-right: 10px;
 }
 
-.uranus-delete-icon {
+.uranus_delete_icon {
   color: red;
 }
 
-.uranus-article-amount {
+.uranus_article_amount {
   margin-left: 10px;
   width: 350px;
 }

@@ -108,7 +108,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
   }, [props.refresh]);
 
   return (
-    <div className={styles["uranus-article-detail"]}>
+    <div className={styles.uranus_article_detail}>
       <Breadcrumb>
         <Breadcrumb.Item>
           <span style={{ color: "#1890ff", cursor: "pointer" }} onClick={goBack}>博客</span>
@@ -117,10 +117,10 @@ const ArticleDetailInner: FC<IProps> = (props) => {
           {props.article?.title}
         </Breadcrumb.Item>
       </Breadcrumb>
-      <h2 className={styles["uranus-title"]}>
+      <h2 className={styles.uranus_title}>
         {props.article?.title}
       </h2>
-      <div className={styles["uranus-sub-title"]}>
+      <div className={styles.uranus_sub_title}>
         <Space size="small">
           <Avatar size={30} src={props.user?.avatar} />
           <span>{props.user?.nickname} </span>
@@ -156,12 +156,12 @@ const ArticleDetailInner: FC<IProps> = (props) => {
             </div>
           ) :
           (
-            <div className={styles["uranus-buying-guide"]}>
-              <div className={styles["uranus-buying-inner"]}>
-                <div className={styles["title"]}>
+            <div className={styles.uranus_buying_guide}>
+              <div className={styles.uranus_buying_inner}>
+                <div className={styles.title}>
                   <b>此文章为付费内容</b>
                 </div>
-                <div className={styles["desc"]}>
+                <div className={styles.desc}>
                   现在购买立即解锁全部内容
                 </div>
                 <Button

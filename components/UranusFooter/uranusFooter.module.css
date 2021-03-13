@@ -1,4 +1,4 @@
-.uranus-footer {
+.uranus_footer {
   width: 100%;
   z-index: 302;
   height: 40px;
@@ -11,7 +11,7 @@
   line-height: 40px;
 }
 
-.uranus-footer-item {
+.uranus_footer_item {
   margin-left: 10px;
   margin-right: 10px;
   font: 12px arial;

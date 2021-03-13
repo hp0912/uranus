@@ -55,21 +55,21 @@ const Header: FC = (props) => {
   const selectedKeys = selectedKeysMatch && selectedKeysMatch[1] ? [selectedKeysMatch[1]] : [];
 
   return (
-    <div className={styles["uranus-header"]}>
+    <div className={styles.uranus_header}>
       <Row style={{ rowGap: 0 }}>
         <Col xs={0} sm={0} md={0} lg={0} xl={2} xxl={3} />
         <Col xs={18} sm={18} md={18} lg={14} xl={12} xxl={12}>
-          <div className={styles["uranus-menu-container"]}>
-            <div className={styles["uranus-menu-container-left"]}>
-              <div className={styles["uranus-header-logo"]}>
+          <div className={styles.uranus_menu_container}>
+            <div className={styles.uranus_menu_container_left}>
+              <div className={styles.uranus_header_logo}>
                 <Link href="/">
                   <a>
-                    <div className={styles["uranus-header-image"]} />
+                    <div className={styles.uranus_header_image} />
                   </a>
                 </Link>
               </div>
             </div>
-            <div className={styles["uranus-menu-container-right"]}>
+            <div className={styles.uranus_menu_container_right}>
               <Menu
                 theme="light"
                 mode="horizontal"
@@ -89,14 +89,14 @@ const Header: FC = (props) => {
                     </a>
                   </Link>
                 </Menu.Item>
-                <Menu.Item className={styles["uranus-menu-item-hide"]} key={MenuKey.messageboard} icon={<MessageOutlined />}>
+                <Menu.Item className={styles.uranus_menu_item_hide} key={MenuKey.messageboard} icon={<MessageOutlined />}>
                   <Link href="/messageboard">
                     <a>
                       留言板
                     </a>
                   </Link>
                 </Menu.Item>
-                <Menu.Item className={styles["uranus-menu-item-hide"]} key={MenuKey.aboutus} icon={<IdcardOutlined />}>
+                <Menu.Item className={styles.uranus_menu_item_hide} key={MenuKey.aboutus} icon={<IdcardOutlined />}>
                   <Link href="/aboutus">
                     <a>
                       关于我
@@ -108,7 +108,7 @@ const Header: FC = (props) => {
           </div>
         </Col>
         <Col xs={0} sm={0} md={0} lg={5} xl={4} xxl={3}>
-          <div className={styles["uranus-header-search"]}>
+          <div className={styles.uranus_header_search}>
             <Search
               placeholder="请输入关键字..."
               onSearch={onSearch}
@@ -117,14 +117,14 @@ const Header: FC = (props) => {
           </div>
         </Col>
         <Col xs={6} sm={6} md={6} lg={5} xl={4} xxl={4}>
-          <div className={styles["uranus-header-login-container"]}>
+          <div className={styles.uranus_header_login_container}>
             {
               userContext.userState ?
                 <UserAvatar isBackend={false} avatarColor="#fff" avatarSize={30} /> :
                 (
                   <>
-                    <span className={styles["uranus-header-login"]} onClick={onSignInClick}>登录·</span>
-                    <span className={styles["uranus-header-register"]} onClick={onSignUpClick}>注册</span>
+                    <span className={styles.uranus_header_login} onClick={onSignInClick}>登录·</span>
+                    <span className={styles.uranus_header_register} onClick={onSignUpClick}>注册</span>
                   </>
                 )
             }

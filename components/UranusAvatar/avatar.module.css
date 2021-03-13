@@ -1,4 +1,4 @@
-.uranus-avatar-bg {
+.uranus_avatar_bg {
   background-image: url(https://img.houhoukang.com/uranus/system/avatar-bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
@@ -7,7 +7,7 @@
   height: 64px;
 }
 
-.uranus-avatar {
+.uranus_avatar {
   position: absolute;
   top: 19px;
   left: 50%;
@@ -15,17 +15,17 @@
   text-align: center;
 }
 
-.uranus-avatar > .uranus-avatar-image {
+.uranus_avatar > .uranus_avatar_image {
   transition: all .3s;
 }
 
-.uranus-avatar > .uranus-avatar-image:hover {
+.uranus_avatar > .uranus_avatar_image:hover {
   transition: all .3s;
   transform: scale(1.1) rotate(180deg);
   -webkit-transform: scale(1.1) rotate(180deg);
 }
 
-.wechat-count {
+.wechat_count {
   background-image: url(/images/WechatIMG640.jpeg);
   background-position: center center;
   background-repeat: no-repeat;
@@ -35,21 +35,21 @@
   height: 100px;
 }
 
-.uranus-social-signal {
+.uranus_social_signal {
   padding: 95px 5px 16px 5px;
 }
 
-.social-signal-sub {
+.social_signal_sub {
   text-align: center;
 }
 
-.uranus-avatar-username {
+.uranus_avatar_username {
   margin: 15px 0;
   color: #096dd9;
   font-weight: 900;
 }
 
-.social-signal-01 {
+.social_signal_01 {
   font-size: 13px;
   color: #9a9a9e;
   overflow: hidden;
@@ -57,11 +57,11 @@
   text-overflow:ellipsis;
 }
 
-.social-signal-02 {
+.social_signal_02 {
   display: flex;
   justify-content: center;
 }
 
-.social-signal-02-item {
+.social_signal_02_item {
   margin: 0 10px;
 }

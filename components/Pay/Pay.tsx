@@ -232,7 +232,7 @@ export const Pay: FC<IPayProps> = (props) => {
 
   return (
     <Modal
-      className={styles["uranus-pay"]}
+      className={styles.uranus_pay}
       title={title.length > 15 ? title.substr(0, 15) + "..." : title}
       visible={visible}
       destroyOnClose
@@ -245,19 +245,19 @@ export const Pay: FC<IPayProps> = (props) => {
         (
           <div>
             <Row className="uranus-row" style={{ rowGap: 0 }}>
-              <Col className={styles["pay-item-left"]} span={8}>支付总额</Col>
-              <Col className={styles["pay-item-right"]} span={16}>¥ {order.totalPrice! / 100} 元</Col>
+              <Col className={styles.pay_item_left} span={8}>支付总额</Col>
+              <Col className={styles.pay_item_right} span={16}>¥ {order.totalPrice! / 100} 元</Col>
             </Row>
             <Row className="uranus-row" style={{ rowGap: 0 }}>
-              <Col className={styles["pay-item-left"]} span={8}>
+              <Col className={styles.pay_item_left} span={8}>
                 <span style={{ paddingRight: 4 }}>支付方式</span>
                 <Tooltip
                   title={
                     (
                       <div>
-                        <p className={styles["pay-method-tips"]}>二维码支付：二维码支付是指用户通过微信、支付宝扫码完成支付的模式</p>
-                        <p className={styles["pay-method-tips"]}>H5支付：H5支付主要是在手机等移动设备中通过浏览器来唤起微信或支付宝支付</p>
-                        <p className={styles["pay-method-tips"]}>微信收银台：在微信浏览器内调用微信支付模块完成支付</p>
+                        <p className={styles.pay_method_tips}>二维码支付：二维码支付是指用户通过微信、支付宝扫码完成支付的模式</p>
+                        <p className={styles.pay_method_tips}>H5支付：H5支付主要是在手机等移动设备中通过浏览器来唤起微信或支付宝支付</p>
+                        <p className={styles.pay_method_tips}>微信收银台：在微信浏览器内调用微信支付模块完成支付</p>
                       </div>
                     )
                   }
@@ -265,8 +265,8 @@ export const Pay: FC<IPayProps> = (props) => {
                   <QuestionCircleOutlined style={{ color: "red" }} />
                 </Tooltip>
               </Col>
-              <Col span={16} className={styles["pay-item-right"]}>
-                <Select className={styles["pay-method"]} bordered={false} value={payMethod} onChange={onPayMethodChange}>
+              <Col span={16} className={styles.pay_item_right}>
+                <Select className={styles.pay_method} bordered={false} value={payMethod} onChange={onPayMethodChange}>
                   <Select.Option value={PayMethod.scan}>二维码支付</Select.Option>
                   {
                     browserState.os.phone && !browserState.browser.wechat && // 手机端非微信浏览器
@@ -329,14 +329,14 @@ export const Pay: FC<IPayProps> = (props) => {
             </Row>
             <Row className="uranus-row" style={{ rowGap: 0 }}>
               <Col span={24}>
-                <div className={styles["pay-tips"]}>
+                <div className={styles.pay_tips}>
                   {
                     payState.payType === PayType.WeChatPay &&
-                    <><WechatOutlined className={styles["wechat-pay-icon"]} /><span style={{ paddingLeft: 8 }}>微信扫码支付</span></>
+                    <><WechatOutlined className={styles.wechat_pay_icon} /><span style={{ paddingLeft: 8 }}>微信扫码支付</span></>
                   }
                   {
                     payState.payType === PayType.AliPay &&
-                    <><AlipayOutlined className={styles["ali-pay-icon"]} /><span style={{ paddingLeft: 8 }}>支付宝扫码支付</span></>
+                    <><AlipayOutlined className={styles.ali_pay_icon} /><span style={{ paddingLeft: 8 }}>支付宝扫码支付</span></>
                   }
                 </div>
               </Col>

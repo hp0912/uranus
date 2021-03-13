@@ -1,4 +1,4 @@
-.uranus-cover-upload .ant-upload.ant-upload-select-picture-card {
+.uranus_cover_upload :global(.ant-upload):global(.ant-upload-select-picture-card) {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,13 +7,13 @@
   width: 100%;
 }
 
-.uranus-cover-upload .ant-upload-list-picture-card-container {
+.uranus_cover_upload :global(.ant-upload-list-picture-card-container) {
   float: initial;
   margin: 15px 0;
   width: 100%;
 }
 
-.uranus-cover-upload .ant-upload-list-picture-card .ant-upload-list-item {
+.uranus_cover_upload :global(.ant-upload-list-picture-card) :global(.ant-upload-list-item) {
   float: initial;
   width: 100%;
 }

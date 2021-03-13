@@ -40,7 +40,7 @@ export const Auth: FC<IAuthProps> = (props) => {
 
   return (
     <Modal
-      className={styles["uranus-auth"]}
+      className={styles.uranus_auth}
       title={title}
       visible={props.visible}
       destroyOnClose

@@ -1,5 +1,5 @@
 declare const styles: {
-  readonly "magic-box-content": string;
+  readonly "magic_box_content": string;
 };
 export = styles;
 

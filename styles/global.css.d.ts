@@ -14,6 +14,9 @@ declare const styles: {
   readonly "uranus-margin-right-8": string;
   readonly "uranus-margin-left8": string;
   readonly "uranus-width100": string;
+  readonly "emoji-element": string;
+  readonly "uranus-emoji": string;
+  readonly "uranus-mention": string;
 };
 export = styles;
 
