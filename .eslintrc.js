@@ -31,8 +31,7 @@ module.exports = {
         "eslint-plugin-import",
         "eslint-plugin-jsdoc",
         "eslint-plugin-prefer-arrow",
-        "@typescript-eslint",
-        "@typescript-eslint/tslint"
+        "@typescript-eslint"
     ],
     "rules": {
         "@typescript-eslint/adjacent-overload-signatures": "error",
@@ -108,10 +107,7 @@ module.exports = {
         "@typescript-eslint/prefer-function-type": "error",
         "@typescript-eslint/prefer-namespace-keyword": "error",
         "@typescript-eslint/quotes": "off",
-        "@typescript-eslint/semi": [
-            "error",
-            null
-        ],
+        "@typescript-eslint/semi": ["error"],
         "@typescript-eslint/triple-slash-reference": [
             "error",
             {
@@ -180,15 +176,6 @@ module.exports = {
             }
         ],
         "use-isnan": "error",
-        "valid-typeof": "off",
-        "@typescript-eslint/tslint/config": [
-            "error",
-            {
-                "rules": {
-                    "jsx-no-string-ref": true,
-                    "react-hooks-nesting": true
-                }
-            }
-        ]
+        "valid-typeof": "off"
     }
 };

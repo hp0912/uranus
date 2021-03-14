@@ -24,9 +24,7 @@
   },
   "include": [
     "components",
-    "lib",
     "pages",
-    "posts",
     "store",
     "styles",
     "types",
