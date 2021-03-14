@@ -4,22 +4,18 @@ import ImgCrop from 'antd-img-crop';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { RcFile, UploadFile } from 'antd/lib/upload/interface';
 import React, { FC, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { useHistory } from "react-router-dom";
 import { SETUSER, UserContext } from '../../store/user';
 import { ISTSAuthForFormResult, IUserEntity } from '../../types';
 import { AliyunOSSDir, AliyunOSSHost } from '../../utils/constant';
 import { stsAuthForForm, updateUserProfile } from '../../utils/httpClient';
-import { UranusPrompt } from '../UranusPrompt';
 
 // 样式
 import 'antd/lib/slider/style/index.css';
 import styles from './user.module.css';
+import { UranusPrompt } from '../UranusPrompt';
 
 export const CUserSettings: FC = (props) => {
   const userContext = useContext(UserContext);
-  const history = useHistory();
-
-  const [promptVisible, setPromptVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [userProfile, setUserProfile] = useState<IUserEntity | null>(() => {
@@ -73,7 +69,7 @@ export const CUserSettings: FC = (props) => {
     }
   }, []);
 
-  const beforeUpload = useCallback(async (file) => {
+  const beforeUpload = useCallback(async (file: RcFile, FileList: RcFile[]) => {
     if (!userContext.userState) {
       return Promise.reject('请先登录');
     }
@@ -113,15 +109,11 @@ export const CUserSettings: FC = (props) => {
     }
 
     if (validImage && limitSize) {
-      return Promise.resolve();
+      return Promise.resolve(file);
     } else {
       return Promise.reject(new Error('图片不合法'));
     }
   }, [userContext.userState]);
-
-  const transformFile = useCallback((file: RcFile) => {
-    return file;
-  }, []);
 
   const onChange = useCallback((info: UploadChangeParam<UploadFile<any>>) => {
     if (info.file.status === 'uploading') {
@@ -220,27 +212,6 @@ export const CUserSettings: FC = (props) => {
     }
   }, [userContext, userProfile]);
 
-  const hasChange = useCallback((): boolean => {
-    if (unsavedChanges.current) {
-      setPromptVisible(true);
-      return true;
-    }
-
-    return false;
-  }, []);
-
-  const onPromptConfirm = useCallback((nextRouter: string | null) => {
-    setPromptVisible(false);
-    unsavedChanges.current = false;
-    if (nextRouter) {
-      history.push(nextRouter);
-    }
-  }, [history]);
-
-  const onPromptCancle = useCallback((nextRouter: string | null) => {
-    setPromptVisible(false);
-  }, []);
-
   if (!userContext.userState) {
     return (
       <Result
@@ -276,7 +247,6 @@ export const CUserSettings: FC = (props) => {
               action={AliyunOSSHost}
               onPreview={onPreview}
               beforeUpload={beforeUpload}
-              transformFile={transformFile}
               onChange={onChange}
               data={getExtraData}
             >
@@ -343,12 +313,7 @@ export const CUserSettings: FC = (props) => {
           </Button>
         </Col>
       </Row>
-      <UranusPrompt
-        visible={promptVisible}
-        hasChange={hasChange}
-        onConfirm={onPromptConfirm}
-        onCancle={onPromptCancle}
-      />
+      <UranusPrompt hasChange={unsavedChanges.current} />
     </div>
   );
 };

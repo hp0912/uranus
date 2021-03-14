@@ -137,15 +137,6 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
     };
   });
 
-  useEffect(() => {
-    return () => {
-      const sTop = document.documentElement.scrollTop;
-      if (Number.isInteger(sTop)) {
-        localStorage.setItem('uranus-scrollTop', sTop + '');
-      }
-    };
-  }, []);
-
   const getArticleList = async (params: IArtListParams) => {
     try {
       setArticleListState({ loading: true });
@@ -166,14 +157,6 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
           total,
         },
       });
-
-      setTimeout(() => {
-        const scrollTop = localStorage.getItem('uranus-scrollTop');
-
-        if (scrollTop) {
-          window.scrollTo(0, Number(scrollTop));
-        }
-      }, 160);
     } catch (ex) {
       message.error(ex.message);
       setArticleListState({ loading: false });
@@ -197,12 +180,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
     // eslint-disable-next-line
   }, [userContext.userState, props.category, router.query.current, router.query.pageSize, router.query.searchValue]);
 
-  const onPageChange = (page: number, pageSize?: number) => {
-    localStorage.setItem('uranus-scrollTop', '0');
-  };
-
   const onShowSizeChange = (current: number, size: number) => {
-    localStorage.setItem('uranus-scrollTop', '0');
     const { searchValue } = parseQuery(router.query);
     router.push(`${router.pathname}?current=${current}&pageSize=${size}${searchValue ? `&keyword=${searchValue}` : ""}`);
   };
@@ -216,7 +194,6 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
         pagination={{
           ...articleListState.pagination,
           showSizeChanger: true,
-          onChange: onPageChange,
           onShowSizeChange,
           itemRender: (
             page: number,

@@ -1,6 +1,5 @@
 import { MutableRefObject, useCallback, useRef, useState } from "react";
 
-
 export const useSafeProps: <T>(props: T) => MutableRefObject<T> = (props) => {
   const safeProps = useRef(props);
   safeProps.current = props;
