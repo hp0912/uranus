@@ -5,7 +5,6 @@ import MarkdownIt from "markdown-it";
 import React, { FC, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import MdEditor from 'react-markdown-editor-lite';
 import { HtmlType } from 'react-markdown-editor-lite/editor/preview';
-import { RouteComponentProps, useHistory, useParams, withRouter } from "react-router-dom";
 import { reducer, UPDATEARTICLE } from '../../store/articleEdit';
 import { UserContext } from '../../store/user';
 import { ArticleCategory, IArticleEntity, ITagEntity, ShareWith } from '../../types';
@@ -57,7 +56,7 @@ interface IArticleEditProps {
   breadcrumbClassName?: string;
 }
 
-const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleEditProps> = (props) => {
+export const ArticleEdit: FC<IArticleEditProps> = (props) => {
   const userContext = useContext(UserContext);
 
   // MarkdownIt
@@ -84,10 +83,6 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
     return _md;
   }, []);
 
-  const params = useParams<{ articleId: string }>();
-  const history = useHistory();
-
-  const [promptVisible, setPromptVisible] = useState(false);
   const [initLoading, setInitLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [tags, setTags] = useState<ITagEntity[]>([]);
@@ -283,27 +278,6 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
     }
   }, [state, coverPicture, params.articleId, history, userContext.userState, props.baseURL]);
 
-  const hasChange = useCallback((): boolean => {
-    if (unsavedChanges.current) {
-      setPromptVisible(true);
-      return true;
-    }
-
-    return false;
-  }, []);
-
-  const onPromptConfirm = useCallback((nextRouter: string | null) => {
-    setPromptVisible(false);
-    unsavedChanges.current = false;
-    if (nextRouter) {
-      history.push(nextRouter);
-    }
-  }, [history]);
-
-  const onPromptCancle = useCallback((nextRouter: string | null) => {
-    setPromptVisible(false);
-  }, []);
-
   return (
     <>
       <Breadcrumb className={props.breadcrumbClassName ? props.breadcrumbClassName : "uranus-admin-breadcrumb"}>
@@ -413,15 +387,8 @@ const ArticleEditFunc: FC<RouteComponentProps<{ articleId: string }> & IArticleE
             </Affix>
           </Col>
         </Row>
-        <UranusPrompt
-          visible={promptVisible}
-          hasChange={hasChange}
-          onConfirm={onPromptConfirm}
-          onCancle={onPromptCancle}
-        />
+        <UranusPrompt hasChange={unsavedChanges.current} />
       </div>
     </>
   );
 };
-
-export const ArticleEdit = withRouter(ArticleEditFunc);

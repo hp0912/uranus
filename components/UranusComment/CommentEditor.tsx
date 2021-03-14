@@ -415,19 +415,19 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
   }, [browserState.browser.safari]);
 
   return (
-    <div className={styles['uranus-comment-editor-container']} onClick={setEditorFocus}>
+    <div className={styles.uranus_comment_editor_container} onClick={setEditorFocus}>
       {
         avatarVisible &&
         (
-          <div className={styles['uranus-avatar-box']}>
-            <div className={styles['comment-avatar']} style={{ backgroundImage: `url(${user && user.avatar ? user.avatar : DEFAULTAVATAR})` }} />
+          <div className={styles.uranus_avatar_box}>
+            <div className={styles.comment_avatar} style={{ backgroundImage: `url(${user && user.avatar ? user.avatar : DEFAULTAVATAR})` }} />
           </div>
         )
       }
-      <div className={styles['uranus-form-box']}>
-        <div className={styles['input-box']}>
+      <div className={styles.uranus_form_box}>
+        <div className={styles.input_box}>
           <div
-            className={styles['uranus-comment-editor']}
+            className={styles.uranus_comment_editor}
             ref={editorRef}
             contentEditable={true}
             placeholder={user ? "请输入评论..." : "请先登录..."}
@@ -439,7 +439,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
           />
         </div>
         <div
-          className={styles['mention-box']}
+          className={styles.mention_box}
           style={{
             display: editorState.showMention ? 'block' : 'none',
             top: editorState.mentionTop,
@@ -452,7 +452,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
               mentionUsers.users.length > 0 && mentionUsers.users.map(muser => {
                 return (
                   <p
-                    className={styles['mention-item']}
+                    className={styles.mention_item}
                     key={muser.id}
                     data-id={muser.id}
                     data-name={muser.nickname}
@@ -468,9 +468,9 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
             }
           </Spin>
         </div>
-        <div className={styles['action-box']}>
+        <div className={styles.action_box}>
           <div className={styles.emoji}>
-            <div className={styles['emoji-box']}>
+            <div className={styles.emoji_box}>
               <Popover
                 visible={editorState.showEmoji}
                 onVisibleChange={onEmojiVisibleChange}

@@ -57,7 +57,7 @@ export const CommentList: FC<ICommentListProps> = (props) => {
   const loadMore = !initLoading && !commListState.noMore && comments.length > 0 ? <Button type="link" block onClick={onLoadMore} loading={commListState.loadMoreLoading}>加载更多</Button> : null;
 
   return (
-    <div className={`${styles['comment-list']} ${className ? className : ""}`}>
+    <div className={`${styles.comment_list} ${className ? className : ""}`}>
       <List
         loading={initLoading}
         itemLayout="horizontal"
@@ -68,17 +68,17 @@ export const CommentList: FC<ICommentListProps> = (props) => {
         split={false}
         renderItem={(item) => (
           <List.Item>
-            <div className={styles['comment-item']}>
-              <div className={styles['uranus-avatar-box']}>
-                <div className={styles['comment-avatar']} style={{ backgroundImage: `url(${item.userAvatar})` }} />
+            <div className={styles.comment_item}>
+              <div className={styles.uranus_avatar_box}>
+                <div className={styles.comment_avatar} style={{ backgroundImage: `url(${item.userAvatar})` }} />
               </div>
               <div style={{ flex: "1 1 auto", borderBottom: "1px solid #f1f1f1" }}>
-                <div className={styles['meta-box']}>
+                <div className={styles.meta_box}>
                   <span style={{ paddingRight: 10 }}>{item.userNicname}</span>
                   <Tag color={"#" + (4095 - item.userAccessLevel! * 300).toString(16)}>{"Lv" + item.userAccessLevel}</Tag>
                 </div>
-                <div className={styles['uranus-comment-container']} style={{ marginTop: 8 }} dangerouslySetInnerHTML={{ __html: item.content! }} />
-                <div className={styles['reply-stat']}>
+                <div className={styles.uranus_comment_container} style={{ marginTop: 8 }} dangerouslySetInnerHTML={{ __html: item.content! }} />
+                <div className={styles.reply_stat}>
                   <Tooltip title={formatDate(item.addtime!)}>
                     <time className={styles.time}>{format(item.addtime!, 'zh_CN')}</time>
                   </Tooltip>
@@ -99,13 +99,13 @@ export const CommentList: FC<ICommentListProps> = (props) => {
                   {
                     user !== null ?
                       (
-                        <div className={styles['action-box']} onClick={() => { onReplyClick(item); }}>
+                        <div className={styles.action_box} onClick={() => { onReplyClick(item); }}>
                           <MessageOutlined />
                           <span style={{ marginLeft: 6, marginRight: 6 }}>回复</span>
                         </div>
                       ) :
                       (
-                        <div className={styles['action-box']}>
+                        <div className={styles.action_box}>
                           <MessageOutlined />
                           <span style={{ marginLeft: 6 }}>登录后回复</span>
                         </div>
@@ -128,7 +128,7 @@ export const CommentList: FC<ICommentListProps> = (props) => {
                   item.children && item.children.length > 0 &&
                   (
                     <CommentList
-                      className={styles['sub-comment-list']}
+                      className={styles.sub_comment_list}
                       commentType={props.commentType}
                       targetId={props.targetId}
                       parentId={item.id!}

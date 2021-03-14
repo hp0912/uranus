@@ -13,8 +13,3 @@
   min-width: 50px;
   cursor: pointer;
 }
-
-.uranus_article_comment .comment_list :global(.ant-list) :global(.ant-list-item) {
-  padding: 12px 0 !important;
-  border-bottom: none !important;
-}

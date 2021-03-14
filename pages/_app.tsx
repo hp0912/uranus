@@ -1,5 +1,5 @@
 import { ConfigProvider, message } from "antd";
-// import zhCN from 'antd/es/locale/zh_CN';
+import zhCN from 'antd/lib/locale/zh_CN';
 import React, { useEffect, useReducer, useRef } from 'react';
 import { UranusSkin } from '../components/SkinContainer';
 import { UranusFooter } from '../components/UranusFooter';
@@ -29,12 +29,12 @@ export default function App<T extends { userState: IUserEntity | null }>({ Compo
   }, []);
 
   return (
-    // <ConfigProvider locale={zhCN}>
-    <UserContext.Provider value={{ userState, userDispatch }}>
-      <UranusSkin />
-      <Component {...pageProps} />
-      <UranusFooter />
-    </UserContext.Provider>
-    // </ConfigProvider>
+    <ConfigProvider locale={zhCN}>
+      <UserContext.Provider value={{ userState, userDispatch }}>
+        <UranusSkin />
+        <Component {...pageProps} />
+        <UranusFooter />
+      </UserContext.Provider>
+    </ConfigProvider>
   );
 }

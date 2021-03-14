@@ -162,6 +162,11 @@
   background-color: #ddddde;
 }
 
+.comment_list :global(.ant-list) :global(.ant-list-item) {
+  padding: 12px 0 !important;
+  border-bottom: none !important;
+}
+
 .comment_item {
   display: flex;
   flex: 1;
