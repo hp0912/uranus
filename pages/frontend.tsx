@@ -12,7 +12,7 @@ import { UranusMotto } from '../components/UranusMotto';
 import { ArticleCategory } from '../types';
 import { articleList, userStatus } from '../utils/httpClient';
 
-export default function FrontendPage(props: IArticleListProps): JSX.Element {
+export default function FrontendPage(props: IArticleListProps) {
   return (
     <>
       <Head>

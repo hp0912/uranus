@@ -1,8 +1,8 @@
 import { CopyOutlined, LoadingOutlined, ShareAltOutlined, SyncOutlined } from '@ant-design/icons';
 import { Avatar, Breadcrumb, Button, Col, message, Modal, Row, Space, Tooltip } from 'antd';
+import { useRouter } from 'next/router';
 import copy from 'copy-to-clipboard';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { RouteComponentProps, useHistory, withRouter } from 'react-router-dom';
 import { format } from 'timeago.js';
 import { GoodsType, IArticleEntity, IOrderEntity, ITokenEntity, IUserEntity, ShareWith, TokenType } from '../../types';
 import { formatDate } from '../../utils';
@@ -22,26 +22,22 @@ interface IArticleDetailProps {
   refresh: () => Promise<void>;
 }
 
-type IProps = RouteComponentProps & IArticleDetailProps;
-
 const actionItemsStyle = { paddingTop: 10, borderTop: '1px solid #f2f2f5' };
 
-const ArticleDetailInner: FC<IProps> = (props) => {
-  const history = useHistory();
+export const ArticleDetail: FC<IArticleDetailProps> = (props) => {
+  const router = useRouter();
 
   const [orderLoading, setOrderLoading] = useState(false);
   const [payState, setPayState] = useState<{ visible: boolean, order: IOrderEntity | null }>({ visible: false, order: null });
   const [shareState, setShareState] = useState<{ loading: boolean, visible: boolean, data: ITokenEntity | null }>({ loading: false, visible: false, data: null });
-
-  const { host, protocol } = window.location;
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const goBack = useCallback(() => {
-    history.goBack();
-  }, [history]);
+    router.back();
+  }, [router]);
 
   const onShareClick = useCallback(async () => {
     setShareState({ loading: true, visible: false, data: null });
@@ -76,9 +72,12 @@ const ArticleDetailInner: FC<IProps> = (props) => {
   }, [shareState, props.article.id]);
 
   const onTokenCopy = useCallback(() => {
-    copy(`${protocol}//${host}/article/detail/${props.article.id}?token=${shareState.data!.id}`);
-    message.success('已经成功复制到剪切板');
-  }, [shareState, props.article.id, protocol, host]);
+    if (typeof window !== 'undefined') {
+      const { protocol, host } = window.location;
+      copy(`${protocol}//${host}/article/detail/${props.article.id}?token=${shareState.data!.id}`);
+      message.success('已经成功复制到剪切板');
+    }
+  }, [shareState, props.article.id]);
 
   const onGenOrderClick = useCallback(async () => {
     try {
@@ -203,7 +202,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
                 shareState.data &&
                 (
                   <>
-                    <span className="uranus-margin-right-8">{`${protocol}//${host}/article/detail/${props.article.id}?token=${shareState.data.id}`}</span>
+                    <span className="uranus-margin-right-8">{`/article/detail/${props.article.id}?token=${shareState.data.id}`}</span>
                     <Tooltip title="复制链接">
                       <CopyOutlined className="uranus-margin-right-8" onClick={onTokenCopy} />
                     </Tooltip>
@@ -237,5 +236,3 @@ const ArticleDetailInner: FC<IProps> = (props) => {
     </div>
   );
 };
-
-export const ArticleDetail = withRouter(ArticleDetailInner);

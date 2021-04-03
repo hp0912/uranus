@@ -1,5 +1,3 @@
-import url from 'url';
-
 export function formatDate(timestamp: number) {
   const date = new Date(timestamp);
 
@@ -11,15 +9,7 @@ export function formatDate(timestamp: number) {
   const mm = (date.getMinutes() < 10 ? '0' + date.getMinutes().toString() : date.getMinutes().toString()) + ':';
   const ss = (date.getSeconds() < 10 ? '0' + date.getSeconds().toString() : date.getSeconds().toString());
 
-  return YY + MM + DD + " " + hh + mm + ss;
-}
-
-export function getTokenFromQueryString(): string | undefined {
-  const queryJSON = url.parse(window.location.search, true, false);
-  const query = queryJSON.query;
-  if (typeof query.token === 'string') {
-    return query.token;
-  }
+  return YY + MM + DD + ' ' + hh + mm + ss;
 }
 
 export interface IBrowserDetect {

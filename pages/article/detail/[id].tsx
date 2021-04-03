@@ -1,8 +1,8 @@
 import { FrownOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/router';
 import { Result, Skeleton } from 'antd';
 import MarkdownIt from 'markdown-it';
-import React, { FC, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { Advertisement01 } from '../../../components/Advertisement/Advertisement01';
 import { ArticleDetail } from '../../../components/ArticleDetail';
 import { Content } from '../../../components/Content';
@@ -12,9 +12,8 @@ import { UranusAvatar } from '../../../components/UranusAvatar';
 import { UranusMotto } from '../../../components/UranusMotto';
 import { UserContext } from '../../../store/user';
 import { IArticleEntity, IUserEntity } from '../../../types';
-import { getTokenFromQueryString } from '../../../utils';
 import { useSetState } from '../../../utils/commonHooks';
-import { articleGet } from '../../../utils/httpClient';
+import { articleGet, userStatus } from '../../../utils/httpClient';
 import { MdHeadingAnchor } from '../../../utils/MdHeadingAnchor';
 
 // markdown 插件
@@ -32,18 +31,20 @@ import twemoji from 'twemoji';
 // 样式
 import 'highlight.js/styles/an-old-hope.css';
 import 'react-markdown-editor-lite/lib/index.css';
+import { GetServerSideProps } from 'next';
 
-interface IArticleState {
+interface IArticleProps {
   article: IArticleEntity | null;
   user: IUserEntity | null;
-  error: Error | null;
+  error: string | null;
   loading: boolean;
 }
 
-export const ArticleDetailPage: FC = () => {
+export default function ArticleDetailPage(props: IArticleProps) {
   const userContext = useContext(UserContext);
-  const params = useParams<{ articleId: string }>();
-
+  const router = useRouter();
+  const articleId = router.query.id as string;
+  const token = router.query.token as string;
   const tocify = useRef<Tocify>();
 
   // MarkdownIt
@@ -70,32 +71,36 @@ export const ArticleDetailPage: FC = () => {
     return _md;
   }, []);
 
-  const [articleState, setArticleState] = useSetState<IArticleState>({
-    article: null,
-    user: null,
-    error: null,
-    loading: true,
+  const [articleState, setArticleState] = useSetState<IArticleProps>(() => {
+    const { article, user, error, loading } = props;
+    return { article, user, error: error, loading };
   });
 
+  const isFirstRender = useRef(true);
+
   useEffect(() => {
-    articleGet(params.articleId, getTokenFromQueryString()).then(result => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    articleGet(articleId, token).then(result => {
       const { article, user } = result.data.data;
       setArticleState({ article, user, error: null, loading: false });
     }).catch((reason: Error) => {
-      setArticleState({ article: null, user: null, error: reason, loading: false });
+      setArticleState({ article: null, user: null, error: reason.message, loading: false });
     });
     // eslint-disable-next-line
-  }, [userContext.userState, params.articleId]);
+  }, [userContext.userState, articleId, token]);
 
   const refresh = useCallback(async () => {
-    articleGet(params.articleId, getTokenFromQueryString()).then(result => {
+    articleGet(articleId, token).then(result => {
       const { article, user } = result.data.data;
       setArticleState({ article, user, error: null, loading: false });
     }).catch((reason: Error) => {
-      setArticleState({ article: null, user: null, error: reason, loading: false });
+      setArticleState({ article: null, user: null, error: reason.message, loading: false });
     });
     // eslint-disable-next-line
-  }, [params.articleId]);
+  }, [articleId, token]);
 
   const articleDesc = md.render(articleState.article && articleState.article.desc ? articleState.article.desc : '');
   const articleContent = md.render(articleState.article && articleState.article.content ? articleState.article.content : '');
@@ -135,7 +140,7 @@ export const ArticleDetailPage: FC = () => {
             (
               <Result
                 icon={<FrownOutlined />}
-                title={articleState.error.message}
+                title={articleState.error}
               />
             )
           }
@@ -143,5 +148,40 @@ export const ArticleDetailPage: FC = () => {
       </Content>
     </>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { req: { headers } } = context;
+  const { id, token } = context.query;
+
+  try {
+    const [
+      { data: { data: userState } },
+      { data: { data: { article, user } } },
+    ] = await Promise.all([
+      userStatus(headers),
+      articleGet(id as string, token as string, headers),
+    ]);
+
+    return {
+      props: {
+        userState,
+        article,
+        user,
+        error: null,
+        loading: false,
+      }
+    };
+  } catch (ex) {
+    return {
+      props: {
+        userState: null,
+        article: null,
+        user: null,
+        error: ex.message,
+        loading: false,
+      }
+    };
+  }
 };
 
