@@ -1,14 +1,14 @@
-import { SketchOutlined } from "@ant-design/icons";
-import { Card, Tooltip } from "antd";
-import React, { FC } from "react";
-import { ExpectIcon } from "./ExpectIcon";
-import { MusicIcon } from "./MusicIcon";
-import { QRCodeGen } from "./QRCodeGen";
-import { Video2GIF } from "./Video2GIF";
+import { SketchOutlined } from '@ant-design/icons';
+import { Card, Tooltip } from 'antd';
+import React, { FC } from 'react';
+import { ExpectIcon } from './ExpectIcon';
+import { MusicIcon } from './MusicIcon';
+import { QRCodeGen } from './QRCodeGen';
+import { Video2GIF } from './Video2GIF';
 
 // 样式
-import componentStyles from "../components.module.css";
-import styles from "./magicBox.module.css";
+import componentStyles from '../components.module.css';
+import styles from './magicBox.module.css';
 
 export const MagicBox: FC = (props) => {
   return (

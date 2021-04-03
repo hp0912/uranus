@@ -1,18 +1,18 @@
-import { CopyOutlined, LoadingOutlined, ShareAltOutlined, SyncOutlined } from "@ant-design/icons";
-import { Avatar, Breadcrumb, Button, Col, message, Modal, Row, Space, Tooltip } from "antd";
+import { CopyOutlined, LoadingOutlined, ShareAltOutlined, SyncOutlined } from '@ant-design/icons';
+import { Avatar, Breadcrumb, Button, Col, message, Modal, Row, Space, Tooltip } from 'antd';
 import copy from 'copy-to-clipboard';
-import React, { FC, useCallback, useEffect, useState } from "react";
-import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
-import { format } from "timeago.js";
-import { GoodsType, IArticleEntity, IOrderEntity, ITokenEntity, IUserEntity, ShareWith, TokenType } from "../../types";
-import { formatDate } from "../../utils";
-import { generateOrder, getToken, updateToken } from "../../utils/httpClient";
-import { ArticleActionsLazyLoad } from "../ArticleActions";
-import { CoverLazyLoad } from "../CoverLazyLoad";
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { RouteComponentProps, useHistory, withRouter } from 'react-router-dom';
+import { format } from 'timeago.js';
+import { GoodsType, IArticleEntity, IOrderEntity, ITokenEntity, IUserEntity, ShareWith, TokenType } from '../../types';
+import { formatDate } from '../../utils';
+import { generateOrder, getToken, updateToken } from '../../utils/httpClient';
+import { ArticleActionsLazyLoad } from '../ArticleActions';
+import { CoverLazyLoad } from '../CoverLazyLoad';
 import { Pay } from '../Pay';
 
 // 样式
-import styles from "./articleDetail.module.css";
+import styles from './articleDetail.module.css';
 
 interface IArticleDetailProps {
   article: IArticleEntity;
@@ -111,7 +111,7 @@ const ArticleDetailInner: FC<IProps> = (props) => {
     <div className={styles.uranus_article_detail}>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <span style={{ color: "#1890ff", cursor: "pointer" }} onClick={goBack}>博客</span>
+          <span style={{ color: '#1890ff', cursor: 'pointer' }} onClick={goBack}>博客</span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
           {props.article?.title}

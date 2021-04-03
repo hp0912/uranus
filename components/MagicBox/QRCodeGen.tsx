@@ -1,7 +1,7 @@
-import { Button, Col, Input, Modal, Row, Tooltip } from "antd";
+import { Button, Col, Input, Modal, Row, Tooltip } from 'antd';
 import QRCode from 'qrcode.react';
-import React, { FC, useCallback, useState } from "react";
-import { QRCodeIcon } from "./QRCodeIcon";
+import React, { FC, useCallback, useState } from 'react';
+import { QRCodeIcon } from './QRCodeIcon';
 
 export const QRCodeGen: FC = (props) => {
   const [visible, setVisible] = useState(false);
@@ -62,7 +62,7 @@ export const QRCodeGen: FC = (props) => {
           (
             <Row style={{ rowGap: 0 }}>
               <Col span={24}>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 25 }}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 25 }}>
                   <QRCode
                     value={QRCodeURL}
                     size={250}

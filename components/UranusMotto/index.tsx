@@ -1,10 +1,10 @@
-import { message } from "antd";
-import React, { FC, useEffect, useState } from "react";
-import { websiteMotto } from "../../utils/httpClient";
+import { message } from 'antd';
+import React, { FC, useEffect, useState } from 'react';
+import { websiteMotto } from '../../utils/httpClient';
 
 // 样式
-import componentStyles from "../components.module.css";
-import styles from "./uranusMotto.module.css";
+import componentStyles from '../components.module.css';
+import styles from './uranusMotto.module.css';
 
 export const UranusMotto: FC = (props) => {
   const [motto, setMotto] = useState(() => {

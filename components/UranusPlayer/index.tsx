@@ -1,15 +1,15 @@
-import APlayer from "aplayer";
-import "aplayer/dist/APlayer.min.css";
-import React, { FC, useEffect } from "react";
-import "./uranusPlayer.css";
+import APlayer from 'aplayer';
+import 'aplayer/dist/APlayer.min.css';
+import React, { FC, useEffect } from 'react';
+import './uranusPlayer.css';
 
-const audio01 = require("../../assets/audio/孤星独吟.mp3");
-const audio02 = require("../../assets/audio/落入凡尘.mp3");
+const audio01 = '../../assets/audio/孤星独吟.mp3';
+const audio02 = '../../assets/audio/落入凡尘.mp3';
 
-const audio01Cover = require("../../assets/images/audio01-theme.png");
-const audio02Cover = require("../../assets/images/audio02-theme.png");
+const audio01Cover = '../../assets/images/audio01-theme.png';
+const audio02Cover = '../../assets/images/audio02-theme.png';
 
-export const UranusPlayer: FC = (props) => {
+export const UranusPlayer: FC = () => {
   useEffect(() => {
     const ap = new APlayer({
       container: document.getElementById('uranus-player'),

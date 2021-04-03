@@ -1,3 +1,3 @@
-import { UranusAvatar } from "./UranusAvatar";
+import { UranusAvatar } from './UranusAvatar';
 
 export { UranusAvatar };

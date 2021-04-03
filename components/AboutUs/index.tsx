@@ -1,7 +1,7 @@
-import MarkdownIt from "markdown-it";
+import MarkdownIt from 'markdown-it';
 import Prism from 'prismjs';
-import React, { FC, useEffect, useMemo } from "react";
-import { Header } from "../../components/Header";
+import React, { FC, useEffect, useMemo } from 'react';
+import { Header } from '../../components/Header';
 import { conclusion, css, html, markdown, tomarkdown } from './code';
 import './plugin';
 
@@ -10,7 +10,7 @@ import 'prismjs/themes/prism.css';
 
 const speed = 50;
 
-const AboutUs: FC = (props) => {
+const AboutUs: FC = () => {
   const boxRef = React.createRef<HTMLDivElement>();
   const styleRef = React.createRef<HTMLStyleElement>();
   const codeRef = React.createRef<HTMLPreElement>();
@@ -28,14 +28,14 @@ const AboutUs: FC = (props) => {
     let markdownTimer = 0;
 
     function writeCode(prefix: string, code: string): Promise<void> {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         let n = 0;
         cssTimer = window.setInterval(() => {
           if (codeRef.current && styleRef.current && boxRef.current) {
             n += 1;
             codeRef.current.innerHTML = Prism.highlight(prefix + code.substring(0, n), Prism.languages.css);
             styleRef.current.innerHTML = prefix + code.substring(0, n);
-            codeRef.current.scrollIntoView({ behavior: "auto", block: "end", inline: "nearest" });
+            codeRef.current.scrollIntoView({ behavior: 'auto', block: 'end', inline: 'nearest' });
             if (n >= code.length) {
               window.clearInterval(cssTimer);
               return resolve();
@@ -46,7 +46,7 @@ const AboutUs: FC = (props) => {
     }
 
     function createResume(): Promise<void> {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const resume = document.createElement('pre');
         resume.id = 'uranus-resume';
         boxRef.current!.appendChild(resume);
@@ -55,13 +55,13 @@ const AboutUs: FC = (props) => {
     }
 
     function writeMarkdown(mdStr: string): Promise<void> {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const domResume = document.querySelector('#uranus-resume');
         let n = 0;
         markdownTimer = window.setInterval(() => {
           n += 1;
           domResume!.innerHTML = Prism.highlight(mdStr.substring(0, n), Prism.languages.markdown);
-          domResume!.scrollIntoView({ behavior: "auto", block: "end", inline: "nearest" });
+          domResume!.scrollIntoView({ behavior: 'auto', block: 'end', inline: 'nearest' });
           if (n >= mdStr.length) {
             window.clearInterval(markdownTimer);
             return resolve();
@@ -71,7 +71,7 @@ const AboutUs: FC = (props) => {
     }
 
     function markdown2Html(): Promise<void> {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         document.querySelector('#uranus-resume')!.innerHTML = md.render(markdown);
         return resolve();
       });

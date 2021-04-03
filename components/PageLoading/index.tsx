@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 // 样式
-import styles from "./pageLoading.module.css";
+import styles from './pageLoading.module.css';
 
 export const PageLoading = () => {
   return (

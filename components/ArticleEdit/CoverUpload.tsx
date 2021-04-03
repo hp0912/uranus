@@ -9,7 +9,7 @@ import { stsAuthForForm } from '../../utils/httpClient';
 import { CoverUploadButton } from './CoverUploadButton';
 
 // 样式
-import styles from "./coverUpload.module.css";
+import styles from './coverUpload.module.css';
 
 interface ICoverUploadProps {
   value: UploadFile[];

@@ -1,12 +1,12 @@
-import { AlipayOutlined, QuestionCircleOutlined, WechatOutlined } from "@ant-design/icons";
-import { Button, Col, message, Modal, Row, Select, Tooltip } from "antd";
+import { AlipayOutlined, QuestionCircleOutlined, WechatOutlined } from '@ant-design/icons';
+import { Button, Col, message, Modal, Row, Select, Tooltip } from 'antd';
 import QRCode from 'qrcode.react';
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import url from 'url';
-import { IOrderEntity, PayCode, PayMethod, PayType } from "../../types";
-import { browserDetect, IBrowserDetect, IOSDetect } from "../../utils";
-import { useSetState } from "../../utils/commonHooks";
-import { initPay, queryPayStatus } from "../../utils/httpClient";
+import { IOrderEntity, PayCode, PayMethod, PayType } from '../../types';
+import { browserDetect, IBrowserDetect, IOSDetect } from '../../utils';
+import { useSetState } from '../../utils/commonHooks';
+import { initPay, queryPayStatus } from '../../utils/httpClient';
 
 // 样式
 import styles from './pay.module.css';
@@ -233,7 +233,7 @@ export const Pay: FC<IPayProps> = (props) => {
   return (
     <Modal
       className={styles.uranus_pay}
-      title={title.length > 15 ? title.substr(0, 15) + "..." : title}
+      title={title.length > 15 ? title.substr(0, 15) + '...' : title}
       visible={visible}
       destroyOnClose
       centered
@@ -262,7 +262,7 @@ export const Pay: FC<IPayProps> = (props) => {
                     )
                   }
                 >
-                  <QuestionCircleOutlined style={{ color: "red" }} />
+                  <QuestionCircleOutlined style={{ color: 'red' }} />
                 </Tooltip>
               </Col>
               <Col span={16} className={styles.pay_item_right}>
@@ -279,7 +279,7 @@ export const Pay: FC<IPayProps> = (props) => {
                 </Select>
               </Col>
             </Row>
-            <Row style={{ rowGap: 0 }} className={`uranus-row ${payMethod === PayMethod.cashier && !browserState.browser.wechat ? "uranus-pay-hidden" : ""}`}>{/** 微信收银台只能在微信内使用 */}
+            <Row style={{ rowGap: 0 }} className={`uranus-row ${payMethod === PayMethod.cashier && !browserState.browser.wechat ? 'uranus-pay-hidden' : ''}`}>{/** 微信收银台只能在微信内使用 */}
               <Col span={24}>
                 <Button
                   type="primary"
@@ -294,7 +294,7 @@ export const Pay: FC<IPayProps> = (props) => {
                 </Button>
               </Col>
             </Row>
-            <Row style={{ rowGap: 0 }} className={`uranus-row ${payMethod === PayMethod.wap || (payMethod === PayMethod.cashier && browserState.browser.wechat) ? "uranus-pay-hidden" : ""}`}>{/** 支付宝的H5支付使用收银台接口, 微信内无法使用支付宝收银台 */}
+            <Row style={{ rowGap: 0 }} className={`uranus-row ${payMethod === PayMethod.wap || (payMethod === PayMethod.cashier && browserState.browser.wechat) ? 'uranus-pay-hidden' : ''}`}>{/** 支付宝的H5支付使用收银台接口, 微信内无法使用支付宝收银台 */}
               <Col span={24}>
                 <Button
                   type="primary"
@@ -318,7 +318,7 @@ export const Pay: FC<IPayProps> = (props) => {
           <div>
             <Row className="uranus-row" style={{ rowGap: 0 }}>
               <Col span={24}>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <QRCode
                     value={payState.QRCodeURL!}
                     size={250}
@@ -356,7 +356,7 @@ export const Pay: FC<IPayProps> = (props) => {
           </div>
         )
       }
-      <form action={`https://admin.xunhuweb.com${cashierState.type === PayType.WeChatPay ? "/pay/cashier" : "/alipaycashier"}`} method="get" ref={cashierForm}>
+      <form action={`https://admin.xunhuweb.com${cashierState.type === PayType.WeChatPay ? '/pay/cashier' : '/alipaycashier'}`} method="get" ref={cashierForm}>
         <input type="hidden" name="mchid" value={cashierState.mchid} />
         <input type="hidden" name="out_trade_no" value={cashierState.out_trade_no} />
         <input type="hidden" name="total_fee" value={cashierState.total_fee} />

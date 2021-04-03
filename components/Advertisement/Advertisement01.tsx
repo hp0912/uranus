@@ -1,8 +1,8 @@
-import { Carousel } from "antd";
-import React, { FC } from "react";
+import { Carousel } from 'antd';
+import React, { FC } from 'react';
 
 // 样式
-import styles from "./advertisement.module.css";
+import styles from './advertisement.module.css';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const Advertisement01: FC = () => {

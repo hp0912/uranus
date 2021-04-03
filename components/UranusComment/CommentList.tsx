@@ -1,7 +1,7 @@
 import { MessageOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Button, List, message, Modal, Popconfirm, Tag, Tooltip } from 'antd';
 import React, { FC, useState } from 'react';
-import { format } from "timeago.js";
+import { format } from 'timeago.js';
 import { CommentType, ICommentEntity, IUranusNode, IUserEntity } from '../../types';
 import { formatDate } from '../../utils';
 import { CommentEditor } from './CommentEditor';
@@ -57,14 +57,14 @@ export const CommentList: FC<ICommentListProps> = (props) => {
   const loadMore = !initLoading && !commListState.noMore && comments.length > 0 ? <Button type="link" block onClick={onLoadMore} loading={commListState.loadMoreLoading}>加载更多</Button> : null;
 
   return (
-    <div className={`${styles.comment_list} ${className ? className : ""}`}>
+    <div className={`${styles.comment_list} ${className ? className : ''}`}>
       <List
         loading={initLoading}
         itemLayout="horizontal"
         size="default"
         loadMore={loadMore}
         dataSource={comments}
-        locale={{ emptyText: "赞无评论" }}
+        locale={{ emptyText: '赞无评论' }}
         split={false}
         renderItem={(item) => (
           <List.Item>
@@ -72,10 +72,10 @@ export const CommentList: FC<ICommentListProps> = (props) => {
               <div className={styles.uranus_avatar_box}>
                 <div className={styles.comment_avatar} style={{ backgroundImage: `url(${item.userAvatar})` }} />
               </div>
-              <div style={{ flex: "1 1 auto", borderBottom: "1px solid #f1f1f1" }}>
+              <div style={{ flex: '1 1 auto', borderBottom: '1px solid #f1f1f1' }}>
                 <div className={styles.meta_box}>
                   <span style={{ paddingRight: 10 }}>{item.userNicname}</span>
-                  <Tag color={"#" + (4095 - item.userAccessLevel! * 300).toString(16)}>{"Lv" + item.userAccessLevel}</Tag>
+                  <Tag color={'#' + (4095 - item.userAccessLevel! * 300).toString(16)}>{'Lv' + item.userAccessLevel}</Tag>
                 </div>
                 <div className={styles.uranus_comment_container} style={{ marginTop: 8 }} dangerouslySetInnerHTML={{ __html: item.content! }} />
                 <div className={styles.reply_stat}>

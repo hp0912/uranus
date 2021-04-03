@@ -137,10 +137,10 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
             } else if (cnode instanceof HTMLImageElement) {
               const code = cnode.getAttribute('data-code');
               const src = cnode.getAttribute('src');
-              contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.img, attr: { "data-code": code as string, src: src as string } });
+              contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.img, attr: { 'data-code': code as string, src: src as string } });
             } else if (cnode instanceof HTMLSpanElement) {
               const uid = cnode.getAttribute('data-id');
-              contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.span, attr: { "data-id": uid as string } });
+              contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.span, attr: { 'data-id': uid as string } });
             } else if (cnode instanceof HTMLBRElement) {
               contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.br });
             }
@@ -148,10 +148,10 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
         } else if (node instanceof HTMLImageElement) {
           const code = node.getAttribute('data-code');
           const src = node.getAttribute('src');
-          contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.img, attr: { "data-code": code as string, src: src as string } });
+          contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.img, attr: { 'data-code': code as string, src: src as string } });
         } else if (node instanceof HTMLSpanElement) {
           const uid = node.getAttribute('data-id');
-          contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.span, attr: { "data-id": uid as string } });
+          contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.span, attr: { 'data-id': uid as string } });
         } else if (node instanceof HTMLBRElement) {
           contentJSON.rows[rowCount].push({ nodeType: IUranusNodeType.br });
         }
@@ -176,8 +176,8 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
     const selections = window.getSelection();
     if (selections) {
       const range = selections.getRangeAt(0);
-      let lastChar: string = '';
-      let mentionSearch: string = '';
+      let lastChar = '';
+      let mentionSearch = '';
 
       try {
         if (range.startOffset > 0) {
@@ -430,7 +430,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
             className={styles.uranus_comment_editor}
             ref={editorRef}
             contentEditable={true}
-            placeholder={user ? "请输入评论..." : "请先登录..."}
+            placeholder={user ? '请输入评论...' : '请先登录...'}
             onInput={onEditorInput}
             onFocus={onFocus}
             onKeyDown={onKeyDown}
@@ -464,7 +464,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
             }
             {
               !mentionUsers.users.length &&
-              <p style={{ textAlign: "center", padding: "6px 8px", margin: 0, color: "gray" }}>没有检索到数据</p>
+              <p style={{ textAlign: 'center', padding: '6px 8px', margin: 0, color: 'gray' }}>没有检索到数据</p>
             }
           </Spin>
         </div>
@@ -484,14 +484,14 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
             </div>
           </div>
           <div className={styles.submit}>
-            <span style={{ color: "#c2c2c2", marginRight: 8, fontSize: 13 }}>Ctrl or ⌘ + Enter</span>
+            <span style={{ color: '#c2c2c2', marginRight: 8, fontSize: 13 }}>Ctrl or ⌘ + Enter</span>
             <Button
               type="primary"
               loading={submitLoading}
               disabled={user === null}
               onClick={onSubmitClick}
             >
-              {user ? "评论" : "登录后评论"}
+              {user ? '评论' : '登录后评论'}
             </Button>
           </div>
         </div>

@@ -3,14 +3,14 @@ import {
   WechatOutlined,
   WeiboCircleOutlined,
   ZhihuOutlined,
-} from "@ant-design/icons";
-import { Affix, Avatar, Divider, Tooltip } from "antd";
-import React, { FC } from "react";
-import { WechatCount } from "./WechatCount";
+} from '@ant-design/icons';
+import { Affix, Avatar, Divider, Tooltip } from 'antd';
+import React, { FC } from 'react';
+import { WechatCount } from './WechatCount';
 
 // 样式
-import componentStyles from "../components.module.css";
-import styles from "./avatar.module.css";
+import componentStyles from '../components.module.css';
+import styles from './avatar.module.css';
 
 export const UranusAvatar: FC = (props) => {
   return (

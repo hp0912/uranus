@@ -1,8 +1,8 @@
-import { Button, Col, Input, message, Modal, Row, Tooltip } from "antd";
+import { Button, Col, Input, message, Modal, Row, Tooltip } from 'antd';
 import GIF from 'gif.js';
-import React, { FC, useCallback, useRef, useState } from "react";
-import { useSetState } from "../../utils/commonHooks";
-import { VideoIcon } from "./VideoIcon";
+import React, { FC, useCallback, useRef, useState } from 'react';
+import { useSetState } from '../../utils/commonHooks';
+import { VideoIcon } from './VideoIcon';
 
 export const Video2GIF: FC = (props) => {
   const [visible, setVisible] = useState(false);
@@ -126,7 +126,7 @@ export const Video2GIF: FC = (props) => {
 
       gif.on('progress', p => {
         if (p === 1) {
-          setVideoState({ progress: `视频转换完毕!` });
+          setVideoState({ progress: '视频转换完毕!' });
         } else {
           // tslint:disable-next-line: no-bitwise
           setVideoState({ progress: `视频转换中: ${(p * 100) | 0}%...` });
@@ -195,7 +195,7 @@ export const Video2GIF: FC = (props) => {
         <Row style={{ rowGap: 0 }}>
           <Col span={19}>
             <Input value={videoState.fileName} placeholder="点击这里上传视频" readOnly onClick={onUploadClick} />
-            <input type="file" ref={fileInputRef} style={{ display: "none" }} accept=".mp4, .ogg, .webm" onChange={onFileChange} />
+            <input type="file" ref={fileInputRef} style={{ display: 'none' }} accept=".mp4, .ogg, .webm" onChange={onFileChange} />
           </Col>
           <Col span={5}>
             <Button type="primary" onClick={onConvertClick} loading={loading}>开始转换</Button>
@@ -206,8 +206,8 @@ export const Video2GIF: FC = (props) => {
           (
             <Row style={{ rowGap: 0 }}>
               <Col span={24}>
-                <p style={{ margin: "15px 0" }}><b>预览</b></p>
-                <video style={{ width: "100%" }} src={videoState.videoSrc} controls preload="true" />
+                <p style={{ margin: '15px 0' }}><b>预览</b></p>
+                <video style={{ width: '100%' }} src={videoState.videoSrc} controls preload="true" />
               </Col>
             </Row>
           )
@@ -217,7 +217,7 @@ export const Video2GIF: FC = (props) => {
           (
             <Row style={{ rowGap: 0 }}>
               <Col span={24}>
-                <p style={{ margin: "15px 0", color: "#f7cf02" }}>{videoState.progress}</p>
+                <p style={{ margin: '15px 0', color: '#f7cf02' }}>{videoState.progress}</p>
               </Col>
             </Row>
           )
@@ -228,7 +228,7 @@ export const Video2GIF: FC = (props) => {
             <Row style={{ rowGap: 0 }}>
               <Col span={24}>
                 <a href={gifSrc} target="_blank" rel="noopener noreferrer">
-                  <img style={{ width: "100%" }} src={gifSrc} alt="gif" />
+                  <img style={{ width: '100%' }} src={gifSrc} alt="gif" />
                 </a>
               </Col>
             </Row>
@@ -236,9 +236,9 @@ export const Video2GIF: FC = (props) => {
         }
         <Row style={{ rowGap: 0 }}>
           <Col span={24}>
-            <p style={{ margin: "15px 0 8px 0" }}><b>说明</b></p>
-            <p style={{ margin: "8px 0", color: "#2b95e2" }}>全部转换均在浏览器内进行，不会消耗设备流量</p>
-            <p style={{ marginTop: 8, marginBottom: 0, color: "#2b95e2" }}>如果转换时间过长请使用其他浏览器尝试，推荐使用Chrome</p>
+            <p style={{ margin: '15px 0 8px 0' }}><b>说明</b></p>
+            <p style={{ margin: '8px 0', color: '#2b95e2' }}>全部转换均在浏览器内进行，不会消耗设备流量</p>
+            <p style={{ marginTop: 8, marginBottom: 0, color: '#2b95e2' }}>如果转换时间过长请使用其他浏览器尝试，推荐使用Chrome</p>
           </Col>
         </Row>
       </Modal>

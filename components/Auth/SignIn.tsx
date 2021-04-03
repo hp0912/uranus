@@ -1,18 +1,18 @@
-import { KeyOutlined, UserOutlined } from "@ant-design/icons";
+import { KeyOutlined, UserOutlined } from '@ant-design/icons';
 import {
   GithubOutlined,
   QqOutlined,
   WechatOutlined,
-} from "@ant-design/icons";
-import { Avatar, Button, Divider, Input, message, Modal, Space } from "antd";
-import React, { FC, useCallback, useContext, useEffect, useRef, useState } from "react";
-import { SETUSER, UserContext } from "../../store/user";
-import { useSafeProps, useSetState } from "../../utils/commonHooks";
-import { signIn } from "../../utils/httpClient";
-import { AuthMode } from "./SignUp";
+} from '@ant-design/icons';
+import { Avatar, Button, Divider, Input, message, Modal, Space } from 'antd';
+import React, { FC, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { SETUSER, UserContext } from '../../store/user';
+import { useSafeProps, useSetState } from '../../utils/commonHooks';
+import { signIn } from '../../utils/httpClient';
+import { AuthMode } from './SignUp';
 
 // 样式
-import styles from "./auth.module.css";
+import styles from './auth.module.css';
 const dividerStyle = { margin: 0, fontSize: '14px', fontWeight: 500 };
 
 interface ISignInProps {
@@ -95,7 +95,7 @@ export const SignIn: FC<ISignInProps> = (props) => {
 
   const onGitHubOAuth = useCallback(() => {
     window.clearInterval(authTimer.current);
-    window.localStorage.setItem("OAUTH_LOGIN_URL", window.location.href);
+    window.localStorage.setItem('OAUTH_LOGIN_URL', window.location.href);
 
     const newWin = window.open('https://github.com/login/oauth/authorize?client_id=b0263da0ed583f782b96&redirect_uri=https://houhoukang.com/github/oauth/authorize');
 

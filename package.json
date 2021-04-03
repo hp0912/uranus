@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "gen-css-types": "tcm -p './!(node_modules|build)/**/*.css'"
+    "gen-css-types": "tcm -p './!(node_modules|build)/**/*.css'",
+    "lint": "eslint pages components --ext .ts,.tsx --fix"
   },
   "dependencies": {
     "ali-oss": "^6.13.2",

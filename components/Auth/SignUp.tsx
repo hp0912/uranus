@@ -1,11 +1,11 @@
-import { KeyOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Input, message, Modal, Space } from "antd";
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
-import { useSafeProps, useSetState } from "../../utils/commonHooks";
-import { sendSms, signUp } from "../../utils/httpClient";
+import { KeyOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Input, message, Modal, Space } from 'antd';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { useSafeProps, useSetState } from '../../utils/commonHooks';
+import { sendSms, signUp } from '../../utils/httpClient';
 
 // 样式
-import styles from "./auth.module.css";
+import styles from './auth.module.css';
 
 export enum AuthMode {
   signup = 'signup',

@@ -1,15 +1,15 @@
-import { HomeOutlined, IdcardOutlined, InstagramOutlined, MessageOutlined } from "@ant-design/icons";
-import { Col, Input, Menu, Row } from "antd";
-import React, { FC, useCallback, useContext, useState } from "react";
+import { HomeOutlined, IdcardOutlined, InstagramOutlined, MessageOutlined } from '@ant-design/icons';
+import { Col, Input, Menu, Row } from 'antd';
+import React, { FC, useCallback, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { UserContext } from '../../store/user';
-import { Auth } from "../Auth";
-import { AuthMode } from "../Auth/SignUp";
+import { Auth } from '../Auth';
+import { AuthMode } from '../Auth/SignUp';
 import UserAvatar from './UserAvatar';
 
 // 样式
-import styles from "./header.module.css";
+import styles from './header.module.css';
 
 const { Search } = Input;
 

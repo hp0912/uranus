@@ -1,11 +1,11 @@
-import { Affix, message } from "antd";
-import React, { FC, useEffect, useState } from "react";
-import { websiteAdvertisement } from "../../utils/httpClient";
+import { Affix, message } from 'antd';
+import React, { FC, useEffect, useState } from 'react';
+import { websiteAdvertisement } from '../../utils/httpClient';
 
 // 样式
-import styles from "../components.module.css";
+import styles from '../components.module.css';
 
-export const Advertisement02: FC = (props) => {
+export const Advertisement02: FC = () => {
   const [advertisement, setAdvertisement] = useState(() => {
     return `
     <div>

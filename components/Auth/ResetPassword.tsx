@@ -1,12 +1,12 @@
-import { KeyOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Input, message, Modal, Space } from "antd";
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
-import { useSafeProps, useSetState } from "../../utils/commonHooks";
-import { resetPassword, sendSms } from "../../utils/httpClient";
-import { AuthMode } from "./SignUp";
+import { KeyOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Input, message, Modal, Space } from 'antd';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { useSafeProps, useSetState } from '../../utils/commonHooks';
+import { resetPassword, sendSms } from '../../utils/httpClient';
+import { AuthMode } from './SignUp';
 
 // 样式
-import styles from "./auth.module.css";
+import styles from './auth.module.css';
 
 interface IResetPasswordProps {
   switchMode: (m: AuthMode) => void;

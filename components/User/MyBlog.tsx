@@ -33,7 +33,7 @@ export const MyBlog: FC = () => {
     pagination: {
       current: 1,
       pageSize: 15,
-      pageSizeOptions: ["15", "50", "100"],
+      pageSizeOptions: ['15', '50', '100'],
       total: 0,
     },
     currentOPId: null,
@@ -72,7 +72,7 @@ export const MyBlog: FC = () => {
       width: '15%',
       align: 'center',
       render: (auditStatus: AuditStatus) => {
-        return <span>{auditStatus === AuditStatus.approved ? "通过" : "未通过"}</span>;
+        return <span>{auditStatus === AuditStatus.approved ? '通过' : '未通过'}</span>;
       },
     },
     {
@@ -186,7 +186,7 @@ export const MyBlog: FC = () => {
   }, [myBlogState.loading, geMyBlogs]);
 
   return (
-    <div style={{ padding: 5, minHeight: 360, background: "#fff" }}>
+    <div style={{ padding: 5, minHeight: 360, background: '#fff' }}>
       <div style={{ marginBottom: 15 }}>
         <Input.Search
           placeholder="根据博客标题/内容搜索"

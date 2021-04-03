@@ -1,21 +1,21 @@
-import { Avatar, List, message, Tag } from "antd";
-import { PaginationConfig } from "antd/lib/pagination";
-import MarkdownIt from "markdown-it";
-import React, { FC, useContext, useEffect, useMemo, useRef } from "react";
+import { Avatar, List, message, Tag } from 'antd';
+import { PaginationConfig } from 'antd/lib/pagination';
+import MarkdownIt from 'markdown-it';
+import React, { FC, useContext, useEffect, useMemo, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { format } from "timeago.js";
-import { UserContext } from "../../store/user";
-import { ArticleCategory, IArticleEntity, ITagEntity, IUserEntity } from "../../types";
-import { useSetState } from "../../utils/commonHooks";
-import { DEFAULTAVATAR, defaultPageSize } from "../../utils/constant";
-import { articleList } from "../../utils/httpClient";
-import { ArticleActionsLazyLoad } from "../ArticleActions";
-import { CoverLazyLoad } from "../CoverLazyLoad";
-import { ParsedUrlQuery } from "node:querystring";
+import { format } from 'timeago.js';
+import { UserContext } from '../../store/user';
+import { ArticleCategory, IArticleEntity, ITagEntity, IUserEntity } from '../../types';
+import { useSetState } from '../../utils/commonHooks';
+import { DEFAULTAVATAR, defaultPageSize } from '../../utils/constant';
+import { articleList } from '../../utils/httpClient';
+import { ArticleActionsLazyLoad } from '../ArticleActions';
+import { CoverLazyLoad } from '../CoverLazyLoad';
+import { ParsedUrlQuery } from 'node:querystring';
 
 // markdown 插件
-import hljs from "highlight.js";
+import hljs from 'highlight.js';
 import abbr from 'markdown-it-abbr';
 import emoji from 'markdown-it-emoji';
 import ins from 'markdown-it-ins';
@@ -25,9 +25,9 @@ import sup from 'markdown-it-sup';
 import twemoji from 'twemoji';
 
 // 样式
-import "highlight.js/styles/an-old-hope.css";
+import 'highlight.js/styles/an-old-hope.css';
 import 'react-markdown-editor-lite/lib/index.css';
-import styles from "./articleList.module.css";
+import styles from './articleList.module.css';
 
 export interface IArtListParams {
   category: ArticleCategory;
@@ -64,14 +64,14 @@ function Array2Map<T extends { id?: string }>(arr: T[]): { [id: string]: T } {
 export function parseQuery(query: ParsedUrlQuery): { current: number, pageSize: number, searchValue: string } {
   const { keyword: search, current: cur, pageSize: size } = query;
 
-  let searchValue: string = '';
+  let searchValue = '';
   if (typeof search === 'string') {
     searchValue = search;
   } else if (search instanceof Array) {
     searchValue = search[0];
   }
 
-  let current: number = 1;
+  let current = 1;
   if (typeof cur === 'string') {
     current = Number(cur) || 1;
   } else if (cur instanceof Array) {
@@ -129,7 +129,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
       pagination: {
         current,
         pageSize,
-        pageSizeOptions: ["15", "50", "100"],
+        pageSizeOptions: ['15', '50', '100'],
         showQuickJumper: false,
         hideOnSinglePage: true,
         total,
@@ -182,7 +182,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
 
   const onShowSizeChange = (current: number, size: number) => {
     const { searchValue } = parseQuery(router.query);
-    router.push(`${router.pathname}?current=${current}&pageSize=${size}${searchValue ? `&keyword=${searchValue}` : ""}`);
+    router.push(`${router.pathname}?current=${current}&pageSize=${size}${searchValue ? `&keyword=${searchValue}` : ''}`);
   };
 
   return (
@@ -197,12 +197,12 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
           onShowSizeChange,
           itemRender: (
             page: number,
-            type: "page" | "prev" | "next" | "jump-prev" | "jump-next",
+            type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next',
             originalElement: React.ReactElement<HTMLElement, string | React.JSXElementConstructor<any>>,
           ) => {
             const { pageSize, searchValue } = parseQuery(router.query);
             return (
-              <Link href={`${router.pathname}?current=${page}&pageSize=${pageSize}${searchValue ? `&keyword=${searchValue}` : ""}`}>
+              <Link href={`${router.pathname}?current=${page}&pageSize=${pageSize}${searchValue ? `&keyword=${searchValue}` : ''}`}>
                 {originalElement}
               </Link>
             );
@@ -231,7 +231,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
                           color={articleListState.tagMap[tagId] ? articleListState.tagMap[tagId].color : undefined}
                           key={tagId}
                         >
-                          {articleListState.tagMap[tagId] ? articleListState.tagMap[tagId].name : "不存在的标签"}
+                          {articleListState.tagMap[tagId] ? articleListState.tagMap[tagId].name : '不存在的标签'}
                         </Tag>
                       );
                     })
@@ -239,15 +239,15 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
                   <span className={styles.article_title_timeago}>
                     {
                       item.createdTime === item.modifyTime ?
-                        `${articleListState.userMap[item.createdBy!] ? articleListState.userMap[item.createdBy!].nickname : "神秘人"} 发表于 ${format(item.createdTime!, 'zh_CN')}` :
-                        `${articleListState.userMap[item.modifyBy!] ? articleListState.userMap[item.modifyBy!].nickname : "神秘人"} 更新于 ${format(item.modifyTime as number, 'zh_CN')}`
+                        `${articleListState.userMap[item.createdBy!] ? articleListState.userMap[item.createdBy!].nickname : '神秘人'} 发表于 ${format(item.createdTime!, 'zh_CN')}` :
+                        `${articleListState.userMap[item.modifyBy!] ? articleListState.userMap[item.modifyBy!].nickname : '神秘人'} 更新于 ${format(item.modifyTime as number, 'zh_CN')}`
                     }
                   </span>
                 </div>
               </div>
             </div>
             <CoverLazyLoad articleId={item.id!} coverURL={item.coverPicture!} />
-            <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: md.render(item.desc || "这家伙很懒，什么都没留下") }} />
+            <div className="custom-html-style" dangerouslySetInnerHTML={{ __html: md.render(item.desc || '这家伙很懒，什么都没留下') }} />
             <ArticleActionsLazyLoad article={item} />
           </List.Item>
         )}

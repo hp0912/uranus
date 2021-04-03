@@ -1,8 +1,8 @@
 import { AudioOutlined } from '@ant-design/icons';
 import { Input, message, Modal } from 'antd';
 import Barrage from 'barrage-ui';
-import React, { FC, useCallback, useEffect, useRef } from "react";
-import { Header } from "../../components/Header";
+import React, { FC, useCallback, useEffect, useRef } from 'react';
+import { Header } from '../../components/Header';
 import { IMessageEntity } from '../../types';
 import { useSetState } from '../../utils/commonHooks';
 import { messageCount, messageList, messageSubmit } from '../../utils/httpClient';
@@ -86,7 +86,7 @@ const MessageBoard: FC = (props) => {
           text: `${count}条弹幕来袭，大家做好准备...`,
         });
 
-        messages.forEach((msg, index) => {
+        messages.forEach((msg) => {
           messageCurrent.push(message2Barrage(msg));
         });
 

@@ -33,7 +33,7 @@ export const MyOrders: FC<IMyOrdersProps> = (props) => {
     pagination: {
       current: 1,
       pageSize: 15,
-      pageSizeOptions: ["15", "50", "100"],
+      pageSizeOptions: ['15', '50', '100'],
       total: 0,
     },
     currentOPId: null,
@@ -63,7 +63,7 @@ export const MyOrders: FC<IMyOrdersProps> = (props) => {
       width: '15%',
       align: 'center',
       render: (goodsType: GoodsType) => {
-        return <span>{goodsType === GoodsType.article ? "博客" : "其他"}</span>;
+        return <span>{goodsType === GoodsType.article ? '博客' : '其他'}</span>;
       },
     },
     {
@@ -95,7 +95,7 @@ export const MyOrders: FC<IMyOrdersProps> = (props) => {
           case OrderCode.refunded:
             return <span>已退款</span>;
           default:
-            return "--";
+            return '--';
         }
       },
     },
@@ -157,7 +157,7 @@ export const MyOrders: FC<IMyOrdersProps> = (props) => {
   }, [myOrdersState.loading, geMyOrders]);
 
   return (
-    <div style={{ padding: 5, minHeight: 360, background: "#fff" }}>
+    <div style={{ padding: 5, minHeight: 360, background: '#fff' }}>
       <div style={{ marginBottom: 15 }}>
         <Input.Search
           placeholder="根据订单标题搜索"

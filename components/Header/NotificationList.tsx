@@ -32,7 +32,8 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
       setInitLoading(false);
       setData(result.data.data);
       setList(result.data.data);
-    }).catch(reason => {
+    }).catch((reason) => {
+      message.error(reason.message);
       setInitLoading(false);
     });
     // eslint-disable-next-line
@@ -104,7 +105,7 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
   return (
     <div>
       {
-        props.type === "hasnotread" ?
+        props.type === 'hasnotread' ?
           (
             <Row className="uranus-notification-top" style={{ rowGap: 0 }}>
               <Col span={16} />
@@ -131,6 +132,7 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
             actions={[
               (
                 <Popover
+                  key={item.id}
                   placement="top"
                   content={<div className={commentStyles['uranus-comment-container']} dangerouslySetInnerHTML={{ __html: item.content as string }} />}
                   title={item.title}
@@ -139,7 +141,7 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
                   <EyeOutlined />
                 </Popover>
               ),
-              props.type === "hasnotread" ?
+              props.type === 'hasnotread' ?
                 (
                   <Tooltip key="markAsRead" title="标记为已读">
                     <CheckCircleOutlined onClick={() => { onMarkAsReadClick(item); }} />
@@ -159,7 +161,7 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
               <div>
                 {
                   item.content && item.content.length > 15 ?
-                    item.content.substr(0, 15) + "..." :
+                    item.content.substr(0, 15) + '...' :
                     item.content
                 }
               </div>

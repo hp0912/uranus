@@ -1,24 +1,24 @@
 import Prism from 'prismjs';
 
 function markdownInit() {
-  Prism.languages.markdown = Prism.languages.extend("markup", {});
+  Prism.languages.markdown = Prism.languages.extend('markup', {});
   Prism.languages.insertBefore(
-    "markdown",
-    "prolog",
+    'markdown',
+    'prolog',
     {
-      blockquote: { pattern: /^>(?:[\t ]*>)*/m, alias: "punctuation" },
-      code: [{ pattern: /^(?: {4}|\t).+/m, alias: "keyword" }, { pattern: /``.+?``|`[^`\n]+`/, alias: "keyword" }],
-      title: [{ pattern: /\w+.*(?:\r?\n|\r)(?:==+|--+)/, alias: "important", inside: { punctuation: /==+$|--+$/ } }, { pattern: /(^\s*)#+.+/m, lookbehind: !0, alias: "important", inside: { punctuation: /^#+|#+$/ } }],
-      hr: { pattern: /(^\s*)([*-])(?:[\t ]*\2){2,}(?=\s*$)/m, lookbehind: !0, alias: "punctuation" },
-      list: { pattern: /(^\s*)(?:[*+-]|\d+\.)(?=[\t ].)/m, lookbehind: !0, alias: "punctuation" },
-      "url-reference": {
+      blockquote: { pattern: /^>(?:[\t ]*>)*/m, alias: 'punctuation' },
+      code: [{ pattern: /^(?: {4}|\t).+/m, alias: 'keyword' }, { pattern: /``.+?``|`[^`\n]+`/, alias: 'keyword' }],
+      title: [{ pattern: /\w+.*(?:\r?\n|\r)(?:==+|--+)/, alias: 'important', inside: { punctuation: /==+$|--+$/ } }, { pattern: /(^\s*)#+.+/m, lookbehind: !0, alias: 'important', inside: { punctuation: /^#+|#+$/ } }],
+      hr: { pattern: /(^\s*)([*-])(?:[\t ]*\2){2,}(?=\s*$)/m, lookbehind: !0, alias: 'punctuation' },
+      list: { pattern: /(^\s*)(?:[*+-]|\d+\.)(?=[\t ].)/m, lookbehind: !0, alias: 'punctuation' },
+      'url-reference': {
         pattern: /!?\[[^\]]+\]:[\t ]+(?:\S+|<(?:\\.|[^>\\])+>)(?:[\t ]+(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\((?:\\.|[^)\\])*\)))?/,
         inside: {
           variable: { pattern: /^(!?\[)[^\]]+/, lookbehind: !0 },
           string: /(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\((?:\\.|[^)\\])*\))$/,
           punctuation: /^[[\]!:]|[<>]/,
         },
-        alias: "url",
+        alias: 'url',
       },
       bold: {
         pattern: /(^|[^\\])(\*\*|__)(?:(?:\r?\n|\r)(?!\r?\n|\r)|.)+?\2/,

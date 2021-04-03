@@ -374,7 +374,7 @@ interface IEmojiProps {
 export const Emoji: FC<IEmojiProps> = (props) => {
   return (
     <div className={styles.emoji_container}>
-      <Carousel dots={{ className: "emoji-dots" }}>
+      <Carousel dots={{ className: 'emoji-dots' }}>
         <div className={styles.emoji_content}>
           <div className={styles.emoji_picker} onClick={props.onEmojiClick}>
             <ul className={styles.emojis}>

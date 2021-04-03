@@ -3,13 +3,13 @@ import url from 'url';
 export function formatDate(timestamp: number) {
   const date = new Date(timestamp);
 
-  const YY = date.getFullYear() + '-';
-  const MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-  const DD = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+  const YY = date.getFullYear().toString() + '-';
+  const MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1).toString() : date.getMonth() + 1).toString() + '-';
+  const DD = (date.getDate() < 10 ? '0' + (date.getDate().toString()) : date.getDate().toString());
 
-  const hh = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-  const mm = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
-  const ss = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+  const hh = (date.getHours() < 10 ? '0' + date.getHours().toString() : date.getHours().toString()) + ':';
+  const mm = (date.getMinutes() < 10 ? '0' + date.getMinutes().toString() : date.getMinutes().toString()) + ':';
+  const ss = (date.getSeconds() < 10 ? '0' + date.getSeconds().toString() : date.getSeconds().toString());
 
   return YY + MM + DD + " " + hh + mm + ss;
 }

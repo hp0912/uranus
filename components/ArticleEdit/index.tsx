@@ -2,7 +2,7 @@
 import OSS from 'ali-oss';
 import { Affix, Breadcrumb, Button, Col, Input, InputNumber, message, Modal, Row, Select, Skeleton, Switch } from 'antd';
 import { UploadFile } from 'antd/lib/upload/interface';
-import MarkdownIt from "markdown-it";
+import MarkdownIt from 'markdown-it';
 import React, { FC, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import MdEditor from 'react-markdown-editor-lite';
@@ -19,7 +19,7 @@ import { UranusPrompt } from '../UranusPrompt';
 import { SaveOutlined } from '@ant-design/icons';
 
 // markdown 插件
-import hljs from "highlight.js";
+import hljs from 'highlight.js';
 import abbr from 'markdown-it-abbr';
 import mdcontainer from 'markdown-it-container';
 import emoji from 'markdown-it-emoji';
@@ -31,12 +31,12 @@ import sup from 'markdown-it-sup';
 import twemoji from 'twemoji';
 
 // css
-import "highlight.js/styles/an-old-hope.css";
+import 'highlight.js/styles/an-old-hope.css';
 import 'react-markdown-editor-lite/lib/index.css';
 import styles from './articleEdit.module.css';
 
 const css = {
-  MdEditor: { height: "800px" },
+  MdEditor: { height: '800px' },
 };
 
 const articleInit: IArticleEntity = {
@@ -216,7 +216,7 @@ const ArticleEdit: FC<IArticleEditProps> = (props) => {
 
       return `${AliyunOSSHost}/${filename}`;
     } catch (ex) {
-      return `https://img.houhoukang.com/uranus/system/upload-failed.png`;
+      return 'https://img.houhoukang.com/uranus/system/upload-failed.png';
     }
   }, [userContext.userState]);
 
@@ -282,10 +282,10 @@ const ArticleEdit: FC<IArticleEditProps> = (props) => {
 
   return (
     <>
-      <Breadcrumb className={props.breadcrumbClassName ? props.breadcrumbClassName : "uranus-admin-breadcrumb"}>
+      <Breadcrumb className={props.breadcrumbClassName ? props.breadcrumbClassName : 'uranus-admin-breadcrumb'}>
         <Breadcrumb.Item>编辑文章</Breadcrumb.Item>
       </Breadcrumb>
-      <div style={{ padding: 5, minHeight: 360, background: "#fff" }}>
+      <div style={{ padding: 5, minHeight: 360, background: '#fff' }}>
         <Skeleton loading={initLoading}>
           <Row className="uranus-row" style={{ rowGap: 0 }}>
             <Col span={24}>

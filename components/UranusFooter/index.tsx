@@ -1,8 +1,8 @@
-import { BackTop } from "antd";
-import React, { FC } from "react";
+import { BackTop } from 'antd';
+import React, { FC } from 'react';
 
 // 样式
-import styles from "./uranusFooter.module.css";
+import styles from './uranusFooter.module.css';
 
 export const UranusFooter: FC = (props) => {
 

@@ -3,7 +3,7 @@ import LazyLoad from 'react-lazyload';
 import Link from 'next/link';
 
 // 样式
-import styles from "../components.module.css";
+import styles from '../components.module.css';
 
 interface ICoverLazyLoadProps {
   articleId?: string;

@@ -1,8 +1,8 @@
-import { Col, Row } from "antd";
-import React, { FC, ReactElement } from "react";
+import { Col, Row } from 'antd';
+import React, { FC, ReactElement } from 'react';
 
 // 样式
-import styles from "./content.module.css";
+import styles from './content.module.css';
 
 interface IContentProps {
   left: ReactElement;

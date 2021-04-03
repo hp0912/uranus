@@ -1,11 +1,11 @@
-import { ConfigProvider, message } from "antd";
+import { ConfigProvider, message } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import React, { useEffect, useReducer, useRef } from 'react';
 import { UranusSkin } from '../components/SkinContainer';
 import { UranusFooter } from '../components/UranusFooter';
 import { reducer, SETUSER, UserContext } from '../store/user';
-import { IUserEntity } from "../types";
-import { userStatus } from "../utils/httpClient";
+import { IUserEntity } from '../types';
+import { userStatus } from '../utils/httpClient';
 
 // 样式
 import '../styles/global.css'

@@ -1,6 +1,6 @@
-import { Modal } from "antd";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
+import { Modal } from 'antd';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 
 export const UranusPrompt = (props: { hasChange: boolean }) => {
   const router = useRouter();
@@ -17,7 +17,7 @@ export const UranusPrompt = (props: { hasChange: boolean }) => {
     const onRouteChangeStart = (route: string) => {
       if (!nextState.current) {
         return;
-      };
+      }
       setNextRoute({ nextRoute: route, confirmed: false });
       router.events.emit('routeChangeError');
       throw '内容未保存，取消跳转...';

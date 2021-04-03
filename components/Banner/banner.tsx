@@ -1,11 +1,11 @@
-import { Avatar } from "antd";
+import { Avatar } from 'antd';
 import Link from 'next/link';
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
-import jinrishici from "../../utils/jinrishici";
-import { Gl } from "./canvas";
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import jinrishici from '../../utils/jinrishici';
+import { Gl } from './canvas';
 
 // 样式
-import styles from "./banner.module.css";
+import styles from './banner.module.css';
 
 const GlList: Gl[] = [];
 

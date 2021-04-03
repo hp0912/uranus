@@ -1,11 +1,11 @@
-import { Modal } from "antd";
-import React, { FC, useCallback, useEffect, useState } from "react";
-import { ResetPassword } from "./ResetPassword";
-import { SignIn } from "./SignIn";
-import { AuthMode, SignUp } from "./SignUp";
+import { Modal } from 'antd';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { ResetPassword } from './ResetPassword';
+import { SignIn } from './SignIn';
+import { AuthMode, SignUp } from './SignUp';
 
 // 样式
-import styles from "./auth.module.css";
+import styles from './auth.module.css';
 
 interface IAuthProps {
   mode: AuthMode;

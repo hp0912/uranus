@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { Advertisement01 } from '../components/Advertisement/Advertisement01';
 import { Advertisement02 } from '../components/Advertisement/Advertisement02';
 import { ArticleList, IArticleListProps, IArtListParams, parseQuery } from '../components/ArticleList';
-import { Content } from "../components/Content";
+import { Content } from '../components/Content';
 import { Header } from '../components/Header';
 import { MagicBox } from '../components/MagicBox';
 import { UranusAvatar } from '../components/UranusAvatar';

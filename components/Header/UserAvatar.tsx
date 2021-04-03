@@ -48,15 +48,15 @@ const UserAvatar: FC<IUserAvatarProps> = (props) => {
   }, []);
 
   const onArticleEditClick = useCallback(() => {
-    router.push(`/article/edit/new`);
+    router.push('/article/edit/new');
   }, [router]);
 
   const onUserSettingClick = useCallback(() => {
-    router.push(`/user/settings`);
+    router.push('/user/settings');
   }, [router]);
 
   const onUserHomePagesClick = useCallback(() => {
-    router.push(`/user/homepages`);
+    router.push('/user/homepages');
   }, [router]);
 
   const onNotificationClick = useCallback(() => {
@@ -68,11 +68,11 @@ const UserAvatar: FC<IUserAvatarProps> = (props) => {
   }, []);
 
   const onBackManageClick = useCallback(() => {
-    router.push(`/admin`);
+    router.push('/admin');
   }, [router]);
 
   const onGoBackFrontendClick = useCallback(() => {
-    router.push(`/frontend`);
+    router.push('/frontend');
   }, [router]);
 
   const onSingOutClick = useCallback(async () => {
@@ -112,7 +112,7 @@ const UserAvatar: FC<IUserAvatarProps> = (props) => {
           <NotificationOutlined /> 系统通知
           {
             notifications ?
-              <> [<span style={{ color: "red" }}>{notifications}</span>]</> :
+              <> [<span style={{ color: 'red' }}>{notifications}</span>]</> :
               null
           }
         </span>
@@ -161,14 +161,14 @@ const UserAvatar: FC<IUserAvatarProps> = (props) => {
         disabled={menuDisabled}
         overlay={UserMenu}
       >
-        <span style={{ color: props.avatarColor, cursor: "pointer" }} onClick={e => e.preventDefault()}>
+        <span style={{ color: props.avatarColor, cursor: 'pointer' }} onClick={e => e.preventDefault()}>
           <Badge count={notifications ? <div className={headerStyles.uranus_badge}>{notifications}</div> : 0}>
             <Avatar className={avatarStyles['uranus-avatar-image']} size={props.avatarSize} src={userContext.userState?.avatar} />
           </Badge>
           <span className={headerStyles.uranus_nickname} style={{ paddingLeft: 8, paddingRight: 8 }}>
             {
               userContext.userState && userContext.userState.nickname.length > 11 ?
-                userContext.userState.nickname.substr(0, 8) + "..." :
+                userContext.userState.nickname.substr(0, 8) + '...' :
                 userContext.userState?.nickname
             }
           </span>

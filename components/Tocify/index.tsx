@@ -3,8 +3,8 @@ import { last } from 'lodash';
 import React from 'react';
 
 // 样式
-import componentStyles from "../components.module.css";
-import styles from "./tocify.module.css";
+import componentStyles from '../components.module.css';
+import styles from './tocify.module.css';
 
 const { Link } = Anchor;
 
@@ -20,7 +20,7 @@ export type TocItems = ITocItem[]; // TOC目录树结构
 export default class Tocify {
   tocItems: TocItems = [];
 
-  index: number = 0;
+  index = 0;
 
   constructor() {
     this.tocItems = [];

@@ -1,5 +1,5 @@
 declare const styles: {
-  readonly "uranus-player": string;
+  readonly 'uranus-player': string;
 };
 export = styles;
 
