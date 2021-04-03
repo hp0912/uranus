@@ -17,6 +17,8 @@ declare const styles: {
   readonly "emoji-element": string;
   readonly "uranus-emoji": string;
   readonly "uranus-mention": string;
+  readonly "uranus-admin-breadcrumb-frontend": string;
+  readonly "uranus-admin-breadcrumb": string;
   readonly "uranus_about_us_container": string;
   readonly "token": string;
   readonly "selector": string;

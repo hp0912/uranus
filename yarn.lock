@@ -210,6 +210,11 @@
   resolved "https://registry.npm.taobao.org/@opentelemetry/context-base/download/@opentelemetry/context-base-0.14.0.tgz#c67fc20a4d891447ca1a855d7d70fa79a3533001"
   integrity sha1-xn/CCk2JFEfKGoVdfXD6eaNTMAE=
 
+"@types/ali-oss@^6.0.7":
+  version "6.0.7"
+  resolved "https://registry.npm.taobao.org/@types/ali-oss/download/@types/ali-oss-6.0.7.tgz#e3cc05f5989f1084ccef2ae1709d9b0bd168c3c0"
+  integrity sha1-48wF9ZifEITM7yrhcJ2bC9Fow8A=
+
 "@types/css-modules-loader-core@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/@types/css-modules-loader-core/download/@types/css-modules-loader-core-1.1.0.tgz#67af15aa16603ac2ffc1d3a7f08547ac809c3005"
@@ -302,6 +307,11 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^3.0.2"
+
+"@types/twemoji@^12.1.1":
+  version "12.1.1"
+  resolved "https://registry.npm.taobao.org/@types/twemoji/download/@types/twemoji-12.1.1.tgz#34c5dcecff438b5be173889a6ee8ad51ba90445f"
+  integrity sha1-NMXc7P9Di1vhc4iabuitUbqQRF8=
 
 "@typescript-eslint/eslint-plugin-tslint@^4.15.1":
   version "4.15.1"

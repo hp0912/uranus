@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import OSS from 'ali-oss';
 import { Affix, Breadcrumb, Button, Col, Input, InputNumber, message, Modal, Row, Select, Skeleton, Switch } from 'antd';
 import { UploadFile } from 'antd/lib/upload/interface';
 import MarkdownIt from "markdown-it";
 import React, { FC, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import MdEditor from 'react-markdown-editor-lite';
 import { HtmlType } from 'react-markdown-editor-lite/editor/preview';
 import { reducer, UPDATEARTICLE } from '../../store/articleEdit';
@@ -11,6 +13,7 @@ import { ArticleCategory, IArticleEntity, ITagEntity, ShareWith } from '../../ty
 import { AliyunOSSDir, AliyunOSSHost } from '../../utils/constant';
 import { articleGet, articleSave, stsAuth, tagList } from '../../utils/httpClient';
 import { CoverUpload } from './CoverUpload';
+import { UranusPrompt } from '../UranusPrompt';
 
 // 图标
 import { SaveOutlined } from '@ant-design/icons';
@@ -26,7 +29,6 @@ import mark from 'markdown-it-mark';
 import sub from 'markdown-it-sub';
 import sup from 'markdown-it-sup';
 import twemoji from 'twemoji';
-import { UranusPrompt } from '../UranusPrompt';
 
 // css
 import "highlight.js/styles/an-old-hope.css";
@@ -52,12 +54,12 @@ const articleInit: IArticleEntity = {
 const { TextArea } = Input;
 
 interface IArticleEditProps {
-  baseURL?: string;
   breadcrumbClassName?: string;
 }
 
-export const ArticleEdit: FC<IArticleEditProps> = (props) => {
+const ArticleEdit: FC<IArticleEditProps> = (props) => {
   const userContext = useContext(UserContext);
+  const router = useRouter();
 
   // MarkdownIt
   const md = useMemo<MarkdownIt>(() => {
@@ -92,7 +94,7 @@ export const ArticleEdit: FC<IArticleEditProps> = (props) => {
   const unsavedChanges = useRef(false);
 
   useEffect(() => {
-    if (params.articleId === 'new') {
+    if (router.query.id === 'new') {
       Promise.all([
         Promise.resolve<IArticleEntity>(articleInit),
         tagList(),
@@ -101,7 +103,7 @@ export const ArticleEdit: FC<IArticleEditProps> = (props) => {
         setCoverPicture([]);
         dispatch({ type: UPDATEARTICLE, data: article });
         setInitLoading(false);
-      }).catch(reason => {
+      }).catch((reason: Error) => {
         Modal.error({
           title: '错误',
           content: reason.message,
@@ -109,7 +111,7 @@ export const ArticleEdit: FC<IArticleEditProps> = (props) => {
       });
     } else {
       Promise.all([
-        articleGet(params.articleId),
+        articleGet(router.query.id as string),
         tagList(),
       ]).then(([articleResult, tagsResult]) => {
         setTags(tagsResult.data.data);
@@ -129,14 +131,14 @@ export const ArticleEdit: FC<IArticleEditProps> = (props) => {
           status: 'done',
         }]);
         setInitLoading(false);
-      }).catch(reason => {
+      }).catch((reason: Error) => {
         Modal.error({
           title: '错误',
           content: reason.message,
         });
       });
     }
-  }, [params.articleId]);
+  }, [router.query.id]);
 
   const onTitleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     unsavedChanges.current = true;
@@ -148,17 +150,17 @@ export const ArticleEdit: FC<IArticleEditProps> = (props) => {
     setCoverPicture(fileList);
   }, []);
 
-  const onTagChange = useCallback((value) => {
+  const onTagChange = useCallback((value: string[]) => {
     unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { tags: value } });
   }, []);
 
-  const onShareWithChange = useCallback((value) => {
+  const onShareWithChange = useCallback((value: ShareWith) => {
     unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { shareWith: value } });
   }, []);
 
-  const onCategoryChange = useCallback((value) => {
+  const onCategoryChange = useCallback((value: ArticleCategory) => {
     unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { category: value } });
   }, []);
@@ -177,15 +179,15 @@ export const ArticleEdit: FC<IArticleEditProps> = (props) => {
     dispatch({ type: UPDATEARTICLE, data: checked ? { charge: checked } : { charge: checked, amount: 0 } });
   }, []);
 
-  const onAmountChange = useCallback((value) => {
+  const onAmountChange = useCallback((value: string | number | null | undefined) => {
     unsavedChanges.current = true;
-    dispatch({ type: UPDATEARTICLE, data: { amount: value } });
+    dispatch({ type: UPDATEARTICLE, data: { amount: value as number } });
   }, []);
 
   const onEditorChange = useCallback((data: {
     text: string;
     html: string;
-  }, event?: React.ChangeEvent<HTMLTextAreaElement>) => {
+  }) => {
     unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { content: data.text } });
   }, []);
@@ -237,7 +239,7 @@ export const ArticleEdit: FC<IArticleEditProps> = (props) => {
       }
 
       const result = await articleSave({
-        id: params.articleId === 'new' ? 'new' : state?.id,
+        id: router.query.id === 'new' ? 'new' : state?.id,
         title: state?.title,
         category: state?.category,
         coverPicture: coverPicture[0].url,
@@ -252,31 +254,31 @@ export const ArticleEdit: FC<IArticleEditProps> = (props) => {
       setSaving(false);
 
       if (state?.shareWith === ShareWith.private) {
-        message.success('保存成功');
+        void message.success('保存成功');
       } else {
         if (userContext.userState && userContext.userState?.accessLevel < 7) {
           Modal.success({
             content: '保存成功，等待管理员审核',
           });
         } else if (userContext.userState) {
-          message.success('保存成功');
+          void message.success('保存成功');
         }
       }
 
       unsavedChanges.current = false;
 
-      if (params.articleId === 'new') {
-        const baseURL = props.baseURL ? props.baseURL : '/admin/article_edit/';
-        history.push(`${baseURL}${result.data.data.id}`);
+      if (router.query.id === 'new') {
+        const baseURL = router.basePath;
+        router.push(`${baseURL}${result.data.data.id}`);
       }
     } catch (ex) {
       Modal.error({
         title: '保存失败',
-        content: ex.message,
+        content: ex.message as string,
       });
       setSaving(false);
     }
-  }, [state, coverPicture, params.articleId, history, userContext.userState, props.baseURL]);
+  }, [state, coverPicture, router.query.id, router, userContext.userState]);
 
   return (
     <>
@@ -392,3 +394,5 @@ export const ArticleEdit: FC<IArticleEditProps> = (props) => {
     </>
   );
 };
+
+export default ArticleEdit;

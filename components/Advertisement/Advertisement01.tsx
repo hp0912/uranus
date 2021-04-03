@@ -4,7 +4,8 @@ import React, { FC } from "react";
 // 样式
 import styles from "./advertisement.module.css";
 
-export const Advertisement01: FC = (props) => {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const Advertisement01: FC = () => {
   return (
     <div className={styles.uranus_advertisement_card}>
       <div>

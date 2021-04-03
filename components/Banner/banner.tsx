@@ -9,7 +9,7 @@ import styles from "./banner.module.css";
 
 const GlList: Gl[] = [];
 
-export const Banner: FC = (props) => {
+export const Banner: FC = () => {
   const canvas = useRef<HTMLCanvasElement>(null);
   const [canvasContext2D, setCanvasContext2D] = useState<CanvasRenderingContext2D>();
   const [scale] = useState(0);

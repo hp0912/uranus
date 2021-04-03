@@ -34,7 +34,11 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        "react/prop-types": "off",
+        "@typescript-eslint/require-await": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/adjacent-overload-signatures": "error",
+        "react/display-name": "off",
         "@typescript-eslint/array-type": [
             "error",
             {
@@ -75,7 +79,7 @@ module.exports = {
             }
         ],
         "@typescript-eslint/member-delimiter-style": [
-            "error",
+            "off",
             {
                 "multiline": {
                     "delimiter": "none",
@@ -87,7 +91,7 @@ module.exports = {
                 }
             }
         ],
-        "@typescript-eslint/naming-convention": "error",
+        "@typescript-eslint/naming-convention": "off",
         "@typescript-eslint/no-empty-function": "error",
         "@typescript-eslint/no-empty-interface": "error",
         "@typescript-eslint/no-explicit-any": "off",
@@ -130,7 +134,7 @@ module.exports = {
         "guard-for-in": "error",
         "id-blacklist": "off",
         "id-match": "off",
-        "import/order": "error",
+        "import/order": "off",
         "jsdoc/check-alignment": "error",
         "jsdoc/check-indentation": "error",
         "jsdoc/newline-after-description": "error",
@@ -158,7 +162,7 @@ module.exports = {
             "error",
             "never"
         ],
-        "prefer-arrow/prefer-arrow-functions": "error",
+        "prefer-arrow/prefer-arrow-functions": "off",
         "prefer-const": "error",
         "radix": "off",
         "react/jsx-boolean-value": "off",

@@ -12,13 +12,13 @@ import { UranusMotto } from '../components/UranusMotto';
 import { ArticleCategory } from '../types';
 import { articleList, userStatus } from '../utils/httpClient';
 
-export default function FrontendPage(props: IArticleListProps) {
+export default function FrontendPage(props: IArticleListProps): JSX.Element {
   return (
     <>
       <Head>
         <title>吼吼的博客</title>
-        <meta name="keywords" content="前端，后端，Nodejs，golang，吼吼"></meta>
-        <meta name="description" content="吼吼的个人博客"></meta>
+        <meta name="keywords" content="前端，后端，Nodejs，golang，吼吼" />
+        <meta name="description" content="吼吼的个人博客" />
       </Head>
       <Header />
       <Content
@@ -40,7 +40,7 @@ export default function FrontendPage(props: IArticleListProps) {
       </Content>
     </>
   );
-};
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { req: { headers } } = context;
@@ -74,4 +74,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       pageSize,
     }
   };
-}
+};
