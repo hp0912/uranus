@@ -1,4 +1,5 @@
 import { FrownOutlined } from '@ant-design/icons';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { Result, Skeleton } from 'antd';
 import MarkdownIt from 'markdown-it';
@@ -30,7 +31,6 @@ import twemoji from 'twemoji';
 // 样式
 import 'highlight.js/styles/an-old-hope.css';
 import 'react-markdown-editor-lite/lib/index.css';
-import { GetServerSideProps } from 'next';
 
 interface IArticleProps {
   article: IArticleEntity | null;

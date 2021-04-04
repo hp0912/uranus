@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import OSS from 'ali-oss';
 import { Affix, Breadcrumb, Button, Col, Input, InputNumber, message, Modal, Row, Select, Skeleton, Switch } from 'antd';
 import { UploadFile } from 'antd/lib/upload/interface';
@@ -33,7 +32,7 @@ import twemoji from 'twemoji';
 // css
 import 'highlight.js/styles/an-old-hope.css';
 import 'react-markdown-editor-lite/lib/index.css';
-import styles from './articleEdit.module.css';
+import styles from '../components.module.css';
 
 const css = {
   MdEditor: { height: '800px' },

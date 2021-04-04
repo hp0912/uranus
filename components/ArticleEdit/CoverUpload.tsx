@@ -132,7 +132,7 @@ export const CoverUpload: FC<ICoverUploadProps> = (props) => {
   }, [setCoverState]);
 
   return (
-    <div className={styles.uranus_cover_upload}>
+    <div className={styles.cover_upload}>
       <Upload
         name="file"
         action={AliyunOSSHost}

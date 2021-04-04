@@ -1,5 +1,5 @@
-import { GetServerSideProps } from 'next';
 import React from 'react';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { Advertisement01 } from '../components/Advertisement/Advertisement01';
 import { Advertisement02 } from '../components/Advertisement/Advertisement02';
@@ -15,9 +15,9 @@ export default function FrontendPage(props: IArticleListProps) {
   return (
     <>
       <Head>
-        <title>吼吼的博客</title>
-        <meta name="keywords" content="前端，后端，Nodejs，golang，吼吼" />
-        <meta name="description" content="吼吼的个人博客" />
+        <title>前端优选</title>
+        <meta name="keywords" content="前端，后端，Nodejs，golang，docker，kubernetes，k8s，吼吼" />
+        <meta name="description" content="前端优选" />
       </Head>
       <Content
         left={(

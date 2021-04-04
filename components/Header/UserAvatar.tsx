@@ -10,6 +10,7 @@ import { WriteIcon } from './WriteIcon';
 // 样式
 import headerStyles from './header.module.css';
 import avatarStyles from '../UranusAvatar/avatar.module.css';
+import { AdminMenuKey } from '../Admin';
 
 const bodyStyle = {
   padding: '6px 8px 10px 8px',
@@ -68,7 +69,7 @@ const UserAvatar: FC<IUserAvatarProps> = (props) => {
   }, []);
 
   const onBackManageClick = useCallback(() => {
-    router.push('/admin');
+    router.push(`/admin/${AdminMenuKey.article_management}`);
   }, [router]);
 
   const onGoBackFrontendClick = useCallback(() => {

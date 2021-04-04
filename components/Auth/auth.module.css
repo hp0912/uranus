@@ -1,29 +1,29 @@
 @media screen and (min-width: 321px) {
-  .uranus_auth {
+  .auth {
     width: 318px !important;
   }
 }
 
 @media screen and (max-width: 320px) {
-  .uranus_auth {
+  .auth {
     width: 95% !important;
   }
 }
 
-.uranus_auth_prefix {
+.prefix {
   color: #807c7c;
 }
 
-.uranus_prompt_box {
+.prompt_box {
   display: flex;
   justify-content: space-between;
 }
 
-.uranus_auth_third {
+.third {
   display: flex;
   justify-content: center;
 }
 
-.uranus_auth_third_item {
+.third_item {
   margin: 0 12px;
 }

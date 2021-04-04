@@ -2,8 +2,7 @@ import { LoadingOutlined, PauseCircleOutlined, QuestionCircleOutlined, Transacti
 import { Breadcrumb, Col, Input, message, Popconfirm, Row, Table, Tooltip } from 'antd';
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table/interface';
 import React, { FC, useCallback, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-import { PageLoading } from '../../components/PageLoading';
+import { GetServerSideProps } from 'next';
 import { GoodsType, IOrderEntity, IUserEntity, OrderCode } from '../../types';
 import { formatDate } from '../../utils';
 import { useSetState } from '../../utils/commonHooks';
@@ -278,25 +277,13 @@ const OrderManagement: FC = () => {
   );
 };
 
-const OrderManagementWithNoSSR = dynamic(() => Promise.resolve(OrderManagement), {
-  ssr: false,
-  loading: ({ isLoading }) => {
-    if (isLoading) {
-      return <PageLoading />;
-    }
-    return null;
-  },
-});
+export default OrderManagement;
 
-const AdminOrderManagement = () => <OrderManagementWithNoSSR />;
-
-export default AdminOrderManagement;
-
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       userState: null,
       isAdmin: true,
-    },
-  }
-}
+    }
+  };
+};

@@ -1,22 +1,39 @@
 import { Carousel } from 'antd';
 import React, { FC } from 'react';
 
-// 样式
-import styles from './advertisement.module.css';
+const styles = {
+  card: {
+    width: '100%',
+    background: '#fff',
+    borderRadius: '4px',
+    marginBottom: '8px',
+  },
+  advertisement01: {
+    width: '100%',
+    borderRadius: '4px',
+  },
+  wechatpay: {
+    marginBottom: '-8px',
+    width: '100%',
+  },
+  alipay: {
+    marginBottom: '-8px',
+    width: '100%',
+  }
+};
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const Advertisement01: FC = () => {
   return (
-    <div className={styles.uranus_advertisement_card}>
+    <div style={styles.card}>
       <div>
-        <img src="/images/provide.gif" alt="落魄前端，在线炒粉" className={styles.advertisement01} />
+        <img src="/images/provide.gif" alt="落魄前端，在线炒粉" style={styles.advertisement01} />
       </div>
       <Carousel autoplay>
         <div>
-          <img src="/images/wechatpay.png" alt="微信支付" className={styles.advertisement01_wechatpay} />
+          <img src="/images/wechatpay.png" alt="微信支付" style={styles.wechatpay} />
         </div>
         <div>
-          <img src="/images/alipay.png" alt="支付宝支付" className={styles.advertisement01_alipay} />
+          <img src="/images/alipay.png" alt="支付宝支付" style={styles.alipay} />
         </div>
       </Carousel>
     </div>

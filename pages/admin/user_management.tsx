@@ -3,8 +3,7 @@ import { Breadcrumb, Col, DatePicker, Input, InputNumber, message, Modal, Row, S
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table/interface';
 import moment, { Moment } from 'moment';
 import React, { FC, useCallback, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-import { PageLoading } from '../../components/PageLoading';
+import { GetServerSideProps } from 'next';
 import { INotificationEntity, IUserEntity } from '../../types';
 import { formatDate } from '../../utils';
 import { useSetState } from '../../utils/commonHooks';
@@ -138,7 +137,7 @@ const UserManagement: FC = () => {
               }}
             />
             <BellOutlined
-              className="uranus-margin-left8"
+              className="uranus-margin-left-8"
               onClick={() => {
                 setUserNotiState({ data: { userId: item.id }, visible: true, username: item.nickname });
               }}
@@ -519,25 +518,13 @@ const UserManagement: FC = () => {
   );
 };
 
-const UserManagementWithNoSSR = dynamic(() => Promise.resolve(UserManagement), {
-  ssr: false,
-  loading: ({ isLoading }) => {
-    if (isLoading) {
-      return <PageLoading />;
-    }
-    return null;
-  },
-});
+export default UserManagement;
 
-const AdminUserManagement = () => <UserManagementWithNoSSR />;
-
-export default AdminUserManagement;
-
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       userState: null,
       isAdmin: true,
-    },
-  }
-}
+    }
+  };
+};

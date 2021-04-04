@@ -1,4 +1,4 @@
-.uranus_article_actions {
+.actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,7 +8,7 @@
   font-size: 13px;
 }
 
-.uranus_article_actions .actions_item {
+.actions .actions_item {
   display: inline-block;
   min-width: 50px;
   cursor: pointer;

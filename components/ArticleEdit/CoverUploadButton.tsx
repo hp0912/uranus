@@ -1,7 +1,7 @@
 import { InboxOutlined } from '@ant-design/icons';
 import React, { FC } from 'react';
 
-export const CoverUploadButton: FC = (props) => {
+export const CoverUploadButton: FC = () => {
   return (
     <div>
       <p className="ant-upload-drag-icon">

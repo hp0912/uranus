@@ -19,9 +19,9 @@ export const Advertisement02: FC = () => {
 
   useEffect(() => {
     websiteAdvertisement().then(result => {
-      const a = result.data.data;
-      if (a) {
-        setAdvertisement(result.data.data);
+      const adv = result.data.data;
+      if (adv) {
+        setAdvertisement(adv);
       }
     }).catch(reason => {
       message.error(reason.message);

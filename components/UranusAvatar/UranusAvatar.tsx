@@ -12,7 +12,7 @@ import { WechatCount } from './WechatCount';
 import componentStyles from '../components.module.css';
 import styles from './avatar.module.css';
 
-export const UranusAvatar: FC = (props) => {
+export const UranusAvatar: FC = () => {
   return (
     <Affix offsetTop={55}>
       <div className={componentStyles.uranus_card}>

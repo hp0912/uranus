@@ -1,6 +1,6 @@
+import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
-import React, { FC } from 'react';
 import { Advertisement01 } from '../../../components/Advertisement/Advertisement01';
 import { Advertisement02 } from '../../../components/Advertisement/Advertisement02';
 import { Content } from '../../../components/Content';

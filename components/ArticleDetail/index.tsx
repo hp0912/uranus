@@ -107,7 +107,7 @@ export const ArticleDetail: FC<IArticleDetailProps> = (props) => {
   }, [props.refresh]);
 
   return (
-    <div className={styles.uranus_article_detail}>
+    <div className={styles.detail}>
       <Breadcrumb>
         <Breadcrumb.Item>
           <span style={{ color: '#1890ff', cursor: 'pointer' }} onClick={goBack}>博客</span>
@@ -116,10 +116,10 @@ export const ArticleDetail: FC<IArticleDetailProps> = (props) => {
           {props.article?.title}
         </Breadcrumb.Item>
       </Breadcrumb>
-      <h2 className={styles.uranus_title}>
+      <h2 className={styles.title}>
         {props.article?.title}
       </h2>
-      <div className={styles.uranus_sub_title}>
+      <div className={styles.sub_title}>
         <Space size="small">
           <Avatar size={30} src={props.user?.avatar} />
           <span>{props.user?.nickname} </span>
@@ -155,8 +155,8 @@ export const ArticleDetail: FC<IArticleDetailProps> = (props) => {
             </div>
           ) :
           (
-            <div className={styles.uranus_buying_guide}>
-              <div className={styles.uranus_buying_inner}>
+            <div className={styles.buying_guide}>
+              <div className={styles.buying_inner}>
                 <div className={styles.title}>
                   <b>此文章为付费内容</b>
                 </div>

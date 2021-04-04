@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-import { PageLoading } from '../../components/PageLoading';
+import { GetServerSideProps } from 'next';
 import { DeleteOutlined, LoadingOutlined, PauseCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Breadcrumb, Col, Input, message, Popconfirm, Row, Switch, Table, Tooltip } from 'antd';
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table/interface';
@@ -266,25 +265,13 @@ const CommentManagement: FC = () => {
   );
 };
 
-const CommentManagementWithNoSSR = dynamic(() => Promise.resolve(CommentManagement), {
-  ssr: false,
-  loading: ({ isLoading }) => {
-    if (isLoading) {
-      return <PageLoading />;
-    }
-    return null;
-  },
-});
+export default CommentManagement;
 
-const AdminCommentManagement = () => <CommentManagementWithNoSSR />;
-
-export default AdminCommentManagement;
-
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       userState: null,
       isAdmin: true,
-    },
-  }
-}
+    }
+  };
+};

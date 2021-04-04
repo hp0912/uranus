@@ -213,7 +213,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
           <List.Item
             key={item.title}
           >
-            <div className={styles.uranus_article_title}>
+            <div className={styles.title}>
               <div className={styles.user_avatar}>
                 <Avatar size={50} src={articleListState.userMap[item.createdBy!] ? articleListState.userMap[item.createdBy!].avatar : DEFAULTAVATAR} />
               </div>

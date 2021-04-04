@@ -1,4 +1,4 @@
-import { IWebsiteSettingsEntity } from "../types";
+import { IWebsiteSettingsEntity } from '../types';
 
 export const UPDATEWEBSITESETTINGS = 'UPDATEWEBSITESETTINGS';
 

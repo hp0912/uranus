@@ -1,4 +1,4 @@
-import { IArticleEntity } from "../types";
+import { IArticleEntity } from '../types';
 
 export const UPDATEARTICLE = 'UPDATEARTICLE';
 

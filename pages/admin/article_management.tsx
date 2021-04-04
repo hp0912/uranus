@@ -3,8 +3,7 @@ import { Breadcrumb, Button, Col, Input, message, Popconfirm, Row, Switch, Table
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table/interface';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
-import { PageLoading } from '../../components/PageLoading';
+import { GetServerSideProps } from 'next';
 import { AuditStatus, IArticleEntity, IUserEntity } from '../../types';
 import { formatDate } from '../../utils';
 import { useSetState } from '../../utils/commonHooks';
@@ -241,7 +240,7 @@ const ArticleManagement: FC = () => {
   }, [adminAriState.searchValue, getArticleList]);
 
   const articleAdd = useCallback(() => {
-    router.push('admin/article_edit/new');
+    router.push('/admin/article_edit/new');
   }, [router]);
 
   return (
@@ -288,25 +287,13 @@ const ArticleManagement: FC = () => {
   );
 };
 
-const ArticleManagementWithNoSSR = dynamic(() => Promise.resolve(ArticleManagement), {
-  ssr: false,
-  loading: ({ isLoading }) => {
-    if (isLoading) {
-      return <PageLoading />;
-    }
-    return null;
-  },
-});
+export default ArticleManagement;
 
-const AdminArticleManagement = () => <ArticleManagementWithNoSSR />;
-
-export default AdminArticleManagement;
-
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       userState: null,
       isAdmin: true,
-    },
-  }
-}
+    }
+  };
+};

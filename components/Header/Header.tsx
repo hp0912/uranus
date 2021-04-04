@@ -111,7 +111,7 @@ const Header: FC = () => {
             <Search
               placeholder="请输入关键字..."
               onSearch={onSearch}
-              className="uranus-width100"
+              className="uranus-width-100"
             />
           </div>
         </Col>

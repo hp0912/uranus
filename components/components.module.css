@@ -40,6 +40,15 @@
   color: #333;
 }
 
+.uranus_delete_icon {
+  color: red;
+}
+
+.uranus_article_amount {
+  margin-left: 10px;
+  width: 350px;
+}
+
 @media screen and (min-width: 1200px) {
   .uranus_article_image_container:hover .uranus_article_image {
     -webkit-transform: scale(1.2);

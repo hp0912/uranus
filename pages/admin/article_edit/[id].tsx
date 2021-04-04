@@ -1,4 +1,5 @@
 import React from 'react';
+import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { PageLoading } from '../../../components/PageLoading';
 
@@ -16,11 +17,11 @@ const AdminArticleEdit = () => <ArticleEditWithNoSSR />;
 
 export default AdminArticleEdit;
 
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       userState: null,
       isAdmin: true,
-    },
-  }
-}
+    }
+  };
+};

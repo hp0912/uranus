@@ -108,25 +108,25 @@ export const SignIn: FC<ISignInProps> = (props) => {
   }, []);
 
   return (
-    <Space direction="vertical" size={12} className="uranus-width100">
+    <Space direction="vertical" size={12} className="uranus-width-100">
       <Input
         size="large"
         placeholder="请输入手机号"
-        prefix={<UserOutlined className={styles.uranus_auth_prefix} />}
+        prefix={<UserOutlined className={styles.prefix} />}
         value={signInState.username}
         onChange={onUserNameChange}
       />
       <Input.Password
         size="large"
         placeholder="请输入密码"
-        prefix={<KeyOutlined className={styles.uranus_auth_prefix} />}
+        prefix={<KeyOutlined className={styles.prefix} />}
         value={signInState.password}
         onChange={onPasswordChange}
       />
       <Button type="primary" size="large" loading={loading} block onClick={onSignInClick}>
         登录
       </Button>
-      <div className={styles.uranus_prompt_box}>
+      <div className={styles.prompt_box}>
         <span>
           没有账号?
           <Button
@@ -147,10 +147,10 @@ export const SignIn: FC<ISignInProps> = (props) => {
         注册登录即表示同意<b>用户协议</b>、<b>隐私政策</b>
       </p>
       <Divider style={dividerStyle}>第三方登录</Divider>
-      <div className={styles.uranus_auth_third}>
-        <Avatar className={styles.uranus_auth_third_item} size={33} icon={<QqOutlined />} />
-        <Avatar className={styles.uranus_auth_third_item} size={33} icon={<WechatOutlined />} />
-        <Avatar className={styles.uranus_auth_third_item} size={33} icon={<GithubOutlined onClick={onGitHubOAuth} />} />
+      <div className={styles.third}>
+        <Avatar className={styles.third_item} size={33} icon={<QqOutlined />} />
+        <Avatar className={styles.third_item} size={33} icon={<WechatOutlined />} />
+        <Avatar className={styles.third_item} size={33} icon={<GithubOutlined onClick={onGitHubOAuth} />} />
       </div>
     </Space>
   );

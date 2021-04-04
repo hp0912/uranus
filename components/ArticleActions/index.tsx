@@ -10,6 +10,7 @@ import { UranusComment } from '../UranusComment';
 
 // 样式
 import styles from './articleActions.module.css';
+import commentStyles from '../UranusComment/comment.module.css';
 
 interface IArticleActionsProps {
   article: IArticleEntity;
@@ -101,7 +102,7 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
 
   return (
     <div>
-      <div className={styles.uranus_article_actions} style={props.actionItemsStyle}>
+      <div className={styles.actions} style={props.actionItemsStyle}>
         <span className={styles.actions_item}>
           <EyeOutlined /> {actionData.viewCount > 0 ? actionData.viewCount : null}
         </span>
@@ -129,7 +130,7 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
         commentVisible &&
         (
           <UranusComment
-            className={styles.uranus_article_comment}
+            className={commentStyles.comment_list}
             commentType={CommentType.article}
             targetId={props.article.id!}
             parentId="0"

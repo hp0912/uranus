@@ -1,9 +1,8 @@
 import { DeleteOutlined, LoadingOutlined, PauseCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Breadcrumb, Col, Input, message, Popconfirm, Row, Table, Tooltip } from 'antd';
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table/interface';
+import { GetServerSideProps } from 'next';
 import React, { FC, useCallback, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-import { PageLoading } from '../../components/PageLoading';
 import { IMessageEntity } from '../../types';
 import { formatDate } from '../../utils';
 import { useSetState } from '../../utils/commonHooks';
@@ -212,25 +211,13 @@ const MessageManagement: FC = () => {
   );
 };
 
-const MessageManagementWithNoSSR = dynamic(() => Promise.resolve(MessageManagement), {
-  ssr: false,
-  loading: ({ isLoading }) => {
-    if (isLoading) {
-      return <PageLoading />;
-    }
-    return null;
-  },
-});
+export default MessageManagement;
 
-const AdminMessageManagement = () => <MessageManagementWithNoSSR />;
-
-export default AdminMessageManagement;
-
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       userState: null,
       isAdmin: true,
-    },
-  }
-}
+    }
+  };
+};

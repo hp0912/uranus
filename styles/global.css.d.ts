@@ -12,8 +12,8 @@ declare const styles: {
   readonly "save": string;
   readonly "uranus-row-select": string;
   readonly "uranus-margin-right-8": string;
-  readonly "uranus-margin-left8": string;
-  readonly "uranus-width100": string;
+  readonly "uranus-margin-left-8": string;
+  readonly "uranus-width-100": string;
   readonly "emoji-element": string;
   readonly "uranus-emoji": string;
   readonly "uranus-mention": string;

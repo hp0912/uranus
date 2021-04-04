@@ -1,6 +1,6 @@
 // 今日诗词 V2 NPM-SDK 1.0.0
 // 今日诗词API 是一个可以免费调用的诗词接口：https://www.jinrishici.com
-const keyName = "jinrishici-token";
+const keyName = 'jinrishici-token';
 
 interface ILoadResult {
   status: string;
@@ -26,15 +26,15 @@ function corsLoad(callback: ILoadCallback, errHandler: ILoadErrHandler) {
     window.localStorage.setItem(keyName, result.token);
     callback(result);
   };
-  return sendRequest(newCallBack, errHandler, "https://v2.jinrishici.com/one.json?client=npm-sdk/1.0");
+  return sendRequest(newCallBack, errHandler, 'https://v2.jinrishici.com/one.json?client=npm-sdk/1.0');
 }
 
 function commonLoad(callback: ILoadCallback, errHandler: ILoadErrHandler, token: string) {
-  return sendRequest(callback, errHandler, "https://v2.jinrishici.com/one.json?client=npm-sdk/1.0&X-User-Token=" + encodeURIComponent(token));
+  return sendRequest(callback, errHandler, 'https://v2.jinrishici.com/one.json?client=npm-sdk/1.0&X-User-Token=' + encodeURIComponent(token));
 }
 
 function sendRequest(callback: ILoadCallback, errHandler: ILoadErrHandler, apiUrl: string) {
-  const  xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
 
   xhr.open('get', apiUrl);
   xhr.withCredentials = false;
@@ -44,13 +44,13 @@ function sendRequest(callback: ILoadCallback, errHandler: ILoadErrHandler, apiUr
     if (xhr.readyState === 4) {
       const data = JSON.parse(xhr.responseText);
 
-      if (data.status === "success") {
+      if (data.status === 'success') {
         callback(data);
       } else {
         if (errHandler) {
           errHandler(data);
         } else {
-          console.error("今日诗词API加载失败，错误原因：" + data.errMessage);
+          console.error('今日诗词API加载失败，错误原因：' + data.errMessage);
         }
       }
     }

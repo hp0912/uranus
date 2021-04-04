@@ -9,9 +9,8 @@ import {
 import { Breadcrumb, Button, Col, Input, InputNumber, message, Modal, Popconfirm, Row, Table, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/lib/table/interface';
 import React, { FC, useCallback, useEffect } from 'react';
+import { GetServerSideProps } from 'next';
 import { SketchPicker } from 'react-color';
-import dynamic from 'next/dynamic';
-import { PageLoading } from '../../components/PageLoading';
 import { ITagEntity } from '../../types';
 import { useSetState } from '../../utils/commonHooks';
 import { tagDelete, tagList, tagSave } from '../../utils/httpClient';
@@ -302,25 +301,13 @@ const TagManagement: FC = () => {
   );
 };
 
-const TagManagementWithNoSSR = dynamic(() => Promise.resolve(TagManagement), {
-  ssr: false,
-  loading: ({ isLoading }) => {
-    if (isLoading) {
-      return <PageLoading />;
-    }
-    return null;
-  },
-});
+export default TagManagement;
 
-const AdminTagManagement = () => <TagManagementWithNoSSR />;
-
-export default AdminTagManagement;
-
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       userState: null,
       isAdmin: true,
-    },
-  }
-}
+    }
+  };
+};

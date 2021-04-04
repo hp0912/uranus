@@ -1,5 +1,5 @@
 declare const styles: {
-  readonly 'uranus_article_title': string;
+  readonly 'title': string;
   readonly 'user_avatar': string;
   readonly 'article_title': string;
   readonly 'article_title_name': string;

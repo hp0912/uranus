@@ -44,11 +44,7 @@ const AdminContainer: FC = (props) => {
   }, [router]);
 
   const onMenuClick = useCallback((param: MenuInfo) => {
-    if (param.key === AdminMenuKey.article_management) {
-      router.push('/admin');
-    } else {
-      router.push(`/admin/${param.key}`);
-    }
+    router.push(`/admin/${param.key}`);
   }, [router]);
 
   const selectedKeysMatch = router.pathname.match(/^\/admin\/([^/]+?)(?:\/|\?|$)/);
