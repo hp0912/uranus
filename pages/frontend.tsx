@@ -5,7 +5,6 @@ import { Advertisement01 } from '../components/Advertisement/Advertisement01';
 import { Advertisement02 } from '../components/Advertisement/Advertisement02';
 import { ArticleList, IArticleListProps, IArtListParams, parseQuery } from '../components/ArticleList';
 import { Content } from '../components/Content';
-import { Header } from '../components/Header';
 import { MagicBox } from '../components/MagicBox';
 import { UranusAvatar } from '../components/UranusAvatar';
 import { UranusMotto } from '../components/UranusMotto';
@@ -20,7 +19,6 @@ export default function FrontendPage(props: IArticleListProps) {
         <meta name="keywords" content="前端，后端，Nodejs，golang，吼吼" />
         <meta name="description" content="吼吼的个人博客" />
       </Head>
-      <Header />
       <Content
         left={(
           <>

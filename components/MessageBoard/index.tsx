@@ -2,7 +2,6 @@ import { AudioOutlined } from '@ant-design/icons';
 import { Input, message, Modal } from 'antd';
 import Barrage from 'barrage-ui';
 import React, { FC, useCallback, useEffect, useRef } from 'react';
-import { Header } from '../../components/Header';
 import { IMessageEntity } from '../../types';
 import { useSetState } from '../../utils/commonHooks';
 import { messageCount, messageList, messageSubmit } from '../../utils/httpClient';
@@ -34,7 +33,7 @@ const suffix = (
   />
 );
 
-const MessageBoard: FC = (props) => {
+const MessageBoard: FC = () => {
   const container = useRef<HTMLDivElement>(null);
   const barrageRef = useRef<any>(null);
   const messagesRef = useRef<IBarrageEntity[]>([]);
@@ -150,7 +149,6 @@ const MessageBoard: FC = (props) => {
 
   return (
     <>
-      <Header />
       <div className={styles.uranus_message_container} ref={container} />
       <div className={styles.message_submit}>
         <Search

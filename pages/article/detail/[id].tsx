@@ -6,7 +6,6 @@ import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'reac
 import { Advertisement01 } from '../../../components/Advertisement/Advertisement01';
 import { ArticleDetail } from '../../../components/ArticleDetail';
 import { Content } from '../../../components/Content';
-import { Header } from '../../../components/Header';
 import Tocify from '../../../components/Tocify';
 import { UranusAvatar } from '../../../components/UranusAvatar';
 import { UranusMotto } from '../../../components/UranusMotto';
@@ -107,7 +106,6 @@ export default function ArticleDetailPage(props: IArticleProps) {
 
   return (
     <>
-      <Header />
       <Content
         left={(
           <>

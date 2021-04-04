@@ -1,7 +1,6 @@
 import MarkdownIt from 'markdown-it';
 import Prism from 'prismjs';
 import React, { FC, useEffect, useMemo } from 'react';
-import { Header } from '../../components/Header';
 import { conclusion, css, html, markdown, tomarkdown } from './code';
 import './plugin';
 
@@ -97,15 +96,12 @@ const AboutUs: FC = () => {
   }, []);
 
   return (
-    <>
-      <Header />
-      <div id="uranus_about_us_container">
-        <div id="uranus_about_us_box" ref={boxRef}>
-          <style id="uranusStyle" ref={styleRef} />
-          <pre id="uranus_about_us_code" ref={codeRef} />
-        </div>
+    <div id="uranus_about_us_container">
+      <div id="uranus_about_us_box" ref={boxRef}>
+        <style id="uranusStyle" ref={styleRef} />
+        <pre id="uranus_about_us_code" ref={codeRef} />
       </div>
-    </>
+    </div>
   );
 };
 

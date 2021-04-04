@@ -1,16 +1,14 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Advertisement01 } from '../../components/Advertisement/Advertisement01';
 import { Advertisement02 } from '../../components/Advertisement/Advertisement02';
 import { Content } from '../../components/Content';
-import { Header } from '../../components/Header';
 import { UranusAvatar } from '../../components/UranusAvatar';
 import { UranusMotto } from '../../components/UranusMotto';
 import { CUserSettings } from '../../components/User/Settings';
 
-const UserSettings = (props: FC) => {
+const UserSettings = () => {
   return (
     <>
-      <Header />
       <Content
         left={(
           <>

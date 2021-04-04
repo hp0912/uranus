@@ -20,8 +20,7 @@ export enum MenuKey {
   aboutus = 'aboutus',
 }
 
-const Header: FC = (props) => {
-
+const Header: FC = () => {
   const router = useRouter();
   const userContext = useContext(UserContext);
 
