@@ -38,7 +38,7 @@ export const UranusComment: FC<IUranusCommentProps> = (props) => {
   useEffect(() => {
     commentList({ commentType, targetId, parentId }).then(result => {
       setCommentListState({ initLoading: false, comments: result.data.data });
-    }).catch(reason => {
+    }).catch(() => {
       setCommentListState({ initLoading: false, comments: [] });
     });
   }, [commentType, targetId, parentId]);

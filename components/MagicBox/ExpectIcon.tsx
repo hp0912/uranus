@@ -2,7 +2,7 @@ import Icon from '@ant-design/icons';
 import { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 import React, { ForwardRefRenderFunction } from 'react';
 
-const ExpectSvg = (props) => (
+const ExpectSvg = () => (
   <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11082" width="36" height="36">
     <path d="M265.705472 607.012864l50.870272 0 0 30.281728-50.870272 0 0-30.281728Z" p-id="11083" />
     <path d="M403.789824 603.383808l53.305344 0 0 50.870272-53.305344 0 0-50.870272Z" p-id="11084" />

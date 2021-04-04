@@ -4,7 +4,7 @@ import React, { FC, useCallback, useRef, useState } from 'react';
 import { useSetState } from '../../utils/commonHooks';
 import { VideoIcon } from './VideoIcon';
 
-export const Video2GIF: FC = (props) => {
+export const Video2GIF: FC = () => {
   const [visible, setVisible] = useState(false);
   const [videoState, setVideoState] = useSetState<{ fileName: string, videoSrc: string, progress: string }>({ fileName: '', videoSrc: '', progress: '' });
   const [previewVisible, setPreviewVisible] = useState(false);

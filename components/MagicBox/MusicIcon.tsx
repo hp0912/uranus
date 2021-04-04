@@ -2,7 +2,7 @@ import Icon from '@ant-design/icons';
 import { IconComponentProps } from '@ant-design/icons/lib/components/Icon';
 import React, { ForwardRefRenderFunction } from 'react';
 
-const MusicSvg = (props) => (
+const MusicSvg = () => (
   <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10076" width="36" height="36">
     <path d="M0 0h1024v1024H0z" fill="#FFFFFF" p-id="10077" />
     <path d="M892.5 43.3H152.7c-44.9 0-81.6 36.7-81.6 81.6v739.8c0 44.9 36.7 81.6 81.6 81.6h739.8c44.9 0 81.6-36.7 81.6-81.6V124.9c0-44.9-36.7-81.6-81.6-81.6z" fill="#F0575B" p-id="10078" />

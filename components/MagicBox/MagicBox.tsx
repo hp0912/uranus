@@ -10,11 +10,11 @@ import { Video2GIF } from './Video2GIF';
 import componentStyles from '../components.module.css';
 import styles from './magicBox.module.css';
 
-export const MagicBox: FC = (props) => {
+export const MagicBox: FC = () => {
   return (
     <div className={componentStyles.uranus_card}>
       <Card title="更多功能" size="small" extra={<SketchOutlined />}>
-        <div className={styles.magic_box_content}>
+        <div className={styles.box_content}>
           <a href="/uranus-music" target="_blank" rel="noopener noreferrer">
             <Tooltip title="腾讯音乐、网易云音乐VIP格式解码">
               <MusicIcon />

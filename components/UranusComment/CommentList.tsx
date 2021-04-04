@@ -69,15 +69,15 @@ export const CommentList: FC<ICommentListProps> = (props) => {
         renderItem={(item) => (
           <List.Item>
             <div className={styles.comment_item}>
-              <div className={styles.uranus_avatar_box}>
-                <div className={styles.comment_avatar} style={{ backgroundImage: `url(${item.userAvatar})` }} />
+              <div className={styles.avatar_box}>
+                <div className={styles.avatar} style={{ backgroundImage: `url(${item.userAvatar})` }} />
               </div>
               <div style={{ flex: '1 1 auto', borderBottom: '1px solid #f1f1f1' }}>
                 <div className={styles.meta_box}>
                   <span style={{ paddingRight: 10 }}>{item.userNicname}</span>
                   <Tag color={'#' + (4095 - item.userAccessLevel! * 300).toString(16)}>{'Lv' + item.userAccessLevel}</Tag>
                 </div>
-                <div className={styles.uranus_comment_container} style={{ marginTop: 8 }} dangerouslySetInnerHTML={{ __html: item.content! }} />
+                <div className={styles.container} style={{ marginTop: 8 }} dangerouslySetInnerHTML={{ __html: item.content! }} />
                 <div className={styles.reply_stat}>
                   <Tooltip title={formatDate(item.addtime!)}>
                     <time className={styles.time}>{format(item.addtime!, 'zh_CN')}</time>

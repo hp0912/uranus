@@ -3,7 +3,7 @@ import QRCode from 'qrcode.react';
 import React, { FC, useCallback, useState } from 'react';
 import { QRCodeIcon } from './QRCodeIcon';
 
-export const QRCodeGen: FC = (props) => {
+export const QRCodeGen: FC = () => {
   const [visible, setVisible] = useState(false);
   const [Imgvisible, setImgVisible] = useState(false);
   const [loading, setLoading] = useState(false);

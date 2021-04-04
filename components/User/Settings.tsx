@@ -8,13 +8,13 @@ import { SETUSER, UserContext } from '../../store/user';
 import { ISTSAuthForFormResult, IUserEntity } from '../../types';
 import { AliyunOSSDir, AliyunOSSHost } from '../../utils/constant';
 import { stsAuthForForm, updateUserProfile } from '../../utils/httpClient';
+import { UranusPrompt } from '../UranusPrompt';
 
 // 样式
 import 'antd/lib/slider/style/index.css';
 import styles from './user.module.css';
-import { UranusPrompt } from '../UranusPrompt';
 
-export const CUserSettings: FC = (props) => {
+export const CUserSettings: FC = () => {
   const userContext = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -69,7 +69,7 @@ export const CUserSettings: FC = (props) => {
     }
   }, []);
 
-  const beforeUpload = useCallback(async (file: RcFile, FileList: RcFile[]) => {
+  const beforeUpload = useCallback(async (file: RcFile) => {
     if (!userContext.userState) {
       return Promise.reject('请先登录');
     }
@@ -224,7 +224,7 @@ export const CUserSettings: FC = (props) => {
   }
 
   return (
-    <div className={styles.uranus_user_settings}>
+    <div className={styles.settings}>
       <Breadcrumb>
         <Breadcrumb.Item>
           <span>用户中心</span>
@@ -234,7 +234,7 @@ export const CUserSettings: FC = (props) => {
         </Breadcrumb.Item>
       </Breadcrumb>
       <Row className="uranus-row uranus-row-first" style={{ rowGap: 0 }}>
-        <Col span={4} className={styles.user_settings_label}>
+        <Col span={4} className={styles.settings_label}>
           <b>用户头像</b>
         </Col>
         <Col span={20}>
@@ -265,7 +265,7 @@ export const CUserSettings: FC = (props) => {
         </Col>
       </Row>
       <Row className="uranus-row" style={{ rowGap: 0 }}>
-        <Col span={4} className={styles.user_settings_label}>
+        <Col span={4} className={styles.settings_label}>
           <b>用户昵称</b>
         </Col>
         <Col span={20}>
@@ -277,7 +277,7 @@ export const CUserSettings: FC = (props) => {
         </Col>
       </Row>
       <Row className="uranus-row" style={{ rowGap: 0 }}>
-        <Col span={4} className={styles.user_settings_label}>
+        <Col span={4} className={styles.settings_label}>
           <b>个性签名</b>
         </Col>
         <Col span={20}>
@@ -289,7 +289,7 @@ export const CUserSettings: FC = (props) => {
         </Col>
       </Row>
       <Row className="uranus-row" style={{ rowGap: 0 }}>
-        <Col span={4} className={styles.user_settings_label}>
+        <Col span={4} className={styles.settings_label}>
           <b>个人简介</b>
         </Col>
         <Col span={20}>

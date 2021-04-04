@@ -6,11 +6,11 @@ import { SETUSER, UserContext } from '../../store/user';
 import { notificationCount, signOut } from '../../utils/httpClient';
 import { UserNotification } from './UserNotification';
 import { WriteIcon } from './WriteIcon';
+import { AdminMenuKey } from '../Admin';
 
 // 样式
 import headerStyles from './header.module.css';
 import avatarStyles from '../UranusAvatar/avatar.module.css';
-import { AdminMenuKey } from '../Admin';
 
 const bodyStyle = {
   padding: '6px 8px 10px 8px',
@@ -147,11 +147,11 @@ const UserAvatar: FC<IUserAvatarProps> = (props) => {
   );
 
   return (
-    <div className={props.isBackend ? headerStyles.uranus_user_avatar_backend : headerStyles.uranus_user_avatar_frontend}>
+    <div className={props.isBackend ? headerStyles.user_avatar_backend : headerStyles.user_avatar_frontend}>
       {
         !props.isBackend &&
         (
-          <Tooltip className={headerStyles.uranus_article_edit} title="写博客">
+          <Tooltip className={headerStyles.article_edit} title="写博客">
             <WriteIcon onClick={onArticleEditClick} />
           </Tooltip>
         )
@@ -163,10 +163,10 @@ const UserAvatar: FC<IUserAvatarProps> = (props) => {
         overlay={UserMenu}
       >
         <span style={{ color: props.avatarColor, cursor: 'pointer' }} onClick={e => e.preventDefault()}>
-          <Badge count={notifications ? <div className={headerStyles.uranus_badge}>{notifications}</div> : 0}>
-            <Avatar className={avatarStyles['uranus-avatar-image']} size={props.avatarSize} src={userContext.userState?.avatar} />
+          <Badge count={notifications ? <div className={headerStyles.badge}>{notifications}</div> : 0}>
+            <Avatar className={avatarStyles.image} size={props.avatarSize} src={userContext.userState?.avatar} />
           </Badge>
-          <span className={headerStyles.uranus_nickname} style={{ paddingLeft: 8, paddingRight: 8 }}>
+          <span className={headerStyles.nickname} style={{ paddingLeft: 8, paddingRight: 8 }}>
             {
               userContext.userState && userContext.userState.nickname.length > 11 ?
                 userContext.userState.nickname.substr(0, 8) + '...' :

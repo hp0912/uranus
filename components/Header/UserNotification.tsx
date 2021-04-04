@@ -5,7 +5,7 @@ import { NotificationList } from './NotificationList';
 
 const { TabPane } = Tabs;
 
-export const UserNotification: FC = (props) => {
+export const UserNotification: FC = () => {
   return (
     <div className="user-notification">
       <Tabs type="card">

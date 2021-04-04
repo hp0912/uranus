@@ -149,8 +149,8 @@ const MessageBoard: FC = () => {
 
   return (
     <>
-      <div className={styles.uranus_message_container} ref={container} />
-      <div className={styles.message_submit}>
+      <div className={styles.container} ref={container} />
+      <div className={styles.submit}>
         <Search
           placeholder="请输入留言..."
           enterButton="发送留言"

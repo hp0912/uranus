@@ -1,11 +1,11 @@
 declare const styles: {
-  readonly 'uranus_comment_editor_container': string;
-  readonly 'uranus_comment_container': string;
-  readonly 'uranus_avatar_box': string;
-  readonly 'comment_avatar': string;
-  readonly 'uranus_form_box': string;
+  readonly 'editor_container': string;
+  readonly 'container': string;
+  readonly 'avatar_box': string;
+  readonly 'avatar': string;
+  readonly 'form_box': string;
   readonly 'input_box': string;
-  readonly 'uranus_comment_editor': string;
+  readonly 'editor': string;
   readonly 'mention_box': string;
   readonly 'mention_item': string;
   readonly 'action_box': string;

@@ -216,7 +216,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
     }
   };
 
-  const onSelect = (ev) => {
+  const onSelect = () => {
     const selection = window.getSelection();
     if (selection) {
       const range = selection.getRangeAt(0);
@@ -415,19 +415,19 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
   }, [browserState.browser.safari]);
 
   return (
-    <div className={styles.uranus_comment_editor_container} onClick={setEditorFocus}>
+    <div className={styles.editor_container} onClick={setEditorFocus}>
       {
         avatarVisible &&
         (
-          <div className={styles.uranus_avatar_box}>
-            <div className={styles.comment_avatar} style={{ backgroundImage: `url(${user && user.avatar ? user.avatar : DEFAULTAVATAR})` }} />
+          <div className={styles.avatar_box}>
+            <div className={styles.avatar} style={{ backgroundImage: `url(${user && user.avatar ? user.avatar : DEFAULTAVATAR})` }} />
           </div>
         )
       }
-      <div className={styles.uranus_form_box}>
+      <div className={styles.form_box}>
         <div className={styles.input_box}>
           <div
-            className={styles.uranus_comment_editor}
+            className={styles.editor}
             ref={editorRef}
             contentEditable={true}
             placeholder={user ? '请输入评论...' : '请先登录...'}

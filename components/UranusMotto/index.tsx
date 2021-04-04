@@ -6,7 +6,7 @@ import { websiteMotto } from '../../utils/httpClient';
 import componentStyles from '../components.module.css';
 import styles from './uranusMotto.module.css';
 
-export const UranusMotto: FC = (props) => {
+export const UranusMotto: FC = () => {
   const [motto, setMotto] = useState(() => {
     return `
       <p class="uranus-motto-item">楼道角落里阳光每天盛开</p>

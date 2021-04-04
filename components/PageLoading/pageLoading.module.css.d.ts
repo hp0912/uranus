@@ -1,5 +1,5 @@
 declare const styles: {
-  readonly 'uranus_page_loading': string;
+  readonly 'loading': string;
   readonly 'loader': string;
   readonly 'text': string;
   readonly 'pageloading_text': string;

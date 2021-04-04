@@ -84,7 +84,7 @@ export default class Tocify {
         showInkInFixed
         offsetTop={55}
         targetOffset={55}
-        className={`${componentStyles['uranus-card']} ${styles['uranus-article-nav']}`}
+        className={`${componentStyles.uranus_card} ${styles.article_nav}`}
         onClick={this.onClick}
       >
         {this.renderToc(this.tocItems)}

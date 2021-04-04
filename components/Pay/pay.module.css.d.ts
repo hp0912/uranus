@@ -1,13 +1,13 @@
 declare const styles: {
-  readonly 'uranus_pay': string;
-  readonly 'pay_item_left': string;
-  readonly 'pay_item_right': string;
-  readonly 'pay_method': string;
-  readonly 'pay_method_tips': string;
-  readonly 'pay_tips': string;
+  readonly 'pay': string;
+  readonly 'item_left': string;
+  readonly 'item_right': string;
+  readonly 'method': string;
+  readonly 'method_tips': string;
+  readonly 'tips': string;
   readonly 'wechat_pay_icon': string;
   readonly 'ali_pay_icon': string;
-  readonly 'uranus_pay_hidden': string;
+  readonly 'hidden': string;
 };
 export = styles;
 

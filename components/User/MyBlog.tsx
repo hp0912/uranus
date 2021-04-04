@@ -9,7 +9,8 @@ import { useSetState } from '../../utils/commonHooks';
 import { articleDelete, myArticles } from '../../utils/httpClient';
 
 // 样式
-import styles from '../ArticleEdit/articleEdit.module.css';
+import styles from '../components.module.css';
+
 interface IMyBlogParams {
   searchValue: string;
   pagination: TablePaginationConfig;

@@ -16,12 +16,12 @@ export const UranusAvatar: FC = () => {
   return (
     <Affix offsetTop={55}>
       <div className={componentStyles.uranus_card}>
-        <div className={styles.uranus_avatar_bg} />
-        <div className={styles.uranus_avatar}>
-          <Avatar className={styles.uranus_avatar_image} size={90} src="/images/avatar.jpg" />
-          <p className={styles.uranus_avatar_username}>最后的轻语</p>
+        <div className={styles.bg} />
+        <div className={styles.avatar}>
+          <Avatar className={styles.image} size={90} src="/images/avatar.jpg" />
+          <p className={styles.username}>最后的轻语</p>
         </div>
-        <div className={styles.uranus_social_signal}>
+        <div className={styles.social_signal}>
           <div className={styles.social_signal_sub}>
             <span className={styles.social_signal_01}>
               每日三省吾身，早中晚该吃啥

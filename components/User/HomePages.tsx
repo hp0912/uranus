@@ -11,7 +11,7 @@ import styles from './user.module.css';
 
 const { TabPane } = Tabs;
 
-export const CUserHomePages: FC = (props) => {
+export const CUserHomePages: FC = () => {
   const userContext = useContext(UserContext);
 
   if (!userContext.userState) {
@@ -26,7 +26,7 @@ export const CUserHomePages: FC = (props) => {
   }
 
   return (
-    <div className={styles.uranus_user_homepages}>
+    <div className={styles.homepages}>
       <Breadcrumb>
         <Breadcrumb.Item>
           <span>用户中心</span>

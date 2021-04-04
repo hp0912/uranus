@@ -1,4 +1,4 @@
-.uranus_header {
+.header {
   position: fixed;
   top: 0;
   z-index: 999;
@@ -8,52 +8,52 @@
   box-shadow: 0 1px 3px rgba(26,26,26,.1);
 }
 
-.uranus_header :global(.ant-menu-horizontal) {
+.header :global(.ant-menu-horizontal) {
   border-bottom: none;
 }
 
-.uranus_header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a {
+.header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a {
   color: #fff;
 }
 
-.uranus_header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a:hover {
+.header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a:hover {
   color: #1890ff;
 }
 
-.uranus_header :global(.ant-menu-horizontal) > :global(.ant-menu-item-selected) a {
+.header :global(.ant-menu-horizontal) > :global(.ant-menu-item-selected) a {
   color: #1890ff;
 }
 
-.uranus_header :global(.ant-menu) {
+.header :global(.ant-menu) {
   background: 0 0;
   color: #fff;
 }
 
-.uranus_header_search {
+.search {
   height: 30px;
   margin: 8px 0 8px 8px;
 }
 
-.uranus_header_search :global(.ant-input-group-addon) {
+.search :global(.ant-input-group-addon) {
   background: 0 0;
 }
 
-.uranus_header_search :global(.ant-input-search-button) {
+.search :global(.ant-input-search-button) {
   background: 0 0;
 }
 
-.uranus_header_search :global(.ant-input) {
+.search :global(.ant-input) {
   background: 0 0;
 }
 
-.uranus_header_logo {
+.logo {
   height: 46px;
   text-align: center;
   padding: 0 2px 0 8px;
   float: left;
 }
 
-.uranus_header_image {
+.image {
   width: 80px;
   height: 46px;
   background-image: url(/images/logo-houhou.png);
@@ -62,17 +62,17 @@
   background-attachment: scroll;
   background-size: cover;
 }
-.uranus_user_avatar_frontend {
+.user_avatar_frontend {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.uranus_user_avatar_backend {
+.user_avatar_backend {
   display: inline-block;
 }
 
-.uranus_menu_container::after {
+.menu_container::after {
   content: "";
   height: 0;
   line-height: 0;
@@ -81,28 +81,28 @@
   clear: both;
 }
 
-.uranus_menu_container_left {
+.menu_container_left {
   width: 90px;
   float: left;
 }
 
-.uranus_menu_container_right {
+.menu_container_right {
   overflow: hidden;
 }
 
-.uranus_header_login_container {
+.login_container {
   text-align: center;
   margin: 8px;
   line-height: 30px;
 }
 
-.uranus_header_login, .uranus_header_register {
+.login, .register {
   font-size: 14px;
   color: #fff;
   cursor: pointer;
 }
 
-.uranus_badge {
+.badge {
   font-size: 12px;
   background-color: #f5222d;
   color: #fff;
@@ -110,26 +110,26 @@
   padding: 2px 3px;
 }
 
-.uranus_notification_top {
+.notification_top {
   margin-top: -12px;
   border-bottom: 1px solid #f0f0f0;
 }
 
-.uranus_notification_top_01 {
+.notification_top_01 {
   text-align: right;
 }
 
 @media screen and (max-width: 768px) {
-  .uranus_menu_item_hide {
+  .menu_item_hide {
     display: none;
   }
 }
 
 @media screen and (max-width: 576px) {
-  .uranus_nickname {
+  .nickname {
     display: none;
   }
-  .uranus_article_edit {
+  .article_edit {
     display: none;
   }
 }

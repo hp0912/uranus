@@ -1,11 +1,11 @@
-.uranus_message_container {
+.container {
   height: calc(100vh - 40px);
   background-color: transparent;
   padding-top: 50px;
   margin-bottom: 40px;
 }
 
-.message_submit {
+.submit {
   position: absolute;
   width: 90%;
   max-width: 450px;

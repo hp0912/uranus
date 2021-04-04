@@ -1,14 +1,14 @@
-.uranus_user_settings, .uranus_user_homepages {
+.settings, .homepages {
   padding: 8px 12px;
   min-height: 100vh;
 }
 
-.user_settings_label {
+.settings_label {
   text-align: right;
   padding-right: 15px;
 }
 
-.uranus_custom_tab_bar {
+.custom_tab_bar {
   z-index: 1;
   background: #fff;
 }

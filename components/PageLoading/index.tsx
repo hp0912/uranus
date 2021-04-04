@@ -5,7 +5,7 @@ import styles from './pageLoading.module.css';
 
 export const PageLoading = () => {
   return (
-    <div className={styles.uranus_page_loading}>
+    <div className={styles.loading}>
       <div className={styles.loader}>
         <div className={styles.text}>Loading...</div>
         <div className={styles.horizontal}>

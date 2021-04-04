@@ -1,4 +1,4 @@
-.uranus_comment_editor_container {
+.editor_container {
   font: 12px arial;
   display: flex;
   position: relative;
@@ -7,18 +7,18 @@
   background-color: #ebf0f5;
 }
 
-.uranus_comment_container {
+.container {
   font: 12px arial;
   line-height: 1.7;
   word-break: break-word;
   color: #333;
 }
 
-.uranus_avatar_box {
+.avatar_box {
   flex: 0 0 auto;
 }
 
-.uranus_avatar_box .comment_avatar {
+.avatar_box .avatar {
   display: inline-block;
   position: relative;
   background-position: 50%;
@@ -31,20 +31,20 @@
   border-radius: 50%;
 }
 
-.uranus_form_box {
+.form_box {
   flex: 1 1 auto;
   position: relative;
   word-break: break-word;
 }
 
-.uranus_form_box .input_box {
+.form_box .input_box {
   font-size: 0;
   background-color: #fff;
   border: 1px solid #007fff;
   border-radius: 3px;
 }
 
-.uranus_comment_editor {
+.editor {
   position: relative;
   padding: 6px 10px;
   font-size: 12px;
@@ -54,7 +54,7 @@
   min-height: 32px;
 }
 
-.uranus_comment_editor:empty::before {
+.editor:empty::before {
   content: attr(placeholder);
   position: absolute;
   opacity: .4;
@@ -89,7 +89,7 @@
   color: #eb7350;
 }
 
-.uranus_form_box .action_box {
+.form_box .action_box {
   display: flex;
   align-items: center;
   margin-top: 6px;

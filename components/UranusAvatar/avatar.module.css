@@ -1,4 +1,4 @@
-.uranus_avatar_bg {
+.bg {
   background-image: url(https://img.houhoukang.com/uranus/system/avatar-bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
@@ -7,7 +7,7 @@
   height: 64px;
 }
 
-.uranus_avatar {
+.avatar {
   position: absolute;
   top: 19px;
   left: 50%;
@@ -15,11 +15,11 @@
   text-align: center;
 }
 
-.uranus_avatar > .uranus_avatar_image {
+.avatar > .image {
   transition: all .3s;
 }
 
-.uranus_avatar > .uranus_avatar_image:hover {
+.avatar > .image:hover {
   transition: all .3s;
   transform: scale(1.1) rotate(180deg);
   -webkit-transform: scale(1.1) rotate(180deg);
@@ -35,7 +35,7 @@
   height: 100px;
 }
 
-.uranus_social_signal {
+.social_signal {
   padding: 95px 5px 16px 5px;
 }
 
@@ -43,7 +43,7 @@
   text-align: center;
 }
 
-.uranus_avatar_username {
+.username {
   margin: 15px 0;
   color: #096dd9;
   font-weight: 900;
