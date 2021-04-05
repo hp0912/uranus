@@ -250,21 +250,20 @@ const ArticleEdit: FC<IArticleEditProps> = (props) => {
         shareWith: state?.shareWith,
       });
 
+      unsavedChanges.current = false;
       setSaving(false);
 
       if (state?.shareWith === ShareWith.private) {
-        void message.success('保存成功');
+        message.success('保存成功');
       } else {
         if (userContext.userState && userContext.userState?.accessLevel < 7) {
           Modal.success({
             content: '保存成功，等待管理员审核',
           });
         } else if (userContext.userState) {
-          void message.success('保存成功');
+          message.success('保存成功');
         }
       }
-
-      unsavedChanges.current = false;
 
       if (router.query.id === 'new') {
         const baseURL = router.basePath;
