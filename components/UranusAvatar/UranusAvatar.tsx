@@ -18,7 +18,7 @@ export const UranusAvatar: FC = () => {
       <div className={componentStyles.uranus_card}>
         <div className={styles.bg} />
         <div className={styles.avatar}>
-          <Avatar className={styles.image} size={90} src="/images/avatar.jpg" />
+          <Avatar className={styles.image} size={90} src="https://img.houhoukang.com/uranus/system/avatar.jpeg" />
           <p className={styles.username}>最后的轻语</p>
         </div>
         <div className={styles.social_signal}>

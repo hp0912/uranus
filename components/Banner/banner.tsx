@@ -96,7 +96,7 @@ export const Banner: FC = () => {
         <p>{poem}</p>
         <Link href="/frontend">
           <a className={styles.blog_banner_btn}>
-            <Avatar size={140} src="/images/avatar.jpg" />
+            <Avatar size={140} src="https://img.houhoukang.com/uranus/system/avatar.jpeg" />
           </a>
         </Link>
       </div>

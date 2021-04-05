@@ -279,7 +279,7 @@ export const Pay: FC<IPayProps> = (props) => {
                 </Select>
               </Col>
             </Row>
-            <Row style={{ rowGap: 0 }} className={`uranus-row ${payMethod === PayMethod.cashier && !browserState.browser.wechat ? 'uranus-pay-hidden' : ''}`}>{/** 微信收银台只能在微信内使用 */}
+            <Row style={{ rowGap: 0 }} className={`uranus-row ${payMethod === PayMethod.cashier && !browserState.browser.wechat ? styles.hidden : ''}`}>{/** 微信收银台只能在微信内使用 */}
               <Col span={24}>
                 <Button
                   type="primary"
@@ -294,7 +294,7 @@ export const Pay: FC<IPayProps> = (props) => {
                 </Button>
               </Col>
             </Row>
-            <Row style={{ rowGap: 0 }} className={`uranus-row ${payMethod === PayMethod.wap || (payMethod === PayMethod.cashier && browserState.browser.wechat) ? 'uranus-pay-hidden' : ''}`}>{/** 支付宝的H5支付使用收银台接口, 微信内无法使用支付宝收银台 */}
+            <Row style={{ rowGap: 0 }} className={`uranus-row ${payMethod === PayMethod.wap || (payMethod === PayMethod.cashier && browserState.browser.wechat) ? styles.hidden : ''}`}>{/** 支付宝的H5支付使用收银台接口, 微信内无法使用支付宝收银台 */}
               <Col span={24}>
                 <Button
                   type="primary"

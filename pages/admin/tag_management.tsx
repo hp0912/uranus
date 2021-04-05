@@ -16,7 +16,7 @@ import { useSetState } from '../../utils/commonHooks';
 import { tagDelete, tagList, tagSave } from '../../utils/httpClient';
 
 // 样式
-import articleEditStyles from '../../components/ArticleEdit/articleEdit.module.css';
+import componentStyles from '../../components/components.module.css';
 
 interface IAdminArtListState {
   data: ITagEntity[];
@@ -102,7 +102,7 @@ const TagManagement: FC = () => {
                       title="确定要删除该标签吗？"
                       okText="确认"
                       cancelText="取消"
-                      icon={<QuestionCircleOutlined className={articleEditStyles.uranus_delete_icon} />}
+                      icon={<QuestionCircleOutlined className={componentStyles.uranus_delete_icon} />}
                       onConfirm={() => { onTagDelClick(record.id); }}
                     >
                       <Tooltip title="删除">

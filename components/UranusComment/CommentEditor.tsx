@@ -452,7 +452,7 @@ export const CommentEditor: FC<ICommentEditorProps> = (props) => {
               mentionUsers.users.length > 0 && mentionUsers.users.map(muser => {
                 return (
                   <p
-                    className={styles.mention_item}
+                    className="mention-item"
                     key={muser.id}
                     data-id={muser.id}
                     data-name={muser.nickname}

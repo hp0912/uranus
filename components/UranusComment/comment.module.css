@@ -74,21 +74,6 @@
   box-shadow: 0 1px 3px rgba(26,26,26,.1);
 }
 
-.mention_item {
-  padding: 6px 8px;
-  margin: 0;
-  color: #333;
-  cursor: pointer;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.mention_item:hover {
-  background-color: #f2f2f5;
-  color: #eb7350;
-}
-
 .form_box .action_box {
   display: flex;
   align-items: center;
@@ -162,7 +147,7 @@
   background-color: #ddddde;
 }
 
-.comment_list :global(.ant-list) :global(.ant-list-item) {
+.comment .comment_list :global(.ant-list) :global(.ant-list-item) {
   padding: 12px 0 !important;
   border-bottom: none !important;
 }

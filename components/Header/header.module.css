@@ -46,6 +46,10 @@
   background: 0 0;
 }
 
+.search :global(.ant-btn):hover, .search :global(.ant-btn):focus, .search :global(.ant-btn):active {
+  background: transparent;
+}
+
 .logo {
   height: 46px;
   text-align: center;
@@ -126,10 +130,10 @@
 }
 
 @media screen and (max-width: 576px) {
-  .nickname {
+  .user_avatar_frontend .nickname {
     display: none;
   }
-  .article_edit {
+  .user_avatar_frontend .article_edit {
     display: none;
   }
 }

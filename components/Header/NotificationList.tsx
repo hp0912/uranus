@@ -7,6 +7,7 @@ import { markAsRead, markAsReadForAll } from '../../utils/httpClient';
 
 // 样式
 import commentStyles from '../UranusComment/comment.module.css';
+import headerStyles from '../Header/header.module.css';
 
 const count = 3;
 
@@ -107,9 +108,9 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
       {
         props.type === 'hasnotread' ?
           (
-            <Row className="uranus-notification-top" style={{ rowGap: 0 }}>
+            <Row className={headerStyles.notification_top} style={{ rowGap: 0 }}>
               <Col span={16} />
-              <Col span={8} className="uranus-notification-top-01">
+              <Col span={8} className={headerStyles.notification_top_01}>
                 <Button
                   type="link"
                   onClick={onAllMarkAsReadClick}
@@ -134,7 +135,7 @@ export const NotificationList: FC<INotificationListProps> = (props) => {
                 <Popover
                   key={item.id}
                   placement="top"
-                  content={<div className={commentStyles.uranus_comment_container} dangerouslySetInnerHTML={{ __html: item.content as string }} />}
+                  content={<div className={commentStyles.container} dangerouslySetInnerHTML={{ __html: item.content as string }} />}
                   title={item.title}
                   trigger="click"
                 >

@@ -7,7 +7,6 @@ declare const styles: {
   readonly 'input_box': string;
   readonly 'editor': string;
   readonly 'mention_box': string;
-  readonly 'mention_item': string;
   readonly 'action_box': string;
   readonly 'emoji': string;
   readonly 'emoji_box': string;
@@ -20,6 +19,7 @@ declare const styles: {
   readonly 'emojis': string;
   readonly 'item': string;
   readonly 'submit': string;
+  readonly 'comment': string;
   readonly 'comment_list': string;
   readonly 'sub_comment_list': string;
   readonly 'comment_item': string;

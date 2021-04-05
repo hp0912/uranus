@@ -10,7 +10,7 @@ import { commentAudit, commentDeleteForAdmin, commentListForAdmin } from '../../
 
 // 样式
 import CommentStyles from '../../components/UranusComment/comment.module.css';
-import articleEditStyles from '../../components/ArticleEdit/articleEdit.module.css';
+import componentStyles from '../../components/components.module.css';
 
 interface IAdminCommentsParams {
   searchValue: string;
@@ -54,7 +54,7 @@ const CommentManagement: FC = () => {
       align: 'left',
       ellipsis: true,
       render: (text: string) => {
-        return <div className={CommentStyles.uranus_comment_container} dangerouslySetInnerHTML={{ __html: text }} />;
+        return <div className={CommentStyles.container} dangerouslySetInnerHTML={{ __html: text }} />;
       },
     },
     {
@@ -124,7 +124,7 @@ const CommentManagement: FC = () => {
                       title="确定要删除该评论吗？"
                       okText="确认"
                       cancelText="取消"
-                      icon={<QuestionCircleOutlined className={articleEditStyles.uranus_delete_icon} />}
+                      icon={<QuestionCircleOutlined className={componentStyles.uranus_delete_icon} />}
                       onConfirm={() => { onCommentDelete(item.id!); }}
                     >
                       <Tooltip title="删除">

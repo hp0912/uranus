@@ -9,7 +9,7 @@ import { useSetState } from '../../utils/commonHooks';
 import { messageDeleteForAdmin, messageListForAdmin } from '../../utils/httpClient';
 
 // 样式
-import articleEditStyles from '../../components/ArticleEdit/articleEdit.module.css';
+import componentStyles from '../../components/components.module.css';
 
 interface IAdminMessagesParams {
   searchValue: string;
@@ -93,7 +93,7 @@ const MessageManagement: FC = () => {
                       title="确定要删除该评论吗？"
                       okText="确认"
                       cancelText="取消"
-                      icon={<QuestionCircleOutlined className={articleEditStyles.uranus_delete_icon} />}
+                      icon={<QuestionCircleOutlined className={componentStyles.uranus_delete_icon} />}
                       onConfirm={() => { onMessageDelete(item.id!); }}
                     >
                       <Tooltip title="删除">

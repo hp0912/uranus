@@ -129,7 +129,6 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
       pagination: {
         current,
         pageSize,
-        pageSizeOptions: ['15', '50', '100'],
         showQuickJumper: false,
         hideOnSinglePage: true,
         total,
@@ -180,11 +179,6 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
     // eslint-disable-next-line
   }, [userContext.userState, props.category, router.query.current, router.query.pageSize, router.query.searchValue]);
 
-  const onShowSizeChange = (current: number, size: number) => {
-    const { searchValue } = parseQuery(router.query);
-    router.push(`${router.pathname}?current=${current}&pageSize=${size}${searchValue ? `&keyword=${searchValue}` : ''}`);
-  };
-
   return (
     <div style={{ paddingBottom: 15 }}>
       <List
@@ -193,8 +187,6 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
         loading={articleListState.loading}
         pagination={{
           ...articleListState.pagination,
-          showSizeChanger: true,
-          onShowSizeChange,
           itemRender: (
             page: number,
             type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next',

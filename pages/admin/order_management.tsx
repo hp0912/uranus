@@ -9,7 +9,7 @@ import { useSetState } from '../../utils/commonHooks';
 import { getOrdersForAdmin, orderRefundForAdmin } from '../../utils/httpClient';
 
 // 样式
-import articleEditStyles from '../../components/ArticleEdit/articleEdit.module.css';
+import componentStyles from '../../components/components.module.css';
 
 interface IAdminOrdersParams {
   searchValue: string;
@@ -149,7 +149,7 @@ const OrderManagement: FC = () => {
                       title="确定要对该订单发起退款吗？"
                       okText="确认"
                       cancelText="取消"
-                      icon={<QuestionCircleOutlined className={articleEditStyles.uranus_delete_icon} />}
+                      icon={<QuestionCircleOutlined className={componentStyles.uranus_delete_icon} />}
                       onConfirm={() => { onOrderRefund(item.id!); }}
                     >
                       <Tooltip title="退款">

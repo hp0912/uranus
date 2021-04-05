@@ -130,7 +130,7 @@ export const ArticleActions: FC<IArticleActionsProps> = (props) => {
         commentVisible &&
         (
           <UranusComment
-            className={commentStyles.comment_list}
+            className={commentStyles.comment}
             commentType={CommentType.article}
             targetId={props.article.id!}
             parentId="0"
