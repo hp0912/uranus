@@ -1,7 +1,8 @@
 import MarkdownIt from 'markdown-it';
 import Prism from 'prismjs';
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useContext, useEffect, useMemo } from 'react';
 import { conclusion, css, html, markdown, tomarkdown } from './code';
+import { UserContext } from '../../store/user';
 import './plugin';
 
 // 样式
@@ -10,6 +11,8 @@ import 'prismjs/themes/prism.css';
 const speed = 50;
 
 const AboutUs: FC = () => {
+  const userContext = useContext(UserContext);
+
   const boxRef = React.createRef<HTMLDivElement>();
   const styleRef = React.createRef<HTMLStyleElement>();
   const codeRef = React.createRef<HTMLPreElement>();
@@ -93,7 +96,7 @@ const AboutUs: FC = () => {
       clearInterval(markdownTimer);
     };
     // eslint-disable-next-line
-  }, []);
+  }, [userContext.userState]);
 
   return (
     <div id="uranus_about_us_container">
