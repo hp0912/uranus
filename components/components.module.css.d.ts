@@ -6,6 +6,8 @@ declare const styles: {
   readonly 'uranus_article_desc': string;
   readonly 'uranus_delete_icon': string;
   readonly 'uranus_article_amount': string;
+  readonly 'uranus_oauth': string;
+  readonly 'rotate': string;
 };
 export = styles;
 

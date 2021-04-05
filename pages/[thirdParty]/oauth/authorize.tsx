@@ -1,5 +1,6 @@
 import { Avatar, Modal } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
+import { GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 import { browserDetect } from '../../../utils';
 import { githubOAuth } from '../../../utils/httpClient';
@@ -8,7 +9,7 @@ import { githubOAuth } from '../../../utils/httpClient';
 import { GithubOutlined, StopOutlined } from '@ant-design/icons';
 
 // 样式
-import styles from './oauth.module.css';
+import styles from '../../../components/components.module.css';
 
 export enum ThirdParty {
   github = 'github',
@@ -82,4 +83,8 @@ export async function getStaticProps() {
       userState: null,
     }
   };
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return { paths: [{ params: { thirdParty: ThirdParty.github } }], fallback: false };
 }

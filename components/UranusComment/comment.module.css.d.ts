@@ -19,9 +19,9 @@ declare const styles: {
   readonly 'emojis': string;
   readonly 'item': string;
   readonly 'submit': string;
-  readonly 'comment': string;
   readonly 'comment_list': string;
   readonly 'sub_comment_list': string;
+  readonly 'comment': string;
   readonly 'comment_item': string;
   readonly 'meta_box': string;
   readonly 'reply_stat': string;

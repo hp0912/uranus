@@ -4,7 +4,6 @@ declare const styles: {
   readonly 'sub_title': string;
   readonly 'buying_guide': string;
   readonly 'buying_inner': string;
-  readonly 'title': string;
   readonly 'desc': string;
 };
 export = styles;
