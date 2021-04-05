@@ -2,7 +2,7 @@ import { CopyOutlined, LoadingOutlined, ShareAltOutlined, SyncOutlined } from '@
 import { Avatar, Breadcrumb, Button, Col, message, Modal, Row, Space, Tooltip } from 'antd';
 import { useRouter } from 'next/router';
 import copy from 'copy-to-clipboard';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { format } from 'timeago.js';
 import { GoodsType, IArticleEntity, IOrderEntity, ITokenEntity, IUserEntity, ShareWith, TokenType } from '../../types';
 import { formatDate } from '../../utils';
@@ -30,10 +30,6 @@ export const ArticleDetail: FC<IArticleDetailProps> = (props) => {
   const [orderLoading, setOrderLoading] = useState(false);
   const [payState, setPayState] = useState<{ visible: boolean, order: IOrderEntity | null }>({ visible: false, order: null });
   const [shareState, setShareState] = useState<{ loading: boolean, visible: boolean, data: ITokenEntity | null }>({ loading: false, visible: false, data: null });
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const goBack = useCallback(() => {
     router.back();

@@ -177,7 +177,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
 
     artListRef.current(params);
     // eslint-disable-next-line
-  }, [userContext.userState, props.category, router.query.current, router.query.pageSize, router.query.searchValue]);
+  }, [userContext.userState, props.category, router.query.current, router.query.pageSize, router.query.keyword]);
 
   return (
     <div style={{ paddingBottom: 15 }}>
