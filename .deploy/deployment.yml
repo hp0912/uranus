@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: uranus-frontend
-        image: registry.cn-shenzhen.aliyuncs.com/houhou/uranus-frontend:{TAG}
+        image: registry.cn-hongkong.aliyuncs.com/houhou/uranus-frontend-hk:{TAG}
         imagePullPolicy: IfNotPresent
         env:
           - name: CONFIG_ENV

@@ -16,9 +16,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: |
-        docker login --username=${{ secrets.DOCKER_USNER }} registry.cn-shenzhen.aliyuncs.com --password=${{ secrets.DOCKER_PASSWORD }}
-        docker build . --file Dockerfile --tag registry.cn-shenzhen.aliyuncs.com/houhou/uranus-frontend:${{ github.sha }}
-        docker push registry.cn-shenzhen.aliyuncs.com/houhou/uranus-frontend:${{ github.sha }}
+        docker login --username=${{ secrets.DOCKER_USNER }} registry.cn-hongkong.aliyuncs.com --password=${{ secrets.DOCKER_PASSWORD }}
+        docker build . --file Dockerfile --tag registry.cn-hongkong.aliyuncs.com/houhou/uranus-frontend-hk:${{ github.sha }}
+        docker push registry.cn-hongkong.aliyuncs.com/houhou/uranus-frontend-hk:${{ github.sha }}
     # k8s部署
     - run: |
         sed -i 's/{TAG}/${{ github.sha }}/g' .deploy/deployment.yml
