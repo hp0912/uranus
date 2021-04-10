@@ -21,6 +21,7 @@ export interface IArticleEntity {
   desc?: string;
   content?: string;
   tags?: string[];
+  keyword?: string[];
   charge?: boolean;
   amount?: number;
   shareWith?: ShareWith;

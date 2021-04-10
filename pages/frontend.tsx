@@ -17,7 +17,7 @@ export default function FrontendPage(props: IArticleListProps) {
       <Head>
         <title>前端优选</title>
         <meta name="keywords" content="前端，后端，Nodejs，golang，docker，kubernetes，k8s，吼吼" />
-        <meta name="description" content="前端优选" />
+        <meta name="description" property="og:description" content="前端优选，专注前端技术分享" />
       </Head>
       <Content
         left={(

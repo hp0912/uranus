@@ -1,5 +1,6 @@
 import { FrownOutlined } from '@ant-design/icons';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Result, Skeleton } from 'antd';
 import MarkdownIt from 'markdown-it';
@@ -106,6 +107,16 @@ export default function ArticleDetailPage(props: IArticleProps) {
 
   return (
     <>
+      {
+        articleState.article && !articleState.error &&
+        (
+          <Head>
+            <title>{articleState.article.title}</title>
+            <meta name="keywords" content={articleState.article.keyword?.join(',')} />
+            <meta name="description" property="og:description" content={articleState.article.desc} />
+          </Head>
+        )
+      }
       <Content
         left={(
           <>

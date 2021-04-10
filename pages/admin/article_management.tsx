@@ -88,7 +88,7 @@ const ArticleManagement: FC = () => {
       align: 'center',
       ellipsis: true,
       render: (createdBy: string) => {
-        return <span>{userMap[createdBy].nickname}</span>;
+        return <span>{userMap[createdBy]?.nickname}</span>;
       },
     },
     {

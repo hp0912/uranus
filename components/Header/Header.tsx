@@ -72,7 +72,7 @@ const Header: FC = () => {
               <Menu
                 theme="light"
                 mode="horizontal"
-                defaultSelectedKeys={selectedKeys}
+                selectedKeys={selectedKeys}
               >
                 <Menu.Item key={MenuKey.frontend} icon={<HomeOutlined />}>
                   <Link href="/frontend">

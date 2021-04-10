@@ -154,6 +154,11 @@ const ArticleEdit: FC<IArticleEditProps> = (props) => {
     dispatch({ type: UPDATEARTICLE, data: { tags: value } });
   }, []);
 
+  const handlekeywordChange = useCallback((value: string[]) => {
+    unsavedChanges.current = true;
+    dispatch({ type: UPDATEARTICLE, data: { keyword: value } });
+  }, []);
+
   const onShareWithChange = useCallback((value: ShareWith) => {
     unsavedChanges.current = true;
     dispatch({ type: UPDATEARTICLE, data: { shareWith: value } });
@@ -245,6 +250,7 @@ const ArticleEdit: FC<IArticleEditProps> = (props) => {
         desc: state?.desc,
         content: state?.content,
         tags: state?.tags,
+        keyword: state?.keyword,
         charge: state?.charge,
         amount: state?.amount,
         shareWith: state?.shareWith,
@@ -320,6 +326,19 @@ const ArticleEdit: FC<IArticleEditProps> = (props) => {
                   tags.map(tag => {
                     return (
                       <Select.Option key={tag.id} value={tag.id as string}>{tag.name}</Select.Option>
+                    );
+                  })
+                }
+              </Select>
+            </Col>
+          </Row>
+          <Row className="uranus-row" style={{ rowGap: 0 }}>
+            <Col span={24}>
+              <Select mode="tags" className="uranus-row-select" placeholder="SEO 关键词" onChange={handlekeywordChange}>
+                {
+                  state?.keyword?.map(kw => {
+                    return (
+                      <Select.Option key={kw} value={kw}>{kw}</Select.Option>
                     );
                   })
                 }
