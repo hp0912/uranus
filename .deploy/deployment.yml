@@ -20,13 +20,13 @@ spec:
           - name: CONFIG_ENV
             value: prod
         ports:
-        - containerPort: 80
+        - containerPort: 9000
           protocol: TCP
         readinessProbe:
           failureThreshold: 3
           httpGet:
             path: /favicon.ico
-            port: 80
+            port: 9000
             scheme: HTTP
           initialDelaySeconds: 5
           periodSeconds: 5
@@ -36,7 +36,7 @@ spec:
           failureThreshold: 3
           httpGet:
             path: /favicon.ico
-            port: 80
+            port: 9000
             scheme: HTTP
           initialDelaySeconds: 5
           periodSeconds: 30
