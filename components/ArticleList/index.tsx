@@ -140,7 +140,7 @@ export const ArticleList: FC<IArticleListProps> = (props) => {
     try {
       setArticleListState({ loading: true });
 
-      const articlesResult = await articleList(params);
+      const articlesResult = await articleList(null, params);
       const { articles, users, tags, total } = articlesResult.data.data;
       const userMap = Array2Map(users as IUserEntity[]);
       const tagMap = Array2Map(tags as ITagEntity[]);

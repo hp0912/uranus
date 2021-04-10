@@ -43,6 +43,7 @@ export default function FrontendPage(props: IArticleListProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { req: { headers } } = context;
   const { current, pageSize, searchValue } = parseQuery(context.query);
+  const ssrHost = process.env.SSR_BASE_URL!;
 
   const params: IArtListParams = {
     category: ArticleCategory.gossip,
@@ -57,8 +58,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     { data: { data: userState } },
     { data: { data: { articles, users, tags, total } } },
   ] = await Promise.all([
-    userStatus(headers),
-    articleList(params, headers),
+    userStatus(ssrHost, headers),
+    articleList(ssrHost, params, headers),
   ]);
 
   return {

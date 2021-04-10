@@ -110,7 +110,7 @@ const ArticleEdit: FC<IArticleEditProps> = (props) => {
       });
     } else {
       Promise.all([
-        articleGet(router.query.id as string),
+        articleGet(null, router.query.id as string),
         tagList(),
       ]).then(([articleResult, tagsResult]) => {
         setTags(tagsResult.data.data);

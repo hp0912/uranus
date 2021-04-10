@@ -22,7 +22,7 @@ export default function App<T extends { userState: IUserEntity | null, isAdmin?:
 
   useEffect(() => {
     if (!userStateRef.current) {
-      userStatus().then(result => {
+      userStatus(null).then(result => {
         userDispatch({ type: SETUSER, data: result.data.data });
       }).catch(reason => {
         message.error(reason.message);

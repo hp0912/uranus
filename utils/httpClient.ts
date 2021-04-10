@@ -52,10 +52,10 @@ const parseQueryString = (params: { pagination: { current?: number, pageSize?: n
 };
 
 // user
-export const userStatus = (headers?: IncomingHttpHeaders) => {
+export const userStatus = (SSRBaseURL: string | null, headers?: IncomingHttpHeaders) => {
   return httpClient({
     method: 'GET',
-    url: '/api/user/status',
+    url: `${SSRBaseURL ? SSRBaseURL : ''}/api/user/status`,
     headers,
   });
 };
@@ -254,10 +254,15 @@ export const sendNotification = (data: { notification: INotificationEntity, broa
 };
 
 // article
-export const articleGet = (articleId: string, token?: string, headers?: IncomingHttpHeaders) => {
+export const articleGet = (
+  SSRBaseURL: string | null,
+  articleId: string,
+  token?: string,
+  headers?: IncomingHttpHeaders,
+) => {
   return httpClient({
     method: 'GET',
-    url: `/api/article/get?articleId=${articleId}${token ? '&token=' + token : ''}`,
+    url: `${SSRBaseURL ? SSRBaseURL : ''}/api/article/get?articleId=${articleId}${token ? '&token=' + token : ''}`,
     headers,
   });
 };
@@ -270,6 +275,7 @@ export const articleActionDataGet = (articleId: string) => {
 };
 
 export const articleList = (
+  SSRBaseURL: string | null,
   params: { category: ArticleCategory, pagination: { current?: number, pageSize?: number }, searchValue?: string },
   headers?: IncomingHttpHeaders,
 ) => {
@@ -278,7 +284,7 @@ export const articleList = (
 
   return httpClient({
     method: 'GET',
-    url: `/api/article/list${queryString ? `${queryString}&category=${category}` : `?category=${category}`}`,
+    url: `${SSRBaseURL ? SSRBaseURL : ''}/api/article/list${queryString ? `${queryString}&category=${category}` : `?category=${category}`}`,
     headers,
   });
 };

@@ -83,7 +83,7 @@ export default function ArticleDetailPage(props: IArticleProps) {
       isFirstRender.current = false;
       return;
     }
-    articleGet(articleId, token).then(result => {
+    articleGet(null, articleId, token).then(result => {
       const { article, user } = result.data.data;
       setArticleState({ article, user, error: null, loading: false });
     }).catch((reason: Error) => {
@@ -93,7 +93,7 @@ export default function ArticleDetailPage(props: IArticleProps) {
   }, [userContext.userState, articleId, token]);
 
   const refresh = useCallback(async () => {
-    articleGet(articleId, token).then(result => {
+    articleGet(null, articleId, token).then(result => {
       const { article, user } = result.data.data;
       setArticleState({ article, user, error: null, loading: false });
     }).catch((reason: Error) => {
@@ -162,14 +162,15 @@ export default function ArticleDetailPage(props: IArticleProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { req: { headers } } = context;
   const { id, token } = context.query;
+  const ssrHost = process.env.SSR_BASE_URL!;
 
   try {
     const [
       { data: { data: userState } },
       { data: { data: { article, user } } },
     ] = await Promise.all([
-      userStatus(headers),
-      articleGet(id as string, token as string, headers),
+      userStatus(ssrHost, headers),
+      articleGet(ssrHost, id as string, token as string, headers),
     ]);
 
     return {
