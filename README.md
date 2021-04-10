@@ -6,6 +6,8 @@
 
 * React Hooks
 
+* next.js ssr
+
 * antd
 
 * typescript
@@ -48,7 +50,7 @@ cd uranus-frontend
 yarn
 
 // 启动项目
-yarn start
+yarn dev
 ```
 
 后端项目地址：[https://github.com/hp0912/uranus-backend](https://github.com/hp0912/uranus-backend)
