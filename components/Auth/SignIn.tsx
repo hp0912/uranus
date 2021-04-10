@@ -6,6 +6,7 @@ import {
 } from '@ant-design/icons';
 import { Avatar, Button, Divider, Input, message, Modal, Space } from 'antd';
 import React, { FC, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { SETUSER, UserContext } from '../../store/user';
 import { useSafeProps, useSetState } from '../../utils/commonHooks';
 import { signIn } from '../../utils/httpClient';
@@ -13,6 +14,7 @@ import { AuthMode } from './SignUp';
 
 // 样式
 import styles from './auth.module.css';
+
 const dividerStyle = { margin: 0, fontSize: '14px', fontWeight: 500 };
 
 interface ISignInProps {
@@ -25,6 +27,10 @@ interface ISignInState {
   password: string;
 }
 
+const DXCaptcha = dynamic(() => import('./DXCaptcha'), {
+  ssr: false,
+});
+
 export const SignIn: FC<ISignInProps> = (props) => {
   const userContext = useContext(UserContext);
 
@@ -33,6 +39,8 @@ export const SignIn: FC<ISignInProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [signInState, setSignInState] = useSetState<ISignInState>({ username: '', password: '' });
   const authTimer = useRef<number>();
+  const dxTokenRef = useRef<string>();
+  const dxInstanceRef = useRef<any>();
 
   useEffect(() => {
     return () => {
@@ -73,7 +81,13 @@ export const SignIn: FC<ISignInProps> = (props) => {
         throw new Error('密码至少为6位，并且要同时包含大、小写字母和数字');
       }
 
-      const result = await signIn({ username, password });
+      if (!dxTokenRef.current) {
+        setLoading(false);
+        message.warn('请完成滑块验证');
+        return;
+      }
+
+      const result = await signIn({ username, password, token: dxTokenRef.current });
 
       if (userContext.userDispatch) {
         userContext.userDispatch({ type: SETUSER, data: result.data.data });
@@ -84,6 +98,7 @@ export const SignIn: FC<ISignInProps> = (props) => {
 
       safeProps.current.onCancel();
     } catch (ex) {
+      dxInstanceRef.current?.reload();
       Modal.error({
         title: '错误',
         content: ex.message,
@@ -107,6 +122,14 @@ export const SignIn: FC<ISignInProps> = (props) => {
     }, 300);
   }, []);
 
+  const dxCallback = useCallback((token: string) => {
+    dxTokenRef.current = token;
+  }, []);
+
+  const getDXRef = useCallback((dx: any) => {
+    dxInstanceRef.current = dx;
+  }, []);
+
   return (
     <Space direction="vertical" size={12} className="uranus-width-100">
       <Input
@@ -123,6 +146,7 @@ export const SignIn: FC<ISignInProps> = (props) => {
         value={signInState.password}
         onChange={onPasswordChange}
       />
+      <DXCaptcha callback={dxCallback} getDXRef={getDXRef} />
       <Button type="primary" size="large" loading={loading} block onClick={onSignInClick}>
         登录
       </Button>

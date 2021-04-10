@@ -1,6 +1,7 @@
 import { KeyOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Input, message, Modal, Space } from 'antd';
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useSafeProps, useSetState } from '../../utils/commonHooks';
 import { sendSms, signUp } from '../../utils/httpClient';
 
@@ -30,6 +31,10 @@ interface ISignUpState {
   sms: string;
 }
 
+const DXCaptcha = dynamic(() => import('./DXCaptcha'), {
+  ssr: false,
+});
+
 export const SignUp: FC<ISignUpProps> = (props) => {
   const safeProps = useSafeProps<ISignUpProps>(props);
 
@@ -45,6 +50,8 @@ export const SignUp: FC<ISignUpProps> = (props) => {
 
   const smsSecond = useRef(60);
   const smsRef = useRef(0);
+  const dxTokenRef = useRef<string>();
+  const dxInstanceRef = useRef<any>();
 
   useEffect(() => {
     return () => {
@@ -87,7 +94,13 @@ export const SignUp: FC<ISignUpProps> = (props) => {
         throw new Error('请输入正确的手机号');
       }
 
-      await sendSms({ phoneNumber: signUpState.username });
+      if (!dxTokenRef.current) {
+        setLoadingState({ smsLoading: false });
+        message.warn('请完成滑块验证');
+        return;
+      }
+
+      await sendSms({ phoneNumber: signUpState.username, token: dxTokenRef.current });
 
       message.success('发送验证码成功');
 
@@ -106,6 +119,7 @@ export const SignUp: FC<ISignUpProps> = (props) => {
         }
       }, 1000);
     } catch (ex) {
+      dxInstanceRef.current?.reload();
       Modal.error({
         title: '错误',
         content: ex.message,
@@ -155,6 +169,14 @@ export const SignUp: FC<ISignUpProps> = (props) => {
     // eslint-disable-next-line
   }, [signUpState]);
 
+  const dxCallback = useCallback((token: string) => {
+    dxTokenRef.current = token;
+  }, []);
+
+  const getDXRef = useCallback((dx: any) => {
+    dxInstanceRef.current = dx;
+  }, []);
+
   return (
     <Space direction="vertical" size={12} className="uranus-width-100">
       <Input
@@ -178,6 +200,7 @@ export const SignUp: FC<ISignUpProps> = (props) => {
         value={signUpState.confirmPassword}
         onChange={onConfirmPasswordChange}
       />
+      <DXCaptcha callback={dxCallback} getDXRef={getDXRef} />
       <Input
         size="large"
         placeholder="请输入验证码"

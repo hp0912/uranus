@@ -90,7 +90,7 @@ export const updateUserForAdmin = (data: Partial<IUserEntity>) => {
   });
 };
 
-export const sendSms = (data: { phoneNumber: string }) => {
+export const sendSms = (data: { phoneNumber: string, token: string }) => {
   return httpClient({
     method: 'POST',
     url: '/api/user/getSmsCode',
@@ -113,6 +113,7 @@ export const signUp = (data: {
 export const signIn = (data: {
   username: string,
   password: string,
+  token: string,
 }) => {
   return httpClient({
     method: 'POST',
