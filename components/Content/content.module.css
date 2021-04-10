@@ -1,0 +1,22 @@
+.left, .right {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.center {
+  background-color: #fff;
+}
+
+@media screen and (min-width: 992px) {
+  .content {
+    margin-top: 55px;
+    min-height: 100vh;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    margin-top: 47px;
+    min-height: 100vh;
+  }
+}

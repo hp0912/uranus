@@ -1,0 +1,196 @@
+.editor_container {
+  font: 12px arial;
+  display: flex;
+  position: relative;
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #ebf0f5;
+}
+
+.container {
+  font: 12px arial;
+  line-height: 1.7;
+  word-break: break-word;
+  color: #333;
+}
+
+.avatar_box {
+  flex: 0 0 auto;
+}
+
+.avatar_box .avatar {
+  display: inline-block;
+  position: relative;
+  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #eee;
+  margin: 0 12px 0 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.form_box {
+  flex: 1 1 auto;
+  position: relative;
+  word-break: break-word;
+}
+
+.form_box .input_box {
+  font-size: 0;
+  background-color: #fff;
+  border: 1px solid #007fff;
+  border-radius: 3px;
+}
+
+.editor {
+  position: relative;
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #17181a;
+  outline: none;
+  min-height: 32px;
+}
+
+.editor:empty::before {
+  content: attr(placeholder);
+  position: absolute;
+  opacity: .4;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mention_box {
+  position: absolute;
+  background-color: #fff;
+  padding: 2px;
+  width: 165px;
+  max-height: 178px;
+  overflow-y: auto;
+  border-radius: 3px;
+  z-index: 2;
+  box-shadow: 0 1px 3px rgba(26,26,26,.1);
+}
+
+.form_box .action_box {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.action_box .emoji {
+  position: relative;
+}
+
+.emoji .emoji_box {
+  display: flex;
+  align-items: center;
+  position: relative;
+  color: #027fff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.emoji_container {
+  width: 186px;
+}
+
+.emoji_dots li button {
+  background: #364d79 !important;
+}
+
+.emoji_dots li.slick_active button {
+  background: #015fcc !important;
+}
+
+.emoji_container .slick_dots_bottom {
+  bottom: 0 !important;
+  margin-bottom: 2px !important;
+}
+
+.emoji_content {
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+.emoji_picker .emojis {
+  max-width: 280px;
+  max-height: 225px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+.emoji_picker .emojis .item {
+  font-size: 16px;
+  padding: 5px 4.5px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.action_box .submit {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+.comment_list {
+  margin-left: 59px;
+}
+
+.sub_comment_list {
+  margin-left: 0 !important;
+  background-color: #ddddde;
+}
+
+.comment .comment_list :global(.ant-list) :global(.ant-list-item) {
+  padding: 12px 0 !important;
+  border-bottom: none !important;
+}
+
+.comment_item {
+  display: flex;
+  flex: 1;
+}
+
+.meta_box {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.reply_stat {
+  display: flex;
+  margin: 12px 0;
+  font-weight: 400;
+}
+
+.reply_stat .time {
+  font-size: 12px;
+  color: #8a9aa9;
+  cursor: default;
+}
+
+.reply_stat .delete {
+  padding-left: 3px;
+  font-size: 12px;
+  color: #8a9aa9;
+  cursor: pointer;
+}
+
+.reply_stat .action_box {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 12px;
+  color: #8a93a0;
+  user-select: none;
+}

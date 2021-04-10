@@ -1,0 +1,15 @@
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #808080;
+  font-size: 13px;
+}
+
+.actions .actions_item {
+  display: inline-block;
+  min-width: 50px;
+  cursor: pointer;
+}

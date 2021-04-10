@@ -1,0 +1,57 @@
+@media screen and (min-width: 321px) {
+  .pay {
+    width: 318px !important;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .pay {
+    width: 95% !important;
+  }
+}
+
+.item_left {
+  text-align: left;
+  line-height: 28px;
+  font-size: 15px;
+  color: #333;
+}
+
+.item_right {
+  text-align: right;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+.method {
+  width: 80%;
+  height: 28px;
+}
+
+.method_tips {
+  font-size: 12px;
+  color: red;
+}
+
+.tips {
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+}
+
+.wechat_pay_icon {
+  font-size: 25px;
+  color: #03c800;
+}
+
+.ali_pay_icon {
+  font-size: 25px;
+  color: #00a0e9;
+}
+
+.hidden {
+  display: none;
+}

@@ -9,7 +9,9 @@ RUN npm config set registry https://registry.npm.taobao.org && yarn --frozen-loc
 
 RUN yarn run build
 
-FROM nginx
+CMD ["yarn", "start", "-p", "9000"]
 
-COPY --from=build /app/build /app
-COPY --from=build /app/nginx/default.conf /etc/nginx/conf.d/default.conf
+# FROM nginx
+
+# COPY --from=build /app/build /app
+# COPY --from=build /app/nginx/default.conf /etc/nginx/conf.d/default.conf

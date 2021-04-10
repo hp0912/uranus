@@ -18,11 +18,19 @@
     "noEmitOnError": true,
     "noUnusedLocals": true,
     "noImplicitAny": false,
-    "jsx": "react",
+    "jsx": "preserve",
     "isolatedModules": true,
     "strict": true
   },
   "include": [
-    "src"
+    "components",
+    "pages",
+    "store",
+    "styles",
+    "types",
+    "utils"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

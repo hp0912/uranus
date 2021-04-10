@@ -1,0 +1,29 @@
+@media screen and (min-width: 321px) {
+  .auth {
+    width: 318px !important;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .auth {
+    width: 95% !important;
+  }
+}
+
+.prefix {
+  color: #807c7c;
+}
+
+.prompt_box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.third {
+  display: flex;
+  justify-content: center;
+}
+
+.third_item {
+  margin: 0 12px !important;
+}

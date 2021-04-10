@@ -1,0 +1,33 @@
+declare const styles: {
+  readonly "uranus-success": string;
+  readonly "uranus-warning": string;
+  readonly "uranus-error": string;
+  readonly "custom-html-style": string;
+  readonly "uranus-article-code": string;
+  readonly "uranus-404": string;
+  readonly "uranus-403": string;
+  readonly "uranus-article-tag-select": string;
+  readonly "uranus-row": string;
+  readonly "uranus-row-first": string;
+  readonly "save": string;
+  readonly "uranus-row-select": string;
+  readonly "uranus-margin-right-8": string;
+  readonly "uranus-margin-left-8": string;
+  readonly "uranus-width-100": string;
+  readonly "emoji-element": string;
+  readonly "uranus-emoji": string;
+  readonly "uranus-mention": string;
+  readonly "uranus-admin-breadcrumb-frontend": string;
+  readonly "uranus-admin-breadcrumb": string;
+  readonly "mention-item": string;
+  readonly "uranus_about_us_container": string;
+  readonly "token": string;
+  readonly "selector": string;
+  readonly "property": string;
+  readonly "punctuation": string;
+  readonly "uranus_about_us_code": string;
+  readonly "uranus_about_us_box": string;
+  readonly "breath": string;
+};
+export = styles;
+

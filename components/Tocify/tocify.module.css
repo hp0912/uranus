@@ -1,0 +1,6 @@
+.article_nav {
+  padding: 8px;
+  margin-left: 0 !important; 
+  background: 0 0;
+  background-image: linear-gradient(rgba(255, 255, 255) 0,rgba(255, 255, 255, .5) 50%);
+}

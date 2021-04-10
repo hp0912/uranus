@@ -1,0 +1,139 @@
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  background: 0 0;
+  background-image: linear-gradient(rgba(15,25,50,.5) 0,rgba(15,25,50,.5) 100%);
+  box-shadow: 0 1px 3px rgba(26,26,26,.1);
+}
+
+.header :global(.ant-menu-horizontal) {
+  border-bottom: none;
+}
+
+.header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a {
+  color: #fff;
+}
+
+.header :global(.ant-menu-horizontal) > :global(.ant-menu-item) a:hover {
+  color: #1890ff;
+}
+
+.header :global(.ant-menu-horizontal) > :global(.ant-menu-item-selected) a {
+  color: #1890ff;
+}
+
+.header :global(.ant-menu) {
+  background: 0 0;
+  color: #fff;
+}
+
+.search {
+  height: 30px;
+  margin: 8px 0 8px 8px;
+}
+
+.search :global(.ant-input-group-addon) {
+  background: 0 0;
+}
+
+.search :global(.ant-input-search-button) {
+  background: 0 0;
+}
+
+.search :global(.ant-input) {
+  background: 0 0;
+}
+
+.search :global(.ant-btn):hover, .search :global(.ant-btn):focus, .search :global(.ant-btn):active {
+  background: transparent;
+}
+
+.logo {
+  height: 46px;
+  text-align: center;
+  padding: 0 2px 0 8px;
+  float: left;
+}
+
+.image {
+  width: 80px;
+  height: 46px;
+  background-image: url(/images/logo-houhou.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+.user_avatar_frontend {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.user_avatar_backend {
+  display: inline-block;
+}
+
+.menu_container::after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+.menu_container_left {
+  width: 90px;
+  float: left;
+}
+
+.menu_container_right {
+  overflow: hidden;
+}
+
+.login_container {
+  text-align: center;
+  margin: 8px;
+  line-height: 30px;
+}
+
+.login, .register {
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.badge {
+  font-size: 12px;
+  background-color: #f5222d;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 3px;
+}
+
+.notification_top {
+  margin-top: -12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.notification_top_01 {
+  text-align: right;
+}
+
+@media screen and (max-width: 768px) {
+  .menu_item_hide {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .user_avatar_frontend .nickname {
+    display: none;
+  }
+  .user_avatar_frontend .article_edit {
+    display: none;
+  }
+}

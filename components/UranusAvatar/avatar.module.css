@@ -1,0 +1,67 @@
+.bg {
+  background-image: url(https://img.houhoukang.com/uranus/system/avatar-bg.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  height: 64px;
+}
+
+.avatar {
+  position: absolute;
+  top: 19px;
+  left: 50%;
+  margin-left: -45px;
+  text-align: center;
+}
+
+.avatar > .image {
+  transition: all .3s;
+}
+
+.avatar > .image:hover {
+  transition: all .3s;
+  transform: scale(1.1) rotate(180deg);
+  -webkit-transform: scale(1.1) rotate(180deg);
+}
+
+.wechat_count {
+  background-image: url(/images/WechatIMG640.jpeg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+}
+
+.social_signal {
+  padding: 95px 5px 16px 5px;
+}
+
+.social_signal_sub {
+  text-align: center;
+}
+
+.username {
+  margin: 15px 0;
+  color: #096dd9;
+  font-weight: 900;
+}
+
+.social_signal_01 {
+  font-size: 13px;
+  color: #9a9a9e;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+
+.social_signal_02 {
+  display: flex;
+  justify-content: center;
+}
+
+.social_signal_02 .social_signal_02_item {
+  margin: 0 8px;
+}

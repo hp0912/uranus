@@ -1,0 +1,193 @@
+@import '~antd/dist/antd.css';
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.uranus-success {
+  background-color: #b7eb8f;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 5px 0;
+}
+
+.uranus-warning {
+  background-color: #ff8;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 5px 0;
+}
+
+.uranus-error {
+  background-color: #ffccc7;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 5px 0;
+}
+
+.custom-html-style code:not(.uranus-article-code) {
+  color: #f77e29 !important;
+  background-color: #eaeaea59 !important;
+}
+
+.custom-html-style pre {
+  padding: 0 !important;
+  background-color: #fbe5e1 !important;
+}
+
+.uranus-article-code {
+  font-family: Menlo, monospace;
+  padding: .5em !important;
+  background-color: #1C1D21!important;
+}
+
+.uranus-404 {
+  height: 100vh;
+  margin-top: 47px;
+  background-color: ivory;
+}
+
+.uranus-403 {
+  height: 100vh;
+  background-color: ivory;
+}
+
+.uranus-article-tag-select {
+  width: 100%;
+}
+
+.uranus-row {
+  margin-bottom: 15px;
+}
+
+.uranus-row-first {
+  margin-top: 15px;
+}
+
+.uranus-row .save {
+  text-align: center;
+}
+
+.uranus-row-select {
+  width: 100%;
+}
+
+.uranus-margin-right-8 {
+  margin-right: 8px;
+}
+
+.uranus-margin-left-8 {
+  margin-left: 8px;
+}
+
+.uranus-width-100 {
+  width: 100%;
+}
+
+.emoji-element {
+  width: 22px;
+  height: 22px;
+  display: block;
+  border-style: none;
+}
+
+.uranus-emoji {
+  vertical-align: sub;
+  width: 16px;
+  height: 16px;
+  cursor: default;
+  margin: 0 1px;
+}
+
+.emoji-element:hover {
+  transition: all .3s;
+  transform: scale(1.3);
+}
+
+.uranus-mention {
+  color: #ff8f18;
+}
+
+.uranus-admin-breadcrumb-frontend {
+  margin: 10px 5px;
+  font-weight: 500;
+}
+
+.uranus-admin-breadcrumb {
+  margin: 16px 0;
+}
+
+.mention-item {
+  padding: 6px 8px;
+  margin: 0;
+  color: #333;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mention-item:hover {
+  background-color: #f2f2f5;
+  color: #eb7350;
+}
+
+#uranus_about_us_container {
+  padding-top: 47px;
+}
+
+#uranus_about_us_container * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#uranus_about_us_container .token.selector {
+  color: black;
+}
+
+#uranus_about_us_container .token.property {
+  color: black;
+}
+
+#uranus_about_us_container .token.punctuation {
+  color: black;
+}
+
+#uranus_about_us_code {
+  max-height: 80%;
+  overflow: auto;
+}
+
+#uranus_about_us_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 47px);
+}
+
+@keyframes breath {
+   0%, 100% {
+       box-shadow: 0 0 4px 3px rgba(26, 255, 179, 0), 0 0 0px 0px #333, 0 0 0px 0px rgba(26, 255, 179, 0);
+   }
+   25% {
+       box-shadow: 0 0 4px 3px #00ff10, 0 0 6px 5px rgba(0,255,27,.3), 0 0 6px 7px #00ff23;
+   }
+   50% {
+       box-shadow: 0 0 4px 3px rgba(26, 255, 179, 0), 0 0 0px 0px #333, 0 0 0px 0px rgba(26, 255, 179, 0);
+   }
+   75% {
+       box-shadow: 0 0 4px 3px #00ff10, 0 0 6px 5px #333, 0 0 6px 7px #00ff23;
+   }
+}
+
+

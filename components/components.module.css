@@ -1,0 +1,94 @@
+.uranus_card {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(26,26,26,.1);
+}
+
+.uranus_article_image_container {
+  border: 0;
+  border-radius: 4px;
+  margin-top: .5em;
+  margin-bottom: 1em;
+  transition: all .2s;
+  box-shadow: 1px 1px 3px 1px rgba(0,0,0,.2) !important;
+}
+
+.uranus_article_image_sub {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.uranus_article_image {
+  height: 250px;
+  position: relative;
+  display: block;
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 4px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  background-image: url(https://img.houhoukang.com/uranus/system/default-cover.jpg);
+}
+
+.uranus_article_desc {
+  font-family: arial;
+  font-size: 14px;
+  color: #333;
+}
+
+.uranus_delete_icon {
+  color: red;
+}
+
+.uranus_article_amount {
+  margin-left: 10px;
+  width: 350px;
+}
+
+.uranus_oauth {
+  transition-duration: 1s;
+  -webkit-animation: rotate 3s linear infinite;
+  -moz-animation: rotate 3s linear infinite;
+  -o-animation: rotate 3s linear infinite;
+  animation: rotate 3s linear infinite;
+}
+
+@-webkit-keyframes rotate{from{-webkit-transform: rotate(0deg)}
+  to{-webkit-transform: rotate(360deg)}
+}
+
+@-moz-keyframes rotate{from{-moz-transform: rotate(0deg)}
+  to{-moz-transform: rotate(359deg)}
+}
+
+@-o-keyframes rotate{from{-o-transform: rotate(0deg)}
+  to{-o-transform: rotate(359deg)}
+}
+
+@keyframes rotate{from{transform: rotate(0deg)}
+  to{transform: rotate(359deg)}
+}
+
+@media screen and (min-width: 1200px) {
+  .uranus_article_image_container:hover .uranus_article_image {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    filter: blur(2px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .uranus_article_image {
+    height: 200px !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .uranus_article_image {
+    height: 150px !important;
+  }
+}

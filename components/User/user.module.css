@@ -1,0 +1,14 @@
+.settings, .homepages {
+  padding: 8px 12px;
+  min-height: 100vh;
+}
+
+.settings_label {
+  text-align: right;
+  padding-right: 15px;
+}
+
+.custom_tab_bar {
+  z-index: 1;
+  background: #fff;
+}
