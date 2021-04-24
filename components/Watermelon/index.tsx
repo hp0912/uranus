@@ -1,8 +1,12 @@
-import { Alert, Button, Col, Row, Select, Table } from 'antd';
+import { Alert, Button, Col, Input, message, Modal, Row, Select, Table, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../store/user';
+import { GoodsType, IOrderEntity, PayCode } from '../../types';
+import { generateOrder, watermelonPathAdd, watermelonPathGet } from '../../utils/httpClient';
 import { WatermelonUpload } from './WatermelonUpload';
+import { SmileOutlined, PayCircleOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Pay } from '../Pay';
 
 const WatermelonInfo = [
   {
@@ -93,47 +97,170 @@ const WatermelonInfo = [
 
 interface IWatermelonState {
   loading: boolean;
-  pathList: Array<{ id: string, path: string, status: number }>;
+  visible?: boolean;
+  pathList: Array<{ id: string, path: string, code: PayCode }>;
   selectedPath?: string;
+  inputPath?: string;
 }
 
 const Watermelon = () => {
   const userContext = useContext(UserContext);
-  console.log(userContext);
 
+  const [payState, setPayState] = useState<{ visible: boolean, order: IOrderEntity | null }>({ visible: false, order: null });
+  const [orderLoading, setOrderLoading] = useState(false);
   const [watermelonState, setWatermelonState] = useState<IWatermelonState>({
-    loading: false,
+    loading: true,
     pathList: [],
+    visible: false,
     selectedPath: undefined,
+    inputPath: '',
   });
 
-  const onAddClick = useCallback(() => {
-    setWatermelonState({ loading: false, pathList: [] });
+  useEffect(() => {
+    if (userContext.userState) {
+      watermelonPathGet().then(res => {
+        setWatermelonState({ loading: false, pathList: res.data.data, selectedPath: undefined });
+      }).catch(reason => {
+        message.error(reason.message);
+        setWatermelonState({ loading: false, pathList: [], selectedPath: undefined });
+      });
+    } else {
+      Modal.warn({ title: '未登录', content: '登录后才能合成大西瓜' });
+    }
+  }, [userContext.userState]);
+
+  const onSelectedPathChange = useCallback((value: string) => {
+    setWatermelonState((prev) => {
+      return Object.assign({}, prev, { selectedPath: value });
+    });
   }, []);
 
-  const columns: ColumnsType<{ path: string, status: number }> = [
+  const onAddClick = useCallback(() => {
+    setWatermelonState((prev) => {
+      return Object.assign({}, prev, { visible: true });
+    });
+  }, []);
+
+  const onAddPathOk = useCallback(async () => {
+    try {
+      setWatermelonState((prev) => {
+        return Object.assign({}, prev, { loading: true });
+      });
+
+      if (!watermelonState.inputPath) {
+        throw new Error('游戏路径不能为空');
+      }
+
+      if (watermelonState.inputPath.length < 3) {
+        throw new Error('游戏路径长度不能小于3');
+      }
+
+      if (!watermelonState.inputPath.match(/^[a-zA-Z0-9_-]+$/)) {
+        throw new Error('游戏路径包含非法字符');
+      }
+
+      const res = await watermelonPathAdd({ path: watermelonState.inputPath! });
+      setWatermelonState((prev) => {
+        return Object.assign({}, prev, { visible: false, inputPath: '', loading: false, pathList: res.data.data });
+      });
+    } catch (ex) {
+      message.error(ex.message);
+      setWatermelonState((prev) => {
+        return Object.assign({}, prev, { loading: false });
+      });
+    }
+  }, [watermelonState.inputPath]);
+
+  const onAddPathCancel = useCallback(() => {
+    setWatermelonState((prev) => {
+      return Object.assign({}, prev, { visible: false, inputPath: '' });
+    });
+  }, []);
+
+  const onPathChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((ev) => {
+    setWatermelonState((prev) => {
+      return Object.assign({}, prev, { inputPath: ev.target.value });
+    });
+  }, []);
+
+  const onPayClick = useCallback(async (pathId: string) => {
+    try {
+      setOrderLoading(true);
+
+      const orderResult = await generateOrder({ goodsType: GoodsType.watermelon, goodsId: pathId });
+
+      setOrderLoading(false);
+      setPayState({ visible: true, order: orderResult.data.data });
+    } catch (ex) {
+      Modal.error({
+        title: '错误',
+        content: ex.message,
+      });
+      setOrderLoading(false);
+    }
+  }, []);
+
+  const onGenOrderCancle = useCallback(() => {
+    setPayState({ visible: false, order: null });
+  }, []);
+
+  const onPaySuccess = useCallback(async () => {
+    setPayState({ visible: false, order: null });
+    watermelonPathGet().then(res => {
+      setWatermelonState(prev => {
+        const newState = Object.assign({}, prev);
+        newState.pathList = res.data.data;
+        return newState;
+      });
+    }).catch(reason => {
+      message.error(reason.message);
+    });
+  }, []);
+
+  const columns: ColumnsType<{ id: string, path: string, code: PayCode }> = [
     {
       title: '游戏路径',
       dataIndex: 'path',
       key: 'path',
+      align: 'left',
       render: (path: string) => {
         return <span>{path}</span>
       },
     },
     {
       title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status: number) => {
-        return <span>{status}</span>
+      dataIndex: 'code',
+      key: 'code',
+      align: 'center',
+      render: (code: PayCode) => {
+        if (code === PayCode.init) {
+          return <span style={{ color: 'yellowgreen' }}>待支付</span>
+        } else if (code === PayCode.success) {
+          return <span style={{ color: 'green' }}>支付成功</span>
+        }
+        return <span style={{ color: 'red' }}>支付失败</span>
       },
     },
     {
       title: '操作',
       dataIndex: 'operate',
       key: 'operate',
-      render: (operate: string) => {
-        return <span>{operate}</span>
+      align: 'right',
+      render: (operate: string, item) => {
+        if (item.code === PayCode.success) {
+          return <SmileOutlined style={{ color: 'green' }} />;
+        }
+        if (orderLoading) {
+          return <LoadingOutlined />;
+        }
+        return (
+          <Tooltip title="去支付">
+            <PayCircleOutlined
+              style={{ color: 'cadetblue' }}
+              onClick={() => onPayClick(item.id)}
+            />
+          </Tooltip>
+        );
       },
     },
   ];
@@ -155,6 +282,7 @@ const Watermelon = () => {
           <Button
             type="primary"
             loading={watermelonState.loading}
+            disabled={!userContext.userState}
             onClick={onAddClick}
           >
             添加游戏路径
@@ -166,15 +294,19 @@ const Watermelon = () => {
         columns={columns}
         loading={watermelonState.loading}
         dataSource={watermelonState.pathList}
+        pagination={false}
+        rowKey="id"
       />
       <Row className="uranus-row">
         <Col span={4}>
           <span style={{ paddingLeft: 8 }}>选择图片上传路径</span>
         </Col>
         <Col span={18}>
-          <Select value={watermelonState.selectedPath} className="uranus-row-select">
+          <Select value={watermelonState.selectedPath} className="uranus-row-select" onChange={onSelectedPathChange}>
             {
-              watermelonState.pathList.map(p => {
+              watermelonState.pathList.filter(item => {
+                return item.code === PayCode.success;
+              }).map(p => {
                 return (
                   <Select.Option key={p.path} value={p.path}>{p.path}</Select.Option>
                 );
@@ -185,6 +317,7 @@ const Watermelon = () => {
         <Col span={2} className="save">
           <Button
             type="primary"
+            disabled={!watermelonState.selectedPath}
           >
             上传
           </Button>
@@ -208,6 +341,31 @@ const Watermelon = () => {
           })
         }
       </div>
+      <Modal
+        title="添加游戏路径"
+        visible={watermelonState.visible}
+        confirmLoading={watermelonState.loading}
+        destroyOnClose
+        onOk={onAddPathOk}
+        onCancel={onAddPathCancel}
+      >
+        <Row>
+          <Col span={4}>游戏路径</Col>
+          <Col span={20}><Input value={watermelonState.inputPath} onChange={onPathChange} /></Col>
+        </Row>
+      </Modal>
+      {
+        payState.order &&
+        (
+          <Pay
+            title="购买游戏路径"
+            visible={payState.visible}
+            order={payState.order}
+            onSuccess={onPaySuccess}
+            onCancel={onGenOrderCancle}
+          />
+        )
+      }
     </div>
   );
 }
