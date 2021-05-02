@@ -1,97 +1,140 @@
 import { Alert, Button, Col, Input, message, Modal, Row, Select, Table, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { UserContext } from '../../store/user';
 import { GoodsType, IOrderEntity, PayCode } from '../../types';
-import { generateOrder, watermelonPathAdd, watermelonPathGet } from '../../utils/httpClient';
+import { generateOrder, watermelonPathAdd, watermelonPathGet, watermelonUploadTokenGet } from '../../utils/httpClient';
 import { WatermelonUpload } from './WatermelonUpload';
-import { SmileOutlined, PayCircleOutlined, LoadingOutlined } from '@ant-design/icons';
+import { SmileOutlined, PayCircleOutlined, LoadingOutlined, ShareAltOutlined } from '@ant-design/icons';
 import { Pay } from '../Pay';
+import OSS from 'ali-oss';
 
 const WatermelonInfo = [
   {
     dir: 'ad',
     name: '葡萄',
     filename: 'ad16ccdc-975e-4393-ae7b-8ac79c3795f2.png',
-    desc: '52 x 52'
+    desc: '52 x 52',
+    width: 52,
+    height: 52,
+    isCircle: true,
   },
   {
     dir: '0c',
     name: '樱桃',
     filename: '0cbb3dbb-2a85-42a5-be21-9839611e5af7.png',
-    desc: '80 x 80'
+    desc: '80 x 80',
+    width: 80,
+    height: 80,
+    isCircle: true,
   },
   {
     dir: 'd0',
     name: '橘子',
     filename: 'd0c676e4-0956-4a03-90af-fee028cfabe4.png',
-    desc: '108 x 108'
+    desc: '108 x 108',
+    width: 108,
+    height: 108,
+    isCircle: true,
   },
   {
     dir: '74',
     name: '柠檬',
     filename: '74237057-2880-4e1f-8a78-6d8ef00a1f5f.png',
-    desc: '119 x 119'
+    desc: '119 x 119',
+    width: 119,
+    height: 119,
+    isCircle: true,
   },
   {
     dir: '13',
     name: '猕猴桃',
     filename: '132ded82-3e39-4e2e-bc34-fc934870f84c.png',
-    desc: '153 x 152'
+    desc: '153 x 152',
+    width: 153,
+    height: 152,
+    isCircle: true,
   },
   {
     dir: '03',
     name: '西红柿',
     filename: '03c33f55-5932-4ff7-896b-814ba3a8edb8.png',
-    desc: '183 x 183'
+    desc: '183 x 183',
+    width: 183,
+    height: 183,
+    isCircle: true,
   },
   {
     dir: '66',
     name: '桃',
     filename: '665a0ec9-6c43-4858-974c-025514f2a0e7.png',
-    desc: '193 x 193'
+    desc: '193 x 193',
+    width: 193,
+    height: 193,
+    isCircle: true,
   },
   {
     dir: '84',
     name: '菠萝',
     filename: '84bc9d40-83d0-480c-b46a-3ef59e603e14.png',
-    desc: '258 x 258'
+    desc: '258 x 258',
+    width: 258,
+    height: 258,
+    isCircle: true,
   },
   {
     dir: '5f',
     name: '椰子',
     filename: '5fa0264d-acbf-4a7b-8923-c106ec3b9215.png',
-    desc: '308 x 308'
+    desc: '308 x 308',
+    width: 308,
+    height: 308,
+    isCircle: true,
   },
   {
     dir: '56',
     name: '西瓜',
     filename: '564ba620-6a55-4cbe-a5a6-6fa3edd80151.png',
-    desc: '308 x 309'
+    desc: '308 x 309',
+    width: 308,
+    height: 309,
+    isCircle: true,
   },
   {
     dir: '50',
     name: '大西瓜',
     filename: '5035266c-8df3-4236-8d82-a375e97a0d9c.png',
-    desc: '408 x 408'
+    desc: '408 x 408',
+    width: 408,
+    height: 408,
+    isCircle: true,
   },
   {
     dir: '8c',
     name: '右上角闪图1',
     filename: '8c52a851-9969-4702-9997-0a2ca9f43773.png',
-    desc: '216 x 216'
+    desc: '216 x 216',
+    width: 176,
+    height: 176,
+    isCircle: true,
   },
   {
     dir: '47',
     name: '右上角闪图2',
     filename: '4756311b-4364-4160-bc7e-299876f49770.png',
-    desc: '216 x 216'
+    desc: '216 x 216',
+    width: 176,
+    height: 176,
+    isCircle: true,
   },
   {
     dir: '85',
     name: '背景图',
     filename: '856267d0-6891-4660-a28a-3eb110bf6395.png',
-    desc: '720 x 1280'
+    desc: '720 x 1280',
+    width: 720,
+    height: 1280,
+    isCircle: false,
   },
 ];
 
@@ -108,6 +151,7 @@ const Watermelon = () => {
 
   const [payState, setPayState] = useState<{ visible: boolean, order: IOrderEntity | null }>({ visible: false, order: null });
   const [orderLoading, setOrderLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [watermelonState, setWatermelonState] = useState<IWatermelonState>({
     loading: true,
     pathList: [],
@@ -129,10 +173,20 @@ const Watermelon = () => {
     }
   }, [userContext.userState]);
 
+  const uploadFileMap = useRef<Record<string, Blob | null>>({});
+
   const onSelectedPathChange = useCallback((value: string) => {
+    uploadFileMap.current = {};
+
     setWatermelonState((prev) => {
-      return Object.assign({}, prev, { selectedPath: value });
+      return Object.assign({}, prev, { selectedPath: null });
     });
+
+    setTimeout(() => {
+      setWatermelonState((prev) => {
+        return Object.assign({}, prev, { selectedPath: value });
+      });
+    }, 250);
   }, []);
 
   const onAddClick = useCallback(() => {
@@ -183,6 +237,55 @@ const Watermelon = () => {
     });
   }, []);
 
+  const onImgChange = useCallback((data: { dir: string, filename: string, blob: Blob | null }) => {
+    if (!watermelonState.selectedPath) {
+      return;
+    }
+    uploadFileMap.current[`${watermelonState.selectedPath}/res/raw-assets/${data.dir}/${data.filename}`] = data.blob;
+  }, [watermelonState.selectedPath]);
+
+  const onUploadClick = useCallback(async () => {
+    if (!watermelonState.selectedPath) {
+      return;
+    }
+
+    try {
+      setUploading(true);
+      const tokenResult = await watermelonUploadTokenGet({ path: watermelonState.selectedPath! });
+
+      const { AccessKeyId, AccessKeySecret, SecurityToken } = tokenResult.data.data;
+      const client = new OSS({
+        region: 'oss-cn-shenzhen',
+        accessKeyId: AccessKeyId,
+        accessKeySecret: AccessKeySecret,
+        stsToken: SecurityToken,
+        bucket: 'uranus-lemon',
+        secure: true,
+      });
+
+      await Promise.all(Object.entries(uploadFileMap.current).map(([filename, blob]) => {
+        if (blob) {
+          const reader = new FileReader();
+          reader.readAsArrayBuffer(blob);
+          return new Promise((resolve) => {
+            reader.onload = function (event) {
+              if (event.target) {
+                const buffer = new (OSS as any).Buffer(event.target.result);
+                return resolve(client.put(filename, buffer));
+              }
+            }
+          });
+        }
+      }));
+
+      message.success('上传成功');
+    } catch (ex) {
+      Modal.error({ title: '上传失败', content: ex.message });
+    } finally {
+      setUploading(false);
+    }
+  }, [watermelonState.selectedPath]);
+
   const onPayClick = useCallback(async (pathId: string) => {
     try {
       setOrderLoading(true);
@@ -224,7 +327,7 @@ const Watermelon = () => {
       key: 'path',
       align: 'left',
       render: (path: string) => {
-        return <span>{path}</span>
+        return <span><ShareAltOutlined style={{ marginRight: 8, color: '#1890ff' }} /><a href={`https://m.houhoukang.com/${path}`} target="_blank" rel="noreferrer">{path}</a></span>
       },
     },
     {
@@ -318,29 +421,37 @@ const Watermelon = () => {
           <Button
             type="primary"
             disabled={!watermelonState.selectedPath}
+            loading={uploading}
+            onClick={onUploadClick}
           >
             上传
           </Button>
         </Col>
       </Row>
-      <div style={{
-        margin: 5,
-        padding: 15,
-        border: '1px solid gray',
-        borderRadius: '4px',
-        display: 'flex',
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-        flexWrap: 'wrap'
-      }}>
-        {
-          WatermelonInfo.map(wm => {
-            return (
-              <WatermelonUpload key={wm.filename} {...wm} />
-            );
-          })
-        }
-      </div>
+      {
+        !!watermelonState.selectedPath ?
+          (
+            <div style={{
+              margin: 5,
+              padding: 15,
+              border: '1px solid gray',
+              borderRadius: '4px',
+              display: 'flex',
+              justifyContent: 'space-around',
+              flexDirection: 'row',
+              flexWrap: 'wrap'
+            }}>
+              {
+                WatermelonInfo.map(wm => {
+                  return (
+                    <WatermelonUpload key={wm.filename} {...wm} onChange={onImgChange} />
+                  );
+                })
+              }
+            </div>
+          ) :
+          null
+      }
       <Modal
         title="添加游戏路径"
         visible={watermelonState.visible}

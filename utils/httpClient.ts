@@ -537,3 +537,10 @@ export const watermelonPathAdd = (data: { path: string }) => {
     data,
   });
 };
+
+export const watermelonUploadTokenGet = (data: { path: string }) => {
+  return httpClient({
+    method: 'GET',
+    url: `/api/watermelon/upload-token/get?path=${data.path}`,
+  });
+};
