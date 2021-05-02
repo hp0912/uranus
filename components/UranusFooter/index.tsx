@@ -29,6 +29,7 @@ export const UranusFooter: FC = () => {
         <span style={styles.uranus_footer_item}>关于吼吼</span>
         <span style={styles.uranus_footer_item}>意见反馈</span>
         <span style={styles.uranus_footer_item}>帮助中心</span>
+        <span style={styles.uranus_footer_item}><a href="/daxigua">DIY合成大西瓜</a></span>
         <span style={styles.uranus_footer_item}>©3020 Houhou </span>
         <span style={styles.uranus_footer_item}>粤ICP备20050348号</span>
       </div>

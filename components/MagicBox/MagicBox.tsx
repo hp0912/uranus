@@ -29,7 +29,7 @@ export const MagicBox: FC = () => {
             <Video2GIF />
           </span>
           <span>
-            <Link href="/watermelon">
+            <Link href="/daxigua">
               <Tooltip title="DIY合成大西瓜">
                 <WatermelonIcon />
               </Tooltip>
