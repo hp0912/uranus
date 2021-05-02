@@ -504,7 +504,7 @@ export const githubOAuth = (code: string) => {
   return httpClient({
     method: 'GET',
     url: '/api/oauth/github?code=' + code,
-    timeout: 12000,
+    timeout: 30000,
   });
 };
 
@@ -535,6 +535,7 @@ export const watermelonPathAdd = (data: { path: string }) => {
     method: 'POST',
     url: '/api/watermelon/add',
     data,
+    timeout: 30000,
   });
 };
 
