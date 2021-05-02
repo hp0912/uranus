@@ -153,7 +153,7 @@ const Watermelon = () => {
   const [orderLoading, setOrderLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [watermelonState, setWatermelonState] = useState<IWatermelonState>({
-    loading: true,
+    loading: userContext.userState ? true : false,
     pathList: [],
     visible: false,
     selectedPath: undefined,
@@ -169,7 +169,7 @@ const Watermelon = () => {
         setWatermelonState({ loading: false, pathList: [], selectedPath: undefined });
       });
     } else {
-      Modal.warn({ title: '未登录', content: '登录后才能合成大西瓜' });
+      Modal.warn({ title: '未登录', content: '登录后才能DIY合成大西瓜' });
     }
   }, [userContext.userState]);
 
