@@ -380,8 +380,8 @@ const Watermelon = () => {
         />
       </div>
       <Row className="uranus-row">
-        <Col span={20} />
-        <Col span={4} style={{ textAlign: 'right', padding: '8px 8px 0 0' }}>
+        <Col span={16} />
+        <Col span={8} style={{ textAlign: 'right', padding: '8px 8px 0 0' }}>
           <Button
             type="primary"
             loading={watermelonState.loading}
@@ -401,11 +401,8 @@ const Watermelon = () => {
         rowKey="id"
       />
       <Row className="uranus-row">
-        <Col span={4}>
-          <span style={{ paddingLeft: 8 }}>选择图片上传路径</span>
-        </Col>
-        <Col span={18}>
-          <Select value={watermelonState.selectedPath} className="uranus-row-select" onChange={onSelectedPathChange}>
+        <Col span={20} style={{ paddingLeft: 8 }}>
+          <Select value={watermelonState.selectedPath} placeholder="选择图片上传路径" className="uranus-row-select" onChange={onSelectedPathChange}>
             {
               watermelonState.pathList.filter(item => {
                 return item.code === PayCode.success;
@@ -417,9 +414,10 @@ const Watermelon = () => {
             }
           </Select>
         </Col>
-        <Col span={2} className="save">
+        <Col span={4} className="save" style={{ textAlign: 'right', padding: '0 8px 0 0' }}>
           <Button
             type="primary"
+            style={{ width: '95%' }}
             disabled={!watermelonState.selectedPath}
             loading={uploading}
             onClick={onUploadClick}
