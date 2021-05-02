@@ -522,3 +522,25 @@ export const updateToken = (data: { tokenType: TokenType, targetId: string }) =>
     data,
   });
 };
+
+export const watermelonPathGet = () => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/watermelon/get',
+  });
+};
+
+export const watermelonPathAdd = (data: { path: string }) => {
+  return httpClient({
+    method: 'POST',
+    url: '/api/watermelon/add',
+    data,
+  });
+};
+
+export const watermelonUploadTokenGet = (data: { path: string }) => {
+  return httpClient({
+    method: 'GET',
+    url: `/api/watermelon/upload-token/get?path=${data.path}`,
+  });
+};

@@ -89,6 +89,7 @@ export interface INotificationEntity {
 
 export enum GoodsType {
   article = 'article',
+  watermelon = 'watermelon',
 }
 
 export enum OrderCode {
@@ -209,4 +210,13 @@ export interface ITokenEntity {
   tokenType?: TokenType;
   targetId?: string;
   expires?: number;
+}
+
+export interface WatermelonEntity {
+  id?: string;
+  userId?: string;
+  path?: string;
+  amount?: number;
+  code?: PayCode;
+  addtime?: number;
 }

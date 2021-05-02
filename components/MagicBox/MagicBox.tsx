@@ -1,10 +1,12 @@
 import { SketchOutlined } from '@ant-design/icons';
+import Link from 'next/link';
 import { Card, Tooltip } from 'antd';
 import React, { FC } from 'react';
 import { ExpectIcon } from './ExpectIcon';
 import { MusicIcon } from './MusicIcon';
 import { QRCodeGen } from './QRCodeGen';
 import { Video2GIF } from './Video2GIF';
+import { WatermelonIcon } from './WatermelonIcon';
 
 // 样式
 import componentStyles from '../components.module.css';
@@ -25,6 +27,13 @@ export const MagicBox: FC = () => {
           </span>
           <span>
             <Video2GIF />
+          </span>
+          <span>
+            <Link href="/watermelon">
+              <Tooltip title="DIY合成大西瓜">
+                <WatermelonIcon />
+              </Tooltip>
+            </Link>
           </span>
           <span>
             <ExpectIcon />
