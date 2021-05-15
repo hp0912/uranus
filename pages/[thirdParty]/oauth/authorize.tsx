@@ -3,16 +3,17 @@ import React, { FC, useEffect, useState } from 'react';
 import { GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 import { browserDetect } from '../../../utils';
-import { githubOAuth } from '../../../utils/httpClient';
+import { githubOAuth, qqOAuth } from '../../../utils/httpClient';
 
 // 图标
-import { GithubOutlined, StopOutlined } from '@ant-design/icons';
+import { GithubOutlined, StopOutlined, QqOutlined } from '@ant-design/icons';
 
 // 样式
 import styles from '../../../components/components.module.css';
 
 export enum ThirdParty {
   github = 'github',
+  qq = 'qq',
 }
 
 const ThirdPartyOAuth: FC = () => {
@@ -25,7 +26,17 @@ const ThirdPartyOAuth: FC = () => {
 
   useEffect(() => {
     if (typeof code === 'string') {
-      githubOAuth(code).then(() => {
+      let oauth: (code: string) => Promise<any> = githubOAuth;
+      switch (router.query.thirdParty) {
+        case ThirdParty.github:
+          oauth = githubOAuth;
+          break;
+        case ThirdParty.qq:
+          oauth = qqOAuth;
+          break;
+      }
+
+      oauth(code).then(() => {
         const { browser } = browserDetect(window.navigator.userAgent);
         const URL = window.localStorage.getItem('OAUTH_LOGIN_URL');
 
@@ -63,12 +74,19 @@ const ThirdPartyOAuth: FC = () => {
                 <p style={{ marginTop: 15, fontWeight: 600, color: '#fff' }}>GitHub授权登录中，请稍候～</p>
               </>
             ) :
-            (
-              <>
-                <Avatar className={styles.uranus_oauth} size={80} icon={<StopOutlined />} />
-                <p style={{ marginTop: 15, fontWeight: 600, color: '#fff' }}>非法的请求</p>
-              </>
-            )
+            thirdPartyState === ThirdParty.qq ?
+              (
+                <>
+                  <Avatar className={styles.uranus_oauth} size={80} icon={<QqOutlined />} />
+                  <p style={{ marginTop: 15, fontWeight: 600, color: '#fff' }}>QQ授权登录中，请稍候～</p>
+                </>
+              ) :
+              (
+                <>
+                  <Avatar className={styles.uranus_oauth} size={80} icon={<StopOutlined />} />
+                  <p style={{ marginTop: 15, fontWeight: 600, color: '#fff' }}>非法的请求</p>
+                </>
+              )
         }
       </div>
     </div>
