@@ -508,6 +508,14 @@ export const githubOAuth = (code: string) => {
   });
 };
 
+export const qqOAuth = (code: string) => {
+  return httpClient({
+    method: 'GET',
+    url: '/api/oauth/qq?code=' + code,
+    timeout: 30000,
+  });
+};
+
 export const getToken = (params: { tokenType: TokenType, targetId: string }) => {
   return httpClient({
     method: 'GET',

@@ -11,6 +11,7 @@ import { SETUSER, UserContext } from '../../store/user';
 import { useSafeProps, useSetState } from '../../utils/commonHooks';
 import { signIn } from '../../utils/httpClient';
 import { AuthMode } from './SignUp';
+import { browserDetect } from '../../utils';
 
 // 样式
 import styles from './auth.module.css';
@@ -108,6 +109,23 @@ export const SignIn: FC<ISignInProps> = (props) => {
     // eslint-disable-next-line
   }, [signInState]);
 
+  const onQQOAuth = useCallback(() => {
+    window.clearInterval(authTimer.current);
+    window.localStorage.setItem('OAUTH_LOGIN_URL', window.location.href);
+
+    const state = Math.ceil(Math.random() * 1000000);
+    const { os } = browserDetect(window.navigator.userAgent);
+    const display = os.phone ? 'mobile' : '';
+    const newWin = window.open(`https://graph.qq.com/oauth2.0/authorize?client_id=101953410&redirect_uri=https%3A%2F%2Fhouhoukang.com%2Fqq%2Foauth%2Fauthorize&response_type=code&state=${state}&scope=get_user_info${display ? `&display=${display}` : ''}`);
+
+    authTimer.current = window.setInterval(() => {
+      if (newWin && newWin.closed) {
+        window.clearInterval(authTimer.current);
+        window.location.reload();
+      }
+    }, 300);
+  }, []);
+
   const onGitHubOAuth = useCallback(() => {
     window.clearInterval(authTimer.current);
     window.localStorage.setItem('OAUTH_LOGIN_URL', window.location.href);
@@ -172,7 +190,7 @@ export const SignIn: FC<ISignInProps> = (props) => {
       </p>
       <Divider style={dividerStyle}>第三方登录</Divider>
       <div className={styles.third}>
-        <Avatar className={styles.third_item} size={33} icon={<QqOutlined />} />
+        <Avatar className={styles.third_item} size={33} icon={<QqOutlined onClick={onQQOAuth} />} />
         <Avatar className={styles.third_item} size={33} icon={<WechatOutlined />} />
         <Avatar className={styles.third_item} size={33} icon={<GithubOutlined onClick={onGitHubOAuth} />} />
       </div>
