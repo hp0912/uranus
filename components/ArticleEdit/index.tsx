@@ -334,7 +334,7 @@ const ArticleEdit: FC<IArticleEditProps> = (props) => {
           </Row>
           <Row className="uranus-row" style={{ rowGap: 0 }}>
             <Col span={24}>
-              <Select mode="tags" className="uranus-row-select" placeholder="SEO 关键词" onChange={handlekeywordChange}>
+              <Select mode="tags" className="uranus-row-select" placeholder="SEO 关键词" value={state?.keyword} onChange={handlekeywordChange}>
                 {
                   state?.keyword?.map(kw => {
                     return (
