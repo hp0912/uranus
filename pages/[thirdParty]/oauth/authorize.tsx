@@ -104,5 +104,11 @@ export async function getStaticProps() {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  return { paths: [{ params: { thirdParty: ThirdParty.github } }], fallback: false };
+  return {
+    paths: [
+      { params: { thirdParty: ThirdParty.github } },
+      { params: { thirdParty: ThirdParty.qq } },
+    ],
+    fallback: false,
+  };
 }
