@@ -1,9 +1,4 @@
 import { KeyOutlined, UserOutlined } from '@ant-design/icons';
-import {
-  GithubOutlined,
-  QqOutlined,
-  WechatOutlined,
-} from '@ant-design/icons';
 import { Avatar, Button, Divider, Input, message, Modal, Space } from 'antd';
 import React, { FC, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
@@ -12,6 +7,11 @@ import { useSafeProps, useSetState } from '../../utils/commonHooks';
 import { signIn } from '../../utils/httpClient';
 import { AuthMode } from './SignUp';
 import { browserDetect } from '../../utils';
+
+// 图标
+import { WechatOutlined } from './WechatOutlined';
+import { QQOutlined } from './QQOutlined';
+import { GithubOutlined } from './GithubOutlined';
 
 // 样式
 import styles from './auth.module.css';
@@ -126,6 +126,13 @@ export const SignIn: FC<ISignInProps> = (props) => {
     }, 300);
   }, []);
 
+  const onWechatOAuth = useCallback(() => {
+    Modal.error({
+      title: '暂未开放',
+      content: '微信登录权限申请中，敬请期待',
+    });
+  }, []);
+
   const onGitHubOAuth = useCallback(() => {
     window.clearInterval(authTimer.current);
     window.localStorage.setItem('OAUTH_LOGIN_URL', window.location.href);
@@ -190,9 +197,9 @@ export const SignIn: FC<ISignInProps> = (props) => {
       </p>
       <Divider style={dividerStyle}>第三方登录</Divider>
       <div className={styles.third}>
-        <Avatar className={styles.third_item} size={33} icon={<QqOutlined onClick={onQQOAuth} />} />
-        <Avatar className={styles.third_item} size={33} icon={<WechatOutlined />} />
-        <Avatar className={styles.third_item} size={33} icon={<GithubOutlined onClick={onGitHubOAuth} />} />
+        <Avatar className={styles.third_item} size={38} icon={<QQOutlined onClick={onQQOAuth} />} />
+        <Avatar className={styles.third_item} size={38} icon={<WechatOutlined onClick={onWechatOAuth} />} />
+        <Avatar className={styles.third_item} size={38} icon={<GithubOutlined onClick={onGitHubOAuth} />} />
       </div>
     </Space>
   );
